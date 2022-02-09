@@ -8,10 +8,10 @@ class Sign_Up1 extends StatefulWidget {
 }
 
 class _Sign_Up1State extends State<Sign_Up1> {
-  GlobalKey _key = GlobalKey<FormState>();
-  TextEditingController _email = TextEditingController();
-  TextEditingController _password = TextEditingController();
-  TextEditingController _confirmPassword = TextEditingController();
+  final GlobalKey _key = GlobalKey<FormState>();
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  final TextEditingController _confirmPassword = TextEditingController();
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -28,7 +28,7 @@ class _Sign_Up1State extends State<Sign_Up1> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
-        title: Center(child: Text('Create your account')),
+        title: const Center(child: Text('Create your account')),
       ),
 
       body:
@@ -46,7 +46,7 @@ class _Sign_Up1State extends State<Sign_Up1> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      icon: new Icon(Icons.email),
+                      icon: const Icon(Icons.email),
                       labelText: 'Email address:'),
                     validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
                   textInputAction: TextInputAction.next,
@@ -97,7 +97,7 @@ class _Sign_Up1State extends State<Sign_Up1> {
                 ),
               ),
               SizedBox(),
-              RaisedButton(
+              ElevatedButton(
                   onPressed: (){
                     if(((_key.currentState as FormState).validate()) == true) {
                       Navigator.pushNamed(context, '/first');

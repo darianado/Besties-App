@@ -5,7 +5,8 @@ import 'iconContent.dart';
 
 enum Gender {
   male,
-  female
+  female,
+  other
 }
 
 class Sign_Up2 extends StatefulWidget {
@@ -24,7 +25,7 @@ class _Sign_Up2State extends State<Sign_Up2> {
 
   DateTime selectedDate = DateTime.now();
   bool dateChanged = false;
-  Gender selectedGender = Gender.male;
+  Gender selectedGender = Gender.other;
 
   _selectDate(BuildContext context) async {
      DateTime? picked = await showDatePicker(
@@ -125,73 +126,105 @@ class _Sign_Up2State extends State<Sign_Up2> {
                   SizedBox (width: 10),
                 ],
               ),
-              Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                      Expanded(
-                        child: Text(
-                          'Date of birth: ',
-                          style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 20.0,
-                      // ),
-                      Expanded(
-                        child: FlatButton(
-                          onPressed: () => _selectDate(context), // Refer step 3
-                          child: Text(
-                            dateChanged == false ? 'Select date' : "${selectedDate.toLocal()}".split(' ')[0],
-                            style:
-                            TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                          ),
-                          color: Colors.blue.shade500,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10.0,
-                      ),
-                    ],
-                  ),
+              SizedBox(
+                height: 30.0,
               ),
-              Expanded(
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: ReusableCard(
-                          color: selectedGender == Gender.male
-                              ? kActiveCardColor
-                              : kInactiveCardColor,
-                          cardChild: IconContent(
-                            icon: new Icon(Icons.lock),
-                            label: 'MALE',
-                          ),
-                            onPress: () => setState(() {
-                              selectedGender = Gender.male;
-                            })
-                        ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Date of birth: ',
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  // SizedBox(
+                  //   width: 20.0,
+                  // ),
+                  Expanded(
+                    child: FlatButton(
+                      onPressed: () => _selectDate(context), // Refer step 3
+                      child: Text(
+                        dateChanged == false ? 'Select date' : "${selectedDate.toLocal()}".split(' ')[0],
+                        style:
+                        TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                      color: Colors.blue.shade500,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10.0,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 30.0,
+              ),
+              Row(
+                  children: <Widget> [
+                    SizedBox (width: 10),
+                    Text(
+                      'Gender:'
                     ),
                     Expanded(
                       child: ReusableCard(
-                        color: selectedGender == Gender.female
+                        color: selectedGender == Gender.male
                             ? kActiveCardColor
                             : kInactiveCardColor,
                         cardChild: IconContent(
                           icon: new Icon(Icons.lock),
-                          label: 'FEMALE',
+                          label: 'MALE',
                         ),
-                          onPress: () => setState(() {
-                            selectedGender = Gender.female;
-                          })
+                        onPress: (){
+                          if(mounted){
+                            setState(() {
+                              selectedGender = Gender.female;
+                            });
+                          }
+                        },
+                      ),
+                    ),
+                    Expanded(
+                        child: ReusableCard(
+                          color: selectedGender == Gender.female
+                              ? kActiveCardColor
+                              : kInactiveCardColor,
+                          cardChild: IconContent(
+                            icon: new Icon(Icons.lock),
+                            label: 'FEMALE',
+                          ),
+                          onPress: (){
+                            if(mounted){
+                              setState(() {
+                                selectedGender = Gender.female;
+                              });
+                            }
+                          },
+                        ),
+                    ),
+                    Expanded(
+                      child: ReusableCard(
+                        color: selectedGender == Gender.other
+                            ? kActiveCardColor
+                            : kInactiveCardColor,
+                        cardChild: IconContent(
+                          icon: new Icon(Icons.lock),
+                          label: 'OTHER',
+                        ),
+                        onPress: (){
+                          if(mounted){
+                            setState(() {
+                              selectedGender = Gender.other;
+                            });
+                          }
+                        },
                       ),
                     ),
                   ],
                 ),
-              ),
               const SizedBox (height: 30),
               ElevatedButton(
                 onPressed: (){

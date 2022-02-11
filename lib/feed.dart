@@ -1,34 +1,35 @@
 import 'package:flutter/material.dart';
 import 'nav_bar.dart';
-import 'dart:math' as math;
+import 'profile_container.dart';
 
-// Constant that identifies the feed icon index in the nav bar 
-const feedIconIndex = 1;
+// Constant that identifies the feed icon index in the nav bar (2nd icon out of 3).
+const int feedIconIndex = 1;
 
-// This method generates n containers to fill the PageView with random colours
-void fillContainers(List<Container> containers, BuildContext context) {
+// This method generates n containers to fill the PageView
+void fillContainers(List<ProfileContainer> containers) {
   for (int i = 0; i < 100; i++) {
-    int randomHex = (math.Random().nextDouble() * 0xFFFFFF).toInt();
-    Container container = Container(
-      height: MediaQuery.of(context).size.height,
-      color: Color(randomHex).withOpacity(1.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(
-            "Name Surname\n" + randomHex.toString(),
-            style: const TextStyle(
-              fontSize: 35,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
+    containers.add(ProfileContainer());
+  }
+}
+
+// For now only shows an AlertDialog
+void likeProfile(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("You liked this profile!"),
+        actions: [
+          TextButton(
+            child: const Text("Dismiss"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
           ),
         ],
-      ),
-    );
-    containers.add(container);
-  }
+      );
+    },
+  );
 }
 
 class Feed extends StatefulWidget {
@@ -37,11 +38,11 @@ class Feed extends StatefulWidget {
 }
 
 class _FeedState extends State<Feed> {
-  List<Container> containers = [];
+  List<ProfileContainer> containers = [];
 
   @override
   Widget build(BuildContext context) {
-    fillContainers(containers, context);
+    fillContainers(containers);
 
     return Scaffold(
       appBar: AppBar(
@@ -51,11 +52,31 @@ class _FeedState extends State<Feed> {
         ),
         backgroundColor: Colors.white,
       ),
-      body: PageView(
-        scrollDirection: Axis.vertical,
-        children: containers,
+      body: Stack(
+        alignment: AlignmentDirectional.bottomEnd,
+        children: [
+          PageView(
+            scrollDirection: Axis.vertical,
+            children: containers,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                likeProfile(context);
+              },
+              backgroundColor: Colors.white,
+              child: const Icon(
+                Icons.thumb_up_off_alt_rounded,
+                color: Colors.blue,
+              ),
+            ),
+          )
+        ],
       ),
-      bottomNavigationBar: NavBar(currentIndex: feedIconIndex,),
+      bottomNavigationBar: NavBar(
+        currentIndex: feedIconIndex,
+      ),
     );
   }
 }

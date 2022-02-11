@@ -12,7 +12,6 @@ class NavBar extends StatefulWidget {
 class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
-
     List<BottomNavigationBarItem> _items = const [
       BottomNavigationBarItem(
         icon: Icon(Icons.account_circle_outlined),
@@ -43,6 +42,9 @@ class _NavBarState extends State<NavBar> {
       currentIndex: widget.currentIndex,
       onTap: _fillIcon,
       items: _items,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
+      iconSize: 30,
     );
   }
 }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'nav_bar.dart';
 import 'profile_container.dart';
-
-// Constant that identifies the feed icon index in the nav bar (2nd icon out of 3).
-const int feedIconIndex = 1;
+import 'constants.dart';
 
 // This method generates n containers to fill the PageView
 void fillContainers(List<ProfileContainer> containers) {
-  for (int i = 0; i < 100; i++) {
+  for (int i = 0; i < 5; i++) {
     containers.add(ProfileContainer());
   }
 }
@@ -32,14 +30,8 @@ void likeProfile(BuildContext context) {
   );
 }
 
-class Feed extends StatefulWidget {
-  @override
-  State<Feed> createState() => _FeedState();
-}
-
-class _FeedState extends State<Feed> {
-  List<ProfileContainer> containers = [];
-
+class Feed extends StatelessWidget {
+  final List<ProfileContainer> containers = [];
   @override
   Widget build(BuildContext context) {
     fillContainers(containers);
@@ -75,7 +67,7 @@ class _FeedState extends State<Feed> {
         ],
       ),
       bottomNavigationBar: NavBar(
-        currentIndex: feedIconIndex,
+        currentIndex: Constants.feedIconIndex,
       ),
     );
   }

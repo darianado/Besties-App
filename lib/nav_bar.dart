@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants.dart';
+import 'package:project_seg/sign_up1.dart';
 
 class NavBar extends StatefulWidget {
   int currentIndex;
@@ -30,17 +32,33 @@ class _NavBarState extends State<NavBar> {
       ),
     ];
 
-    void _fillIcon(int index) {
+    // Updates the navbar's icon index and TODO: navigates to the new page
+    void _handleIconTap(int index) {
       setState(() {
         widget.currentIndex = index;
       });
 
-      //redirect call
+      switch (widget.currentIndex) {
+        case (Constants.profileIconIndex):
+          // Redirect to profile page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Sign_Up1()),
+          );
+          break;
+        case (Constants.chatIconIndex):
+          // Redirect to chat page
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Sign_Up1()),
+          );
+          break;
+      }
     }
 
     return BottomNavigationBar(
       currentIndex: widget.currentIndex,
-      onTap: _fillIcon,
+      onTap: _handleIconTap,
       items: _items,
       showSelectedLabels: false,
       showUnselectedLabels: false,

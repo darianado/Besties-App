@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
+import 'constants.dart';
 
-const double profileNameFontSize = 30;
-const double profileLocationFontSize = 20;
-
-//  Widget to display a profile in the main feed. 
+//  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
 class ProfileContainer extends StatelessWidget {
   @override
@@ -34,7 +32,7 @@ class ProfileContainer extends StatelessWidget {
                     Text(
                       faker.person.firstName(),
                       style: const TextStyle(
-                        fontSize: profileNameFontSize,
+                        fontSize: Constants.profileNameFontSize,
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
@@ -42,7 +40,7 @@ class ProfileContainer extends StatelessWidget {
                     Text(
                       faker.person.lastName(),
                       style: const TextStyle(
-                        fontSize: profileNameFontSize,
+                        fontSize: Constants.profileNameFontSize,
                         color: Colors.black,
                         fontWeight: FontWeight.w300,
                       ),
@@ -52,7 +50,7 @@ class ProfileContainer extends StatelessWidget {
                 Text(
                   faker.address.continent(),
                   style: const TextStyle(
-                    fontSize: profileLocationFontSize,
+                    fontSize: Constants.profileLocationFontSize,
                     color: Colors.black,
                     fontWeight: FontWeight.w300,
                   ),

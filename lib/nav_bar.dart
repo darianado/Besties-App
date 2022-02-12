@@ -43,14 +43,14 @@ class _NavBarState extends State<NavBar> {
           // Redirect to profile page
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Sign_Up1()),
+            MaterialPageRoute(builder: (context) => SignUp1()),
           );
           break;
         case (Constants.chatIconIndex):
           // Redirect to chat page
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Sign_Up1()),
+            MaterialPageRoute(builder: (context) => SignUp1()),
           );
           break;
       }

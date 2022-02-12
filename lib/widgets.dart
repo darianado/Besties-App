@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class RelationshipStatus extends StatefulWidget {
   @override
   State<RelationshipStatus> createState() => _RelationshipStatusState();
@@ -123,3 +124,14 @@ Expanded buildNameSpace(@required String spaceLabel, @required TextEditingContro
     ),
   );
 }
+
+
+Icon buildIcon( IconData iconInput, Color colorInput) {
+  return Icon(
+    iconInput,
+    color: colorInput,
+    size: 24.0,
+  );
+}
+
+

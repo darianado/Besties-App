@@ -1,14 +1,23 @@
 
 import 'package:flutter/material.dart';
+import 'widgets.dart';
 import 'package:project_seg/reusableCard.dart';
 import 'constants.dart';
 import 'iconContent.dart';
-import 'widgets.dart';
+
 
 enum Gender {
   male,
   female,
   other
+}
+
+String genderLabel(Gender gender) {
+  switch(gender) {
+    case Gender.male: return "MALE";
+    case Gender.female: return "FEMALE";
+    case Gender.other: return "OTHER";
+  }
 }
 
 class SignUp2 extends StatefulWidget {
@@ -126,60 +135,9 @@ class _SignUp2State extends State<SignUp2> {
                 children: <Widget>[
                   buildIcon(Icons.transgender_outlined, Colors.black),
                   SizedBox(width: 10),
-                  Expanded(
-                    child: ReusableCard(
-                      color: selectedGender == Gender.male
-                          ? kActiveCardColor
-                          : kInactiveCardColor,
-                      cardChild: IconContent(
-                        icon: Icon(Icons.lock),
-                        label: 'MALE',
-                      ),
-                      onPress: () {
-                        if (mounted) {
-                          setState(() {
-                            selectedGender = Gender.female;
-                          });
-                        }
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: ReusableCard(
-                      color: selectedGender == Gender.female
-                          ? kActiveCardColor
-                          : kInactiveCardColor,
-                      cardChild: IconContent(
-                        icon: new Icon(Icons.lock),
-                        label: 'FEMALE',
-                      ),
-                      onPress: () {
-                        if (mounted) {
-                          setState(() {
-                            selectedGender = Gender.female;
-                          });
-                        }
-                      },
-                    ),
-                  ),
-                  Expanded(
-                    child: ReusableCard(
-                      color: selectedGender == Gender.other
-                          ? kActiveCardColor
-                          : kInactiveCardColor,
-                      cardChild: IconContent(
-                        icon: new Icon(Icons.lock),
-                        label: 'OTHER',
-                      ),
-                      onPress: () {
-                        if (mounted) {
-                          setState(() {
-                            selectedGender = Gender.other;
-                          });
-                        }
-                      },
-                    ),
-                  ),
+                  genderOptions(Gender.male),
+                  genderOptions(Gender.female),
+                  genderOptions(Gender.other),
                 ],
               ),
               const SizedBox (height: 30),
@@ -192,27 +150,45 @@ class _SignUp2State extends State<SignUp2> {
                     ),
                   ]
               ),
-              ElevatedButton(
-                onPressed: () {
-                  if (((_key.currentState as FormState).validate()) == true) {
-                    Navigator.pushNamed(context, '/signup3');
-                  }
-                },
-                child: const Text(" NEXT"),
-              )
+              buildNext(context, '/signup3')
             ]
         ),
       ),
     );
   }
 
-  Icon buildIcon( IconData iconInput, Color colorInput) {
-    return Icon(
-                  iconInput,
-                  color: colorInput,
-                  size: 24.0,
-                );
+  ElevatedButton buildNext(BuildContext context, String nextPage) {
+    return ElevatedButton(
+              onPressed: () {
+                if (((_key.currentState as FormState).validate()) == true) {
+                  Navigator.pushNamed(context, nextPage);
+                }
+              },
+              child: const Text(" NEXT"),
+            );
   }
+
+  Expanded genderOptions(@required Gender gender) {
+    return Expanded(
+      child: ReusableCard(
+        color: selectedGender == gender
+            ? kActiveCardColor
+            : kInactiveCardColor,
+        cardChild: IconContent(
+          icon: Icon(Icons.lock),
+          label: genderLabel(gender),
+        ),
+        onPress: () {
+          setState(() {
+            selectedGender = gender;
+          });
+
+        },
+      ),
+    );
+  }
+
+
 }
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Sign_Up4 extends StatelessWidget {
+class SignUp4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

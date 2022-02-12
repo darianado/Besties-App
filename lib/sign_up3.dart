@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class Sign_Up3 extends StatefulWidget {
+class SignUp3 extends StatefulWidget {
   @override
-  _Sign_Up3State createState() => _Sign_Up3State();
+  _SignUp3State createState() => _SignUp3State();
 }
 
-class _Sign_Up3State extends State<Sign_Up3> {
+class _SignUp3State extends State<SignUp3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

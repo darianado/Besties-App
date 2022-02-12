@@ -12,10 +12,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/first',
       routes: {
-        '/': (context) => Sign_Up1(),
-        '/first': (context) => Sign_Up2(),
-        '/signup3' : (context) => Sign_Up3(),
-        '/signup4' : (context) => Sign_Up4(),
+        '/': (context) => SignUp1(),
+        '/first': (context) => SignUp2(),
+        '/signup3' : (context) => SignUp3(),
+        '/signup4' : (context) => SignUp4(),
       },
     );
   }

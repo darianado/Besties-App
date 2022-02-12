@@ -9,13 +9,13 @@ enum Gender {
   other
 }
 
-class Sign_Up2 extends StatefulWidget {
+class SignUp2 extends StatefulWidget {
   @override
-  _Sign_Up2State createState() => _Sign_Up2State();
+  _SignUp2State createState() => _SignUp2State();
 
 }
 
-class _Sign_Up2State extends State<Sign_Up2> {
+class _SignUp2State extends State<SignUp2> {
 
   final GlobalKey _key = GlobalKey<FormState>();
   final TextEditingController _firstName = TextEditingController();
@@ -138,7 +138,7 @@ class _Sign_Up2State extends State<Sign_Up2> {
                   Expanded(
                     child: Text(
                       'Date of birth: ',
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                   ),
                   // SizedBox(
@@ -167,8 +167,10 @@ class _Sign_Up2State extends State<Sign_Up2> {
                   children: <Widget> [
                     SizedBox (width: 10),
                     Text(
-                      'Gender:'
+                      'Gender:',
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
+                    SizedBox (width: 10),
                     Expanded(
                       child: ReusableCard(
                         color: selectedGender == Gender.male
@@ -226,6 +228,20 @@ class _Sign_Up2State extends State<Sign_Up2> {
                   ],
                 ),
               const SizedBox (height: 30),
+              Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox (width: 10),
+                    Icon(
+                      Icons.favorite,
+                      color: Colors.pink,
+                      size: 24.0,
+                    ),
+                    Expanded(
+                        child: RelationshipStatus(),
+                      ),
+                  ]
+              ),
               ElevatedButton(
                 onPressed: (){
                   if(((_key.currentState as FormState).validate()) == true) {
@@ -244,5 +260,47 @@ class _Sign_Up2State extends State<Sign_Up2> {
   }
 }
 
+class RelationshipStatus extends StatefulWidget {
+  @override
+  State<RelationshipStatus> createState() => _RelationshipStatusState();
+}
+
+class _RelationshipStatusState extends State<RelationshipStatus> {
+  String dropdownValue = 'Select your relationship status';
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100.0,
+      child: DropdownButtonHideUnderline(
+        child: ButtonTheme(
+          alignedDropdown: true,
+          child: DropdownButton(
+            value: dropdownValue,
+            items: <String>['Select your relationship status',
+              'Single',
+              'In a relationship',
+              'In a situationship',
+              'It is complicated',
+              'Engaged'
+              'Married',
+              'Divorced',
+              'Widowed'
+            ].map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                dropdownValue = newValue!;
+              });
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}
 
 

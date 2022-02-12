@@ -14,12 +14,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => Sign_Up1(),
-        '/first': (context) => Feed(),
-        '/signup2': (context) => Sign_Up2(),
-        '/signup3' : (context) => Sign_Up3(),
-        '/signup4' : (context) => Sign_Up4(),
-        '/feed' : (context) => Feed(),
-
+        '/first': (context) => Sign_Up2(),
+        '/signup3': (context) => Sign_Up3(),
+        '/signup4': (context) => Sign_Up4(),
+        '/feed': (context) => Feed(),
       },
     );
   }

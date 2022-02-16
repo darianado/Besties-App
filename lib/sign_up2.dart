@@ -43,7 +43,7 @@ class _SignUp2State extends State<SignUp2> {
       context: context,
       initialDate: selectedDate, // Refer step 1
       firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
+      lastDate: DateTime.now(),
     );
     if (picked != null && picked != selectedDate) {
       dateChanged = true;
@@ -89,9 +89,9 @@ class _SignUp2State extends State<SignUp2> {
                 children: <Widget>[
                   buildIcon(Icons.account_balance_outlined, Colors.black),
                   SizedBox(width: 10),
-                  buildNameSpace('First name', _firstName),
+                  buildNameSpace('First name', _firstName, context),
                   SizedBox(width: 10),
-                  buildNameSpace('Last name', _lastName),
+                  buildNameSpace('Last name', _lastName, context),
                   SizedBox(width: 10),
                 ],
               ),

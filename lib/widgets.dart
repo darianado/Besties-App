@@ -1,3 +1,4 @@
+import 'dart:js';
 import 'package:flutter/material.dart';
 
 
@@ -102,25 +103,31 @@ class _UniversityState extends State<University> {
   }
 }
 
-Expanded buildNameSpace(@required String spaceLabel, @required TextEditingController validator ) {
+Expanded buildNameSpace(@required String spaceLabel, @required TextEditingController validator, BuildContext context ) {
   return Expanded(
-    child: TextFormField(
-      controller: validator,
-      decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          labelText: spaceLabel
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter some text';
-        }
-        return null;
+    child: GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onPanDown: (_) {
+        FocusScope.of(context).requestFocus(FocusNode());
       },
-      textInputAction: TextInputAction.next,
-      maxLines: null,
-      keyboardType: TextInputType.multiline,
+      child: TextFormField(
+        controller: validator,
+        decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            labelText: spaceLabel
+        ),
+        validator: (value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter some text';
+          }
+          return null;
+        },
+        textInputAction: TextInputAction.next,
+        maxLines: null,
+        keyboardType: TextInputType.multiline,
+      ),
     ),
   );
 }

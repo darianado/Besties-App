@@ -99,7 +99,7 @@ class _SignUp2State extends State<SignUp2> {
                 height: 30.0,
               ),
               Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
+
                 children: [
                   buildIcon(Icons.cake_outlined, Colors.black),
                   SizedBox(width: 10),

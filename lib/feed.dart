@@ -4,22 +4,17 @@ import 'profile_container.dart';
 import 'profile_class.dart';
 import 'constants.dart';
 
-// This method generates n containers to fill the PageView
-void fillContainers(List<ProfileContainer> containers) {
-  for (int i = 0; i < 5; i++) {
-    // Passes in a dummy profile
-    containers.add(ProfileContainer(
-      profile: const Profile(),
-    ));
-  }
-}
-
 class Feed extends StatelessWidget {
-  final List<ProfileContainer> containers = [];
+  final List<ProfileContainer> containers = [
+    ProfileContainer(profile: Profile(seed: 0)),
+    ProfileContainer(profile: Profile(seed: 1)),
+    ProfileContainer(profile: Profile(seed: 2)),
+    ProfileContainer(profile: Profile(seed: 3)),
+    ProfileContainer(profile: Profile(seed: 4)),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    fillContainers(containers);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Feed'),

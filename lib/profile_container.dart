@@ -111,7 +111,7 @@ class PartialProfileDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              faker.person.firstName(), // TODO: profile.firstName
+              profile.firstName, // TODO: profile.firstName
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,
@@ -119,7 +119,7 @@ class PartialProfileDetails extends StatelessWidget {
               ),
             ),
             Text(
-              faker.person.lastName(), // TODO: profile.lastName
+              profile.lastName, // TODO: profile.lastName
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,
@@ -129,7 +129,7 @@ class PartialProfileDetails extends StatelessWidget {
           ],
         ),
         Text(
-          faker.address.continent(), // TODO: profile.location
+          profile.continent, // TODO: profile.location
           style: const TextStyle(
             fontSize: kProfileLocationFontSize,
             color: Colors.black,
@@ -159,7 +159,7 @@ class CompleteProfileDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              faker.person.firstName(),
+              profile.firstName,
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,
@@ -167,7 +167,7 @@ class CompleteProfileDetails extends StatelessWidget {
               ),
             ),
             Text(
-              faker.person.lastName(),
+              profile.lastName,
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,
@@ -175,7 +175,7 @@ class CompleteProfileDetails extends StatelessWidget {
               ),
             ),
             Text(
-              faker.address.continent(),
+              profile.continent,
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,

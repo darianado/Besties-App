@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'widgets.dart';
 
-class Sign_Up3 extends StatefulWidget {
+class SignUp3 extends StatefulWidget {
   @override
-  _Sign_Up3State createState() => _Sign_Up3State();
+  _SignUp3State createState() => _SignUp3State();
 }
 
-class _Sign_Up3State extends State<Sign_Up3> {
+class _SignUp3State extends State<SignUp3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,60 +62,3 @@ class _Sign_Up3State extends State<Sign_Up3> {
   }
 }
 
-class University extends StatefulWidget {
-  @override
-  State<University> createState() => _UniversityState();
-}
-
-class _UniversityState extends State<University> {
-  String dropdownValue = 'Select your university';
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 100.0,
-      child: DropdownButtonHideUnderline(
-        child: ButtonTheme(
-          alignedDropdown: true,
-          child: DropdownButton(
-            value: dropdownValue,
-            items: <String>['Select your university',
-              'Birkbeck, University of London',
-              'Brunel University London',
-              'City, University of London',
-              'Goldsmiths, University of London',
-              'Imperial College London',
-              "King's College London",
-              'Kingston University',
-              'London Metropolitan University',
-              'London School of Economics',
-              'London South Bank University',
-              'Middlesex University',
-              'Queen Mary University of London',
-              'Royal Holloway, University of London',
-              'SOAS, University of London',
-              "St George's, University of London",
-              "St Mary's University, Twickenham",
-              'University College London',
-              'University of East London',
-              'University of Greenwich',
-              'University of Roehampton',
-              'University of the Arts London',
-              'University of West London',
-              'University of Westminster'
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              setState(() {
-                dropdownValue = newValue!;
-              });
-            },
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 
-class Sign_Up1 extends StatefulWidget {
+class SignUp1 extends StatefulWidget {
   @override
-  _Sign_Up1State createState() => _Sign_Up1State();
+  _SignUp1State createState() => _SignUp1State();
 
 }
 
-class _Sign_Up1State extends State<Sign_Up1> {
+class _SignUp1State extends State<SignUp1> {
   final GlobalKey _key = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();

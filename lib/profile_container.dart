@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:faker/faker.dart';
 import 'profile_class.dart';
 import 'constants.dart';
 
@@ -8,7 +7,7 @@ import 'constants.dart';
 class ProfileContainer extends StatelessWidget {
   final Profile profile;
 
-  ProfileContainer({required this.profile});
+  const ProfileContainer({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +33,20 @@ class ProfileContainer extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Scaffold.of(context)
-                        .showBottomSheet((context) => CompleteProfileDetails(
-                              profile: profile,
-                            ));
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            CompleteProfileDetails(profile: profile));
+                    // Scaffold.of(context)
+                    //     .showBottomSheet((context) => CompleteProfileDetails(
+                    //           profile: profile,
+                    //         ));
                   },
                   child: PartialProfileDetails(
                     profile: profile,
                   ),
                 ),
-                const LikeProfileButton(),
+                LikeProfileButton(profile: profile),
               ],
             ),
           ),
@@ -55,9 +58,9 @@ class ProfileContainer extends StatelessWidget {
 
 // FloatingActionButton to like the displayed profile.
 class LikeProfileButton extends StatelessWidget {
-  const LikeProfileButton({
-    Key? key,
-  }) : super(key: key);
+  final Profile profile;
+
+  const LikeProfileButton({Key? key, required this.profile}) : super(key: key);
 
   // Method that generates an AlertDialog
   void likeProfile(BuildContext context) {
@@ -65,7 +68,7 @@ class LikeProfileButton extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("You liked this profile!"),
+          title: Text('You liked ${profile.firstName}!'),
           actions: [
             TextButton(
               child: const Text("Dismiss"),
@@ -98,7 +101,8 @@ class LikeProfileButton extends StatelessWidget {
 class PartialProfileDetails extends StatelessWidget {
   final Profile profile;
 
-  PartialProfileDetails({required this.profile});
+  const PartialProfileDetails({Key? key, required this.profile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +115,7 @@ class PartialProfileDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              profile.firstName, // TODO: profile.firstName
+              profile.firstName,
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,
@@ -119,7 +123,7 @@ class PartialProfileDetails extends StatelessWidget {
               ),
             ),
             Text(
-              profile.lastName, // TODO: profile.lastName
+              profile.lastName,
               style: const TextStyle(
                 fontSize: kProfileNameFontSize,
                 color: Colors.black,
@@ -129,7 +133,7 @@ class PartialProfileDetails extends StatelessWidget {
           ],
         ),
         Text(
-          profile.continent, // TODO: profile.location
+          profile.continent,
           style: const TextStyle(
             fontSize: kProfileLocationFontSize,
             color: Colors.black,
@@ -141,45 +145,50 @@ class PartialProfileDetails extends StatelessWidget {
   }
 }
 
-// Widget that displays all of the profile's details .
+// Widget that displays all of the profile's details as a sliding bottom sheet.
 class CompleteProfileDetails extends StatelessWidget {
   final Profile profile;
 
-  CompleteProfileDetails({required this.profile});
+  const CompleteProfileDetails({Key? key, required this.profile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.50,
+      height: MediaQuery.of(context).size.height * 0.70,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(25.0),
-        child: Column(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text(
-              profile.firstName,
-              style: const TextStyle(
-                fontSize: kProfileNameFontSize,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                ...([profile.firstName, profile.lastName, profile.continent])
+                    .map((element) {
+                  return Text(
+                    element,
+                    style: const TextStyle(
+                      fontSize: kProfileNameFontSize,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                }).toList()
+              ],
             ),
-            Text(
-              profile.lastName,
-              style: const TextStyle(
-                fontSize: kProfileNameFontSize,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-            Text(
-              profile.continent,
-              style: const TextStyle(
-                fontSize: kProfileNameFontSize,
-                color: Colors.black,
-                fontWeight: FontWeight.w300,
+            FloatingActionButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              backgroundColor: Colors.white,
+              child: const Icon(
+                Icons.highlight_off_rounded,
+                color: Colors.blue,
+                size: 30,
               ),
             ),
           ],

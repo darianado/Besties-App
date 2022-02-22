@@ -30,15 +30,21 @@ dependencies:
   flutter:
     sdk: flutter
   email_validator: ^2.0.0
+
+   # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  # The following adds plugin to use cloud firestore
+  cloud_firestore : ^3.1.8
+  
 
 
   # The following adds faker for feed testing purposes.
   faker: ^2.0.0
+  # The following adds plugin to use firebase authentication
+  firebase_auth: ^3.3.7
+  firebase_core: ^1.12.0
 
 dev_dependencies:
   flutter_test:

@@ -37,6 +37,7 @@ dependencies:
 
   # The following adds plugin to use cloud firestore
   cloud_firestore : ^3.1.8
+
   
 
 

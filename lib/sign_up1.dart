@@ -17,7 +17,7 @@ class _SignUp1State extends State<SignUp1> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
   
-  var authHandler = new Authenticator();
+  var authHandler =  Authenticator();
  
 
   bool isEmail(String input) => EmailValidator.validate(input);

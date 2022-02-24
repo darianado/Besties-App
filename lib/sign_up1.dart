@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_seg/authenticator.dart';
+
+
 
 class SignUp1 extends StatefulWidget {
   @override
@@ -8,10 +12,13 @@ class SignUp1 extends StatefulWidget {
 }
 
 class _SignUp1State extends State<SignUp1> {
-  final GlobalKey _key = GlobalKey<FormState>();
+  final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
+  
+  var authHandler = new Authenticator();
+ 
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -23,6 +30,10 @@ class _SignUp1State extends State<SignUp1> {
     _confirmPassword.dispose();
   }
 
+
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +44,8 @@ class _SignUp1State extends State<SignUp1> {
 
       body:
       Form (
-        key: _key,
-      //  autovalidate: true,
+        key: _formKey,
+        //autovalidator: _autoValidate,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
@@ -96,11 +107,14 @@ class _SignUp1State extends State<SignUp1> {
 
                 ),
               ),
-              SizedBox(),
+              const SizedBox(),
               ElevatedButton(
                   onPressed: (){
-                    if(((_key.currentState as FormState).validate()) == true) {
-                      Navigator.pushNamed(context, '/first');
+                    if(((_formKey.currentState as FormState).validate()) == true) {
+                      authHandler.handleRegistration(_email.text, _password.text)
+                     .then((var user) {
+                        Navigator.pushNamed(context, '/first');
+                     }).catchError((e) => print(e));
                     }
                   },
                   child: Text(" NEXT")

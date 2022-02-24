@@ -49,7 +49,7 @@ class _Log_InState extends State<Log_In> {
               ),
               ElevatedButton(
                   onPressed: (){
-                      Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/feed');
                   },
                   child: Text("Log In")
               ),

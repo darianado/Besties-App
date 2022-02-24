@@ -7,9 +7,10 @@ import 'sign_up4.dart';
 import 'landingPage.dart';
 import 'log_in.dart';
 import 'feed.dart';
-
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart'; 
+import 'package:firebase_auth/firebase_auth.dart'; 
 import 'firebase_options.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +20,11 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget {  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/first',
+      initialRoute: '/landing',
       routes: {
         '/landing': (context) => LandingPage(),
         '/': (context) => SignUp1(),

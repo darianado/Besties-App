@@ -15,12 +15,24 @@ class _Log_InState extends State<Log_In> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
-  var authHandler =  Authenticator();
+
 
   
 
 
  bool isEmail(String input) => EmailValidator.validate(input);
+
+//  void _loginAccount(String email, String password) async {
+//       final status = await FirebaseAuthHelper().login(
+//           email: email, pass: password);
+//       if (status == AuthResultStatus.successful) {
+//         Navigator.pushNamed(context, '/feed');
+//         } else {
+//         final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+//             status);
+//         _showAlertDialog(errorMsg);
+//       }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -73,13 +85,10 @@ class _Log_InState extends State<Log_In> {
               ),
               ElevatedButton(
                    onPressed: (){
-                    if(((_formKey.currentState as FormState).validate()) == true) {
-                      authHandler.handleLogIn(_email.text, _password.text)
-                     .then((var user) {
+                      if(((_formKey.currentState as FormState).validate()) == true) {
                         Navigator.pushNamed(context, '/feed');
-                     }).catchError((e) => print(e));
                     }
-                  }, //TO DO : replace print with error handling method
+                  }, 
                   child: Text("Log In")
               ),
               TextButton(

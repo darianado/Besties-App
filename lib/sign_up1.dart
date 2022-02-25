@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_seg/authenticator.dart';
+import 'package:project_seg/alerts.dart';
 
 
 
@@ -21,17 +24,19 @@ class _SignUp1State extends State<SignUp1> {
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
-  // void _createAccount(String email, String password) async {
-  //     final status = await FirebaseAuthHelper().createAccount( email: email, pass: password);
-  //     if (status == AuthResultStatus.successful) {
-  //       // Navigate to page
-  //       Navigator.pushNamed(context, '/first');
-  //       } else {
-  //       final errorMsg = AuthExceptionHandler.generateExceptionMessage(
-  //           status);
-  //       _showAlertDialog(errorMsg);
-  //     }
-  // }
+   _createAccount(String email, String password) async {
+      final status = await FirebaseAuthHelper().createAccount( email: email, pass: password);
+      if (status == AuthResultStatus.successful) {
+        // Navigate to page
+        Navigator.pushNamed(context, '/first');
+    
+        
+        } else {
+        // final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+        //     status);
+        // AlertPopup(message: errorMsg);
+      }
+  }
 
   @override
   void dispose() {
@@ -126,7 +131,7 @@ class _SignUp1State extends State<SignUp1> {
                   onPressed: (){
                     
                     if(((_formKey.currentState as FormState).validate()) == true) {
-                       Navigator.pushNamed(context, '/feed');
+                      _createAccount(_email.text, _password.text); 
                     }
                   }, 
                   child: Text(" NEXT")

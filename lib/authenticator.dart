@@ -11,6 +11,7 @@ enum AuthResultStatus {
   operationNotAllowed,
   tooManyRequests,
   undefined,
+  weakPassword
 }
 
 
@@ -40,6 +41,9 @@ class AuthExceptionHandler {
       case "ERROR_EMAIL_ALREADY_IN_USE":
         status = AuthResultStatus.emailAlreadyExists;
         break;
+      case "ERROR_WEAK_PASSWORD":
+        status = AuthResultStatus.weakPassword;
+        break;
       default:
         status = AuthResultStatus.undefined;
     }
@@ -51,10 +55,10 @@ class AuthExceptionHandler {
     String errorMessage;
     switch (exceptionCode) {
       case AuthResultStatus.invalidEmail:
-        errorMessage = "Your email address appears to be malformed.";
+        errorMessage = "Please enter a valid email adsress.";
         break;
       case AuthResultStatus.wrongPassword:
-        errorMessage = "Your password is wrong.";
+        errorMessage = "Your password is incorrect.";
         break;
       case AuthResultStatus.userNotFound:
         errorMessage = "User with this email doesn't exist.";
@@ -72,6 +76,10 @@ class AuthExceptionHandler {
         errorMessage =
             "The email has already been registered. Please login or reset your password.";
         break;
+      case AuthResultStatus.weakPassword:
+        errorMessage =
+            "The password must be 6 characters long or more.";
+        break;  
       default:
         errorMessage = "An undefined Error happened.";
     }
@@ -119,7 +127,7 @@ class FirebaseAuthHelper {
     return _status;
   }
 
-  logout() {
-    _auth.signOut();
-  }
+  // logout() {
+  //   _auth.signOut();
+  // }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:project_seg/alerts.dart';
 import 'package:project_seg/authenticator.dart';
 
 class Log_In extends StatefulWidget {
@@ -22,17 +23,18 @@ class _Log_InState extends State<Log_In> {
 
  bool isEmail(String input) => EmailValidator.validate(input);
 
-//  void _loginAccount(String email, String password) async {
-//       final status = await FirebaseAuthHelper().login(
-//           email: email, pass: password);
-//       if (status == AuthResultStatus.successful) {
-//         Navigator.pushNamed(context, '/feed');
-//         } else {
-//         final errorMsg = AuthExceptionHandler.generateExceptionMessage(
-//             status);
-//         _showAlertDialog(errorMsg);
-//       }
-//   }
+ void _loginAccount(String email, String password) async {
+      final status = await FirebaseAuthHelper().login(
+          email: email, pass: password);
+      if (status == AuthResultStatus.successful) {
+        Navigator.pushNamed(context, '/feed');
+        } else {
+        // final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+        //     status);
+        // AlertPopup(message: errorMsg);
+        
+      }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +88,7 @@ class _Log_InState extends State<Log_In> {
               ElevatedButton(
                    onPressed: (){
                       if(((_formKey.currentState as FormState).validate()) == true) {
-                        Navigator.pushNamed(context, '/feed');
+                        _loginAccount(_email.text, _password.text);
                     }
                   }, 
                   child: Text("Log In")

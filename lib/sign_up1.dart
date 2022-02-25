@@ -100,7 +100,7 @@ class _SignUp1State extends State<SignUp1> {
               ElevatedButton(
                   onPressed: (){
                     if(((_key.currentState as FormState).validate()) == true) {
-                      Navigator.pushNamed(context, '/first');
+                      Navigator.pushNamed(context, '/signup2');
                     }
                   },
                   child: Text(" NEXT")

@@ -9,6 +9,7 @@ import 'landingPage.dart';
 import 'log_in.dart';
 import 'feed.dart';
 import 'profile_page.dart';
+import 'edit_profile.dart';
 
 
 void main() => runApp(MyApp());
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         '/feed': (context) => Feed(),
         '/login' : (context) => Log_In(),
         '/profile_page' : (context) => Profile_Page(),
+        '/edit_profile' : (context) => EditProfile(),
 
 
       },

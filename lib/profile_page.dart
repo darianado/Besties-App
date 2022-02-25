@@ -75,7 +75,7 @@ class _Profile_PageState extends State<Profile_Page> {
                 ),
                 ElevatedButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/');
+                    Navigator.pushNamed(context, '/edit_profile');
                   },
                   child: const Text("EDIT YOUR PROFILE"),
                 ),

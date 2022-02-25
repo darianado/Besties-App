@@ -1,24 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Authenticator {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  
-
-  Future<User> handleLogIn(String email, String password) async {
-
-       UserCredential result = await auth.signInWithEmailAndPassword(email: email, password: password);
-       final User user = result.user!;
-      return user ; 
-  }
-
-  Future<User> handleRegistration(email, password) async {
-    UserCredential result = await auth.createUserWithEmailAndPassword(
-        email: email, password: password);
-    final User user = result.user!;
-
-    return user;
-  }
-}
 
 enum AuthResultStatus {
   successful,
@@ -31,6 +12,7 @@ enum AuthResultStatus {
   tooManyRequests,
   undefined,
 }
+
 
 class AuthExceptionHandler {
   static handleException(e) {
@@ -64,6 +46,7 @@ class AuthExceptionHandler {
     return status;
   }
 
+  
   static generateExceptionMessage(exceptionCode) {
     String errorMessage;
     switch (exceptionCode) {
@@ -98,7 +81,45 @@ class AuthExceptionHandler {
 }
 
 
+class FirebaseAuthHelper {
+  final _auth = FirebaseAuth.instance;
+  var _status;
 
+  
+  Future<AuthResultStatus> createAccount({email, pass}) async {
+    try {
+      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
+          email: email, password: pass);
+      if (authResult.user != null) {
+        _status = AuthResultStatus.successful;
+      } else {
+        _status = AuthResultStatus.undefined;
+      }
+    } catch (e) {
+      print('Exception @createAccount: $e');
+      _status = AuthExceptionHandler.handleException(e);
+    }
+    return _status;
+  }
 
+  Future<AuthResultStatus> login({email, pass}) async {
+    try {
+      final authResult =
+          await _auth.signInWithEmailAndPassword(email: email, password: pass);
 
-//methods here should throw error
+      if (authResult.user != null) {
+        _status = AuthResultStatus.successful;
+      } else {
+        _status = AuthResultStatus.undefined;
+      }
+    } catch (e) {
+      print('Exception @createAccount: $e');
+      _status = AuthExceptionHandler.handleException(e);
+    }
+    return _status;
+  }
+
+  logout() {
+    _auth.signOut();
+  }
+}

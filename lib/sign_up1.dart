@@ -17,10 +17,21 @@ class _SignUp1State extends State<SignUp1> {
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
   
-  var authHandler =  Authenticator();
  
 
   bool isEmail(String input) => EmailValidator.validate(input);
+
+  void _createAccount(String email, String password) async {
+      final status = await FirebaseAuthHelper().createAccount( email: email, pass: password);
+      if (status == AuthResultStatus.successful) {
+        // Navigate to page
+        Navigator.pushNamed(context, '/first');
+        } else {
+        final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+            status);
+        _showAlertDialog(errorMsg);
+      }
+  }
 
   @override
   void dispose() {
@@ -29,6 +40,9 @@ class _SignUp1State extends State<SignUp1> {
     _password.dispose();
     _confirmPassword.dispose();
   }
+
+
+  
 
 
 
@@ -112,10 +126,7 @@ class _SignUp1State extends State<SignUp1> {
                   onPressed: (){
                     
                     if(((_formKey.currentState as FormState).validate()) == true) {
-                      authHandler.handleRegistration(_email.text, _password.text)
-                     .then((var user) {
-                        Navigator.pushNamed(context, '/first');
-                     }).catchError((e) => print(e));
+                        _createAccount(_email.text, _password.text);
                     }
                   }, 
                   child: Text(" NEXT")

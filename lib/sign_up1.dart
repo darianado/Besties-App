@@ -110,13 +110,14 @@ class _SignUp1State extends State<SignUp1> {
               const SizedBox(),
               ElevatedButton(
                   onPressed: (){
+                    
                     if(((_formKey.currentState as FormState).validate()) == true) {
                       authHandler.handleRegistration(_email.text, _password.text)
                      .then((var user) {
                         Navigator.pushNamed(context, '/first');
                      }).catchError((e) => print(e));
                     }
-                  },
+                  }, 
                   child: Text(" NEXT")
               )
             ]

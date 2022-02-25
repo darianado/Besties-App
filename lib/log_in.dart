@@ -17,6 +17,8 @@ class _Log_InState extends State<Log_In> {
 
   var authHandler =  Authenticator();
 
+  
+
 
  bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -77,7 +79,7 @@ class _Log_InState extends State<Log_In> {
                         Navigator.pushNamed(context, '/feed');
                      }).catchError((e) => print(e));
                     }
-                  },
+                  }, //TO DO : replace print with error handling method
                   child: Text("Log In")
               ),
               TextButton(

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-//simple alert dialog widget
+//simple method to show alert
 
-class AlertPopup extends StatelessWidget {
-  const AlertPopup  ({ Key? key , required this.message}) : super(key: key);
-  final String message ; 
-  @override
-  Widget build(BuildContext context) {
-           return AlertDialog(
-          title: Text(message),
+   void showAlert(BuildContext context, String errorMsg) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(errorMsg),
           actions: [
             TextButton(
               child: const Text("Dismiss"),
@@ -18,5 +17,6 @@ class AlertPopup extends StatelessWidget {
             ),
           ],
         );
+      },
+    );
   }
-}

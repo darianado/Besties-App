@@ -55,7 +55,7 @@ class AuthExceptionHandler {
     String errorMessage;
     switch (exceptionCode) {
       case AuthResultStatus.invalidEmail:
-        errorMessage = "Please enter a valid email adsress.";
+        errorMessage = "Please enter a valid email address.";
         break;
       case AuthResultStatus.wrongPassword:
         errorMessage = "Your password is incorrect.";

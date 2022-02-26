@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:project_seg/alerts.dart';
 import 'package:project_seg/authenticator.dart';
+import 'package:project_seg/alerts.dart';
 
 class Log_In extends StatefulWidget {
   const Log_In({Key? key}) : super(key: key);
@@ -23,18 +24,20 @@ class _Log_InState extends State<Log_In> {
 
  bool isEmail(String input) => EmailValidator.validate(input);
 
- void _loginAccount(String email, String password) async {
+  _loginAccount(String email, String password) async {
       final status = await FirebaseAuthHelper().login(
           email: email, pass: password);
       if (status == AuthResultStatus.successful) {
         Navigator.pushNamed(context, '/feed');
         } else {
-        // final errorMsg = AuthExceptionHandler.generateExceptionMessage(
-        //     status);
-        // AlertPopup(message: errorMsg);
+        final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+            status);
+        showAlert(context, errorMsg); 
         
       }
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

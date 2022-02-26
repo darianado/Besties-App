@@ -32,11 +32,13 @@ class _SignUp1State extends State<SignUp1> {
     
         
         } else {
-        // final errorMsg = AuthExceptionHandler.generateExceptionMessage(
-        //     status);
-        // AlertPopup(message: errorMsg);
+        final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+            status);
+        showAlert(context, errorMsg);
       }
   }
+
+
 
   @override
   void dispose() {

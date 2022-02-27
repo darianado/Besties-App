@@ -1,4 +1,4 @@
-
+import 'edit_preferences.dart';
 import 'package:flutter/material.dart';
 
 
@@ -51,7 +51,7 @@ class University extends StatefulWidget {
 }
 
 class _UniversityState extends State<University> {
-  String dropdownValue = 'Select your university';
+  String dropdownValue = 'Select university';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -140,5 +140,17 @@ Icon buildIcon( IconData iconInput, Color colorInput) {
     size: 24.0,
   );
 }
+
+ElevatedButton buildNext(GlobalKey key, BuildContext context, String nextPage) {
+  return ElevatedButton(
+    onPressed: () {
+      if (((key.currentState as FormState).validate()) == true) {
+        Navigator.pushNamed(context, nextPage);
+      }
+    },
+    child: const Text(" NEXT"),
+  );
+}
+
 
 

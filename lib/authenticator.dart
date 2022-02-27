@@ -15,33 +15,35 @@ enum AuthResultStatus {
 }
 
 
+
+
 class AuthExceptionHandler {
-  static handleException(e) {
-    print(e.code);
-    var status;
+  static handleException(FirebaseAuthException e) {
+    //print(e.code);
+    AuthResultStatus status ;
     switch (e.code) {
-      case "ERROR_INVALID_EMAIL":
+      case "invalid-email":
         status = AuthResultStatus.invalidEmail;
         break;
-      case "ERROR_WRONG_PASSWORD":
+      case "wrong-password":
         status = AuthResultStatus.wrongPassword;
         break;
-      case "ERROR_USER_NOT_FOUND":
+      case "user-not-found":
         status = AuthResultStatus.userNotFound;
         break;
-      case "ERROR_USER_DISABLED":
+      case "user-disabled":
         status = AuthResultStatus.userDisabled;
         break;
-      case "ERROR_TOO_MANY_REQUESTS":
+      case "too-many-requests":
         status = AuthResultStatus.tooManyRequests;
         break;
-      case "ERROR_OPERATION_NOT_ALLOWED":
+      case "operation-not-allowed":
         status = AuthResultStatus.operationNotAllowed;
         break;
-      case "ERROR_EMAIL_ALREADY_IN_USE":
+      case "email-already-in-use":
         status = AuthResultStatus.emailAlreadyExists;
         break;
-      case "ERROR_WEAK_PASSWORD":
+      case "weak-password":
         status = AuthResultStatus.weakPassword;
         break;
       default:
@@ -51,7 +53,7 @@ class AuthExceptionHandler {
   }
 
   
-  static generateExceptionMessage(exceptionCode) {
+  static generateExceptionMessage(AuthResultStatus exceptionCode) {
     String errorMessage;
     switch (exceptionCode) {
       case AuthResultStatus.invalidEmail:
@@ -100,10 +102,11 @@ class FirebaseAuthHelper {
           email: email, password: pass);
       if (authResult.user != null) {
         _status = AuthResultStatus.successful;
-      } else {
+      } 
+      else {
         _status = AuthResultStatus.undefined;
       }
-    } catch (e) {
+    } on  FirebaseAuthException catch (e) {
       print('Exception @createAccount: $e');
       _status = AuthExceptionHandler.handleException(e);
     }
@@ -117,12 +120,13 @@ class FirebaseAuthHelper {
 
       if (authResult.user != null) {
         _status = AuthResultStatus.successful;
-      } else {
+      } 
+      else {
         _status = AuthResultStatus.undefined;
       }
-    } catch (e) {
+    } on FirebaseAuthException catch (e) {
       print('Exception @createAccount: $e');
-      _status = AuthExceptionHandler.handleException(e);
+       _status = AuthExceptionHandler.handleException(e);
     }
     return _status;
   }

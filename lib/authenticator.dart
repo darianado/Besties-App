@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+//ios testing still required
+
 
 enum AuthResultStatus {
   successful,

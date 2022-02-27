@@ -4,21 +4,10 @@ import 'widgets.dart';
 import 'package:project_seg/reusableCard.dart';
 import 'constants.dart';
 import 'iconContent.dart';
+import 'gender_implementation.dart';
 
 
-enum Gender {
-  male,
-  female,
-  other
-}
 
-String genderLabel(Gender gender) {
-  switch(gender) {
-    case Gender.male: return "MALE";
-    case Gender.female: return "FEMALE";
-    case Gender.other: return "OTHER";
-  }
-}
 
 class SignUp2 extends StatefulWidget {
   @override
@@ -150,22 +139,11 @@ class _SignUp2State extends State<SignUp2> {
                     ),
                   ]
               ),
-              buildNext(context, '/signup3')
+              buildNext(_key, context, '/signup3')
             ]
         ),
       ),
     );
-  }
-
-  ElevatedButton buildNext(BuildContext context, String nextPage) {
-    return ElevatedButton(
-              onPressed: () {
-                if (((_key.currentState as FormState).validate()) == true) {
-                  Navigator.pushNamed(context, nextPage);
-                }
-              },
-              child: const Text(" NEXT"),
-            );
   }
 
   Expanded genderOptions(@required Gender gender) {

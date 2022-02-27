@@ -10,6 +10,7 @@ import 'log_in.dart';
 import 'feed.dart';
 import 'profile_page.dart';
 import 'edit_profile.dart';
+import 'edit_preferences.dart';
 
 
 void main() => runApp(MyApp());
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/landing',
+      initialRoute: '/edit_preferences',
       routes: {
         '/landing': (context) => LandingPage(),
         '/signup1': (context) => SignUp1(),
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/login' : (context) => Log_In(),
         '/profile_page' : (context) => Profile_Page(),
         '/edit_profile' : (context) => EditProfile(),
+        '/edit_preferences' : (context) => EditPrefrences(),
 
 
       },

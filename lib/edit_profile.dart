@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'widgets.dart';
+import 'gender_implementation.dart';
 
 
 
@@ -154,19 +155,7 @@ class _EditProfileState extends State<EditProfile> {
 }
 
 
-enum Gender {
-  male,
-  female,
-  other
-}
 
-String genderLabel(Gender gender) {
-  switch(gender) {
-    case Gender.male: return "Male";
-    case Gender.female: return "Female";
-    case Gender.other: return "Other";
-  }
-}
 
 
 

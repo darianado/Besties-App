@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/authenticator.dart';
 import 'nav_bar.dart';
 import 'profile_container.dart';
 import 'profile_class.dart';
@@ -13,6 +14,8 @@ class Feed extends StatelessWidget {
     ProfileContainer(profile: Profile(seed: 4)),
   ];
 
+  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +25,14 @@ class Feed extends StatelessWidget {
           color: Colors.blue,
         ),
         backgroundColor: Colors.white,
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Log out"),
+            onPressed: () async {
+              await _auth.logOut();
+            },
+          )
+        ],
       ),
       body: Stack(
         alignment: AlignmentDirectional.bottomEnd,

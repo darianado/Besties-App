@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:project_seg/models/my_user.dart';
 
 //ios testing still required
-
 
 enum AuthResultStatus {
   successful,
@@ -16,13 +17,10 @@ enum AuthResultStatus {
   weakPassword
 }
 
-
-
-
 class AuthExceptionHandler {
   static handleException(FirebaseAuthException e) {
     //print(e.code);
-    AuthResultStatus status ;
+    AuthResultStatus status;
     switch (e.code) {
       case "invalid-email":
         status = AuthResultStatus.invalidEmail;
@@ -54,7 +52,6 @@ class AuthExceptionHandler {
     return status;
   }
 
-  
   static generateExceptionMessage(AuthResultStatus exceptionCode) {
     String errorMessage;
     switch (exceptionCode) {
@@ -81,9 +78,8 @@ class AuthExceptionHandler {
             "The email has already been registered. Please login or reset your password.";
         break;
       case AuthResultStatus.weakPassword:
-        errorMessage =
-            "The password must be 6 characters long or more.";
-        break;  
+        errorMessage = "The password must be 6 characters long or more.";
+        break;
       default:
         errorMessage = "An undefined Error happened.";
     }
@@ -92,23 +88,30 @@ class AuthExceptionHandler {
   }
 }
 
-
 class FirebaseAuthHelper {
-  final _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   var _status;
+  var _user;
 
-  
+  //create user obj based on firebase user
+  MyUser? _userFromFirebaseUser(User? user) {
+    return user != null ? MyUser(uid: user.uid) : null;
+  }
+
+  Stream<MyUser?> get user {
+    return _auth.authStateChanges().map(_userFromFirebaseUser);
+  }
+
   Future<AuthResultStatus> createAccount({email, pass}) async {
     try {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: pass);
       if (authResult.user != null) {
         _status = AuthResultStatus.successful;
-      } 
-      else {
+      } else {
         _status = AuthResultStatus.undefined;
       }
-    } on  FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       print('Exception @createAccount: $e');
       _status = AuthExceptionHandler.handleException(e);
     }
@@ -119,20 +122,31 @@ class FirebaseAuthHelper {
     try {
       final authResult =
           await _auth.signInWithEmailAndPassword(email: email, password: pass);
-
-      if (authResult.user != null) {
+      _user = _userFromFirebaseUser(authResult.user);
+      if (_user != null) {
         _status = AuthResultStatus.successful;
-      } 
-      else {
+      } else {
         _status = AuthResultStatus.undefined;
       }
     } on FirebaseAuthException catch (e) {
       print('Exception @createAccount: $e');
-       _status = AuthExceptionHandler.handleException(e);
+      _status = AuthExceptionHandler.handleException(e);
     }
     return _status;
   }
 
+  getUser() {
+    return _user;
+  }
+
+  Future logOut() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  }
   // logout() {
   //   _auth.signOut();
   // }

@@ -12,32 +12,25 @@ class Log_In extends StatefulWidget {
 }
 
 class _Log_InState extends State<Log_In> {
-
   final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
+  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
 
 
-  
-
-
- bool isEmail(String input) => EmailValidator.validate(input);
+  bool isEmail(String input) => EmailValidator.validate(input);
 
   _loginAccount(String email, String password) async {
-      final status = await FirebaseAuthHelper().login(
-          email: email, pass: password);
-      if (status == AuthResultStatus.successful) {
-        Navigator.pushNamed(context, '/feed');
-        } else {
-        final errorMsg = AuthExceptionHandler.generateExceptionMessage(
-            status);
-        showAlert(context, errorMsg); 
-        
-      }
+    final status =
+        await _auth.login(email: email, pass: password);
+    if (status == AuthResultStatus.successful) {
+      Navigator.pushNamed(context, '/feed');
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      showAlert(context, errorMsg);
+    }
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -46,24 +39,23 @@ class _Log_InState extends State<Log_In> {
         backgroundColor: Colors.purple,
         title: const Text('Log In'),
       ),
-
-      body:
-      Form (
+      body: Form(
         key: _formKey,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
+            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
                 child: TextFormField(
-                   controller: _email,
+                  controller: _email,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
                       icon: const Icon(Icons.email),
                       labelText: 'Email address:'),
-                      validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
+                  validator: (value) =>
+                      !isEmail(_email.text) ? "Invalid Email" : null,
                   textInputAction: TextInputAction.next,
                 ),
               ),
@@ -72,38 +64,37 @@ class _Log_InState extends State<Log_In> {
                 child: TextFormField(
                   controller: _password,
                   obscureText: true,
-                  decoration:  InputDecoration(
+                  decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
                     ),
                     icon: new Icon(Icons.lock),
                     labelText: 'Password',
                   ),
-                         validator: (value) {
-                         if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                          }
-                          return null;
-                     },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter some text';
+                    }
+                    return null;
+                  },
                   textInputAction: TextInputAction.next,
                 ),
               ),
               ElevatedButton(
-                   onPressed: (){
-                      if(((_formKey.currentState as FormState).validate()) == true) {
-                        _loginAccount(_email.text, _password.text);
+                  onPressed: () {
+                    if (((_formKey.currentState as FormState).validate()) ==
+                        true) {
+                      _loginAccount(_email.text, _password.text);
                     }
-                  }, 
-                  child: Text("Log In")
-              ),
+                  },
+                  child: Text("Log In")),
               TextButton(
-                  child: Text('New here? Sign up now'),
-                onPressed: (){
+                child: Text('New here? Sign up now'),
+                onPressed: () {
                   Navigator.pushNamed(context, '/');
                 },
               ),
-            ]
-        ),
+            ]),
       ),
     );
   }

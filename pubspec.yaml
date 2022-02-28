@@ -39,7 +39,7 @@ dependencies:
   cloud_firestore : ^3.1.8
 
   
-
+  provider: ^6.0.2
 
   # The following adds faker for feed testing purposes.
   faker: ^2.0.0

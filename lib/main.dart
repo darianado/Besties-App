@@ -42,18 +42,6 @@ class MyApp extends StatelessWidget {
         },
       )
     );
-    // return MaterialApp(
-    //   initialRoute: '/landing',
-    //   routes: {
-    //     '/landing': (context) => LandingPage(),
-    //     '/': (context) => SignUp1(),
-    //     '/first': (context) => SignUp2(),
-    //     '/signup3': (context) => SignUp3(),
-    //     '/signup4': (context) => SignUp4(),
-    //     '/feed': (context) => Feed(),
-    //     '/login' : (context) => Log_In(),
-
-    //   },
-    //);
+    
   }
 }

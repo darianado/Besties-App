@@ -49,7 +49,7 @@ class _EditPrefrencesState extends State<EditPrefrences> {
             children: <Widget>[
               const Padding(
                 padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                child: Text('Edit your information',
+                child: Text('Edit your preferences',
                     style: TextStyle(
                         fontSize: 20.0
                     )),
@@ -166,7 +166,7 @@ class _EditPrefrencesState extends State<EditPrefrences> {
                     Expanded(
                       child: University(),
                     ),
-                  ]
+                 ]
               ),
               ElevatedButton(
                 onPressed: () {

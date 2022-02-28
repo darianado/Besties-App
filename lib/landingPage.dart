@@ -34,7 +34,7 @@ class _LandingPageState extends State<LandingPage> {
                 const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: (){
-                    Navigator.pushNamed(context, '/');
+                    Navigator.pushNamed(context, '/signup1');
                   },
                   child: const Text("SIGN UP"),
                 ),

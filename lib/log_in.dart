@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
+
 
 class Log_In extends StatefulWidget {
   const Log_In({Key? key}) : super(key: key);

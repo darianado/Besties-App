@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'widgets.dart';
 
 class SignUp1 extends StatefulWidget {
   @override
@@ -97,14 +98,7 @@ class _SignUp1State extends State<SignUp1> {
                 ),
               ),
               SizedBox(),
-              ElevatedButton(
-                  onPressed: (){
-                    if(((_key.currentState as FormState).validate()) == true) {
-                      Navigator.pushNamed(context, '/first');
-                    }
-                  },
-                  child: Text(" NEXT")
-              )
+              buildNext(_key, context, '/signup2')
             ]
         ),
       ),

@@ -142,8 +142,8 @@ class FirebaseAuthHelper {
   Future logOut() async {
     try {
       return await _auth.signOut();
-    } catch (e) {
-      print(e.toString());
+    } on FirebaseAuthException catch (e) {
+      AuthExceptionHandler.handleException(e);
       return null;
     }
   }

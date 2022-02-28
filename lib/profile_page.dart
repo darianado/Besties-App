@@ -73,11 +73,27 @@ class _Profile_PageState extends State<Profile_Page> {
                 SizedBox(
                   height: 40,
                 ),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/edit_profile');
-                  },
-                  child: const Text("EDIT YOUR PROFILE"),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/edit_profile');
+                      },
+                      child: const Text("EDIT YOUR PROFILE"),
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    ElevatedButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/edit_preferences');
+                      },
+                      child: const Text("EDIT PREFRENCES"),
+                    ),
+                  ],
                 ),
 
 

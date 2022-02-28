@@ -61,7 +61,7 @@ class _UniversityState extends State<University> {
           alignedDropdown: true,
           child: DropdownButton(
             value: dropdownValue,
-            items: <String>['Select your university',
+            items: <String>['Select university',
               'Birkbeck, University of London',
               'Brunel University London',
               'City, University of London',

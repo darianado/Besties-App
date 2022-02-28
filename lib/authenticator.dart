@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:project_seg/models/my_user.dart';
 
 //ios testing still required
@@ -144,7 +143,6 @@ class FirebaseAuthHelper {
       return await _auth.signOut();
     } on FirebaseAuthException catch (e) {
       AuthExceptionHandler.handleException(e);
-      return null;
     }
   }
   // logout() {

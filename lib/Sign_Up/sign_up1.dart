@@ -131,7 +131,6 @@ class _SignUp1State extends State<SignUp1> {
                   ),
                 ),
 
-              ),
               const SizedBox(),
               ElevatedButton(
                   onPressed: (){
@@ -140,13 +139,22 @@ class _SignUp1State extends State<SignUp1> {
                       _createAccount(_email.text, _password.text); 
                     }
                   }, 
-                  child: Text(" NEXT")
-              )
-            ]
-
+                  child: Text(" NEXT"),
+              ),
+          
+          ]
         ),
       ),
+    )
+    )
+    
+    
+    
     );
+
+
+
+
   }
 }
 

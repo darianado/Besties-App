@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/Personal_information/edit_preferences.dart';
+import 'package:project_seg/Personal_information/edit_profile.dart';
+import 'package:project_seg/Personal_information/profile_page.dart';
 import 'package:project_seg/authenticator.dart';
 import 'package:project_seg/models/my_user.dart';
 import 'package:project_seg/wrapper.dart';

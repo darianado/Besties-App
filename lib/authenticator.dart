@@ -142,7 +142,7 @@ class FirebaseAuthHelper {
     try {
       return await _auth.signOut();
     } on FirebaseAuthException catch (e) {
-      AuthExceptionHandler.handleException(e);
+      _status = AuthExceptionHandler.handleException(e);
     }
   }
   // logout() {

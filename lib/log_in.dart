@@ -17,49 +17,53 @@ class _Log_InState extends State<Log_In> {
         title: const Text('Log In'),
       ),
 
-      body:
-      Form (
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget> [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                child: TextFormField(
-                  decoration: InputDecoration(
+      body: Center(
+        child: SingleChildScrollView(
+        child: Form (
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget> [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                        icon: const Icon(Icons.email),
+                        labelText: 'Email address:'),
+                    textInputAction: TextInputAction.next,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                  child: TextFormField(
+                    obscureText: true,
+                    decoration:  InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      icon: const Icon(Icons.email),
-                      labelText: 'Email address:'),
-                  textInputAction: TextInputAction.next,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                child: TextFormField(
-                  obscureText: true,
-                  decoration:  InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+                      icon: new Icon(Icons.lock),
+                      labelText: 'Password',
                     ),
-                    icon: new Icon(Icons.lock),
-                    labelText: 'Password',
                   ),
                 ),
-              ),
-              ElevatedButton(
+                ElevatedButton(
+                    onPressed: (){
+                        Navigator.pushNamed(context, '/');
+                    },
+                    child: Text("Log In")
+                ),
+                TextButton(
+                    child: Text('New here? Sign up now'),
                   onPressed: (){
-                      Navigator.pushNamed(context, '/');
+                    Navigator.pushNamed(context, '/signup1');
                   },
-                  child: Text("Log In")
-              ),
-              TextButton(
-                  child: Text('New here? Sign up now'),
-                onPressed: (){
-                  Navigator.pushNamed(context, '/');
-                },
-              ),
-            ]
+                ),
+              ]
+          ),
+        ),
         ),
       ),
     );

@@ -58,89 +58,95 @@ class _SignUp2State extends State<SignUp2> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: const Text('Sign Up'),
+        leading: const BackButton(
+          color: Colors.white,
+        ),
       ),
 
-      body:
-      Form(
-        key: _key,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                child: Text('About you',
-                    style: TextStyle(
-                        fontSize: 30.0
-                    )),
-              ),
-              const SizedBox(height: 50),
-              Row(
-                children: <Widget>[
-                  buildIcon(Icons.account_balance_outlined, Colors.black),
-                  SizedBox(width: 10),
-                  buildNameSpace('First name', _firstName, context),
-                  SizedBox(width: 10),
-                  buildNameSpace('Last name', _lastName, context),
-                  SizedBox(width: 10),
-                ],
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-
-                children: [
-                  buildIcon(Icons.cake_outlined, Colors.black),
-                  SizedBox(width: 10),
-                  // SizedBox(
-                  //   width: 20.0,
-                  // ),
-                  Expanded(
-                    child: FlatButton(
-                      onPressed: () => _selectDate(context), // Refer step 3
-                      child: Text(
-                        dateChanged == false
-                            ? 'Select date of birth'
-                            : "${selectedDate.toLocal()}".split(' ')[0],
-                        style:
-                        TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      color: Theme
-                          .of(context)
-                          .colorScheme
-                          .primary,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                children: <Widget>[
-                  buildIcon(Icons.transgender_outlined, Colors.black),
-                  SizedBox(width: 10),
-                  genderOptions(Gender.male),
-                  genderOptions(Gender.female),
-                  genderOptions(Gender.other),
-                ],
-              ),
-              const SizedBox (height: 30),
-              Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+      body: Center(
+        child: SingleChildScrollView(
+        child: Form(
+          key: _key,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                  child: Text('About you',
+                      style: TextStyle(
+                          fontSize: 30.0
+                      )),
+                ),
+                const SizedBox(height: 50),
+                Row(
                   children: <Widget>[
-                    buildIcon(Icons.favorite, Colors.pink),
+                    buildIcon(Icons.account_balance_outlined, Colors.black),
+                    const SizedBox(width: 10),
+                    buildNameSpace('First name', _firstName, context),
+                    const SizedBox(width: 10),
+                    buildNameSpace('Last name', _lastName, context),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+
+                  children: [
+                    buildIcon(Icons.cake_outlined, Colors.black),
+                    const SizedBox(width: 10),
+                    // SizedBox(
+                    //   width: 20.0,
+                    // ),
                     Expanded(
-                      child: RelationshipStatus(),
+                      child: FlatButton(
+                        onPressed: () => _selectDate(context), // Refer step 3
+                        child: Text(
+                          dateChanged == false
+                              ? 'Select date of birth'
+                              : "${selectedDate.toLocal()}".split(' ')[0],
+                          style:
+                          const TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        color: Theme
+                            .of(context)
+                            .colorScheme
+                            .primary,
+                      ),
                     ),
-                  ]
-              ),
-              buildNext(_key, context, '/signup3')
-            ]
+                    const SizedBox(
+                      width: 10.0,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+                  children: <Widget>[
+                    buildIcon(Icons.transgender_outlined, Colors.black),
+                    const SizedBox(width: 10),
+                    genderOptions(Gender.male),
+                    genderOptions(Gender.female),
+                    genderOptions(Gender.other),
+                  ],
+                ),
+                const SizedBox (height: 30),
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      buildIcon(Icons.favorite, Colors.pink),
+                      Expanded(
+                        child: RelationshipStatus(),
+                      ),
+                    ]
+                ),
+                buildNext(_key, context, '/signup3')
+              ]
+          ),
+        ),
         ),
       ),
     );
@@ -153,7 +159,7 @@ class _SignUp2State extends State<SignUp2> {
             ? kActiveCardColor
             : kInactiveCardColor,
         cardChild: IconContent(
-          icon: Icon(Icons.lock),
+          icon: const Icon(Icons.lock),
           label: genderLabel(gender),
         ),
         onPress: () {

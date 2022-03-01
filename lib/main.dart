@@ -24,6 +24,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return StreamProvider<MyUser?>.value(
       value: FirebaseAuthHelper().user,
       initialData: null,
@@ -37,8 +38,12 @@ class MyApp extends StatelessWidget {
           '/signup4': (context) => SignUp4(),
           '/feed': (context) => Feed(),
           '/login' : (context) => Log_In(),
+          '/profile_page' : (context) => Profile_Page(),
+          '/edit_profile' : (context) => EditProfile(),
+          '/edit_preferences' : (context) => EditPrefrences(),
         },
       )
+
     );
     
   }

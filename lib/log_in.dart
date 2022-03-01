@@ -52,10 +52,13 @@ class _Log_InState extends State<Log_In> {
             backgroundColor: Colors.purple,
             title: const Text('Log In'),
           ),
-          body: Form(
+          body: Center(
+            child: SingleChildScrollView(
+            child: Form(
             key: _formKey,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   Padding(
                     padding:
@@ -112,5 +115,6 @@ class _Log_InState extends State<Log_In> {
                 ]),
           ),
         ));
+
   }
 }

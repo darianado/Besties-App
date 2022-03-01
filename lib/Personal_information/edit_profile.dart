@@ -36,106 +36,109 @@ class _EditProfileState extends State<EditProfile> {
         title: const Text('Edit profile'),
       ),
 
-      body:
-      Form(
-        key: _key,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                child: Text('Edit your information',
-                    style: TextStyle(
-                        fontSize: 20.0
-                    )),
-              ),
-              const SizedBox(height: 30),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 20),
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage(
-                        "assets/images/empty_profile_picture.jpg"),
-                  ),
-                  SizedBox(width: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/edit_profile');
-                    },
-                    child: const Text("UPLOAD NEW PICTURE"),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(width: 10),
-                  buildNameSpace('Edit first name', _firstName, context),
-                  SizedBox(width: 10),
-                  buildNameSpace('Edit last name', _lastName, context),
-                  SizedBox(width: 10),
-                ],
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                children: <Widget>[
-                  buildRadio(Gender.male),
-                  Text(
-                      "Male"
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  buildRadio(Gender.female),
-                  Text(
-                      "Female"
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  buildRadio(Gender.other),
-                  Text(
-                      "Other"
-                  ),
-                ],
-              ),
-              Container(
-                padding: EdgeInsets.all(12),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
+      body: Center(
+        child: SingleChildScrollView(
+        child: Form(
+          key: _key,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                  child: Text('Edit your information',
+                      style: TextStyle(
+                          fontSize: 20.0
+                      )),
+                ),
+                const SizedBox(height: 30),
+                Row(
+                  children: <Widget>[
+                    SizedBox(width: 20),
+                    CircleAvatar(
+                      radius: 50,
+                      backgroundImage: AssetImage(
+                          "assets/images/empty_profile_picture.jpg"),
                     ),
-                    labelText: "Edit your bio",
+                    SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/edit_profile');
+                      },
+                      child: const Text("UPLOAD NEW PICTURE"),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+                  children: <Widget>[
+                    SizedBox(width: 10),
+                    buildNameSpace('Edit first name', _firstName, context),
+                    SizedBox(width: 10),
+                    buildNameSpace('Edit last name', _lastName, context),
+                    SizedBox(width: 10),
+                  ],
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+                  children: <Widget>[
+                    buildRadio(Gender.male),
+                    Text(
+                        "Male"
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    buildRadio(Gender.female),
+                    Text(
+                        "Female"
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    buildRadio(Gender.other),
+                    Text(
+                        "Other"
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.all(12),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      labelText: "Edit your bio",
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: RelationshipStatus(),
-                    ),
-                  ]
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/edit_profile');
-                },
-                child: const Text("CHANGE YOUR PASSWORD"),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/feed');
-                },
-                child: const Text("SAVE NEW INFORMATION"),
-              ),
-            ]
+                Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Expanded(
+                        child: RelationshipStatus(),
+                      ),
+                    ]
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/edit_profile');
+                  },
+                  child: const Text("CHANGE YOUR PASSWORD"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/feed');
+                  },
+                  child: const Text("SAVE NEW INFORMATION"),
+                ),
+              ]
+          ),
+        ),
         ),
       ),
     );

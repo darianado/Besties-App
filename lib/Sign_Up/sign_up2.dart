@@ -81,21 +81,21 @@ class _SignUp2State extends State<SignUp2> {
                 Row(
                   children: <Widget>[
                     buildIcon(Icons.account_balance_outlined, Colors.black),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     buildNameSpace('First name', _firstName, context),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     buildNameSpace('Last name', _lastName, context),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
                 Row(
 
                   children: [
                     buildIcon(Icons.cake_outlined, Colors.black),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     // SizedBox(
                     //   width: 20.0,
                     // ),
@@ -107,7 +107,7 @@ class _SignUp2State extends State<SignUp2> {
                               ? 'Select date of birth'
                               : "${selectedDate.toLocal()}".split(' ')[0],
                           style:
-                          TextStyle(
+                          const TextStyle(
                               color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                         color: Theme
@@ -116,18 +116,18 @@ class _SignUp2State extends State<SignUp2> {
                             .primary,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10.0,
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
                 Row(
                   children: <Widget>[
                     buildIcon(Icons.transgender_outlined, Colors.black),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     genderOptions(Gender.male),
                     genderOptions(Gender.female),
                     genderOptions(Gender.other),
@@ -159,7 +159,7 @@ class _SignUp2State extends State<SignUp2> {
             ? kActiveCardColor
             : kInactiveCardColor,
         cardChild: IconContent(
-          icon: Icon(Icons.lock),
+          icon: const Icon(Icons.lock),
           label: genderLabel(gender),
         ),
         onPress: () {

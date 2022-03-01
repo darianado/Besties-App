@@ -33,21 +33,21 @@ class _NavBarState extends State<NavBar> {
       ),
     ];
 
-    // Updates the navbar's icon index and TODO: navigates to the new page
+    // Updates the navbar's icon index navigates to the new page
     void _handleIconTap(int index) {
       setState(() {
         widget.currentIndex = index;
       });
 
       switch (widget.currentIndex) {
-        case (Constants.profileIconIndex):
+        case (kProfileIconIndex):
           // Redirect to profile page
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Profile_Page()),
           );
           break;
-        case (Constants.chatIconIndex):
+        case (kChatIconIndex):
           // Redirect to chat page
           Navigator.push(
             context,

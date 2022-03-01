@@ -1,6 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import '../widgets.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:project_seg/authenticator.dart';
+import 'package:project_seg/alerts.dart';
+
+
 
 class SignUp1 extends StatefulWidget {
   @override
@@ -9,12 +15,30 @@ class SignUp1 extends StatefulWidget {
 }
 
 class _SignUp1State extends State<SignUp1> {
-  final GlobalKey _key = GlobalKey<FormState>();
+  final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
+  
+ 
 
   bool isEmail(String input) => EmailValidator.validate(input);
+
+   _createAccount(String email, String password) async {
+      final status = await FirebaseAuthHelper().createAccount( email: email, pass: password);
+      if (status == AuthResultStatus.successful) {
+        // Navigate to page
+        Navigator.pushNamed(context, '/first');
+    
+        
+        } else {
+        final errorMsg = AuthExceptionHandler.generateExceptionMessage(
+            status);
+        showAlert(context, errorMsg);
+      }
+  }
+
+
 
   @override
   void dispose() {
@@ -24,6 +48,13 @@ class _SignUp1State extends State<SignUp1> {
     _confirmPassword.dispose();
   }
 
+
+  
+
+
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,10 +63,11 @@ class _SignUp1State extends State<SignUp1> {
         title: const Center(child: Text('Create your account')),
       ),
 
+
       body: Center(
         child: SingleChildScrollView(
         child: Form (
-          key: _key,
+          key: _formKey,
         //  autovalidate: true,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -98,11 +130,20 @@ class _SignUp1State extends State<SignUp1> {
 
                   ),
                 ),
-                const SizedBox(),
-                buildNext(_key, context, '/signup2')
-              ]
-          ),
-        ),
+
+              ),
+              const SizedBox(),
+              ElevatedButton(
+                  onPressed: (){
+                    
+                    if(((_formKey.currentState as FormState).validate()) == true) {
+                      _createAccount(_email.text, _password.text); 
+                    }
+                  }, 
+                  child: Text(" NEXT")
+              )
+            ]
+
         ),
       ),
     );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 const kBottomContainerHeight = 80.0;
@@ -7,6 +6,15 @@ const kInactiveCardColor = Color(0xFF111328);
 const kActiveSliderColor = Color(0xFFEB1555);
 const kInactiveSliderColor = Color(0xFF8D8E98);
 const kBottomContainerColor = Color(0xFFEB1555);
+
+// Constants that identify each page's icon index in the navbar.
+const int kProfileIconIndex = 0;
+const int kFeedIconIndex = 1;
+const int kChatIconIndex = 2;
+
+// Constants for the font scaling of the profile containers.
+const double kProfileNameFontSize = 30;
+const double kProfileLocationFontSize = 20;
 
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
@@ -42,17 +50,3 @@ const kBMITextStyle = TextStyle(
 const kBodyTextStyle = TextStyle(
   fontSize: 22.0,
 );
-
-// Use this class for all the constants.
-
-class Constants {
-// Constants that identify each page's icon index in the navbar.
-  static const int profileIconIndex = 0;
-  static const int feedIconIndex = 1;
-  static const int chatIconIndex = 2;
-
-  // Constants for the font scaling of the profile containers.
-  static const double profileNameFontSize = 30;
-  static const double profileLocationFontSize = 20;
-}
-

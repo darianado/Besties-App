@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/authenticator.dart';
 import 'nav_bar.dart';
 import 'profile_container.dart';
+import 'profile_class.dart';
 import 'constants.dart';
+import 'package:project_seg/alerts.dart';
 
-// This method generates n containers to fill the PageView
-void fillContainers(List<ProfileContainer> containers) {
-  for (int i = 0; i < 5; i++) {
-    containers.add(ProfileContainer());
+
+class Feed extends StatefulWidget {
+  @override
+  State<Feed> createState() => _FeedState();
+}
+
+class _FeedState extends State<Feed> {
+  final List<ProfileContainer> containers = [
+    ProfileContainer(profile: Profile(seed: 0)),
+    ProfileContainer(profile: Profile(seed: 1)),
+    ProfileContainer(profile: Profile(seed: 2)),
+    ProfileContainer(profile: Profile(seed: 3)),
+    ProfileContainer(profile: Profile(seed: 4)),
+  ];
+
+  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
+
+ _logoutAccount() async {
+    final status = await _auth.logOut();
+    if (status == null) {
+      Navigator.pushNamed(context, '/landing');
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      showAlert(context, errorMsg);
+    }
   }
-}
-
-// For now only shows an AlertDialog
-void likeProfile(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text("You liked this profile!"),
-        actions: [
-          TextButton(
-            child: const Text("Dismiss"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-class Feed extends StatelessWidget {
-  final List<ProfileContainer> containers = [];
   @override
   Widget build(BuildContext context) {
-    fillContainers(containers);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Feed'),
@@ -43,6 +41,14 @@ class Feed extends StatelessWidget {
           color: Colors.blue,
         ),
         backgroundColor: Colors.white,
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Log out"),
+            onPressed: () async {
+              _logoutAccount(); 
+            },
+          )
+        ],
       ),
       body: Stack(
         alignment: AlignmentDirectional.bottomEnd,
@@ -51,23 +57,10 @@ class Feed extends StatelessWidget {
             scrollDirection: Axis.vertical,
             children: containers,
           ),
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: FloatingActionButton(
-              onPressed: () {
-                likeProfile(context);
-              },
-              backgroundColor: Colors.white,
-              child: const Icon(
-                Icons.thumb_up_off_alt_rounded,
-                color: Colors.blue,
-              ),
-            ),
-          )
         ],
       ),
       bottomNavigationBar: NavBar(
-        currentIndex: Constants.feedIconIndex,
+        currentIndex: kFeedIconIndex,
       ),
     );
   }

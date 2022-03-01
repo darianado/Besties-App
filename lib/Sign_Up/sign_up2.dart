@@ -1,10 +1,10 @@
 
 import 'package:flutter/material.dart';
-import 'widgets.dart';
+import '../widgets.dart';
 import 'package:project_seg/reusableCard.dart';
-import 'constants.dart';
-import 'iconContent.dart';
-import 'gender_implementation.dart';
+import '../constants.dart';
+import '../iconContent.dart';
+import '../gender_implementation.dart';
 
 
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'widgets.dart';
+import '../widgets.dart';
 
 class SignUp1 extends StatefulWidget {
   @override

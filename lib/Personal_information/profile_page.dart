@@ -16,8 +16,8 @@ class _Profile_PageState extends State<Profile_Page> {
         title: const Text('Your Profile'),
       ),
 
-      body:
-      Form (
+      body: SingleChildScrollView(
+      child: Form (
         child: Center(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -100,6 +100,7 @@ class _Profile_PageState extends State<Profile_Page> {
               ]
           ),
         ),
+      ),
       ),
     );
   }

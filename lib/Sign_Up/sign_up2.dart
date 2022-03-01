@@ -58,6 +58,9 @@ class _SignUp2State extends State<SignUp2> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: const Text('Sign Up'),
+        leading: const BackButton(
+          color: Colors.white,
+        ),
       ),
 
       body:

@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'widgets.dart';
-import 'gender_implementation.dart';
+import '../widgets.dart';
+import '../gender_implementation.dart';
 
 
 

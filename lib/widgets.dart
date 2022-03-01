@@ -1,4 +1,4 @@
-import 'edit_preferences.dart';
+import 'Personal_information/edit_preferences.dart';
 import 'package:flutter/material.dart';
 
 

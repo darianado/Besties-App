@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/landingPage.dart';
-import 'package:project_seg/profile_page.dart';
-import 'sign_up1.dart';
-import 'sign_up2.dart';
-import 'sign_up3.dart';
-import 'sign_up4.dart';
+import 'package:project_seg/Personal_information/profile_page.dart';
+import 'Sign_Up/sign_up1.dart';
+import 'Sign_Up/sign_up2.dart';
+import 'Sign_Up/sign_up3.dart';
+import 'Sign_Up/sign_up4.dart';
 import 'landingPage.dart';
 import 'log_in.dart';
 import 'feed.dart';
-import 'profile_page.dart';
-import 'edit_profile.dart';
-import 'edit_preferences.dart';
+import 'Personal_information/profile_page.dart';
+import 'Personal_information/edit_profile.dart';
+import 'Personal_information/edit_preferences.dart';
 
 
 void main() => runApp(MyApp());
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/profile_page',
+      initialRoute: '/feed',
       routes: {
         '/landing': (context) => LandingPage(),
         '/signup1': (context) => SignUp1(),

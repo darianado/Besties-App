@@ -63,7 +63,7 @@ class _SignUp1State extends State<SignUp1> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
                       ),
-                      icon: new Icon(Icons.lock),
+                      icon: const Icon(Icons.lock),
                       labelText: 'Password',
                     ),
                           validator: (value) {
@@ -84,7 +84,7 @@ class _SignUp1State extends State<SignUp1> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        icon: new Icon(Icons.lock),
+                        icon: const Icon(Icons.lock),
                         labelText: 'Confirm password:'),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -98,7 +98,7 @@ class _SignUp1State extends State<SignUp1> {
 
                   ),
                 ),
-                SizedBox(),
+                const SizedBox(),
                 buildNext(_key, context, '/signup2')
               ]
           ),

@@ -50,7 +50,7 @@ class _LandingPageState extends State<LandingPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text('LOGO'),
-                const SizedBox(height: 450),
+                SizedBox.fromSize(size: Size.fromHeight(0.5 * screenHeight)),
                 SizedBox(
                   width: 0.85 * screenWidth,
                   height: 0.08 * screenHeight,

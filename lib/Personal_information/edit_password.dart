@@ -31,9 +31,9 @@ class _Edit_PasswordState extends State<Edit_Password> {
     _confirmNewPassword.dispose();
   }
 
-  _changePassword(String password) async {
-    final status = await _auth.changePassword(pass: password);
-    if (status == null) {
+  _changePassword(String currentPassword, String newPassword) async {
+    final status = await _auth.changePassword(currentPass : currentPassword, newPass: newPassword);
+    if (status == AuthResultStatus.successful) {
       Navigator.pushNamed(context, '/landing');
     } else {
       final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
@@ -129,7 +129,7 @@ class _Edit_PasswordState extends State<Edit_Password> {
                       ElevatedButton(
                           onPressed: (){
                             if(((_formKey.currentState as FormState).validate()) == true) {
-                               _changePassword(_newPassword.text);
+                               _changePassword(_oldPassword.text,_newPassword.text);
                             }
                           },
                           child: Text(" CHANGE YOUR PASSWORD"),

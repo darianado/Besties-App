@@ -14,7 +14,7 @@ enum AuthResultStatus {
   operationNotAllowed,
   tooManyRequests,
   undefined,
-  weakPassword
+  weakPassword,
 }
 
 class AuthExceptionHandler {
@@ -79,7 +79,7 @@ class AuthExceptionHandler {
         break;
       case AuthResultStatus.weakPassword:
         errorMessage = "The password must be 6 characters long or more.";
-        break;
+        break;        
       default:
         errorMessage = "An undefined Error happened.";
     }
@@ -135,22 +135,55 @@ class FirebaseAuthHelper {
     return _status;
   }
 
-   Future changePassword({pass}) async {
-    
+   Future changePassword({currentPass,newPass}) async {
 
-    // var credential = EmailAuthProvider.credential(
-    //   firebase.auth().currentUser.email,
-    //   providedPassword
-    // );
-      try {
-        return await  _auth.currentUser!.updatePassword(pass);
+    AuthResultStatus _status = await validatePassword(currentPass);
+    if (_status==AuthResultStatus.successful){
+        try {
+         await  _auth.currentUser!.updatePassword(newPass);
         } on FirebaseAuthException catch (e) {
       _status = AuthExceptionHandler.handleException(e);
      }
-    return _status;
+     return _status;
+    }
+
+   else {
+     _status = AuthResultStatus.wrongPassword; //password doesnt match
+     return _status;
+   }
+
   }
   
 
+   Future validatePassword(String password) async {
+      var _user =  _auth.currentUser;
+      var email = getUserEmail(_user!.email);
+      var userCredentials = EmailAuthProvider.credential(email: email, password: password);
+    try {
+      var reauthenticatedCredentials = await _user.reauthenticateWithCredential(userCredentials);
+
+      if (_user.email== reauthenticatedCredentials.user!.email) { 
+        _status = AuthResultStatus.successful;
+      }
+    }
+     on FirebaseAuthException catch (e) {
+      _status = AuthExceptionHandler.handleException(e);
+    }
+    return _status ; 
+  }
+
+
+
+String getUserEmail(String? email){ //get user email from firebase ensuring its non null
+  if (email ==null){
+    return'';
+  }
+
+  else {
+    return email;
+  } 
+  
+}
   
   getUser() {
     return _user;

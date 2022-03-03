@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:flutter/services.dart';
 import 'package:project_seg/alerts.dart';
 import 'package:project_seg/authenticator.dart';
 
@@ -31,8 +32,10 @@ class _LogInState extends State<LogIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
+    return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topRight,
@@ -43,78 +46,104 @@ class _LogInState extends State<LogIn> {
             Color(0xFF041731),
             Color(0xFF026689),
             Color(0xFF00CFFF),
-            
           ],
         )),
         child: Scaffold(
-        backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.purple,
-            title: const Text('Log In'),
-          ),
-          body: Center(
-            child: SingleChildScrollView(
-            child: Form(
-            key: _formKey,
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                    child: TextFormField(
-                      controller: _email,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                          icon: const Icon(Icons.email,color: Colors.white,),
-                          labelText: 'Email address:'),
-                      validator: (value) =>
-                          !isEmail(_email.text) ? "Invalid Email" : null,
-                      textInputAction: TextInputAction.next,
-                    ),
+            backgroundColor: Colors.transparent,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(
+                  0.1 * screenHeight), // here the desired height
+              child: AppBar(
+                  backgroundColor: Colors.transparent,
+                  systemOverlayStyle: const SystemUiOverlayStyle(
+                    statusBarColor: Colors.transparent,
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                    child: TextFormField(
-                      controller: _password,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                  title: const Text(
+                    'BESTIES',
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                  centerTitle: true,
+                  automaticallyImplyLeading: false),
+            ),
+            body: Center(
+                child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15, left: 10, right: 10),
+                        child: TextFormField(
+                          controller: _email,
+                          decoration: const InputDecoration(
+                              border: UnderlineInputBorder(),
+                              icon: Icon(
+                                Icons.email,
+                                color: Colors.white,
+                              ),
+                              labelText: 'Email address'),
+                          validator: (value) =>
+                              !isEmail(_email.text) ? "Invalid Email" : null,
+                          textInputAction: TextInputAction.next,
                         ),
-                        icon: new Icon(Icons.lock,color: Colors.white,),
-                        labelText: 'Password',
                       ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter some text';
-                        }
-                        return null;
-                      },
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        if (((_formKey.currentState as FormState).validate()) ==
-                            true) {
-                          _loginAccount(_email.text, _password.text);
-                        }
-                      },
-                      child: Text("Log In")),
-                  TextButton(
-                    child: Text('New here? Sign up now'),
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/');
-                    },
-                  ),
-                ]),
-          ),
-        ))));
-
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            bottom: 15, left: 10, right: 10),
+                        child: TextFormField(
+                          controller: _password,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(
+                              Icons.lock,
+                              color: Colors.white,
+                            ),
+                            labelText: 'Password',
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          textInputAction: TextInputAction.next,
+                        ),
+                      ),
+                      SizedBox(
+                          width: 0.85 * screenWidth,
+                          height: 0.08 * screenHeight,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (((_formKey.currentState as FormState)
+                                      .validate()) ==
+                                  true) {
+                                _loginAccount(_email.text, _password.text);
+                              }
+                            },
+                            child: const Text("Log In"),
+                            style: ElevatedButton.styleFrom(
+                                primary: Color(0xFFFEFCFB),
+                                onPrimary: Color(0xFF041731),
+                                fixedSize: const Size(300, 100),
+                                shadowColor: Color(0xFF041731),
+                                elevation: 12,
+                                textStyle: const TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                          )),
+                      TextButton(
+                        child: Text('New here? Sign up now'),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/');
+                        },
+                      ),
+                    ]),
+              ),
+            ))));
   }
 }

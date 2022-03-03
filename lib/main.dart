@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/Personal_information/edit_password.dart';
 import 'package:project_seg/Personal_information/edit_preferences.dart';
 import 'package:project_seg/Personal_information/edit_profile.dart';
 import 'package:project_seg/Personal_information/profile_page.dart';
@@ -43,7 +44,9 @@ class MyApp extends StatelessWidget {
           '/login' : (context) => LogIn(),
           '/profile_page' : (context) => ProfilePage(),
           '/edit_profile' : (context) => EditProfile(),
-          '/edit_preferences' : (context) => EditPreferences(),
+          '/edit_preferences' : (context) => EditPrefrences(),
+          '/edit_password' : (context) => Edit_Password(),
+
         },
       )
 

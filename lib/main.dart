@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           '/login' : (context) => LogIn(),
           '/profile_page' : (context) => ProfilePage(),
           '/edit_profile' : (context) => EditProfile(),
-          '/edit_preferences' : (context) => EditPrefrences(),
+          '/edit_preferences' : (context) => EditPreferences(),
           '/edit_password' : (context) => Edit_Password(),
 
         },

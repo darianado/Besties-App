@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import '../widgets.dart';
-import 'package:project_seg/reusableCard.dart';
+import 'package:project_seg/reusable_card.dart';
 import '../constants.dart';
-import '../iconContent.dart';
+import '../icon_content.dart';
 import '../gender_implementation.dart';
 
 

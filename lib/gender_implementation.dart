@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'constants.dart';
-import 'iconContent.dart';
+import 'icon_content.dart';
 import 'widgets.dart';
-import 'reusableCard.dart';
+import 'reusable_card.dart';
 
 enum Gender {
   male,

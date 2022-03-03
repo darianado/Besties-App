@@ -40,10 +40,10 @@ class MyApp extends StatelessWidget {
           '/signup3': (context) => SignUp3(),
           '/signup4': (context) => SignUp4(),
           '/feed': (context) => Feed(),
-          '/login' : (context) => Log_In(),
-          '/profile_page' : (context) => Profile_Page(),
+          '/login' : (context) => LogIn(),
+          '/profile_page' : (context) => ProfilePage(),
           '/edit_profile' : (context) => EditProfile(),
-          '/edit_preferences' : (context) => EditPrefrences(),
+          '/edit_preferences' : (context) => EditPreferences(),
         },
       )
 

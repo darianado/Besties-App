@@ -3,14 +3,14 @@ import 'package:email_validator/email_validator.dart';
 import 'package:project_seg/alerts.dart';
 import 'package:project_seg/authenticator.dart';
 
-class Log_In extends StatefulWidget {
-  const Log_In({Key? key}) : super(key: key);
+class LogIn extends StatefulWidget {
+  const LogIn({Key? key}) : super(key: key);
 
   @override
-  _Log_InState createState() => _Log_InState();
+  _LogInState createState() => _LogInState();
 }
 
-class _Log_InState extends State<Log_In> {
+class _LogInState extends State<LogIn> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_seg/models/my_user.dart';
 
+
 //ios testing still required
 
 enum AuthResultStatus {
@@ -134,6 +135,23 @@ class FirebaseAuthHelper {
     return _status;
   }
 
+   Future changePassword({pass}) async {
+    
+
+    // var credential = EmailAuthProvider.credential(
+    //   firebase.auth().currentUser.email,
+    //   providedPassword
+    // );
+      try {
+        return await  _auth.currentUser!.updatePassword(pass);
+        } on FirebaseAuthException catch (e) {
+      _status = AuthExceptionHandler.handleException(e);
+     }
+    return _status;
+  }
+  
+
+  
   getUser() {
     return _user;
   }

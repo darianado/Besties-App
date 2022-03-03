@@ -25,7 +25,7 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget { 
   @override
   Widget build(BuildContext context) {
 
@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           '/login' : (context) => LogIn(),
           '/profile_page' : (context) => ProfilePage(),
           '/edit_profile' : (context) => EditProfile(),
-          '/edit_preferences' : (context) => EditPrefrences(),
+          '/edit_preferences' : (context) => EditPreferences(),
           '/edit_password' : (context) => Edit_Password(),
 
         },

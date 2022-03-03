@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'widgets.dart';
 
 class LandingPage extends StatefulWidget {
@@ -10,38 +11,86 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
-        title: const Text('Sign Up'),
-      ),
-      body:
-         Center(
-           child: Column(
-              mainAxisAlignment: MainAxisAlignment.center ,
+
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        stops: [0.1, 0.2, 1],
+        colors: [
+          // Color(0xFF827081),
+          Color(0xFF00CFFF),
+          Color(0xFF01B3E0),
+          Color(0xFF041731),
+        ],
+      )),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: PreferredSize(
+          preferredSize:Size.fromHeight(0.1 * screenHeight) , // here the desired height
+          child:AppBar(
+          backgroundColor:  Colors.black45,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent, 
+          ),
+          title: const Text(
+            'BESTIES',
+            style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+            ),
+          centerTitle: true,
+          automaticallyImplyLeading: false
+        ),),
+        body: Center(
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget> [
-                Text(
-                    'LOGO'
-                ),
-                const SizedBox(height: 150),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/feed');
-                  },
-                  child: const Text(" LOG IN"),
+              children: <Widget>[
+                Text('LOGO'),
+                const SizedBox(height: 450),
+                SizedBox(
+                  width: 0.85 * screenWidth,
+                  height: 0.08 * screenHeight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                    child: const Text(" LOG IN"),
+                    style: ElevatedButton.styleFrom(
+                        primary: Color(0xFF0083A1),
+                        fixedSize: const Size(300, 100),
+                        shadowColor: Color(0xFF041731),
+                        elevation: 12,
+                        textStyle: const TextStyle(fontSize: 20),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50))),
+                  ),
                 ),
                 const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, '/signup1');
+                 SizedBox(
+                  width: 0.85 * screenWidth,
+                  height: 0.08 * screenHeight,
+                  child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
                   },
                   child: const Text("SIGN UP"),
-                ),
-              ]
+                  style: ElevatedButton.styleFrom(
+                      primary: Color(0xFFFEFCFB),
+                      onPrimary: Color(0xFF041731),
+                      fixedSize: const Size(300, 100),
+                      shadowColor: Color(0xFF041731),
+                      elevation: 12,
+                      textStyle: const TextStyle(fontSize: 20),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50))),
+                 )),
+              ]),
+        ),
       ),
-         ),
     );
   }
 }
-

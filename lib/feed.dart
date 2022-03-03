@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/authenticator.dart';
 import 'nav_bar.dart';
 import 'profile_container.dart';
 import 'profile_class.dart';
 import 'constants.dart';
+import 'package:project_seg/alerts.dart';
 
-class Feed extends StatelessWidget {
+
+class Feed extends StatefulWidget {
+  @override
+  State<Feed> createState() => _FeedState();
+}
+
+class _FeedState extends State<Feed> {
   final List<ProfileContainer> containers = [
     ProfileContainer(profile: Profile(seed: 0)),
     ProfileContainer(profile: Profile(seed: 1)),
@@ -13,6 +21,17 @@ class Feed extends StatelessWidget {
     ProfileContainer(profile: Profile(seed: 4)),
   ];
 
+  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
+
+ _logoutAccount() async {
+    final status = await _auth.logOut();
+    if (status == null) {
+      Navigator.pushNamed(context, '/landing');
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      showAlert(context, errorMsg);
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +41,14 @@ class Feed extends StatelessWidget {
           color: Colors.blue,
         ),
         backgroundColor: Colors.white,
+        actions: <Widget>[
+          TextButton(
+            child: const Text("Log out"),
+            onPressed: () async {
+              _logoutAccount(); 
+            },
+          )
+        ],
       ),
       body: Stack(
         alignment: AlignmentDirectional.bottomEnd,

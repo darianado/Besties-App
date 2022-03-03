@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'sign_up1.dart';
 
 class SignUp4 extends StatelessWidget {
   @override
@@ -7,7 +8,11 @@ class SignUp4 extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Text('Screen 4'),
+        leading: const BackButton(
+          color: Colors.white,
+        ),
       ),
+
       body: Center(
         child: ElevatedButton(
           child: Text('Go Back To Screen 3'),

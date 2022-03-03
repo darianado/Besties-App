@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/sign_up1.dart';
+import 'package:project_seg/Personal_information/profile_page.dart';
+import 'package:project_seg/Sign_Up/sign_up1.dart';
 
 class NavBar extends StatefulWidget {
   int currentIndex;
@@ -43,7 +44,7 @@ class _NavBarState extends State<NavBar> {
           // Redirect to profile page
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SignUp1()),
+            MaterialPageRoute(builder: (context) => Profile_Page()),
           );
           break;
         case (kChatIconIndex):

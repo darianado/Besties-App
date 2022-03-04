@@ -96,6 +96,9 @@ class _Edit_PasswordState extends State<Edit_Password> {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
                             }
+                            if(value == _oldPassword.text){
+                              return "Please enter a different password to old one.";
+                            }
                             return null;
                           },
                           textInputAction: TextInputAction.next,

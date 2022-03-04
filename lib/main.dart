@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         // Define the default brightness and colors.
         brightness: Brightness.light,
         scaffoldBackgroundColor: const Color(0xFFFEFCFB),
-        primaryColor: Color(0xFF0083A1),
+        primaryColor: Color(0xFF041731),
         fontFamily: 'Georgia',
         textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),

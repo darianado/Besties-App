@@ -1,3 +1,4 @@
+
 import 'Personal_information/edit_preferences.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,6 @@ class _RelationshipStatusState extends State<RelationshipStatus> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100.0,
       child: DropdownButtonHideUnderline(
         child: ButtonTheme(
           alignedDropdown: true,
@@ -141,14 +141,33 @@ Icon buildIcon( IconData iconInput, Color colorInput) {
   );
 }
 
-ElevatedButton buildNext(GlobalKey key, BuildContext context, String nextPage) {
-  return ElevatedButton(
-    onPressed: () {
-      if (((key.currentState as FormState).validate()) == true) {
-        Navigator.pushNamed(context, nextPage);
-      }
-    },
-    child: const Text(" NEXT"),
+SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
+  
+  double screenWidth = MediaQuery.of(context).size.width;
+  double screenHeight = MediaQuery.of(context).size.height;
+  
+  return SizedBox(
+    width: 0.80 * screenWidth,
+    height: 0.07 * screenHeight,
+    child: ElevatedButton(
+      style: ElevatedButton.styleFrom(
+                                primary: const Color(0xFF041731),
+                                onPrimary: const Color(0xFFFEFCFB),
+                                fixedSize: const Size(300, 100),
+                                shadowColor: const Color(0xFF041731),
+                                elevation: 12,
+                                textStyle: const TextStyle(
+                                    fontSize: 25, fontWeight: FontWeight.bold),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50))),
+                         
+      onPressed: () {
+        if (((key.currentState as FormState).validate()) == true) {
+          Navigator.pushNamed(context, nextPage);
+        }
+      },
+      child: const Text(" NEXT"),
+    ),
   );
 }
 

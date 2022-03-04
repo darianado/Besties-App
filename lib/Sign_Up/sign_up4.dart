@@ -40,7 +40,14 @@ class SignUp4 extends StatelessWidget {
 }
 
 enum Cat {
-  SELF_CARE, FOOD, SOCIAL_ACTIVITIES
+  SELF_CARE,
+  FOOD,
+  SOCIAL_ACTIVITIES,
+  SCIENCEandTECHNOLOGY,
+  GAMES,
+  SPORTS,
+  ARTandLITERATURE,
+  POPULARCULTURE
 }
 
 class Category {
@@ -79,6 +86,49 @@ class _InterestStatusState extends State<InterestStatus> {
     Category(id: Cat.SELF_CARE, name: "Skin Routine"),
   ];
 
+  static List<Category> _scienceAndTechnology = [
+    Category(id: Cat.SCIENCEandTECHNOLOGY, name: "Science and Technology"),
+  ];
+
+  static List<Category> _games = [
+    Category(id: Cat.GAMES, name: "Video games"),
+    Category(id: Cat.GAMES, name: "Carts"),
+    Category(id: Cat.GAMES, name: "Board games"),
+    Category(id: Cat.GAMES, name: "Card games"),
+    Category(id: Cat.GAMES, name: "Poker"),
+  ];
+
+  static List<Category> _sports = [
+    Category(id: Cat.SPORTS, name: "Outdoor activities"),
+    Category(id: Cat.SPORTS, name: "Hiking"),
+    Category(id: Cat.SPORTS, name: "Swimming"),
+    Category(id: Cat.SPORTS, name: "Football"),
+    Category(id: Cat.SPORTS, name: "Gym"),
+    Category(id: Cat.SPORTS, name: "Tennis"),
+    Category(id: Cat.SPORTS, name: "Volleyball"),
+    Category(id: Cat.SPORTS, name: "Rugby"),
+  ];
+
+  static List<Category> _art_and_literature = [
+    Category(id: Cat.ARTandLITERATURE, name: "Drawing"),
+    Category(id: Cat.ARTandLITERATURE, name: "Painting"),
+    Category(id: Cat.ARTandLITERATURE, name: "Poetry"),
+    Category(id: Cat.ARTandLITERATURE, name: "Novels"),
+    Category(id: Cat.ARTandLITERATURE, name: "Photography"),
+    Category(id: Cat.ARTandLITERATURE, name: "Theatre"),
+    Category(id: Cat.ARTandLITERATURE, name: "Opera"),
+    Category(id: Cat.ARTandLITERATURE, name: "Musicals"),
+    Category(id: Cat.ARTandLITERATURE, name: "Classical music"),
+    Category(id: Cat.ARTandLITERATURE, name: "Jazz"),
+  ];
+
+  static List<Category> _popularCulture = [
+    Category(id: Cat.GAMES, name: "Movies"),
+    Category(id: Cat.GAMES, name: "TV Series"),
+    Category(id: Cat.GAMES, name: "Reality shows"),
+    Category(id: Cat.GAMES, name: "Music"),
+  ];
+
 
 
   final _itemsSocialActivities = _socialActivities
@@ -96,8 +146,33 @@ class _InterestStatusState extends State<InterestStatus> {
       .toList();
   List<Category> _selectedSelfCare = [];
 
+  final _itemsScienceAndTechnology = _scienceAndTechnology
+      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
+      .toList();
+  List<Category> _selectedScienceAndTechnology = [];
 
-  String dropdownValue = 'Select your first interest';
+  final _itemGames = _games
+      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
+      .toList();
+  List<Category> _selectedGames = [];
+
+  final _itemSports = _sports
+      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
+      .toList();
+  List<Category> _selectedSports = [];
+
+  final _itemArtAndLiterature = _art_and_literature
+      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
+      .toList();
+  List<Category> _selectedArtAndLiterature = [];
+
+  final _itemPopularCulture = _popularCulture
+      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
+      .toList();
+  List<Category> _selectedPopularCulture = [];
+
+
+  String dropdownValue = 'Select your  interests';
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -106,7 +181,6 @@ class _InterestStatusState extends State<InterestStatus> {
         title: Text(dropdownValue),
         children: <Widget>[
           buildMultiSelectBottomSheetField("socialActivities", _itemsSocialActivities, _selectedSocialActivities),
-
 
           buildMultiSelectBottomSheetField("Food", _itemsFood, _selectedFood),
 
@@ -121,6 +195,11 @@ class _InterestStatusState extends State<InterestStatus> {
               ))
               : Container(),
 
+          buildMultiSelectBottomSheetField("Science and Technology", _itemsScienceAndTechnology, _selectedScienceAndTechnology),
+          buildMultiSelectBottomSheetField("Games", _itemGames, _selectedGames),
+          buildMultiSelectBottomSheetField("Sport", _itemSports, _selectedSports),
+          buildMultiSelectBottomSheetField("Art&Literature", _itemArtAndLiterature, _selectedArtAndLiterature),
+          buildMultiSelectBottomSheetField("Sport", _itemPopularCulture, _selectedPopularCulture),
         ],
       ),
       ),
@@ -147,6 +226,22 @@ class _InterestStatusState extends State<InterestStatus> {
         case Cat.SOCIAL_ACTIVITIES:
           _selectedSocialActivities = values as List<Category>;
           break;
+        case Cat.SCIENCEandTECHNOLOGY:
+          _selectedScienceAndTechnology = values as List<Category>;
+          break;
+        case Cat.GAMES:
+          _selectedGames = values as List<Category>;
+          break;
+        case Cat.SPORTS:
+          _selectedSports = values as List<Category>;
+          break;
+        case Cat.ARTandLITERATURE:
+          _selectedArtAndLiterature = values as List<Category>;
+          break;
+        case Cat.POPULARCULTURE:
+          _selectedPopularCulture = values as List<Category>;
+          break;
+
       }
     });
         },
@@ -162,6 +257,21 @@ class _InterestStatusState extends State<InterestStatus> {
                   break;
                 case Cat.SOCIAL_ACTIVITIES:
                   _selectedSocialActivities.remove(value);
+                  break;
+                case Cat.SCIENCEandTECHNOLOGY:
+                  _selectedScienceAndTechnology.remove(value);
+                  break;
+                case Cat.GAMES:
+                  _selectedGames.remove(value);
+                  break;
+                case Cat.SPORTS:
+                  _selectedSports.remove(value);
+                  break;
+                case Cat.ARTandLITERATURE:
+                  _selectedArtAndLiterature.remove(value);
+                  break;
+                case Cat.POPULARCULTURE:
+                  _selectedPopularCulture.remove(value);
                   break;
               }
             });

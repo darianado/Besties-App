@@ -67,7 +67,7 @@ class _SignUp1State extends State<SignUp1> {
           Color(0xFFE2F9FE),
           Color(0xFFD8F8FF),
         ],
-    )),
+        )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(

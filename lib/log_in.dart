@@ -54,7 +54,6 @@ class _LogInState extends State<LogIn> {
           ],
         )),
         child: Scaffold(
-            extendBodyBehindAppBar: true,
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(

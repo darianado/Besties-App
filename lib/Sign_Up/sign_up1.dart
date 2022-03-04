@@ -69,7 +69,6 @@ class _SignUp1State extends State<SignUp1> {
         ],
     )),
         child: Scaffold(
-            extendBodyBehindAppBar: true,
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(0.1 * screenHeight),  // here the desired height
@@ -81,7 +80,7 @@ class _SignUp1State extends State<SignUp1> {
                   ),
                   title: const Text(
                     'BESTIES',
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold,color: Color(0xFF0083A1),),
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),

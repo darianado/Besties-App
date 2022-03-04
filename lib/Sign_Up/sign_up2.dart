@@ -56,7 +56,6 @@ class _SignUp2State extends State<SignUp2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
         title: const Text('Sign Up'),
         leading: const BackButton(
           color: Colors.white,

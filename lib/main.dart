@@ -29,10 +29,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
     return StreamProvider<MyUser?>.value(
       value: FirebaseAuthHelper().user,
       initialData: null,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primaryTextTheme: const TextTheme(
+            bodyText1: TextStyle(),
+            bodyText2: TextStyle(),
+          ).apply(
+            bodyColor: Colors.orange,
+            displayColor: Colors.red,
+          ),
+        // Define the default brightness and colors.
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: const Color(0xFFFEFCFB),
+        primaryColor: Color(0xFF0083A1),
+        fontFamily: 'Georgia',
+        textTheme: const TextTheme(
+          headline1: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+          headline6: TextStyle(fontSize: 25.0, fontStyle: FontStyle.italic),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+        ),
+      ),
         initialRoute: '/landing',
         routes: {
           '/landing': (context) => Wrapper(),

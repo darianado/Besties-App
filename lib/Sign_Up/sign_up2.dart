@@ -55,7 +55,9 @@ class _SignUp2State extends State<SignUp2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Sign Up'),
         leading: const BackButton(
           color: Colors.white,

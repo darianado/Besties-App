@@ -54,11 +54,13 @@ class _LogInState extends State<LogIn> {
           ],
         )),
         child: Scaffold(
+            extendBodyBehindAppBar: true,
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(
                   0.1 * screenHeight), // here the desired height
               child: AppBar(
+                 elevation: 0,
                   backgroundColor: Colors.transparent,
                   systemOverlayStyle: const SystemUiOverlayStyle(
                     statusBarColor: Colors.transparent,

@@ -29,11 +29,14 @@ class _LandingPageState extends State<LandingPage> {
         ],
       )),
       child: Scaffold(
+        extendBodyBehindAppBar: true,
         backgroundColor: Colors.transparent,
         appBar: PreferredSize(
           preferredSize:Size.fromHeight(0.1 * screenHeight) , // here the desired height
           child:AppBar(
-          backgroundColor:  Colors.black45,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          // backgroundColor:  Colors.black45,
           systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent, 
           ),

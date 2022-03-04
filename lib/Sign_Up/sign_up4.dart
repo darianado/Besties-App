@@ -5,7 +5,9 @@ class SignUp4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        elevation: 0,
         title: Text('Screen 4'),
         leading: const BackButton(
           color: Colors.white,

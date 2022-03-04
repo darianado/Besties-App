@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/dropdown/gf_dropdown.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
-import 'package:multi_select_flutter/chip_field/multi_select_chip_field.dart';
-import 'package:multi_select_flutter/dialog/multi_select_dialog_field.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'sign_up1.dart';
 
 
 
@@ -22,6 +18,7 @@ class SignUp4 extends StatelessWidget {
         ),
       ),
       body: Center(
+        child: SingleChildScrollView(
         child: Column(
           children: [
             const SizedBox(height: 30),
@@ -34,6 +31,7 @@ class SignUp4 extends StatelessWidget {
                 ]),
           ],
         ),
+      ),
       ),
     );
   }

@@ -35,7 +35,7 @@ class _LandingPageState extends State<LandingPage> {
           child:AppBar(
           backgroundColor:  Colors.black45,
           systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent, 
+          statusBarColor: Colors.transparent, 
           ),
           title: const Text(
             'BESTIES',
@@ -49,8 +49,8 @@ class _LandingPageState extends State<LandingPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Text('LOGO'),
-                const SizedBox(height: 450),
+                const Text('LOGO'),
+                SizedBox.fromSize(size: Size.fromHeight(0.5 * screenHeight)),
                 SizedBox(
                   width: 0.85 * screenWidth,
                   height: 0.08 * screenHeight,
@@ -64,7 +64,7 @@ class _LandingPageState extends State<LandingPage> {
                         fixedSize: const Size(300, 100),
                         shadowColor: Color(0xFF041731),
                         elevation: 12,
-                        textStyle: const TextStyle(fontSize: 20),
+                        textStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),
                   ),
@@ -84,7 +84,7 @@ class _LandingPageState extends State<LandingPage> {
                       fixedSize: const Size(300, 100),
                       shadowColor: Color(0xFF041731),
                       elevation: 12,
-                      textStyle: const TextStyle(fontSize: 20),
+                      textStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50))),
                  )),

@@ -126,7 +126,7 @@ class _EditProfileState extends State<EditProfile> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/edit_profile');
+                    Navigator.pushNamed(context, '/edit_password');
                   },
                   child: const Text("CHANGE YOUR PASSWORD"),
                 ),

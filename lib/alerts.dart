@@ -20,3 +20,22 @@ import 'package:flutter/material.dart';
       },
     );
   }
+
+     void showEmailAlert(BuildContext context, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(message),
+          actions: [
+            TextButton(
+              child: const Text("Back to Home Page"),
+              onPressed: () {
+                Navigator.pushNamed(context, '/landing');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }

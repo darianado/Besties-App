@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:project_seg/authenticator.dart';
+import 'package:project_seg/alerts.dart';
 
 class recoverPassword extends StatefulWidget {
   const recoverPassword({Key? key}) : super(key: key);
@@ -11,8 +13,20 @@ class recoverPassword extends StatefulWidget {
 class _recoverPasswordState extends State<recoverPassword> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
+   final FirebaseAuthHelper _auth = FirebaseAuthHelper();
 
   bool isEmail(String input) => EmailValidator.validate(input);
+
+
+  _sendEmailVerification(String email) async {
+    final status = await _auth.resetPassword(email);
+    if (status == null) {
+      showEmailAlert(context, 'Please check your email for a password reset link');
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      showEmailAlert(context, errorMsg);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +67,10 @@ class _recoverPasswordState extends State<recoverPassword> {
         ),
                   ElevatedButton(
                     onPressed: (){
+                     if (((_formKey.currentState as FormState) .validate()) ==true) {
+                         _sendEmailVerification(_email.text);
+                     }                      
+                      
                     },
                     child: const Text("Continue"),
                   ),

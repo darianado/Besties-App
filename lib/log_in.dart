@@ -126,7 +126,7 @@ class _LogInState extends State<LogIn> {
                                     style: TextStyle(fontSize: 12, color: Color(0xFFFEFCFB))
                                 ),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushNamed(context, '/recover_password');
                                 },
                               ),
                             ),

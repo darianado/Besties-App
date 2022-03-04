@@ -196,7 +196,15 @@ String getUserEmail(String? email){ //get user email from firebase ensuring its 
       _status = AuthExceptionHandler.handleException(e);
     }
   }
-  // logout() {
-  //   _auth.signOut();
-  // }
+
+   Future resetPassword(String email) async {
+    try {
+      return await _auth.sendPasswordResetEmail(email: email);
+    }
+    on FirebaseAuthException catch (e){
+       _status = AuthExceptionHandler.handleException(e);
+       return _status;
+
+    }
+}
 }

@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:project_seg/authenticator.dart';
 import 'package:project_seg/alerts.dart';
 
@@ -49,107 +50,139 @@ class _SignUp1State extends State<SignUp1> {
   }
 
 
-  
-
-
-
-  
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Center(child: Text('Create your account')),
-      ),
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
 
-
-      body: Center(
-        child: SingleChildScrollView(
-        child: Form (
-          key: _formKey,
-        //  autovalidate: true,
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget> [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                  child: TextFormField(
-                    controller: _email,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        icon: const Icon(Icons.email),
-                        labelText: 'Email address:'),
-                      validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
-                    textInputAction: TextInputAction.next,
+    return Container(
+        decoration: const BoxDecoration(
+        gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        stops: [0.4, 0.8, 1],
+        colors: [
+          Color(0xFFFEFCFB),
+          Color(0xFFE2F9FE),
+          Color(0xFFD8F8FF),
+        ],
+    )),
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(0.1 * screenHeight), // here the desired height
+              child: AppBar(
+                  backgroundColor: Colors.transparent,
+                  systemOverlayStyle: const SystemUiOverlayStyle(
+                    statusBarColor: Colors.transparent,
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                  child: TextFormField(
-                    controller: _password,
-                    obscureText: true,
-                    decoration:  InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
+                  title: const Text(
+                    'BESTIES',
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                  ),
+                  centerTitle: true,
+                  automaticallyImplyLeading: false),
+            ),
+
+        body: Center(
+          child: SingleChildScrollView(
+            child: Form (
+              key: _formKey,
+            //  autovalidate: true,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget> [
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(22.0, 35.0, 22.0, 35.0),
+                      child: Text(
+                        'Sign up',
+                        style: TextStyle(fontSize: 35, color: Color(0xFF004376), fontWeight: FontWeight.bold),
                       ),
-                      icon: const Icon(Icons.lock),
-                      labelText: 'Password',
                     ),
-                          validator: (value) {
-                           if (value == null || value.isEmpty) {
-                            return 'Please enter some text';
-                            }
-                            return null;
-                       },
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                  child: TextFormField(
-                    controller: _confirmPassword,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 5.0),
+                      child: TextFormField(
+                        controller: _email,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(
+                              Icons.email,
+                              color: Color(0xFF004376)
+                            ),
+                            labelText: 'Email address:'),
+                          validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
+                        textInputAction: TextInputAction.next,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 5.0),
+                      child: TextFormField(
+                        controller: _password,
+                        obscureText: true,
+                        decoration:  const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          icon: Icon(
+                            Icons.lock,
+                            color: Color(0xFF004376),
+                          ),
+                          labelText: 'Password',
                         ),
-                        icon: const Icon(Icons.lock),
-                        labelText: 'Confirm password:'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      if( value != _password.text){
-                        return "Please type the same password";
-                      }
-                      return null;
-                    },
+                              validator: (value) {
+                               if (value == null || value.isEmpty) {
+                                return 'Please enter some text';
+                                }
+                                return null;
+                           },
+                        textInputAction: TextInputAction.next,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 5.0),
+                      child: TextFormField(
+                        controller: _confirmPassword,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(
+                              Icons.lock,
+                              color: Color(0xFF004376),
+                            ),
+                            labelText: 'Confirm password:'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          if( value != _password.text){
+                            return "Please type the same password";
+                          }
+                          return null;
+                        },
 
+                      ),
+                    ),
+
+                  const SizedBox(),
+                  ElevatedButton(
+                      onPressed: (){
+
+                        if(((_formKey.currentState as FormState).validate()) == true) {
+                          _createAccount(_email.text, _password.text);
+                        }
+                      },
+                      child: Text(" NEXT"),
                   ),
-                ),
 
-              const SizedBox(),
-              ElevatedButton(
-                  onPressed: (){
-                    
-                    if(((_formKey.currentState as FormState).validate()) == true) {
-                      _createAccount(_email.text, _password.text); 
-                    }
-                  }, 
-                  child: Text(" NEXT"),
-              ),
-          
-          ]
-        ),
-      ),
-    )
-    )
+              ]
+            ),
+          ),
+      )
+      )
     
     
     
-    );
+    ));
 
 
 

@@ -40,9 +40,8 @@ class _LogInState extends State<LogIn> {
             gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
-          stops: [0.5, 0.6, 1],
+          stops: [0.4, 0.8, 1],
           colors: [
-            // Color(0xFF827081),
             Color(0xFF041731),
             Color(0xFF026689),
             Color(0xFF00CFFF),
@@ -51,8 +50,7 @@ class _LogInState extends State<LogIn> {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(
-                  0.1 * screenHeight), // here the desired height
+              preferredSize: Size.fromHeight(0.1 * screenHeight), // here the desired height
               child: AppBar(
                   backgroundColor: Colors.transparent,
                   systemOverlayStyle: const SystemUiOverlayStyle(
@@ -74,7 +72,7 @@ class _LogInState extends State<LogIn> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           const Padding(
-                            padding: const EdgeInsets.fromLTRB(22.0, 35.0, 22.0, 35.0),
+                            padding: EdgeInsets.fromLTRB(22.0, 35.0, 22.0, 35.0),
                             child: Text(
                               'Log in',
                               style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
@@ -88,7 +86,7 @@ class _LogInState extends State<LogIn> {
                                   border: UnderlineInputBorder(),
                                   icon: Icon(
                                     Icons.email,
-                                    color: Colors.white,
+                                    color: Color(0xFFFEFCFB),
                                   ),
                                   labelText: 'Email address'),
                               validator: (value) =>
@@ -97,7 +95,7 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 40.0),
+                            padding: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 2.0),
                             child: TextFormField(
                               controller: _password,
                               obscureText: true,
@@ -105,7 +103,7 @@ class _LogInState extends State<LogIn> {
                                 border: UnderlineInputBorder(),
                                 icon: Icon(
                                   Icons.lock,
-                                  color: Colors.white,
+                                  color: Color(0xFFFEFCFB),
                                 ),
                                 labelText: 'Password',
                               ),
@@ -116,6 +114,21 @@ class _LogInState extends State<LogIn> {
                                 return null;
                               },
                               textInputAction: TextInputAction.next,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 25.0, bottom: 40.0),
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: TextButton(
+                                child: const Text(
+                                    'Forget password?',
+                                    style: TextStyle(fontSize: 12, color: Color(0xFFFEFCFB))
+                                ),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/');
+                                },
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -131,10 +144,10 @@ class _LogInState extends State<LogIn> {
                                 },
                                 child: const Text("Log In"),
                                 style: ElevatedButton.styleFrom(
-                                    primary: Color(0xFFFEFCFB),
-                                    onPrimary: Color(0xFF041731),
+                                    primary: const Color(0xFFFEFCFB),
+                                    onPrimary: const Color(0xFF041731),
                                     fixedSize: const Size(300, 100),
-                                    shadowColor: Color(0xFF041731),
+                                    shadowColor: const Color(0xFF041731),
                                     elevation: 12,
                                     textStyle: const TextStyle(
                                         fontSize: 25, fontWeight: FontWeight.bold),
@@ -142,12 +155,12 @@ class _LogInState extends State<LogIn> {
                                         borderRadius: BorderRadius.circular(50))),
                               )),
                           Container(
-                            padding: const EdgeInsets.fromLTRB(35.0, 35.0, 35.0, 35.0),
+                            padding: const EdgeInsets.all(35.0),
                             child: Row(
                               children: <Widget>[
                                 const Expanded(
                                   flex: 2,
-                                  child: Text('Don’t have an account with us?',),
+                                  child: Text('New here? Sign up now?',),
                                 ),
                                 Expanded(
                                   flex: 1,
@@ -158,7 +171,7 @@ class _LogInState extends State<LogIn> {
                                     style: OutlinedButton.styleFrom(
                                       primary: const Color(0xFFFEFCFB),
                                       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                      side: BorderSide(color: Color(0xFFFEFCFB), width: 1),
+                                      side: const BorderSide(color: Color(0xFFFEFCFB), width: 1.5),
                                     ),
                                     child: const Text("Sign up", style: TextStyle(color: Color(0xFFFEFCFB))),
                                   ),

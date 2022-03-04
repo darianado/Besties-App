@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
       value: FirebaseAuthHelper().user,
       initialData: null,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primaryTextTheme: const TextTheme(
             bodyText1: TextStyle(),
@@ -42,8 +43,8 @@ class MyApp extends StatelessWidget {
             displayColor: Colors.red,
           ),
         // Define the default brightness and colors.
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.white,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: const Color(0xFFFEFCFB),
         primaryColor: Color(0xFF0083A1),
         fontFamily: 'Georgia',
         textTheme: const TextTheme(

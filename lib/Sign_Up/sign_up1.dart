@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
@@ -71,7 +71,7 @@ class _SignUp1State extends State<SignUp1> {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(0.1 * screenHeight), // here the desired height
+              preferredSize: Size.fromHeight(0.1 * screenHeight),  // here the desired height
               child: AppBar(
                   backgroundColor: Colors.transparent,
                   systemOverlayStyle: const SystemUiOverlayStyle(

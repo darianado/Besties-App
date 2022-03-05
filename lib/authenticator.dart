@@ -82,7 +82,7 @@ class AuthExceptionHandler {
         errorMessage = "The password must be 6 characters long or more.";
         break;  
       case AuthResultStatus.emailNotVerified:
-        errorMessage = "Please verify your email in order to login";
+        errorMessage = "A verification email has been sent to this account, please verify your email in order to login";
         break;         
       default:
         errorMessage = "An undefined Error happened.";

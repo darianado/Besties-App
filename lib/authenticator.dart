@@ -96,7 +96,6 @@ class FirebaseAuthHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _status;
   var _user;
-  bool _verifiedUser = false ; //boolean storing if a verified user is accessing the app
 
   //create user obj based on firebase user
   MyUser? _userFromFirebaseUser(User? user) {
@@ -131,7 +130,6 @@ class FirebaseAuthHelper {
       final authResult =  await _auth.signInWithEmailAndPassword(email: email, password: pass);
 
       if (authResult.user!.emailVerified){  //creates user object only if  their email is verified
-        _verifiedUser=true ; 
         _user=_userFromFirebaseUser(authResult.user); 
       }
 

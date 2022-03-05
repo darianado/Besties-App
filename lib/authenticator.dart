@@ -96,6 +96,7 @@ class FirebaseAuthHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _status;
   var _user;
+  bool _verifiedUser = false ; //boolean storing if a verified user is accessing the app
 
   //create user obj based on firebase user
   MyUser? _userFromFirebaseUser(User? user) {
@@ -129,7 +130,8 @@ class FirebaseAuthHelper {
     try {
       final authResult =  await _auth.signInWithEmailAndPassword(email: email, password: pass);
 
-      if (authResult.user!.emailVerified){   //creates user object only if  their email is verified
+      if (authResult.user!.emailVerified){  //creates user object only if  their email is verified
+        _verifiedUser=true ; 
         _user=_userFromFirebaseUser(authResult.user); 
       }
 
@@ -170,7 +172,7 @@ class FirebaseAuthHelper {
 
    Future validatePassword(String password) async {
       var _currentUser =  _auth.currentUser;
-      var email = getUserEmail(_currentUser!.email);
+      var email = nullSafeUserEmail(_currentUser!.email);
       var userCredentials = EmailAuthProvider.credential(email: email, password: password);
     try {
       var reauthenticatedCredentials = await _currentUser.reauthenticateWithCredential(userCredentials);
@@ -187,7 +189,7 @@ class FirebaseAuthHelper {
 
 
 
-String getUserEmail(String? email){ //get user email from firebase ensuring its non null
+String nullSafeUserEmail(String? email){ //get user email from firebase ensuring its non null
   if (email ==null){
     return'';
   }
@@ -211,6 +213,7 @@ String getUserEmail(String? email){ //get user email from firebase ensuring its 
   }
 
    Future resetPassword(String email) async {
+    //TO DO check if user with that email is verified before sending password reset
     try {
       return await _auth.sendPasswordResetEmail(email: email);
     }
@@ -221,14 +224,5 @@ String getUserEmail(String? email){ //get user email from firebase ensuring its 
     }
 }
 
-   Future verifyEmail(String email) async {
-    try {
-      return await _auth.sendPasswordResetEmail(email: email);
-    }
-    on FirebaseAuthException catch (e){
-       _status = AuthExceptionHandler.handleException(e);
-       return _status;
 
-    }
-}
 }

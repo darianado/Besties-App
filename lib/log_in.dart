@@ -139,7 +139,7 @@ class _LogInState extends State<LogIn> {
                                 style: TextStyle(
                                     fontSize: 12, color: Color(0xFFFEFCFB))),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/');
+                              Navigator.pushNamed(context, '/recover_password');
                             },
                           ),
                         ),
@@ -181,7 +181,7 @@ class _LogInState extends State<LogIn> {
                               flex: 1,
                               child: OutlinedButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/recover_password');
+                                  Navigator.pushNamed(context, '/');
                                 },
                                 style: OutlinedButton.styleFrom(
                                   primary: const Color(0xFFFEFCFB),

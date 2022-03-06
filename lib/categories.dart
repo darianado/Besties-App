@@ -135,7 +135,7 @@ class _InterestStatusState extends State<InterestStatus> {
   List<Category> _selectedPopularCulture = [];
 
 
-  String dropdownValue = 'Select your  interests';
+  String dropdownValue = 'Select your interests';
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -143,12 +143,15 @@ class _InterestStatusState extends State<InterestStatus> {
         child: ExpansionTile(
           title: Text(dropdownValue),
           children: <Widget>[
-            buildMultiSelectBottomSheetField("socialActivities", _itemsSocialActivities, _selectedSocialActivities),
-
+            buildMultiSelectBottomSheetField("Social activities", _itemsSocialActivities, _selectedSocialActivities),
             buildMultiSelectBottomSheetField("Food", _itemsFood, _selectedFood),
-
             buildMultiSelectBottomSheetField("Self care", _itemsSelfCare, _selectedSelfCare),
-            _selectedSelfCare == null || _selectedSelfCare.isEmpty
+            buildMultiSelectBottomSheetField("Science and Technology", _itemsScienceAndTechnology, _selectedScienceAndTechnology),
+            buildMultiSelectBottomSheetField("Games", _itemGames, _selectedGames),
+            buildMultiSelectBottomSheetField("Sport", _itemSports, _selectedSports),
+            buildMultiSelectBottomSheetField("Art&Literature", _itemArtAndLiterature, _selectedArtAndLiterature),
+            buildMultiSelectBottomSheetField("Popular culture", _itemPopularCulture, _selectedPopularCulture),
+            _selectedPopularCulture == null || _selectedPopularCulture.isEmpty
                 ? Container(
                 padding: EdgeInsets.all(10),
                 alignment: Alignment.centerLeft,
@@ -157,12 +160,6 @@ class _InterestStatusState extends State<InterestStatus> {
                   style: TextStyle(color: Colors.black54),
                 ))
                 : Container(),
-
-            buildMultiSelectBottomSheetField("Science and Technology", _itemsScienceAndTechnology, _selectedScienceAndTechnology),
-            buildMultiSelectBottomSheetField("Games", _itemGames, _selectedGames),
-            buildMultiSelectBottomSheetField("Sport", _itemSports, _selectedSports),
-            buildMultiSelectBottomSheetField("Art&Literature", _itemArtAndLiterature, _selectedArtAndLiterature),
-            buildMultiSelectBottomSheetField("Sport", _itemPopularCulture, _selectedPopularCulture),
           ],
         ),
       ),

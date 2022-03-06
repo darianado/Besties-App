@@ -134,6 +134,9 @@ class _InterestStatusState extends State<InterestStatus> {
       .toList();
   List<Category> _selectedPopularCulture = [];
 
+  List<Category> _selectedItems = [];
+
+
 
   String dropdownValue = 'Select your interests';
   @override
@@ -160,6 +163,7 @@ class _InterestStatusState extends State<InterestStatus> {
                   style: TextStyle(color: Colors.black54),
                 ))
                 : Container(),
+
           ],
         ),
       ),
@@ -234,9 +238,15 @@ class _InterestStatusState extends State<InterestStatus> {
                   _selectedPopularCulture.remove(value);
                   break;
               }
+
+              _selectedItems = [_selectedSocialActivities, _selectedFood, _selectedSelfCare, _selectedScienceAndTechnology, _selectedGames, _selectedSports, _selectedArtAndLiterature, _selectedPopularCulture].
+              expand((x) => x).toList();
+
+              print(_selectedItems);
             });
           },
         )
+
     );
   }
 }

@@ -7,6 +7,13 @@ const kActiveSliderColor = Color(0xFFEB1555);
 const kInactiveSliderColor = Color(0xFF8D8E98);
 const kBottomContainerColor = Color(0xFFEB1555);
 
+// colour scheme for the app
+const kPrimaryColour = Color(0xFF0A1128);
+const kSecondaryColour = Color(0xFF001F54);
+const kTertiaryColour = Color(0xFF034078);
+const kLightBlue = Color(0xFF1282A2);
+const kWhiteColour = Color(0xFFFEFCFB);
+
 // Constants that identify each page's icon index in the navbar.
 const int kProfileIconIndex = 0;
 const int kFeedIconIndex = 1;
@@ -14,7 +21,7 @@ const int kChatIconIndex = 2;
 
 // Constants for the font scaling of the profile containers.
 const double kProfileNameFontSize = 30;
-const double kProfileLocationFontSize = 20;
+const double kProfileLocationFontSize = 18;
 
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,

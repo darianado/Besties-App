@@ -27,8 +27,8 @@ class _NavBarState extends State<NavBar> {
         label: 'home',
       ),
       BottomNavigationBarItem(
-        icon: Icon(Icons.chat_bubble_outline_rounded),
-        activeIcon: Icon(Icons.chat_bubble_rounded),
+        icon: Icon(Icons.textsms_outlined),
+        activeIcon: Icon(Icons.textsms),
         label: 'chats',
       ),
     ];

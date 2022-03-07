@@ -6,7 +6,7 @@ class SignUp4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        elevation: 0,
         title: Text('Screen 4'),
         leading: const BackButton(
           color: Colors.white,

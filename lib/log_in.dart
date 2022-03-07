@@ -1,9 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:project_seg/alerts.dart';
 import 'package:project_seg/authenticator.dart';
+import 'package:project_seg/services/UserState.dart';
+import 'package:provider/provider.dart';
 import 'constants.dart';
+import 'package:go_router/go_router.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -13,28 +17,44 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+
+  bool isLoading = false;
 
   final FirebaseAuthHelper _auth = FirebaseAuthHelper();
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
-  _loginAccount(String email, String password) async {
-    final status = await _auth.login(email: email, pass: password);
-    if (status == AuthResultStatus.successful) {
-      Navigator.pushNamed(context, '/feed');
-    } else {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
-      showAlert(context, errorMsg);
+  void signIn(UserState userState) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      await userState.signIn(_email.text.trim(), _password.text.trim());
+    } on FirebaseAuthException catch (e) {
+      showAlert(context, e.message!);
     }
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    final _userState = Provider.of<UserState>(context);
+
+    void submitForm(GlobalKey<FormState> key) {
+      if (_formKey.currentState!.validate()) {
+        signIn(_userState);
+      }
+    }
 
     return Theme(
       data: ThemeData(
@@ -86,8 +106,7 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                30.0, 35.0, 30.0, 5.0),
+                            padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 5.0),
                             child: TextFormField(
                               controller: _email,
                               decoration: const InputDecoration(
@@ -99,15 +118,12 @@ class _LogInState extends State<LogIn> {
                                     color: kWhiteColour,
                                   ),
                                   labelText: 'Email address'),
-                              validator: (value) => !isEmail(_email.text)
-                                  ? "Invalid Email"
-                                  : null,
+                              validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
                               textInputAction: TextInputAction.next,
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 2.0),
+                            padding: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 2.0),
                             child: TextFormField(
                               controller: _password,
                               obscureText: true,
@@ -129,17 +145,13 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                right: 25.0, bottom: 40.0),
+                            padding: const EdgeInsets.only(right: 25.0, bottom: 40.0),
                             child: Align(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
-                                child: const Text('Forget password?',
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        color: kWhiteColour)),
+                                child: const Text('Forget password?', style: TextStyle(fontSize: 12, color: kWhiteColour)),
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/recover_password');
+                                  context.pushNamed("recover_password");
                                 },
                               ),
                             ),
@@ -148,26 +160,25 @@ class _LogInState extends State<LogIn> {
                               width: 0.85 * screenWidth,
                               height: 0.08 * screenHeight,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  if (((_formKey.currentState as FormState)
-                                          .validate()) ==
-                                      true) {
-                                    _loginAccount(_email.text, _password.text);
-                                  }
-                                },
-                                child: const Text("Log In"),
+                                onPressed: () => submitForm(_formKey),
+                                child: (isLoading)
+                                    ? SizedBox(
+                                        height: 30,
+                                        width: 30,
+                                        child: CircularProgressIndicator(
+                                          color: Colors.white,
+                                          strokeWidth: 3,
+                                        ),
+                                      )
+                                    : Text("Log In"),
                                 style: ElevatedButton.styleFrom(
                                     primary: kWhiteColour,
                                     onPrimary: kPrimaryColour,
                                     fixedSize: const Size(300, 100),
                                     shadowColor: kPrimaryColour,
                                     elevation: 12,
-                                    textStyle: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50))),
+                                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
                               )),
                           Container(
                             padding: const EdgeInsets.all(35.0),
@@ -182,20 +193,13 @@ class _LogInState extends State<LogIn> {
                                 Expanded(
                                   flex: 1,
                                   child: OutlinedButton(
-                                    onPressed: () {
-                                      Navigator.pushNamed(context, '/');
-                                    },
+                                    onPressed: () => context.pushNamed("register"),
                                     style: OutlinedButton.styleFrom(
                                       primary: kWhiteColour,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(30))),
-                                      side: const BorderSide(
-                                          color: kWhiteColour, width: 1.5),
+                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
+                                      side: const BorderSide(color: kWhiteColour, width: 1.5),
                                     ),
-                                    child: const Text("Sign up",
-                                        style: TextStyle(
-                                            color: kWhiteColour)),
+                                    child: const Text("Sign up", style: TextStyle(color: kWhiteColour)),
                                   ),
                                 ),
                               ],

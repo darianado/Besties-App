@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/categories.dart';
+import 'package:project_seg/services/FirestoreService.dart';
+import 'package:project_seg/services/UserState.dart';
+import 'package:provider/provider.dart';
 
-
-
-
-class SignUp4 extends StatelessWidget {
+class RegisterInterestsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+
+    void saveToFirestore() {
+      final FirestoreService _firestoreService = FirestoreService.instance;
+
+      _firestoreService.signUpUser(_userState.user!.user!.uid);
+    }
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -23,8 +31,8 @@ class SignUp4 extends StatelessWidget {
             children: [
               const SizedBox(height: 40),
               Text(
-                  "It is time to choose categories you are interested in.",
-                   textAlign: TextAlign.center,
+                "It is time to choose categories you are interested in.",
+                textAlign: TextAlign.center,
               ),
               Text(
                 "Please select at least one interest.",
@@ -35,21 +43,16 @@ class SignUp4 extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 50),
-              Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Expanded(
-                      child: InterestStatus(),
-                    ),
-                  ]
-              ),
+              Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+                Expanded(
+                  child: InterestStatus(),
+                ),
+              ]),
               const SizedBox(height: 50),
-                ElevatedButton(
-                   onPressed: (){
-                     Navigator.pushNamed(context, '/feed');
-                   },
-                   child: const Text("FINISH CREATING YOUR PROFILE"),
-          ),
+              ElevatedButton(
+                onPressed: () => saveToFirestore(),
+                child: const Text("FINISH CREATING YOUR PROFILE"),
+              ),
             ],
           ),
         ),
@@ -57,5 +60,3 @@ class SignUp4 extends StatelessWidget {
     );
   }
 }
-
-

@@ -72,7 +72,7 @@ class _SignUp2State extends State<SignUp2> {
             elevation: 0,
             backgroundColor: Colors.transparent,
             iconTheme: const IconThemeData(
-              color: Color(0xFF041731),
+              color: kSecondaryColour,
             ),
             systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarColor: Colors.transparent,
@@ -93,7 +93,7 @@ class _SignUp2State extends State<SignUp2> {
                           style: TextStyle(
                             fontSize: 29.0,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xFF041731),
+                            color: kSecondaryColour,
                           )),
                     ),
                     Padding(
@@ -104,7 +104,7 @@ class _SignUp2State extends State<SignUp2> {
                             border: UnderlineInputBorder(),
                             icon: Icon(
                               Icons.person,
-                              color: Color(0xFF041731),
+                              color: kSecondaryColour,
                             ),
                             labelText: 'First name'),
                         textInputAction: TextInputAction.next,
@@ -118,7 +118,7 @@ class _SignUp2State extends State<SignUp2> {
                             border: UnderlineInputBorder(),
                             icon: Icon(
                               Icons.person,
-                              color: Color(0xFF041731),
+                              color: kSecondaryColour,
                             ),
                             labelText: 'Last name'),
                         textInputAction: TextInputAction.next,
@@ -132,13 +132,13 @@ class _SignUp2State extends State<SignUp2> {
                               style: TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF041731),
+                                color: kSecondaryColour,
                               )),
                         ]),
                         Row(
                           children: [
                             buildIcon(
-                                Icons.cake_outlined, const Color(0xFF041731)),
+                                Icons.cake_outlined, kSecondaryColour),
                             const SizedBox(
                               width: 15,
                             ),
@@ -146,12 +146,12 @@ class _SignUp2State extends State<SignUp2> {
                               child: OutlinedButton(
                                 onPressed: () => _selectDate(context),
                                 style: OutlinedButton.styleFrom(
-                                  primary: const Color(0xFFFEFCFB),
+                                  primary: kWhiteColour,
                                   shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(30))),
                                   side: const BorderSide(
-                                      color: Color(0xFF041731), width: 1.5),
+                                      color: kSecondaryColour, width: 1.5),
                                 ),
                                 child: Text(
                                   dateChanged == false
@@ -159,7 +159,7 @@ class _SignUp2State extends State<SignUp2> {
                                       : "${selectedDate.toLocal()}"
                                           .split(' ')[0],
                                   style: const TextStyle(
-                                    color: Color(0xFF041731),
+                                    color: kSecondaryColour,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -177,13 +177,13 @@ class _SignUp2State extends State<SignUp2> {
                               style: TextStyle(
                                 fontSize: 20.0,
                                 fontWeight: FontWeight.bold,
-                                color: Color(0xFF041731),
+                                color: kSecondaryColour,
                               )),
                         ]),
                         Row(
                           children: [
                             buildIcon(Icons.transgender_outlined,
-                                const Color(0xFF041731)),
+                                kSecondaryColour),
                             const SizedBox(
                               width: 10,
                             ),

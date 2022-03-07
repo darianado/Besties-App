@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:project_seg/authenticator.dart';
 import 'package:project_seg/alerts.dart';
+import 'package:project_seg/constants.dart';
 
 
 
@@ -20,8 +21,8 @@ class _SignUp1State extends State<SignUp1> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _confirmPassword = TextEditingController();
-  
- 
+
+
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -30,8 +31,8 @@ class _SignUp1State extends State<SignUp1> {
       if (status == AuthResultStatus.successful) {
         // Navigate to page
         Navigator.pushNamed(context, '/first');
-    
-        
+
+
         } else {
         final errorMsg = AuthExceptionHandler.generateExceptionMessage(
             status);
@@ -63,7 +64,7 @@ class _SignUp1State extends State<SignUp1> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          Color(0xFFFEFCFB),
+          kWhiteColour,
           Color(0xFFE2F9FE),
           Color(0xFFD8F8FF),
         ],
@@ -99,7 +100,7 @@ class _SignUp1State extends State<SignUp1> {
                       padding: EdgeInsets.fromLTRB(22.0, 28.0, 22.0, 30.0),
                       child: Text(
                         'Sign up',
-                        style: TextStyle(fontSize: 35, color: Color(0xFF004376), fontWeight: FontWeight.bold),
+                        style: TextStyle(fontSize: 35, color: kTertiaryColour, fontWeight: FontWeight.bold),
                       ),
                     ),
                     Padding(
@@ -110,7 +111,7 @@ class _SignUp1State extends State<SignUp1> {
                             border: UnderlineInputBorder(),
                             icon: Icon(
                               Icons.email,
-                              color: Color(0xFF004376)
+                              color: kTertiaryColour
                             ),
                             labelText: 'Email address'),
                           validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
@@ -126,7 +127,7 @@ class _SignUp1State extends State<SignUp1> {
                           border: UnderlineInputBorder(),
                           icon: Icon(
                             Icons.lock,
-                            color: Color(0xFF004376),
+                            color: kTertiaryColour,
                           ),
                           labelText: 'Password',
                         ),
@@ -148,7 +149,7 @@ class _SignUp1State extends State<SignUp1> {
                             border: UnderlineInputBorder(),
                             icon: Icon(
                               Icons.lock,
-                              color: Color(0xFF004376),
+                              color: kTertiaryColour,
                             ),
                             labelText: 'Confirm password:'),
                         validator: (value) {
@@ -176,10 +177,10 @@ class _SignUp1State extends State<SignUp1> {
                           },
                           child: const Text("Next"),
                           style: ElevatedButton.styleFrom(
-                              primary: const Color(0xFF041731),
-                              onPrimary: const Color(0xFFFEFCFB),
+                              primary: kTertiaryColour,
+                              onPrimary: kWhiteColour,
                               fixedSize: const Size(300, 100),
-                              shadowColor: const Color(0xFF041731),
+                              shadowColor: kTertiaryColour,
                               elevation: 12,
                               textStyle: const TextStyle(
                                   fontSize: 25, fontWeight: FontWeight.bold),
@@ -216,15 +217,15 @@ class _SignUp1State extends State<SignUp1> {
                                 Navigator.pushNamed(context, '/login');
                               },
                               style: OutlinedButton.styleFrom(
-                                primary: const Color(0xFF041731),
+                                primary: kTertiaryColour,
                                 shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.all(
                                         Radius.circular(30))),
                                 side: const BorderSide(
-                                    color: Color(0xFF041731), width: 1.5),
+                                    color: kTertiaryColour, width: 1.5),
                               ),
                               child: const Text("Log in",
-                                  style: TextStyle(color: Color(0xFF041731))),
+                                  style: TextStyle(color: kTertiaryColour)),
                             ),
                           ),
                         ],

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/feed.dart';
-import 'package:project_seg/landingPage.dart';
+import 'package:project_seg/landing_page.dart';
 import 'package:project_seg/models/my_user.dart';
 import 'package:provider/provider.dart';
 

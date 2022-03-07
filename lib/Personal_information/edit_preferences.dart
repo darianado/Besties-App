@@ -5,13 +5,13 @@ import '../gender_implementation.dart';
 
 
 
-class EditPrefrences extends StatefulWidget {
+class EditPreferences extends StatefulWidget {
   @override
-  _EditPrefrencesState createState() => _EditPrefrencesState();
+  _EditPreferencesState createState() => _EditPreferencesState();
 
 }
 
-class _EditPrefrencesState extends State<EditPrefrences> {
+class _EditPreferencesState extends State<EditPreferences> {
 
   final GlobalKey _key = GlobalKey<FormState>();
   final TextEditingController _firstName = TextEditingController();

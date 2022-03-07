@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
 import '../widgets.dart';
-import 'package:project_seg/reusableCard.dart';
+import 'package:project_seg/reusable_card.dart';
 import '../constants.dart';
-import '../iconContent.dart';
+import '../icon_content.dart';
 import '../gender_implementation.dart';
 
 
@@ -56,7 +56,6 @@ class _SignUp2State extends State<SignUp2> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple,
         title: const Text('Sign Up'),
         leading: const BackButton(
           color: Colors.white,

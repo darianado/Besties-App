@@ -44,7 +44,7 @@ class _NavBarState extends State<NavBar> {
           // Redirect to profile page
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Profile_Page()),
+            MaterialPageRoute(builder: (context) => ProfilePage()),
           );
           break;
         case (kChatIconIndex):

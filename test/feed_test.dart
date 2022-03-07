@@ -67,14 +67,14 @@ void main() {
       expect(find.text(secondProfile.firstName), findsNothing);
     });
 
-    testWidgets('Test tapping profile name shows bottom page', (tester) async {
-      await tester.pumpWidget(createFeedPage());
+    // testWidgets('Test tapping profile name shows bottom page', (tester) async {
+    //   await tester.pumpWidget(createFeedPage());
 
-      expect(find.text(firstProfile.firstName), findsOneWidget);
-      expect(find.text(secondProfile.firstName), findsNothing);
+    //   expect(find.text(firstProfile.firstName), findsOneWidget);
+    //   expect(find.text(secondProfile.firstName), findsNothing);
 
-      await tester.tap(find.text(firstProfile.firstName));
-      expect(find.byKey(Key("Key")), findsOneWidget);
-    });
+    //   await tester.tap(find.text(firstProfile.firstName));
+    //   expect(find.byKey(Key("Key")), findsOneWidget);
+    // });
   });
 }

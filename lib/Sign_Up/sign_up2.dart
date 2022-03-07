@@ -22,20 +22,64 @@ class _SignUp2State extends State<SignUp2> {
   bool dateChanged = false;
   Gender selectedGender = Gender.other;
 
+
+  bool validAge(DateTime selectedDate)
+  {
+    return (DateTime.now().difference(selectedDate) > Duration(days: 5844));
+  }
+
+  showAlertDialog(BuildContext context) {
+
+    // set up the button
+    Widget okButton = TextButton(
+      child: Text("OK"),
+      onPressed: () { },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Age restriction"),
+      content: Text("You have to be over 16 to use this app"),
+      actions: [
+        ElevatedButton(
+          onPressed: (){
+            Navigator.pushNamed(context, '/first');
+          },
+          child: const Text("Go back to complete the profile"),
+        ),
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
   _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate, // Refer step 1
-      firstDate: DateTime(2000),
+      firstDate: DateTime(1950),
       lastDate: DateTime.now(),
     );
     if (picked != null && picked != selectedDate) {
-      dateChanged = true;
-      setState(() {
-        selectedDate = picked;
-      });
+      if(validAge(picked)){
+        dateChanged = true;
+        setState(() {
+          selectedDate = picked;
+        });
+      }
+      else{
+        showAlertDialog(context);
+      }
     }
   }
+
 
   @override
   void dispose() {
@@ -106,7 +150,15 @@ class _SignUp2State extends State<SignUp2> {
                               Icons.person,
                               color: kSecondaryColour,
                             ),
-                            labelText: 'First name'),
+                            labelText: 'First name'
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -120,7 +172,14 @@ class _SignUp2State extends State<SignUp2> {
                               Icons.person,
                               color: kSecondaryColour,
                             ),
-                            labelText: 'Last name'),
+                            labelText: 'Last name'
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -194,12 +253,6 @@ class _SignUp2State extends State<SignUp2> {
                         ),
                       ]),
                     ),
-
-
-
-
-
-
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
                       child: Column(children: <Widget>[

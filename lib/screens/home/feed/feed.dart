@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/services/UserState.dart';
 import 'package:provider/provider.dart';
 
-import 'profile_class.dart';
-import 'profile_container.dart';
+import '../../../models/profile_class.dart';
+import '../../../models/profile_container.dart';
 
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);

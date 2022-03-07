@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../../constants.dart';
 
 class IconContent extends StatelessWidget {
   final String label;
   final Icon icon;
 
-  IconContent({ required this.label, required this.icon});
+  IconContent({required this.label, required this.icon});
   @override
   Widget build(BuildContext context) {
     return Column(

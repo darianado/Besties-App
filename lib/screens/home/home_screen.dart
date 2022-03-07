@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:project_seg/Personal_information/profile_page.dart';
+import 'package:project_seg/screens/home/profile/profile_page.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/feed.dart';
+import 'package:project_seg/screens/home/feed/feed.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
-import 'package:project_seg/nav_bar.dart';
-import 'package:project_seg/profile_class.dart';
-import 'package:project_seg/profile_container.dart';
+import 'package:project_seg/screens/home/nav_bar.dart';
+import 'package:project_seg/models/profile_class.dart';
+import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/services/UserState.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/Personal_information/profile_page.dart';
-import 'package:project_seg/feed.dart';
-import 'package:project_seg/profile_class.dart';
+import 'package:project_seg/screens/home/feed/feed.dart';
+import 'package:project_seg/screens/home/profile/profile_page.dart';
 
 class MenuItemData {
   final String title;

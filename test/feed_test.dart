@@ -1,16 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/feed.dart';
-import 'package:project_seg/mock.dart';
-import 'package:project_seg/profile_class.dart';
+import 'package:project_seg/screens/home/feed/feed.dart';
+import 'package:project_seg/dalu_auth/mock.dart';
+import 'package:project_seg/models/profile_class.dart';
 
 Widget createFeedPage() => const MediaQuery(
       data: MediaQueryData(),
       child: MaterialApp(
         home: Feed(
-          //key: Key("Key"),
-        ),
+            //key: Key("Key"),
+            ),
       ),
     );
 
@@ -25,8 +25,7 @@ void main() {
   Profile firstProfile = Profile(seed: 0);
   Profile secondProfile = Profile(seed: 1);
   group('Feed Page widget tests', () {
-    testWidgets('Test profile container displays profile information',
-        (tester) async {
+    testWidgets('Test profile container displays profile information', (tester) async {
       await tester.pumpWidget(createFeedPage());
 
       expect(find.text(firstProfile.firstName), findsOneWidget);
@@ -40,8 +39,7 @@ void main() {
       expect(find.text(firstProfile.firstName), findsOneWidget);
       expect(find.text(secondProfile.firstName), findsNothing);
 
-      await tester.drag(
-          find.text(firstProfile.firstName), const Offset(0.0, -500.0));
+      await tester.drag(find.text(firstProfile.firstName), const Offset(0.0, -500.0));
       await tester.pumpAndSettle();
 
       expect(find.text(firstProfile.firstName), findsNothing);
@@ -54,15 +52,13 @@ void main() {
       expect(find.text(firstProfile.firstName), findsOneWidget);
       expect(find.text(secondProfile.firstName), findsNothing);
 
-      await tester.drag(
-          find.text(firstProfile.firstName), const Offset(0.0, -500.0));
+      await tester.drag(find.text(firstProfile.firstName), const Offset(0.0, -500.0));
       await tester.pumpAndSettle();
 
       expect(find.text(firstProfile.firstName), findsNothing);
       expect(find.text(secondProfile.firstName), findsOneWidget);
 
-      await tester.drag(
-          find.text(secondProfile.firstName), const Offset(0.0, 500.0));
+      await tester.drag(find.text(secondProfile.firstName), const Offset(0.0, 500.0));
       await tester.pumpAndSettle();
 
       expect(find.text(firstProfile.firstName), findsOneWidget);

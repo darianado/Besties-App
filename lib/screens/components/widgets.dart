@@ -1,7 +1,4 @@
-
-import 'Personal_information/edit_preferences.dart';
 import 'package:flutter/material.dart';
-
 
 class RelationshipStatus extends StatefulWidget {
   @override
@@ -18,7 +15,8 @@ class _RelationshipStatusState extends State<RelationshipStatus> {
           alignedDropdown: true,
           child: DropdownButton(
             value: dropdownValue,
-            items: <String>['Select your relationship status',
+            items: <String>[
+              'Select your relationship status',
               'Single',
               'In a relationship',
               'In a situationship',
@@ -61,7 +59,8 @@ class _UniversityState extends State<University> {
           alignedDropdown: true,
           child: DropdownButton(
             value: dropdownValue,
-            items: <String>['Select university',
+            items: <String>[
+              'Select university',
               'Birkbeck, University of London',
               'Brunel University London',
               'City, University of London',
@@ -103,7 +102,7 @@ class _UniversityState extends State<University> {
   }
 }
 
-Expanded buildNameSpace(@required String spaceLabel, @required TextEditingController validator, BuildContext context ) {
+Expanded buildNameSpace(@required String spaceLabel, @required TextEditingController validator, BuildContext context) {
   return Expanded(
     child: GestureDetector(
       behavior: HitTestBehavior.opaque,
@@ -116,8 +115,7 @@ Expanded buildNameSpace(@required String spaceLabel, @required TextEditingContro
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            labelText: spaceLabel
-        ),
+            labelText: spaceLabel),
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'Please enter some text';
@@ -132,8 +130,7 @@ Expanded buildNameSpace(@required String spaceLabel, @required TextEditingContro
   );
 }
 
-
-Icon buildIcon( IconData iconInput, Color colorInput) {
+Icon buildIcon(IconData iconInput, Color colorInput) {
   return Icon(
     iconInput,
     color: colorInput,
@@ -142,25 +139,21 @@ Icon buildIcon( IconData iconInput, Color colorInput) {
 }
 
 SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
-  
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
-  
+
   return SizedBox(
     width: 0.80 * screenWidth,
     height: 0.07 * screenHeight,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
-                                primary: const Color(0xFF041731),
-                                onPrimary: const Color(0xFFFEFCFB),
-                                fixedSize: const Size(300, 100),
-                                shadowColor: const Color(0xFF041731),
-                                elevation: 12,
-                                textStyle: const TextStyle(
-                                    fontSize: 25, fontWeight: FontWeight.bold),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50))),
-                         
+          primary: const Color(0xFF041731),
+          onPrimary: const Color(0xFFFEFCFB),
+          fixedSize: const Size(300, 100),
+          shadowColor: const Color(0xFF041731),
+          elevation: 12,
+          textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
       onPressed: () {
         if (((key.currentState as FormState).validate()) == true) {
           Navigator.pushNamed(context, nextPage);
@@ -170,6 +163,3 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
     ),
   );
 }
-
-
-

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_seg/models/my_user.dart';
-
+import 'package:project_seg/dalu_auth/my_user.dart';
 
 //ios testing still required
 
@@ -75,15 +74,14 @@ class AuthExceptionHandler {
         errorMessage = "Signing in with Email and Password is not enabled.";
         break;
       case AuthResultStatus.emailAlreadyExists:
-        errorMessage =
-            "The email has already been registered. Please login or reset your password.";
+        errorMessage = "The email has already been registered. Please login or reset your password.";
         break;
       case AuthResultStatus.weakPassword:
         errorMessage = "The password must be 6 characters long or more.";
-        break;  
+        break;
       case AuthResultStatus.emailNotVerified:
         errorMessage = "A verification email has been sent to this account, please verify your email in order to login";
-        break;         
+        break;
       default:
         errorMessage = "An undefined Error happened.";
     }
@@ -108,8 +106,7 @@ class FirebaseAuthHelper {
 
   Future<AuthResultStatus> createAccount({email, pass}) async {
     try {
-      UserCredential authResult = await _auth.createUserWithEmailAndPassword(
-          email: email, password: pass);
+      UserCredential authResult = await _auth.createUserWithEmailAndPassword(email: email, password: pass);
       if (authResult.user != null) {
         authResult.user!.sendEmailVerification(null);
         logOut(); //call logout so that user is not redirected to feed until they  verify
@@ -123,17 +120,14 @@ class FirebaseAuthHelper {
     return _status;
   }
 
- 
-
   Future<AuthResultStatus> login({email, pass}) async {
     try {
-      final authResult =  await _auth.signInWithEmailAndPassword(email: email, password: pass);
+      final authResult = await _auth.signInWithEmailAndPassword(email: email, password: pass);
 
-      if (authResult.user!.emailVerified){  //creates user object only if  their email is verified
-        _user=_userFromFirebaseUser(authResult.user); 
-      }
-
-      else {
+      if (authResult.user!.emailVerified) {
+        //creates user object only if  their email is verified
+        _user = _userFromFirebaseUser(authResult.user);
+      } else {
         _user = _userFromFirebaseUser(null);
       }
 
@@ -148,56 +142,46 @@ class FirebaseAuthHelper {
     return _status;
   }
 
-   Future changePassword({currentPass,newPass}) async {
-
+  Future changePassword({currentPass, newPass}) async {
     AuthResultStatus _status = await validatePassword(currentPass);
-    if (_status==AuthResultStatus.successful){
-        try {
-         await  _auth.currentUser!.updatePassword(newPass);
-        } on FirebaseAuthException catch (e) {
-      _status = AuthExceptionHandler.handleException(e);
-     }
-     return _status;
+    if (_status == AuthResultStatus.successful) {
+      try {
+        await _auth.currentUser!.updatePassword(newPass);
+      } on FirebaseAuthException catch (e) {
+        _status = AuthExceptionHandler.handleException(e);
+      }
+      return _status;
+    } else {
+      _status = AuthResultStatus.wrongPassword; //password doesnt match
+      return _status;
     }
-
-   else {
-     _status = AuthResultStatus.wrongPassword; //password doesnt match
-     return _status;
-   }
-
   }
-  
 
-   Future validatePassword(String password) async {
-      var _currentUser =  _auth.currentUser;
-      var email = nullSafeUserEmail(_currentUser!.email);
-      var userCredentials = EmailAuthProvider.credential(email: email, password: password);
+  Future validatePassword(String password) async {
+    var _currentUser = _auth.currentUser;
+    var email = nullSafeUserEmail(_currentUser!.email);
+    var userCredentials = EmailAuthProvider.credential(email: email, password: password);
     try {
       var reauthenticatedCredentials = await _currentUser.reauthenticateWithCredential(userCredentials);
 
-      if (_currentUser.email== reauthenticatedCredentials.user!.email) { 
+      if (_currentUser.email == reauthenticatedCredentials.user!.email) {
         _status = AuthResultStatus.successful;
       }
-    }
-     on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       _status = AuthExceptionHandler.handleException(e);
     }
-    return _status ; 
+    return _status;
   }
 
-
-
-String nullSafeUserEmail(String? email){ //get user email from firebase ensuring its non null
-  if (email ==null){
-    return'';
+  String nullSafeUserEmail(String? email) {
+    //get user email from firebase ensuring its non null
+    if (email == null) {
+      return '';
+    } else {
+      return email;
+    }
   }
 
-  else {
-    return email;
-  } 
-  
-}
-  
   getUser() {
     return _user;
   }
@@ -210,17 +194,13 @@ String nullSafeUserEmail(String? email){ //get user email from firebase ensuring
     }
   }
 
-   Future resetPassword(String email) async {
+  Future resetPassword(String email) async {
     //TO DO check if user with that email is verified before sending password reset
     try {
       return await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      _status = AuthExceptionHandler.handleException(e);
+      return _status;
     }
-    on FirebaseAuthException catch (e){
-       _status = AuthExceptionHandler.handleException(e);
-       return _status;
-
-    }
-}
-
-
+  }
 }

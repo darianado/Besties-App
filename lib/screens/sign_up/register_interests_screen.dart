@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/categories.dart';
+import 'package:project_seg/models/categories.dart';
 import 'package:project_seg/services/FirestoreService.dart';
 import 'package:project_seg/services/UserState.dart';
 import 'package:provider/provider.dart';

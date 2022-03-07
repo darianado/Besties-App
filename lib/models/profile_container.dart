@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'profile_class.dart';
-import 'constants.dart';
+import '../constants.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
@@ -33,10 +33,7 @@ class ProfileContainer extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) =>
-                            CompleteProfileDetails(profile: profile));
+                    showModalBottomSheet(context: context, builder: (context) => CompleteProfileDetails(profile: profile));
                     // Scaffold.of(context)
                     //     .showBottomSheet((context) => CompleteProfileDetails(
                     //           profile: profile,
@@ -101,8 +98,7 @@ class LikeProfileButton extends StatelessWidget {
 class PartialProfileDetails extends StatelessWidget {
   final Profile profile;
 
-  const PartialProfileDetails({Key? key, required this.profile})
-      : super(key: key);
+  const PartialProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -138,25 +134,23 @@ class PartialProfileDetails extends StatelessWidget {
         // ),
         //   ],
         // ),
-        Row(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Icons.school_outlined,
-                color: kSecondaryColour,
-              ),
+        Row(children: [
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(
+              Icons.school_outlined,
+              color: kSecondaryColour,
             ),
-            Text(
-              profile.continent,
-              style: const TextStyle(
-                fontSize: kProfileLocationFontSize,
-                color: kSecondaryColour,
-                fontWeight: FontWeight.w300,
-              ),
+          ),
+          Text(
+            profile.continent,
+            style: const TextStyle(
+              fontSize: kProfileLocationFontSize,
+              color: kSecondaryColour,
+              fontWeight: FontWeight.w300,
             ),
-          ]
-        ),
+          ),
+        ]),
       ],
     );
   }
@@ -166,8 +160,7 @@ class PartialProfileDetails extends StatelessWidget {
 class CompleteProfileDetails extends StatelessWidget {
   final Profile profile;
 
-  const CompleteProfileDetails({Key? key, required this.profile})
-      : super(key: key);
+  const CompleteProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -184,8 +177,7 @@ class CompleteProfileDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ...([profile.firstName, profile.lastName, profile.continent])
-                    .map((element) {
+                ...([profile.firstName, profile.lastName, profile.continent]).map((element) {
                   return Text(
                     element,
                     style: const TextStyle(

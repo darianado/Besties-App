@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets.dart';
-import 'package:project_seg/reusable_card.dart';
-import '../constants.dart';
-import '../icon_content.dart';
-import '../gender_implementation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants.dart';
+import 'package:project_seg/models/gender_implementation.dart';
+import 'package:project_seg/screens/components/reusable_card.dart';
+import 'package:project_seg/screens/components/widgets.dart';
 
 class RegisterBasicInfoScreen extends StatefulWidget {
   @override

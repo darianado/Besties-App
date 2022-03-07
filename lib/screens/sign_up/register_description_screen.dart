@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/screens/components/widgets.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
   @override

@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/Sign_Up/register_screen.dart';
-import 'package:project_seg/Sign_Up/register_basic_info_screen.dart';
-import 'package:project_seg/Sign_Up/register_description_screen.dart';
-import 'package:project_seg/Sign_Up/register_interests_screen.dart';
-import 'package:project_seg/feed.dart';
-import 'package:project_seg/home_screen.dart';
-import 'package:project_seg/log_in.dart';
-import 'package:project_seg/recoverPassword.dart';
+import 'package:project_seg/screens/home/home_screen.dart';
+import 'package:project_seg/screens/login/log_in.dart';
+import 'package:project_seg/screens/recover_password/recoverPassword.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/screens/sign_up/register_description_screen.dart';
+import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
+import 'package:project_seg/screens/sign_up/register_screen.dart';
+import 'package:project_seg/screens/splash/splash_screen.dart';
 import 'package:project_seg/services/UserState.dart';
-import 'package:project_seg/splash_screen.dart';
 
 class AppRouter {
   final UserState userState;

@@ -68,11 +68,8 @@ class MyApp extends StatelessWidget {
           '/edit_profile' : (context) => EditProfile(),
           '/edit_preferences' : (context) => EditPreferences(),
           '/edit_password' : (context) => Edit_Password(),
-<<<<<<< HEAD
-=======
           '/recover_password' : (context) => recoverPassword(),
 
->>>>>>> main
         },
       )
 

@@ -150,7 +150,15 @@ class _SignUp2State extends State<SignUp2> {
                               Icons.person,
                               color: kSecondaryColour,
                             ),
-                            labelText: 'First name'),
+                            labelText: 'First name'
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -164,7 +172,14 @@ class _SignUp2State extends State<SignUp2> {
                               Icons.person,
                               color: kSecondaryColour,
                             ),
-                            labelText: 'Last name'),
+                            labelText: 'Last name'
+                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
                         textInputAction: TextInputAction.next,
                       ),
                     ),
@@ -238,12 +253,6 @@ class _SignUp2State extends State<SignUp2> {
                         ),
                       ]),
                     ),
-
-
-
-
-
-
                     Padding(
                       padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
                       child: Column(children: <Widget>[

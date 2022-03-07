@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
         ),
       ),
-        initialRoute: '/signup3',
+        initialRoute: '/first',
         routes: {
           '/landing': (context) => Wrapper(),
           '/': (context) => SignUp1(),

@@ -5,10 +5,10 @@ import 'package:project_seg/feed.dart';
 import 'package:project_seg/mock.dart';
 import 'package:project_seg/profile_class.dart';
 
-Widget createFeedPage() => MediaQuery(
-      data: const MediaQueryData(),
+Widget createFeedPage() => const MediaQuery(
+      data: MediaQueryData(),
       child: MaterialApp(
-        home: Feed(),
+        home: Feed(key: Key("Key")),
       ),
     );
 
@@ -65,6 +65,16 @@ void main() {
 
       expect(find.text(firstProfile.firstName), findsOneWidget);
       expect(find.text(secondProfile.firstName), findsNothing);
+    });
+
+    testWidgets('Test tapping profile name shows bottom page', (tester) async {
+      await tester.pumpWidget(createFeedPage());
+
+      expect(find.text(firstProfile.firstName), findsOneWidget);
+      expect(find.text(secondProfile.firstName), findsNothing);
+
+      await tester.tap(find.text(firstProfile.firstName));
+      expect(find.byKey(Key("Key")), findsOneWidget);
     });
   });
 }

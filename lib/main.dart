@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
       value: FirebaseAuthHelper().user,
       initialData: null,
       child: MaterialApp(
-        initialRoute: '/landing',
+        initialRoute: '/feed',
         routes: {
           '/landing': (context) => Wrapper(),
           '/': (context) => SignUp1(),
@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
           '/edit_profile' : (context) => EditProfile(),
           '/edit_preferences' : (context) => EditPreferences(),
           '/edit_password' : (context) => Edit_Password(),
-
         },
       )
 

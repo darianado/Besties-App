@@ -26,13 +26,10 @@ class _SignUp1State extends State<SignUp1> {
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
-   _createAccount(String email, String password) async {
+   _createAccount(String email, String password) async { 
       final status = await FirebaseAuthHelper().createAccount( email: email, pass: password);
       if (status == AuthResultStatus.successful) {
-        // Navigate to page
-        Navigator.pushNamed(context, '/first');
-
-
+        showEmailAlert(context, 'Please click on the link in your email to complete sign up! '); 
         } else {
         final errorMsg = AuthExceptionHandler.generateExceptionMessage(
             status);

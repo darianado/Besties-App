@@ -15,6 +15,7 @@ enum AuthResultStatus {
   tooManyRequests,
   undefined,
   weakPassword,
+  emailNotVerified
 }
 
 class AuthExceptionHandler {
@@ -52,9 +53,9 @@ class AuthExceptionHandler {
     return status;
   }
 
-  static generateExceptionMessage(AuthResultStatus exceptionCode) {
+  static generateExceptionMessage(AuthResultStatus status) {
     String errorMessage;
-    switch (exceptionCode) {
+    switch (status) {
       case AuthResultStatus.invalidEmail:
         errorMessage = "Please enter a valid email address.";
         break;
@@ -79,7 +80,10 @@ class AuthExceptionHandler {
         break;
       case AuthResultStatus.weakPassword:
         errorMessage = "The password must be 6 characters long or more.";
-        break;        
+        break;  
+      case AuthResultStatus.emailNotVerified:
+        errorMessage = "A verification email has been sent to this account, please verify your email in order to login";
+        break;         
       default:
         errorMessage = "An undefined Error happened.";
     }
@@ -107,29 +111,38 @@ class FirebaseAuthHelper {
       UserCredential authResult = await _auth.createUserWithEmailAndPassword(
           email: email, password: pass);
       if (authResult.user != null) {
+        authResult.user!.sendEmailVerification(null);
+        logOut(); //call logout so that user is not redirected to feed until they  verify
         _status = AuthResultStatus.successful;
       } else {
         _status = AuthResultStatus.undefined;
       }
     } on FirebaseAuthException catch (e) {
-      print('Exception @createAccount: $e');
       _status = AuthExceptionHandler.handleException(e);
     }
     return _status;
   }
 
+ 
+
   Future<AuthResultStatus> login({email, pass}) async {
     try {
-      final authResult =
-          await _auth.signInWithEmailAndPassword(email: email, password: pass);
-      _user = _userFromFirebaseUser(authResult.user);
+      final authResult =  await _auth.signInWithEmailAndPassword(email: email, password: pass);
+
+      if (authResult.user!.emailVerified){  //creates user object only if  their email is verified
+        _user=_userFromFirebaseUser(authResult.user); 
+      }
+
+      else {
+        _user = _userFromFirebaseUser(null);
+      }
+
       if (_user != null) {
         _status = AuthResultStatus.successful;
       } else {
-        _status = AuthResultStatus.undefined;
+        _status = AuthResultStatus.emailNotVerified;
       }
     } on FirebaseAuthException catch (e) {
-      print('Exception @createAccount: $e');
       _status = AuthExceptionHandler.handleException(e);
     }
     return _status;
@@ -156,13 +169,13 @@ class FirebaseAuthHelper {
   
 
    Future validatePassword(String password) async {
-      var _user =  _auth.currentUser;
-      var email = getUserEmail(_user!.email);
+      var _currentUser =  _auth.currentUser;
+      var email = nullSafeUserEmail(_currentUser!.email);
       var userCredentials = EmailAuthProvider.credential(email: email, password: password);
     try {
-      var reauthenticatedCredentials = await _user.reauthenticateWithCredential(userCredentials);
+      var reauthenticatedCredentials = await _currentUser.reauthenticateWithCredential(userCredentials);
 
-      if (_user.email== reauthenticatedCredentials.user!.email) { 
+      if (_currentUser.email== reauthenticatedCredentials.user!.email) { 
         _status = AuthResultStatus.successful;
       }
     }
@@ -174,7 +187,7 @@ class FirebaseAuthHelper {
 
 
 
-String getUserEmail(String? email){ //get user email from firebase ensuring its non null
+String nullSafeUserEmail(String? email){ //get user email from firebase ensuring its non null
   if (email ==null){
     return'';
   }
@@ -198,6 +211,7 @@ String getUserEmail(String? email){ //get user email from firebase ensuring its 
   }
 
    Future resetPassword(String email) async {
+    //TO DO check if user with that email is verified before sending password reset
     try {
       return await _auth.sendPasswordResetEmail(email: email);
     }
@@ -207,4 +221,6 @@ String getUserEmail(String? email){ //get user email from firebase ensuring its 
 
     }
 }
+
+
 }

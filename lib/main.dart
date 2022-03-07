@@ -18,7 +18,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'constants.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -27,54 +26,48 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget { 
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
     return StreamProvider<MyUser?>.value(
-      value: FirebaseAuthHelper().user,
-      initialData: null,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryTextTheme: const TextTheme(
-            bodyText1: TextStyle(),
-            bodyText2: TextStyle(),
-          ).apply(
-            bodyColor: Colors.orange,
-            displayColor: Colors.red,
+        value: FirebaseAuthHelper().user,
+        initialData: null,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primaryTextTheme: const TextTheme(
+              bodyText1: TextStyle(),
+              bodyText2: TextStyle(),
+            ).apply(
+              bodyColor: Colors.orange,
+              displayColor: Colors.red,
+            ),
+            // Define the default brightness and colors.
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: kWhiteColour,
+            primaryColor: kSecondaryColour,
+            fontFamily: 'Georgia',
+            textTheme: const TextTheme(
+              headline1: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+              headline6: TextStyle(fontSize: 25.0, fontStyle: FontStyle.italic),
+              bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+            ),
           ),
-        // Define the default brightness and colors.
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: kWhiteColour,
-        primaryColor: kSecondaryColour,
-        fontFamily: 'Georgia',
-        textTheme: const TextTheme(
-          headline1: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-          headline6: TextStyle(fontSize: 25.0, fontStyle: FontStyle.italic),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-        ),
-      ),
-        initialRoute: '/landing',
-        routes: {
-          '/landing': (context) => Wrapper(),
-          '/': (context) => SignUp1(),
-          '/first': (context) => SignUp2(),
-          '/signup3': (context) => SignUp3(),
-          '/signup4': (context) => SignUp4(),
-          '/feed': (context) => Feed(),
-          '/login' : (context) => LogIn(),
-          '/profile_page' : (context) => ProfilePage(),
-          '/edit_profile' : (context) => EditProfile(),
-          '/edit_preferences' : (context) => EditPreferences(),
-          '/edit_password' : (context) => Edit_Password(),
-          '/recover_password' : (context) => recoverPassword(),
-
-        },
-      )
-
-    );
-    
+          initialRoute: '/signup4',
+          routes: {
+            '/landing': (context) => Wrapper(),
+            '/': (context) => SignUp1(),
+            '/first': (context) => SignUp2(),
+            '/signup3': (context) => SignUp3(),
+            '/signup4': (context) => SignUp4(),
+            '/feed': (context) => Feed(),
+            '/login': (context) => LogIn(),
+            '/profile_page': (context) => ProfilePage(),
+            '/edit_profile': (context) => EditProfile(),
+            '/edit_preferences': (context) => EditPreferences(),
+            '/edit_password': (context) => Edit_Password(),
+            '/recover_password': (context) => recoverPassword(),
+          },
+        ));
   }
 }

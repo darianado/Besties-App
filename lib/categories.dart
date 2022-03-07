@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
@@ -29,13 +30,12 @@ class InterestStatus extends StatefulWidget {
 }
 
 class _InterestStatusState extends State<InterestStatus> {
-
   static List<Category> _socialActivities = [
     Category(id: Cat.SOCIAL_ACTIVITIES, name: "Clubbing"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Travel"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Charity"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Dating"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Social media"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Travel"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Charity"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Dating"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Social media"),
   ];
 
   static List<Category> _food = [
@@ -92,16 +92,14 @@ class _InterestStatusState extends State<InterestStatus> {
     Category(id: Cat.GAMES, name: "Music"),
   ];
 
-
-
   final _itemsSocialActivities = _socialActivities
-      .map((social_activity) => MultiSelectItem<Category>(social_activity, social_activity.name))
+      .map((social_activity) =>
+          MultiSelectItem<Category>(social_activity, social_activity.name))
       .toList();
   List<Category> _selectedSocialActivities = [];
 
-  final _itemsFood = _food
-      .map((food) => MultiSelectItem<Category>(food, food.name))
-      .toList();
+  final _itemsFood =
+      _food.map((food) => MultiSelectItem<Category>(food, food.name)).toList();
   List<Category> _selectedFood = [];
 
   final _itemsSelfCare = _selfCare
@@ -136,8 +134,6 @@ class _InterestStatusState extends State<InterestStatus> {
 
   List<Category> _selectedItems = [];
 
-
-
   String dropdownValue = 'Select your interests';
   @override
   Widget build(BuildContext context) {
@@ -146,73 +142,197 @@ class _InterestStatusState extends State<InterestStatus> {
         child: ExpansionTile(
           title: Text(dropdownValue),
           children: <Widget>[
-            buildMultiSelectBottomSheetField("Social activities", _itemsSocialActivities, _selectedSocialActivities),
-            buildMultiSelectBottomSheetField("Food", _itemsFood, _selectedFood),
-            buildMultiSelectBottomSheetField("Self care", _itemsSelfCare, _selectedSelfCare),
-            buildMultiSelectBottomSheetField("Science and Technology", _itemsScienceAndTechnology, _selectedScienceAndTechnology),
-            buildMultiSelectBottomSheetField("Games", _itemGames, _selectedGames),
-            buildMultiSelectBottomSheetField("Sport", _itemSports, _selectedSports),
-            buildMultiSelectBottomSheetField("Art&Literature", _itemArtAndLiterature, _selectedArtAndLiterature),
-            buildMultiSelectBottomSheetField("Popular culture", _itemPopularCulture, _selectedPopularCulture),
+            buildMultiSelectBottomSheetField(Cat.SOCIAL_ACTIVITIES,
+                _itemsSocialActivities, _selectedSocialActivities),
+            _selectedSocialActivities == null ||
+                    _selectedSocialActivities.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(
+                Cat.FOOD, _itemsFood, _selectedFood),
+            _selectedFood == null || _selectedFood.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(
+                Cat.SELF_CARE, _itemsSelfCare, _selectedSelfCare),
+            _selectedSelfCare == null || _selectedSelfCare.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(Cat.SCIENCEandTECHNOLOGY,
+                _itemsScienceAndTechnology, _selectedScienceAndTechnology),
+            _selectedScienceAndTechnology == null ||
+                    _selectedScienceAndTechnology.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(
+                Cat.GAMES, _itemGames, _selectedGames),
+            _selectedGames == null || _selectedGames.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(
+                Cat.SPORTS, _itemSports, _selectedSports),
+            _selectedSports == null || _selectedSports.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(Cat.ARTandLITERATURE,
+                _itemArtAndLiterature, _selectedArtAndLiterature),
+            _selectedArtAndLiterature == null ||
+                    _selectedArtAndLiterature.isEmpty
+                ? Container(
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
+                : Container(),
+            buildMultiSelectBottomSheetField(Cat.POPULARCULTURE,
+                _itemPopularCulture, _selectedPopularCulture),
             _selectedPopularCulture == null || _selectedPopularCulture.isEmpty
                 ? Container(
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "None selected",
-                  style: TextStyle(color: Colors.black54),
-                ))
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
                 : Container(),
-
           ],
         ),
       ),
     );
   }
 
-  MultiSelectBottomSheetField<Object?> buildMultiSelectBottomSheetField(String name, List<MultiSelectItem<Category>> listOfItems, List<Category> selectedItems) {
+  MultiSelectBottomSheetField<Object?> buildMultiSelectBottomSheetField(
+      Cat cat,
+      //String name = describeEnum(cat);
+      List<MultiSelectItem<Category>> listOfItems,
+      List<Category> selectedItems) {
     return MultiSelectBottomSheetField(
         initialChildSize: 0.4,
         listType: MultiSelectListType.CHIP,
         searchable: true,
-        buttonText: Text("Favorite $name"),
-        title: Text(name),
+        buttonText: Text("Favorite " + getName(cat)),
+        title: Text(describeEnum(cat)),
         items: listOfItems,
         onConfirm: (values) {
           setState(() {
-            switch ((values as Category).id) {
+            switch (cat) {
               case Cat.SELF_CARE:
-                _selectedSelfCare.addAll((values as List<Category>));
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedSelfCare = items;
                 break;
               case Cat.FOOD:
-                _selectedFood = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedFood = items;
                 break;
               case Cat.SOCIAL_ACTIVITIES:
-                _selectedSocialActivities = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedSocialActivities = items;
                 break;
               case Cat.SCIENCEandTECHNOLOGY:
-                _selectedScienceAndTechnology = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedScienceAndTechnology = items;
                 break;
               case Cat.GAMES:
-                _selectedGames = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedGames = items;
                 break;
               case Cat.SPORTS:
-                _selectedSports = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedSports = items;
                 break;
               case Cat.ARTandLITERATURE:
-                _selectedArtAndLiterature = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedArtAndLiterature = items;
                 break;
               case Cat.POPULARCULTURE:
-                _selectedPopularCulture = values as List<Category>;
+                List<Category> items = [];
+                if (!(values == null || values.isEmpty)) {
+                  items = values
+                      .map((e) => Category(name: (e as Category).name, id: cat))
+                      .toList();
+                }
+                _selectedPopularCulture = items;
                 break;
-
             }
           });
         },
         chipDisplay: MultiSelectChipDisplay(
           onTap: (value) {
             setState(() {
-              switch((value as Category).id) {
+              switch ((value as Category).id) {
                 case Cat.SELF_CARE:
                   _selectedSelfCare.remove(value);
                   break;
@@ -239,14 +359,41 @@ class _InterestStatusState extends State<InterestStatus> {
                   break;
               }
 
-              _selectedItems = [_selectedSocialActivities, _selectedFood, _selectedSelfCare, _selectedScienceAndTechnology, _selectedGames, _selectedSports, _selectedArtAndLiterature, _selectedPopularCulture].
-              expand((x) => x).toList();
-
-              print(_selectedItems);
+              // _selectedItems = [
+              //   _selectedSocialActivities,
+              //   _selectedFood,
+              //   _selectedSelfCare,
+              //   _selectedScienceAndTechnology,
+              //   _selectedGames,
+              //   _selectedSports,
+              //   _selectedArtAndLiterature,
+              //   _selectedPopularCulture
+              // ].expand((x) => x).toList();
+              //
+              // print(_selectedItems);
             });
           },
-        )
+        ));
+  }
 
-    );
+  String getName(Cat cat) {
+    switch (cat) {
+      case Cat.SELF_CARE:
+        return "Self care";
+      case Cat.FOOD:
+        return "Food";
+      case Cat.SOCIAL_ACTIVITIES:
+        return "Social activieties";
+      case Cat.SCIENCEandTECHNOLOGY:
+        return "Science and technology";
+      case Cat.GAMES:
+        return "Games";
+      case Cat.SPORTS:
+        return "Sprots";
+      case Cat.ARTandLITERATURE:
+        return "Art and literature";
+      case Cat.POPULARCULTURE:
+        return "Popular culture";
+    }
   }
 }

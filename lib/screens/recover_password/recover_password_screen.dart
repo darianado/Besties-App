@@ -1,29 +1,31 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/dalu_auth/authenticator.dart';
+import 'package:project_seg/services/AuthService.dart';
 
-class recoverPassword extends StatefulWidget {
-  const recoverPassword({Key? key}) : super(key: key);
+class RecoverPasswordScreen extends StatefulWidget {
+  const RecoverPasswordScreen({Key? key}) : super(key: key);
 
   @override
-  _recoverPasswordState createState() => _recoverPasswordState();
+  _RecoverPasswordScreenState createState() => _RecoverPasswordScreenState();
 }
 
-class _recoverPasswordState extends State<recoverPassword> {
+class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
-  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
+  final AuthService _authService = AuthService.instance;
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
   _sendEmailVerification(String email) async {
-    final status = await _auth.resetPassword(email);
-    if (status == null) {
+    try {
+      await _authService.resetPassword(email);
       showEmailAlert(context, 'Please check your email for a password reset link');
-    } else {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+    } on FirebaseAuthException catch (e) {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showEmailAlert(context, errorMsg);
     }
   }

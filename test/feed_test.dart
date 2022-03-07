@@ -1,14 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/screens/home/feed/feed.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/dalu_auth/mock.dart';
 import 'package:project_seg/models/profile_class.dart';
 
 Widget createFeedPage() => const MediaQuery(
       data: MediaQueryData(),
       child: MaterialApp(
-        home: Feed(
+        home: FeedScreen(
             //key: Key("Key"),
             ),
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
-import 'package:project_seg/screens/login/log_in.dart';
-import 'package:project_seg/screens/recover_password/recoverPassword.dart';
+import 'package:project_seg/screens/login/login_screen.dart';
+import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/screens/sign_up/register_description_screen.dart';
 import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
@@ -37,7 +37,7 @@ class AppRouter {
         path: "/login",
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
-          child: const LogIn(),
+          child: const LogInScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
@@ -83,7 +83,7 @@ class AppRouter {
         path: "/recover_password",
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: recoverPassword(),
+          child: RecoverPasswordScreen(),
         ),
       ),
       GoRoute(

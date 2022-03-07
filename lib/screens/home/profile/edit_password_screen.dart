@@ -3,18 +3,19 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:project_seg/dalu_auth/authenticator.dart';
 import 'package:project_seg/screens/components/alerts.dart';
+import 'package:project_seg/services/AuthService.dart';
 
-class Edit_Password extends StatefulWidget {
+class EditPasswordScreen extends StatefulWidget {
   @override
-  _Edit_PasswordState createState() => _Edit_PasswordState();
+  _EditPasswordScreenState createState() => _EditPasswordScreenState();
 }
 
-class _Edit_PasswordState extends State<Edit_Password> {
+class _EditPasswordScreenState extends State<EditPasswordScreen> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   final TextEditingController _oldPassword = TextEditingController();
   final TextEditingController _newPassword = TextEditingController();
   final TextEditingController _confirmNewPassword = TextEditingController();
-  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
+  final AuthService _authService = AuthService.instance;
 
   @override
   void dispose() {
@@ -25,11 +26,10 @@ class _Edit_PasswordState extends State<Edit_Password> {
   }
 
   _changePassword(String currentPassword, String newPassword) async {
-    final status = await _auth.changePassword(currentPass: currentPassword, newPass: newPassword);
-    if (status == AuthResultStatus.successful) {
-      Navigator.pushNamed(context, '/landing');
-    } else {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+    try {
+      await _authService.changePassword(currentPassword, newPassword);
+    } on FirebaseAuthException catch (e) {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
   }

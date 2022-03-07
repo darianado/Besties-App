@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/screens/home/feed/feed.dart';
-import 'package:project_seg/screens/home/profile/profile_page.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
+import 'package:project_seg/screens/home/profile/profile_screen.dart';
 
 class MenuItemData {
   final String title;
@@ -36,14 +36,14 @@ MenuData menuData = MenuData(
       icon: FontAwesomeIcons.solidUserCircle,
       routeName: "profile",
       path: "/profile",
-      destinationWidget: ProfilePage(),
+      destinationWidget: ProfileScreen(),
     ),
     MenuItemData(
       title: "Feed",
       icon: FontAwesomeIcons.home,
       routeName: "feed",
       path: "/feed",
-      destinationWidget: Feed(),
+      destinationWidget: FeedScreen(),
     ),
     MenuItemData(
       title: "Chat",

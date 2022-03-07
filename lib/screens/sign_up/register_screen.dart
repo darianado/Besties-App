@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool isLoading = false;
 
   bool isEmail(String input) => EmailValidator.validate(input);
-
+  /*
   _createAccount(String email, String password) async {
     final status = await FirebaseAuthHelper().createAccount(email: email, pass: password);
     if (status == AuthResultStatus.successful) {
@@ -35,7 +35,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       showAlert(context, errorMsg);
     }
   }
-
+*/
   @override
   void dispose() {
     super.dispose();
@@ -51,8 +51,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       await userState.signUp(_email.text.trim(), _password.text.trim());
+      showAlert(context, 'Before you can log in, you must click the link in your email to verify your account.');
     } on FirebaseAuthException catch (e) {
-      showAlert(context, e.message!);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      showAlert(context, errorMsg);
     }
 
     setState(() {

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/screens/components/widgets.dart';
 
-class EditProfile extends StatefulWidget {
+class EditProfileScreen extends StatefulWidget {
   @override
-  _EditProfileState createState() => _EditProfileState();
+  _EditProfileScreenState createState() => _EditProfileScreenState();
 }
 
-class _EditProfileState extends State<EditProfile> {
+class _EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey _key = GlobalKey<FormState>();
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();

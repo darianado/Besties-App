@@ -4,7 +4,6 @@ import 'package:project_seg/dalu_auth/my_user.dart';
 //ios testing still required
 
 enum AuthResultStatus {
-  successful,
   emailAlreadyExists,
   wrongPassword,
   invalidEmail,
@@ -88,8 +87,13 @@ class AuthExceptionHandler {
 
     return errorMessage;
   }
+
+  static generateExceptionMessageFromException(FirebaseAuthException e) {
+    return generateExceptionMessage(handleException(e));
+  }
 }
 
+/*
 class FirebaseAuthHelper {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var _status;
@@ -204,3 +208,4 @@ class FirebaseAuthHelper {
     }
   }
 }
+*/

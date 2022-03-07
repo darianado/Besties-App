@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 import '../../../models/profile_class.dart';
 import '../../../models/profile_container.dart';
 
-class Feed extends StatefulWidget {
-  const Feed({Key? key}) : super(key: key);
+class FeedScreen extends StatefulWidget {
+  const FeedScreen({Key? key}) : super(key: key);
 
   @override
-  State<Feed> createState() => _FeedState();
+  _FeedScreenState createState() => _FeedScreenState();
 }
 
-class _FeedState extends State<Feed> {
+class _FeedScreenState extends State<FeedScreen> {
   final List<ProfileContainer> containers = [
     ProfileContainer(profile: Profile(seed: 0)),
     ProfileContainer(profile: Profile(seed: 1)),

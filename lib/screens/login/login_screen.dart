@@ -1,29 +1,28 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
-import 'package:project_seg/screens/components/alerts.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_seg/dalu_auth/authenticator.dart';
+import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/UserState.dart';
 import 'package:provider/provider.dart';
-import '../../constants.dart';
-import 'package:go_router/go_router.dart';
 
-class LogIn extends StatefulWidget {
-  const LogIn({Key? key}) : super(key: key);
+import '../../constants.dart';
+
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({Key? key}) : super(key: key);
 
   @override
-  _LogInState createState() => _LogInState();
+  _LogInScreenState createState() => _LogInScreenState();
 }
 
-class _LogInState extends State<LogIn> {
+class _LogInScreenState extends State<LogInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
 
   bool isLoading = false;
-
-  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -35,7 +34,8 @@ class _LogInState extends State<LogIn> {
     try {
       await userState.signIn(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      showAlert(context, e.message!);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      showAlert(context, errorMsg);
     }
 
     setState(() {

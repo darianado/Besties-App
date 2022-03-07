@@ -24,10 +24,42 @@ class AuthService {
   }
 
   Future<void> signUp(String email, String password) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
+    await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((_) async {
+      await sendVerificationEmail();
+    });
   }
 
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
+  }
+
+  Future<void> sendVerificationEmail() async {
+    await currentUser?.sendEmailVerification(null);
+  }
+
+  Future<void> resetPassword(String email) async {
+    //TO DO check if user with that email is verified before sending password reset
+    return await _firebaseAuth.sendPasswordResetEmail(email: email);
+  }
+
+  Future<void> changePassword(String currentPassword, String newPassword) async {
+    auth.User? user = currentUser;
+    if (user == null) {
+      return;
+    }
+
+    await validatePassword(currentPassword);
+    await user.updatePassword(newPassword);
+  }
+
+  Future<bool> validatePassword(String password) async {
+    auth.User? user = currentUser;
+    if (user == null) {
+      return false;
+    }
+
+    final credentials = auth.EmailAuthProvider.credential(email: user.email!, password: password);
+    await user.reauthenticateWithCredential(credentials);
+    return true;
   }
 }

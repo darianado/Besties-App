@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../components/widgets.dart';
 
-class LandingPage extends StatefulWidget {
+class LandingScreen extends StatefulWidget {
   @override
-  _LandingPageState createState() => _LandingPageState();
+  _LandingScreenState createState() => _LandingScreenState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class _LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

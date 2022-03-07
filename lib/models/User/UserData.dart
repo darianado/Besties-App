@@ -33,16 +33,15 @@ class UserData {
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
-    print("Initializing!");
     return UserData(
       age: data?['age'],
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
-      interests: data?['interests'],
+      interests: List<String>.from(data?['interests']),
       location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
       preferences: Preferences(
-        interests: data?['preferences']['interests'],
+        interests: List<String>.from(data?['preferences']['interests']),
         maxAge: data?['preferences']['maxAge'],
         minAge: data?['preferences']['minAge'],
       ),

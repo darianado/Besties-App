@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 //simple method to show alert
 
@@ -33,7 +34,7 @@ void showEmailAlert(BuildContext context, String message) {
           TextButton(
             child: const Text("Back to Home Page"),
             onPressed: () {
-              Navigator.pushNamed(context, '/landing');
+              context.goNamed("login");
             },
           ),
         ],

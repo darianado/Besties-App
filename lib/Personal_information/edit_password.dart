@@ -18,7 +18,7 @@ class _Edit_PasswordState extends State<Edit_Password> {
   final TextEditingController _oldPassword = TextEditingController();
   final TextEditingController _newPassword = TextEditingController();
   final TextEditingController _confirmNewPassword = TextEditingController();
-
+  final FirebaseAuthHelper _auth = FirebaseAuthHelper();
 
 
 
@@ -31,8 +31,15 @@ class _Edit_PasswordState extends State<Edit_Password> {
     _confirmNewPassword.dispose();
   }
 
-
-
+  _changePassword(String currentPassword, String newPassword) async {
+    final status = await _auth.changePassword(currentPass : currentPassword, newPass: newPassword);
+    if (status == AuthResultStatus.successful) {
+      Navigator.pushNamed(context, '/landing');
+    } else {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessage(status);
+      showAlert(context, errorMsg);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +96,9 @@ class _Edit_PasswordState extends State<Edit_Password> {
                             if (value == null || value.isEmpty) {
                               return 'Please enter some text';
                             }
+                            if(value == _oldPassword.text){
+                              return "Please enter a different password to old one.";
+                            }
                             return null;
                           },
                           textInputAction: TextInputAction.next,
@@ -122,7 +132,7 @@ class _Edit_PasswordState extends State<Edit_Password> {
                       ElevatedButton(
                           onPressed: (){
                             if(((_formKey.currentState as FormState).validate()) == true) {
-                              Navigator.pushNamed(context, '/profile_page');
+                               _changePassword(_oldPassword.text,_newPassword.text);
                             }
                           },
                           child: Text(" CHANGE YOUR PASSWORD"),

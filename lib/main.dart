@@ -4,6 +4,7 @@ import 'package:project_seg/Personal_information/edit_preferences.dart';
 import 'package:project_seg/Personal_information/edit_profile.dart';
 import 'package:project_seg/Personal_information/profile_page.dart';
 import 'package:project_seg/authenticator.dart';
+import 'package:project_seg/recoverPassword.dart';
 import 'package:project_seg/models/my_user.dart';
 import 'package:project_seg/wrapper.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ void main() async {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatelessWidget { 
   @override
   Widget build(BuildContext context) {
 
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
           '/edit_profile' : (context) => EditProfile(),
           '/edit_preferences' : (context) => EditPreferences(),
           '/edit_password' : (context) => Edit_Password(),
+          '/recover_password' : (context) => recoverPassword(),
 
         },
       )

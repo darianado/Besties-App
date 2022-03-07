@@ -40,7 +40,15 @@ class SignUp4 extends StatelessWidget {
                     Expanded(
                       child: InterestStatus(),
                     ),
-                  ]),
+                  ]
+              ),
+              const SizedBox(height: 50),
+                ElevatedButton(
+                   onPressed: (){
+                     Navigator.pushNamed(context, '/feed');
+                   },
+                   child: const Text("FINISH CREATING YOUR PROFILE"),
+          ),
             ],
           ),
         ),

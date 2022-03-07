@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       value: FirebaseAuthHelper().user,
       initialData: null,
       child: MaterialApp(
-        initialRoute: '/signup4',
+        initialRoute: '/landing',
         routes: {
           '/landing': (context) => Wrapper(),
           '/': (context) => SignUp1(),

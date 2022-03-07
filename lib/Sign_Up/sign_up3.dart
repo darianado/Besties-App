@@ -10,6 +10,15 @@ class SignUp3 extends StatefulWidget {
 
 class _SignUp3State extends State<SignUp3> {
   final GlobalKey _key = GlobalKey<FormState>();
+  final TextEditingController _university = TextEditingController();
+  final TextEditingController _bio = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _university.dispose();
+    _bio.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +72,7 @@ class _SignUp3State extends State<SignUp3> {
                       ),
                       Padding(
                         padding:
-                        const EdgeInsets.fromLTRB(20.0, 25.0, 2.0, 10.0),
+                            const EdgeInsets.fromLTRB(20.0, 25.0, 2.0, 10.0),
                         child: Column(children: <Widget>[
                           Row(children: const <Widget>[
                             Text('UNIVERSITY',
@@ -102,8 +111,20 @@ class _SignUp3State extends State<SignUp3> {
                               ),
                             ]),
                             Row(children: [
+                              buildIcon(Icons.cake_outlined, kSecondaryColour),
+                              const SizedBox(
+                                width: 15,
+                              ),
                               Expanded(
                                 child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'You need to enter a short desc';
+                                    }
+                                    return null;
+                                  },
+
+                                  controller: _bio,
                                   decoration: InputDecoration(
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius:
@@ -120,14 +141,6 @@ class _SignUp3State extends State<SignUp3> {
                               )
                             ])
                           ])),
-
-                      // const SizedBox(height: 100),
-                      // ElevatedButton(
-                      //   onPressed: () {
-                      //     Navigator.pushNamed(context, '/signup4');
-                      //   },
-                      //   child: const Text(" NEXT"),
-                      // )
                       buildNext(_key, context, '/signup4')
                     ]),
               ),

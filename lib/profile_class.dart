@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:faker/faker.dart';
+import 'package:project_seg/widgets.dart';
 
 // This class is purely used so that the feed and ProfileContainer Widget
 // are easily refactorable once we link the project with the database.
@@ -9,6 +12,8 @@ class Profile {
   late String firstName;
   late String lastName;
   late String continent;
+
+
 
   Profile({required this.seed}) : faker = Faker(seed: seed) {
     firstName = faker.person.firstName();

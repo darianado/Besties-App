@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 //simple method to show alert
 
-   void showAlert(BuildContext context, String errorMsg) {
+   void showAlert(BuildContext context, String errorMsg) { //alerts to diaplay errors to user
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -21,7 +21,7 @@ import 'package:flutter/material.dart';
     );
   }
 
-     void showEmailAlert(BuildContext context, String message) {
+     void showEmailAlert(BuildContext context, String message) { //alerts to notify users to check their email before proceeding
     showDialog(
       context: context,
       builder: (BuildContext context) {

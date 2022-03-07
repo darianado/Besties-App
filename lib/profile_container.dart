@@ -88,10 +88,10 @@ class LikeProfileButton extends StatelessWidget {
       onPressed: () {
         likeProfile(context);
       },
-      backgroundColor: Colors.white,
+      backgroundColor: kSecondaryColour,
       child: const Icon(
         Icons.thumb_up_off_alt_rounded,
-        color: Colors.blue,
+        color: kWhiteColour,
       ),
     );
   }
@@ -110,35 +110,52 @@ class PartialProfileDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
+        // Row(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   crossAxisAlignment: CrossAxisAlignment.center,
+        //   children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 3.5),
+          child: Text(
+            profile.firstName,
+            style: const TextStyle(
+              fontSize: kProfileNameFontSize,
+              color: kSecondaryColour,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(8.0),
+        //   child: Text(
+        //     profile.lastName,
+        //     style: const TextStyle(
+        //       fontSize: kProfileNameFontSize,
+        //       color: kSecondaryColour,
+        //       fontWeight: FontWeight.w300,
+        //     ),
+        //   ),
+        // ),
+        //   ],
+        // ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              profile.firstName,
-              style: const TextStyle(
-                fontSize: kProfileNameFontSize,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.school_outlined,
+                color: kSecondaryColour,
               ),
             ),
             Text(
-              profile.lastName,
+              profile.continent,
               style: const TextStyle(
-                fontSize: kProfileNameFontSize,
-                color: Colors.black,
+                fontSize: kProfileLocationFontSize,
+                color: kSecondaryColour,
                 fontWeight: FontWeight.w300,
               ),
             ),
-          ],
-        ),
-        Text(
-          profile.continent,
-          style: const TextStyle(
-            fontSize: kProfileLocationFontSize,
-            color: Colors.black,
-            fontWeight: FontWeight.w300,
-          ),
+          ]
         ),
       ],
     );
@@ -173,7 +190,7 @@ class CompleteProfileDetails extends StatelessWidget {
                     element,
                     style: const TextStyle(
                       fontSize: kProfileNameFontSize,
-                      color: Colors.black,
+                      color: kSecondaryColour,
                       fontWeight: FontWeight.bold,
                     ),
                   );
@@ -184,7 +201,7 @@ class CompleteProfileDetails extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              backgroundColor: Colors.white,
+              backgroundColor: kWhiteColour,
               child: const Icon(
                 Icons.highlight_off_rounded,
                 color: Colors.blue,

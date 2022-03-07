@@ -16,6 +16,7 @@ import 'log_in.dart';
 import 'feed.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'constants.dart';
 
 
 void main() async {
@@ -46,8 +47,8 @@ class MyApp extends StatelessWidget {
           ),
         // Define the default brightness and colors.
         brightness: Brightness.light,
-        scaffoldBackgroundColor: const Color(0xFFFEFCFB),
-        primaryColor: Color(0xFF0083A1),
+        scaffoldBackgroundColor: kWhiteColour,
+        primaryColor: kSecondaryColour,
         fontFamily: 'Georgia',
         textTheme: const TextTheme(
           headline1: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),

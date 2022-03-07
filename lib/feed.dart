@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:project_seg/authenticator.dart';
 import 'nav_bar.dart';
 import 'profile_container.dart';
 import 'profile_class.dart';
 import 'constants.dart';
 import 'package:project_seg/alerts.dart';
-
 
 class Feed extends StatefulWidget {
   const Feed({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _FeedState extends State<Feed> {
 
   final FirebaseAuthHelper _auth = FirebaseAuthHelper();
 
- _logoutAccount() async {
+  _logoutAccount() async {
     final status = await _auth.logOut();
     if (status == null) {
       Navigator.pushNamed(context, '/landing');
@@ -34,24 +34,39 @@ class _FeedState extends State<Feed> {
       showAlert(context, errorMsg);
     }
   }
+
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Feed'),
-        leading: const BackButton(
-          color: Colors.blue,
+      backgroundColor: Colors.transparent,
+
+      // TO DO: appbar and logout should be removed from feed
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(0.06 * screenHeight),
+        child: AppBar(
+          automaticallyImplyLeading: false,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+          ),
+          // title: const Text('Feed', style: TextStyle(color: kSecondaryColour)),
+          // centerTitle: true,
+          actions: <Widget>[
+            IconButton(
+              // TO DO: log out should be move to profile or edit profile page (not necessary for feed)
+              icon: const Icon(Icons.logout_outlined),
+              color: kWhiteColour,
+              onPressed: () async {
+                _logoutAccount();
+              },
+            )
+          ],
         ),
-        backgroundColor: Colors.white,
-        actions: <Widget>[
-          TextButton(
-            child: const Text("Log out"),
-            onPressed: () async {
-              _logoutAccount(); 
-            },
-          )
-        ],
       ),
+
       body: Stack(
         alignment: AlignmentDirectional.bottomEnd,
         children: [

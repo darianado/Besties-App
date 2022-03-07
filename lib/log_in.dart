@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/services.dart';
 import 'package:project_seg/alerts.dart';
 import 'package:project_seg/authenticator.dart';
+import 'constants.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({Key? key}) : super(key: key);
@@ -35,36 +36,42 @@ class _LogInState extends State<LogIn> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          stops: [0.4, 0.8, 1],
-          colors: [
-            Color(0xFF041731),
-            Color(0xFF026689),
-            Color(0xFF00CFFF),
-          ],
-        )),
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(0.1 * screenHeight), // here the desired height
-              child: AppBar(
-                  backgroundColor: Colors.transparent,
-                  systemOverlayStyle: const SystemUiOverlayStyle(
-                    statusBarColor: Colors.transparent,
-                  ),
-                  title: const Text(
-                    'BESTIES',
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                  ),
-                  centerTitle: true,
-                  automaticallyImplyLeading: false),
-            ),
-            body: Center(
-                child: SingleChildScrollView(
+    return Theme(
+      data: ThemeData(
+        brightness: Brightness.dark,
+      ),
+      child: Builder(builder: (context) {
+        return Container(
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              stops: [0.4, 0.8, 1],
+              colors: [
+                kPrimaryColour,
+                Color(0xFF026689),
+                Color(0xFF00CFFF),
+              ],
+            )),
+            child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: PreferredSize(
+                  preferredSize: Size.fromHeight(0.1 * screenHeight), // here the desired height
+                  child: AppBar(
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
+                      systemOverlayStyle: const SystemUiOverlayStyle(
+                        statusBarColor: Colors.transparent,
+                      ),
+                      title: const Text(
+                        'BESTIES',
+                        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                      ),
+                      centerTitle: true,
+                      automaticallyImplyLeading: false),
+                ),
+                body: Center(
+                    child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
                     child: Column(
@@ -79,23 +86,28 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 5.0),
+                            padding: const EdgeInsets.fromLTRB(
+                                30.0, 35.0, 30.0, 5.0),
                             child: TextFormField(
                               controller: _email,
                               decoration: const InputDecoration(
+                                  fillColor: kWhiteColour,
+                                  focusColor: kWhiteColour,
                                   border: UnderlineInputBorder(),
                                   icon: Icon(
                                     Icons.email,
-                                    color: Color(0xFFFEFCFB),
+                                    color: kWhiteColour,
                                   ),
                                   labelText: 'Email address'),
-                              validator: (value) =>
-                                  !isEmail(_email.text) ? "Invalid Email" : null,
+                              validator: (value) => !isEmail(_email.text)
+                                  ? "Invalid Email"
+                                  : null,
                               textInputAction: TextInputAction.next,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 2.0),
+                            padding:
+                                const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 2.0),
                             child: TextFormField(
                               controller: _password,
                               obscureText: true,
@@ -103,7 +115,7 @@ class _LogInState extends State<LogIn> {
                                 border: UnderlineInputBorder(),
                                 icon: Icon(
                                   Icons.lock,
-                                  color: Color(0xFFFEFCFB),
+                                  color: kWhiteColour,
                                 ),
                                 labelText: 'Password',
                               ),
@@ -117,14 +129,15 @@ class _LogInState extends State<LogIn> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(right: 25.0, bottom: 40.0),
+                            padding: const EdgeInsets.only(
+                                right: 25.0, bottom: 40.0),
                             child: Align(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
-                                child: const Text(
-                                    'Forget password?',
-                                    style: TextStyle(fontSize: 12, color: Color(0xFFFEFCFB))
-                                ),
+                                child: const Text('Forget password?',
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: kWhiteColour)),
                                 onPressed: () {
                                   Navigator.pushNamed(context, '/recover_password');
                                 },
@@ -144,15 +157,17 @@ class _LogInState extends State<LogIn> {
                                 },
                                 child: const Text("Log In"),
                                 style: ElevatedButton.styleFrom(
-                                    primary: const Color(0xFFFEFCFB),
-                                    onPrimary: const Color(0xFF041731),
+                                    primary: kWhiteColour,
+                                    onPrimary: kPrimaryColour,
                                     fixedSize: const Size(300, 100),
-                                    shadowColor: const Color(0xFF041731),
+                                    shadowColor: kPrimaryColour,
                                     elevation: 12,
                                     textStyle: const TextStyle(
-                                        fontSize: 25, fontWeight: FontWeight.bold),
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(50))),
+                                        borderRadius:
+                                            BorderRadius.circular(50))),
                               )),
                           Container(
                             padding: const EdgeInsets.all(35.0),
@@ -160,7 +175,9 @@ class _LogInState extends State<LogIn> {
                               children: <Widget>[
                                 const Expanded(
                                   flex: 2,
-                                  child: Text('New here? Sign up now?',),
+                                  child: Text(
+                                    'New here? Sign up now?',
+                                  ),
                                 ),
                                 Expanded(
                                   flex: 1,
@@ -169,11 +186,16 @@ class _LogInState extends State<LogIn> {
                                       Navigator.pushNamed(context, '/');
                                     },
                                     style: OutlinedButton.styleFrom(
-                                      primary: const Color(0xFFFEFCFB),
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                      side: const BorderSide(color: Color(0xFFFEFCFB), width: 1.5),
+                                      primary: kWhiteColour,
+                                      shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(30))),
+                                      side: const BorderSide(
+                                          color: kWhiteColour, width: 1.5),
                                     ),
-                                    child: const Text("Sign up", style: TextStyle(color: Color(0xFFFEFCFB))),
+                                    child: const Text("Sign up",
+                                        style: TextStyle(
+                                            color: kWhiteColour)),
                                   ),
                                 ),
                               ],
@@ -181,6 +203,8 @@ class _LogInState extends State<LogIn> {
                           )
                         ]),
                   ),
-            ))));
+                ))));
+      }),
+    );
   }
 }

@@ -11,6 +11,7 @@ class _SignUp3State extends State<SignUp3> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Sign Up'),
         leading: const BackButton(
           color: Colors.white,

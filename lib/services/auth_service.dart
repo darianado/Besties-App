@@ -6,7 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 class AuthService {
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
 
-  Timer? reloadingTimer;
+  Timer? timer;
 
   AuthService._privateConstructor();
 
@@ -49,10 +49,8 @@ class AuthService {
     }
   }
 
-  Timer? timer;
-
   void startCheckingForVerifiedEmail() {
-    timer = Timer.periodic(Duration(seconds: 1), (timer) async {
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
       await reloadUser();
       if (currentUser?.emailVerified == true) {
         timer.cancel();

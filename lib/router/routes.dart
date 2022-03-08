@@ -183,10 +183,18 @@ class AppRouter {
       if (initialized && !loggedIn && !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
         return loginLoc;
       }
-
+      /*
       if (initialized &&
           loggedIn &&
           (emailVerified && goingToEmailVerify) &&
+          !fetchedUser &&
+          !(goingToRegisterBasicInfo || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
+        return registerBasicInfoLoc;
+      }
+      */
+      if (initialized &&
+          loggedIn &&
+          emailVerified &&
           !fetchedUser &&
           !(goingToRegisterBasicInfo || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
         return registerBasicInfoLoc;

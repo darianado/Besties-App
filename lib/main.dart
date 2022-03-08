@@ -12,7 +12,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  final userState = UserState();
+  final userState = UserState.instance;
   runApp(MyApp(userState: userState));
 }
 

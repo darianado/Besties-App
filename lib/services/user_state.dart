@@ -13,6 +13,10 @@ class UserState extends ChangeNotifier {
   ActiveUser? _user;
   ActiveUser? get user => _user;
 
+  UserState._privateConstructor();
+  static final UserState _instance = UserState._privateConstructor();
+  static UserState get instance => _instance;
+
   StreamSubscription<ActiveUser?>? _subscription;
 
   void onAppStart() {

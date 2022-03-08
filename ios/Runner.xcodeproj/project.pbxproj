@@ -357,11 +357,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-<<<<<<< HEAD
 				DEVELOPMENT_TEAM = W2RJXDFWS9;
-=======
-				DEVELOPMENT_TEAM = YYA96L68K3;
->>>>>>> origin/design
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -493,11 +489,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-<<<<<<< HEAD
 				DEVELOPMENT_TEAM = W2RJXDFWS9;
-=======
-				DEVELOPMENT_TEAM = YYA96L68K3;
->>>>>>> origin/design
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -523,11 +515,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-<<<<<<< HEAD
 				DEVELOPMENT_TEAM = W2RJXDFWS9;
-=======
-				DEVELOPMENT_TEAM = YYA96L68K3;
->>>>>>> origin/design
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

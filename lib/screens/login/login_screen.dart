@@ -158,7 +158,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           ),
                           SizedBox(
                               width: 0.85 * screenWidth,
-                              height: 0.08 * screenHeight,
+                              height: 0.07 * screenHeight,
                               child: ElevatedButton(
                                 onPressed: () => submitForm(_formKey),
                                 child: (isLoading)

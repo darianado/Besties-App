@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:faker/faker.dart';
 
 // This class is purely used so that the feed and ProfileContainer Widget

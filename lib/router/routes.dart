@@ -143,8 +143,6 @@ class AppRouter {
       final goingToRegisterDescriptionLoc = state.subloc == registerDescriptionLoc;
       final goingToRegisterInterestsLoc = state.subloc == registerInterestsLoc;
 
-      print("Verified: ${emailVerified}");
-
       if (!initialized && !goingToSplash) {
         return splashLoc;
       }

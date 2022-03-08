@@ -164,45 +164,47 @@ class CompleteProfileDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.70,
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ...([profile.firstName, profile.lastName, profile.continent]).map((element) {
-                  return Text(
-                    element,
-                    style: const TextStyle(
-                      fontSize: kProfileNameFontSize,
-                      color: kSecondaryColour,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }).toList()
-              ],
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              backgroundColor: kWhiteColour,
-              child: const Icon(
-                Icons.highlight_off_rounded,
-                color: Colors.blue,
-                size: 30,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    return Container(
+        height: MediaQuery.of(context).size.height * 0.70,
+        width: MediaQuery.of(context).size.width,
+        color: kTertiaryColour,
+        child: Column(children: [
+          const Text('Name', style: TextStyle(fontSize: 45, color: kWhiteColour)),
+          Row(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+            Icon(Icons.school, color: Colors.white, size: 35.0),
+            Text('school Name', style: TextStyle(fontSize: 35, color: kWhiteColour)),
+          ]),
+          const SizedBox(
+            height: 20,
+          ),
+          Text('Bio', style: TextStyle(fontSize: 30, color: kWhiteColour)),
+          const SizedBox(
+            height: 30,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text('Interests', style: TextStyle(fontSize: 35, color: kWhiteColour)),
+          const SizedBox(
+            height: 50,
+          ),
+          SizedBox(
+              width: 0.80 * screenWidth,
+              height: 0.07 * screenHeight,
+              child: ElevatedButton(
+                onPressed: () {},
+                child: const Text("Interested"),
+                style: ElevatedButton.styleFrom(
+                    primary: kWhiteColour,
+                    onPrimary: kTertiaryColour,
+                    fixedSize: const Size(300, 100),
+                    shadowColor: kTertiaryColour,
+                    elevation: 12,
+                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+              )),
+        ]));
   }
 }

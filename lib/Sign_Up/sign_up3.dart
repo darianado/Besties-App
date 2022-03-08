@@ -119,7 +119,7 @@ class _SignUp3State extends State<SignUp3> {
                                 child: TextFormField(
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
-                                      return 'You need to enter a short desc';
+                                      return 'You need to enter a short description';
                                     }
                                     return null;
                                   },

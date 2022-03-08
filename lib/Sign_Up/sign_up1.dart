@@ -210,8 +210,10 @@ class _SignUp1State extends State<SignUp1> {
                                 side: const BorderSide(
                                     color: kTertiaryColour, width: 1.5),
                               ),
-                              child: const Text("Log in",
-                                  style: TextStyle(color: kTertiaryColour)),
+                              child: const Text(
+                                  "Log in",
+                                  style: TextStyle(color: kTertiaryColour)
+                              ),
                             ),
                           ),
                         ],

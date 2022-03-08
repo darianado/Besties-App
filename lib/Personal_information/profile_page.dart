@@ -136,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     primary: kTertiaryColour,
                     onPrimary: kWhiteColour,
                     shadowColor: kTertiaryColour,
-                    elevation: 12,
+                    elevation: 10,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
                   ),
                 ),

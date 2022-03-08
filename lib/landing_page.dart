@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'widgets.dart';
+import 'package:project_seg/constants.dart';
 
 class LandingPage extends StatefulWidget {
   @override
@@ -25,7 +26,7 @@ class _LandingPageState extends State<LandingPage> {
           // Color(0xFF827081),
           Color(0xFF00CFFF),
           Color(0xFF01B3E0),
-          Color(0xFF041731),
+          kPrimaryColour,
         ],
       )),
       child: Scaffold(
@@ -54,43 +55,49 @@ class _LandingPageState extends State<LandingPage> {
               children: <Widget>[
                 const Text('LOGO'),
                 SizedBox.fromSize(size: Size.fromHeight(0.5 * screenHeight)),
-                SizedBox(
-                  width: 0.85 * screenWidth,
-                  height: 0.08 * screenHeight,
-                  child: ElevatedButton(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 0.85 * screenWidth,
+                    height: 0.08 * screenHeight,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/login');
+                      },
+                      child: const Text(" LOG IN"),
+                      style: ElevatedButton.styleFrom(
+                          primary: kLightBlue,
+                          fixedSize: const Size(300, 100),
+                          shadowColor: kSecondaryColour,
+                          elevation: 12,
+                          textStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50))),
+                    ),
+                  ),
+                ),
+                // const SizedBox(height: 30),
+                 Padding(
+                   padding: const EdgeInsets.all(8.0),
+                   child: SizedBox(
+                    width: 0.85 * screenWidth,
+                    height: 0.08 * screenHeight,
+                    child: ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/login');
+                      Navigator.pushNamed(context, '/');
                     },
-                    child: const Text(" LOG IN"),
+                    child: const Text("SIGN UP"),
                     style: ElevatedButton.styleFrom(
-                        primary: Color(0xFF0083A1),
+                        primary: kWhiteColour,
+                        onPrimary: kPrimaryColour,
                         fixedSize: const Size(300, 100),
-                        shadowColor: Color(0xFF041731),
+                        shadowColor: kPrimaryColour,
                         elevation: 12,
                         textStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50))),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                 SizedBox(
-                  width: 0.85 * screenWidth,
-                  height: 0.08 * screenHeight,
-                  child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                  child: const Text("SIGN UP"),
-                  style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFFEFCFB),
-                      onPrimary: Color(0xFF041731),
-                      fixedSize: const Size(300, 100),
-                      shadowColor: Color(0xFF041731),
-                      elevation: 12,
-                      textStyle: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50))),
-                 )),
+                   )),
+                 ),
               ]),
         ),
       ),

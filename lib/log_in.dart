@@ -146,7 +146,7 @@ class _LogInState extends State<LogIn> {
                           ),
                           SizedBox(
                               width: 0.85 * screenWidth,
-                              height: 0.08 * screenHeight,
+                              height: 0.07 * screenHeight,
                               child: ElevatedButton(
                                 onPressed: () {
                                   if (((_formKey.currentState as FormState)

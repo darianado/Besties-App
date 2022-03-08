@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
 
-        initialRoute: '/first',
+        initialRoute: '/feed',
 
         routes: {
           '/landing': (context) => Wrapper(),

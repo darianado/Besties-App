@@ -41,7 +41,6 @@ class _SignUp1State extends State<SignUp1> {
   }
 
 
-
   @override
   void dispose() {
     super.dispose();
@@ -49,7 +48,6 @@ class _SignUp1State extends State<SignUp1> {
     _password.dispose();
     _confirmPassword.dispose();
   }
-
 
 
   @override
@@ -81,7 +79,7 @@ class _SignUp1State extends State<SignUp1> {
                   ),
                   title: const Text(
                     'BESTIES',
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold,color: Color(0xFF0083A1),),
+                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold,color: kLightBlue),
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),
@@ -188,18 +186,6 @@ class _SignUp1State extends State<SignUp1> {
                                   borderRadius: BorderRadius.circular(50))),
                         )),
 
-
-                  // const SizedBox(),
-                  // ElevatedButton(
-                  //     onPressed: (){
-                  //
-                  //       if(((_formKey.currentState as FormState).validate()) == true) {
-                  //         _createAccount(_email.text, _password.text);
-                  //       }
-                  //     },
-                  //     child: Text(" NEXT"),
-                  // ),
-
                     Container(
                       padding: const EdgeInsets.all(35.0),
                       child: Row(
@@ -224,8 +210,10 @@ class _SignUp1State extends State<SignUp1> {
                                 side: const BorderSide(
                                     color: kTertiaryColour, width: 1.5),
                               ),
-                              child: const Text("Log in",
-                                  style: TextStyle(color: kTertiaryColour)),
+                              child: const Text(
+                                  "Log in",
+                                  style: TextStyle(color: kTertiaryColour)
+                              ),
                             ),
                           ),
                         ],
@@ -237,14 +225,7 @@ class _SignUp1State extends State<SignUp1> {
           ),
       )
       )
-    
-    
-    
     ));
-
-
-
-
   }
 }
 

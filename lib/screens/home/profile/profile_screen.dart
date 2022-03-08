@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -43,9 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Icons.edit,
                           color: kWhiteColour,
                         ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/edit_profile');
-                        },
+                        onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
                       ),
                     ),
                   ),
@@ -124,9 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 width: 0.80 * screenWidth,
                 height: 0.07 * screenHeight,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/edit_preferences');
-                  },
+                  onPressed: () => context.pushNamed("edit_preferences", params: {'page': 'profile'}),
                   child: const Text(
                     "Edit preferences",
                     style: TextStyle(

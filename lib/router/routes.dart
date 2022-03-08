@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
+import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
+import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
+import 'package:project_seg/screens/home/profile/edit_profile_screen.dart';
 import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
@@ -110,6 +113,32 @@ class AppRouter {
             child: child,
           ),
         ),
+        routes: [
+          GoRoute(
+            name: "edit_profile",
+            path: "edit-profile",
+            pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey,
+              child: EditProfileScreen(),
+            ),
+          ),
+          GoRoute(
+            name: "edit_preferences",
+            path: "edit-preferences",
+            pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey,
+              child: EditPreferencesScreen(),
+            ),
+          ),
+          GoRoute(
+            name: "edit_password",
+            path: "edit-password",
+            pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey,
+              child: EditPasswordScreen(),
+            ),
+          ),
+        ],
       ),
     ],
     errorPageBuilder: (context, state) => MaterialPage<void>(

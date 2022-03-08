@@ -35,8 +35,6 @@ class UserState extends ChangeNotifier {
   Future<void> signUp(String email, String password) async => await _authService.signUp(email, password);
 
   Future<void> signOut() async {
-    //await _authService.stopEmailVerificationReloads();
-    //await Future.delayed(Duration(seconds: 2));
     await _authService.signOut();
   }
 }

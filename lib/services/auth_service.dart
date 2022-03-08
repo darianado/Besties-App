@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'package:async/async.dart';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class AuthService {
   final auth.FirebaseAuth _firebaseAuth = auth.FirebaseAuth.instance;
+
+  Timer? reloadingTimer;
 
   AuthService._privateConstructor();
 
@@ -12,7 +15,7 @@ class AuthService {
   static AuthService get instance => _instance;
 
   Stream<auth.User?> get user {
-    return _firebaseAuth.authStateChanges();
+    return _firebaseAuth.userChanges();
   }
 
   auth.User? get currentUser {
@@ -35,6 +38,30 @@ class AuthService {
 
   Future<void> sendVerificationEmail() async {
     await currentUser?.sendEmailVerification(null);
+  }
+
+  Future<void> reloadUser() async {
+    try {
+      await _firebaseAuth.currentUser?.reload();
+    } catch (e) {
+      // calling reload on a null user.
+      return;
+    }
+  }
+
+  Timer? timer;
+
+  void startCheckingForVerifiedEmail() {
+    timer = Timer.periodic(Duration(seconds: 1), (timer) async {
+      await reloadUser();
+      if (currentUser?.emailVerified == true) {
+        timer.cancel();
+      }
+    });
+  }
+
+  void stopCheckingForVerifiedEmail() {
+    timer?.cancel();
   }
 
   Future<void> resetPassword(String email) async {

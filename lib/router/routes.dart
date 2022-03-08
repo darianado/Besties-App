@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
@@ -8,7 +9,7 @@ import 'package:project_seg/screens/sign_up/register_description_screen.dart';
 import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
-import 'package:project_seg/services/UserState.dart';
+import 'package:project_seg/services/user_state.dart';
 
 class AppRouter {
   final UserState userState;
@@ -38,6 +39,18 @@ class AppRouter {
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const LogInScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
+        ),
+      ),
+      GoRoute(
+        name: "verify_email",
+        path: "/verify-email",
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
+          key: state.pageKey,
+          child: const EmailVerifyScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
@@ -108,10 +121,12 @@ class AppRouter {
     redirect: (state) {
       final initialized = userState.user != null;
       final loggedIn = userState.user?.user != null;
+      final emailVerified = userState.user?.user?.emailVerified ?? false;
       final fetchedUser = userState.user?.userData != null;
 
       final splashLoc = state.namedLocation("splash");
       final loginLoc = state.namedLocation("login");
+      final emailVerifyLoc = state.namedLocation("verify_email");
       final feedLoc = state.namedLocation("home", params: {'page': 'feed'});
       final recoverPasswordLoc = state.namedLocation("recover_password");
       final registerLoc = state.namedLocation("register");
@@ -121,6 +136,7 @@ class AppRouter {
 
       final goingToSplash = state.subloc == splashLoc;
       final goingToLogin = state.subloc == loginLoc;
+      final goingToEmailVerify = state.subloc == emailVerifyLoc;
       final goingToRecoverPassword = state.subloc == recoverPasswordLoc;
       final goingToRegister = state.subloc == registerLoc;
       final goingToRegisterBasicInfo = state.subloc == registerBasicInfoLoc;
@@ -131,12 +147,17 @@ class AppRouter {
         return splashLoc;
       }
 
+      if (initialized && loggedIn && !emailVerified && !goingToEmailVerify) {
+        return emailVerifyLoc;
+      }
+
       if (initialized && !loggedIn && !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
         return loginLoc;
       }
 
       if (initialized &&
           loggedIn &&
+          (emailVerified && goingToEmailVerify) &&
           !fetchedUser &&
           !(goingToRegisterBasicInfo || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
         return registerBasicInfoLoc;
@@ -144,6 +165,7 @@ class AppRouter {
 
       if ((initialized && goingToSplash) ||
           (loggedIn &&
+              emailVerified &&
               fetchedUser &&
               (goingToLogin ||
                   goingToRegister ||

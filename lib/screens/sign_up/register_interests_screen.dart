@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/categories.dart';
-import 'package:project_seg/services/FirestoreService.dart';
-import 'package:project_seg/services/UserState.dart';
+import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 class RegisterInterestsScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/router/routes.dart';
-import 'package:project_seg/services/UserState.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 import 'constants.dart';

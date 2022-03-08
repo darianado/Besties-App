@@ -4,7 +4,7 @@ import 'package:project_seg/models/Navigation/MenuData.dart';
 import 'package:project_seg/models/profile_class.dart';
 import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
-import 'package:project_seg/services/UserState.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 int indexOfItemWithName(String pageName) {

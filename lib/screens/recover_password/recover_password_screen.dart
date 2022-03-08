@@ -3,8 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/components/alerts.dart';
-import 'package:project_seg/dalu_auth/authenticator.dart';
-import 'package:project_seg/services/AuthService.dart';
+import 'package:project_seg/services/auth_exception_handler.dart';
+import 'package:project_seg/services/auth_service.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);

@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/dalu_auth/authenticator.dart';
+import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
-import 'package:project_seg/services/UserState.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';

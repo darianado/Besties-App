@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
-import 'package:project_seg/services/AuthService.dart';
-import 'package:project_seg/services/FirestoreService.dart';
+import 'package:project_seg/services/auth_service.dart';
+import 'package:project_seg/services/firestore_service.dart';
 
 class UserState extends ChangeNotifier {
   final AuthService _authService = AuthService.instance;
@@ -34,5 +34,9 @@ class UserState extends ChangeNotifier {
 
   Future<void> signUp(String email, String password) async => await _authService.signUp(email, password);
 
-  Future<void> signOut() async => await _authService.signOut();
+  Future<void> signOut() async {
+    //await _authService.stopEmailVerificationReloads();
+    //await Future.delayed(Duration(seconds: 2));
+    await _authService.signOut();
+  }
 }

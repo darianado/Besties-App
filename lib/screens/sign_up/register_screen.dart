@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
-import 'package:project_seg/dalu_auth/authenticator.dart';
+import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/constants.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/services/UserState.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -51,15 +51,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     try {
       await userState.signUp(_email.text.trim(), _password.text.trim());
-      showAlert(context, 'Before you can log in, you must click the link in your email to verify your account.');
     } on FirebaseAuthException catch (e) {
+      setState(() {
+        isLoading = false;
+      });
       final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../../models/profile_class.dart';
 import '../../../models/profile_container.dart';
@@ -21,9 +22,28 @@ class _FeedScreenState extends State<FeedScreen> {
     ProfileContainer(profile: Profile(seed: 4)),
   ];
 
+  Future<void> requestRecommendations() async {
+    HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+        'https://europe-west2-seg-djangoals.cloudfunctions.net/testNoParam');
+    dynamic resp = await callable();
+    print("result: ${resp.data}");
+  }
+
+  // Future<void> requestRecommendations() async {
+  //   HttpsCallable callable = FirebaseFunctions.instance.httpsCallable(
+  //       'https://europe-west2-seg-djangoals.cloudfunctions.net/requestRecommendations');
+  //   final resp = await callable.call(<String, dynamic>{
+  //     'userId': 'emqRhsblgvb52w4bP6houj4BhGv2',
+  //     'recs': 10,
+  //   });
+  //   print("result: ${resp.data}");
+  // }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+
+    requestRecommendations();
 
     final _userState = Provider.of<UserState>(context);
 

@@ -54,6 +54,7 @@ dependencies:
   firebase_storage: ^10.2.9
   font_awesome_flutter: ^9.2.0
   lottie: ^1.2.2
+  cloud_functions: ^3.2.9
 
 dev_dependencies:
   flutter_test:

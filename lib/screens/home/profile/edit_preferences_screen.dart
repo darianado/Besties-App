@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/screens/components/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class EditPreferencesScreen extends StatefulWidget {
   @override
@@ -143,9 +144,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                 ),
               ]),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/feed');
-                },
+                onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
                 child: const Text("SAVE NEW INFORMATION"),
               ),
             ]),

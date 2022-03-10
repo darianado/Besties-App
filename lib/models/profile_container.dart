@@ -1,11 +1,12 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
-import 'profile_class.dart';
 import '../constants.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
 class ProfileContainer extends StatelessWidget {
-  final Profile profile;
+  final HashMap profile;
 
   const ProfileContainer({Key? key, required this.profile}) : super(key: key);
 
@@ -55,7 +56,7 @@ class ProfileContainer extends StatelessWidget {
 
 // FloatingActionButton to like the displayed profile.
 class LikeProfileButton extends StatelessWidget {
-  final Profile profile;
+  final HashMap profile;
 
   const LikeProfileButton({Key? key, required this.profile}) : super(key: key);
 
@@ -65,7 +66,7 @@ class LikeProfileButton extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('You liked ${profile.firstName}!'),
+          title: Text("You liked" + profile['firstName'] + "!"),
           actions: [
             TextButton(
               child: const Text("Dismiss"),
@@ -96,7 +97,7 @@ class LikeProfileButton extends StatelessWidget {
 
 // Widget that displays the profile's full name and location arranged in a column.
 class PartialProfileDetails extends StatelessWidget {
-  final Profile profile;
+  final HashMap profile;
 
   const PartialProfileDetails({Key? key, required this.profile}) : super(key: key);
 
@@ -113,7 +114,7 @@ class PartialProfileDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 3.5),
           child: Text(
-            profile.firstName,
+            profile['firstName'],
             style: const TextStyle(
               fontSize: kProfileNameFontSize,
               color: kSecondaryColour,
@@ -143,7 +144,7 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
           Text(
-            profile.continent,
+            profile['location'],
             style: const TextStyle(
               fontSize: kProfileLocationFontSize,
               color: kSecondaryColour,
@@ -158,7 +159,7 @@ class PartialProfileDetails extends StatelessWidget {
 
 // Widget that displays all of the profile's details as a sliding bottom sheet.
 class CompleteProfileDetails extends StatelessWidget {
-  final Profile profile;
+  final HashMap profile;
 
   const CompleteProfileDetails({Key? key, required this.profile}) : super(key: key);
 
@@ -177,7 +178,7 @@ class CompleteProfileDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ...([profile.firstName, profile.lastName, profile.continent]).map((element) {
+                ...([profile['firstName'], "lastName", profile['location']]).map((element) {
                   return Text(
                     element,
                     style: const TextStyle(

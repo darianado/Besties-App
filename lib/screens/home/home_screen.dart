@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
-import 'package:project_seg/models/profile_class.dart';
 import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -39,14 +38,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late int _selectedIndex;
-
-  final List<ProfileContainer> containers = [
-    ProfileContainer(profile: Profile(seed: 0)),
-    ProfileContainer(profile: Profile(seed: 1)),
-    ProfileContainer(profile: Profile(seed: 2)),
-    ProfileContainer(profile: Profile(seed: 3)),
-    ProfileContainer(profile: Profile(seed: 4)),
-  ];
 
   set selectedIndex(int index) {
     setState(() {

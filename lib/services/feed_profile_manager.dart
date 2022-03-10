@@ -14,8 +14,8 @@ class FeedProfileManager {
       'userId': uid,
       'recs': recs,
     });
-    HashMap uids = HashMap.from(resp.data);
-    return uids;
+  
+    return HashMap.from(resp.data);
   }
 
   static Future<List<HashMap>> getProfileData(String uid, int recs) async {
@@ -23,7 +23,8 @@ class FeedProfileManager {
 
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('users');
-    QuerySnapshot querySnapshot = await _collectionRef.get(); //TODO .filter by uids
+    QuerySnapshot querySnapshot =
+        await _collectionRef.get(); //TODO .filter by uids
 
     // Runtime type: List<HashMap<dynamic, dynamic>>
     final allData = querySnapshot.docs
@@ -31,9 +32,12 @@ class FeedProfileManager {
         .toList()
         .map((e) => HashMap.from(e as Map))
         .toList();
-
+        //print(allData);
     return allData;
   }
 
-  // static List<ProfileContainer> getProfileContainers() {}
+  static Future<List<ProfileContainer>> getProfileContainers(String uid, int recs) async {
+    dynamic data = await getProfileData(uid, recs);
+    return data.map((e) => ProfileContainer(profile: e)).toList();
+  }
 }

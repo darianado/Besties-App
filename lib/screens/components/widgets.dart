@@ -53,7 +53,7 @@ class _UniversityState extends State<University> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //height: 100.0,
+      height: 100.0,
       child: DropdownButtonHideUnderline(
         child: ButtonTheme(
           alignedDropdown: true,

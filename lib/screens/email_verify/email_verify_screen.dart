@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants.dart';
+import 'package:project_seg/screens/components/icon_content.dart';
 import 'package:project_seg/services/auth_service.dart';
+import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 

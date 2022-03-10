@@ -2,16 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-enum Cat {
-  SELF_CARE,
-  FOOD,
-  SOCIAL_ACTIVITIES,
-  SCIENCEandTECHNOLOGY,
-  GAMES,
-  SPORTS,
-  ARTandLITERATURE,
-  POPULARCULTURE
-}
+enum Cat { SELF_CARE, FOOD, SOCIAL_ACTIVITIES, SCIENCEandTECHNOLOGY, GAMES, SPORTS, ARTandLITERATURE, POPULARCULTURE }
 
 class Category {
   final Cat id;
@@ -29,13 +20,12 @@ class InterestStatus extends StatefulWidget {
 }
 
 class _InterestStatusState extends State<InterestStatus> {
-
   static List<Category> _socialActivities = [
     Category(id: Cat.SOCIAL_ACTIVITIES, name: "Clubbing"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Travel"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Charity"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Dating"),
-    Category(id:  Cat.SOCIAL_ACTIVITIES, name: "Social media"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Travel"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Charity"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Dating"),
+    Category(id: Cat.SOCIAL_ACTIVITIES, name: "Social media"),
   ];
 
   static List<Category> _food = [
@@ -92,51 +82,32 @@ class _InterestStatusState extends State<InterestStatus> {
     Category(id: Cat.GAMES, name: "Music"),
   ];
 
-
-
-  final _itemsSocialActivities = _socialActivities
-      .map((social_activity) => MultiSelectItem<Category>(social_activity, social_activity.name))
-      .toList();
+  final _itemsSocialActivities =
+      _socialActivities.map((social_activity) => MultiSelectItem<Category>(social_activity, social_activity.name)).toList();
   List<Category> _selectedSocialActivities = [];
 
-  final _itemsFood = _food
-      .map((food) => MultiSelectItem<Category>(food, food.name))
-      .toList();
+  final _itemsFood = _food.map((food) => MultiSelectItem<Category>(food, food.name)).toList();
   List<Category> _selectedFood = [];
 
-  final _itemsSelfCare = _selfCare
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemsSelfCare = _selfCare.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedSelfCare = [];
 
-  final _itemsScienceAndTechnology = _scienceAndTechnology
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemsScienceAndTechnology = _scienceAndTechnology.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedScienceAndTechnology = [];
 
-  final _itemGames = _games
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemGames = _games.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedGames = [];
 
-  final _itemSports = _sports
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemSports = _sports.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedSports = [];
 
-  final _itemArtAndLiterature = _art_and_literature
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemArtAndLiterature = _art_and_literature.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedArtAndLiterature = [];
 
-  final _itemPopularCulture = _popularCulture
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemPopularCulture = _popularCulture.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedPopularCulture = [];
 
   List<Category> _selectedItems = [];
-
-
 
   String dropdownValue = 'Select your interests';
   @override
@@ -156,21 +127,21 @@ class _InterestStatusState extends State<InterestStatus> {
             buildMultiSelectBottomSheetField("Popular culture", _itemPopularCulture, _selectedPopularCulture),
             _selectedPopularCulture == null || _selectedPopularCulture.isEmpty
                 ? Container(
-                padding: EdgeInsets.all(10),
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "None selected",
-                  style: TextStyle(color: Colors.black54),
-                ))
+                    padding: EdgeInsets.all(10),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "None selected",
+                      style: TextStyle(color: Colors.black54),
+                    ))
                 : Container(),
-
           ],
         ),
       ),
     );
   }
 
-  MultiSelectBottomSheetField<Object?> buildMultiSelectBottomSheetField(String name, List<MultiSelectItem<Category>> listOfItems, List<Category> selectedItems) {
+  MultiSelectBottomSheetField<Object?> buildMultiSelectBottomSheetField(
+      String name, List<MultiSelectItem<Category>> listOfItems, List<Category> selectedItems) {
     return MultiSelectBottomSheetField(
         initialChildSize: 0.4,
         listType: MultiSelectListType.CHIP,
@@ -205,14 +176,13 @@ class _InterestStatusState extends State<InterestStatus> {
               case Cat.POPULARCULTURE:
                 _selectedPopularCulture = values as List<Category>;
                 break;
-
             }
           });
         },
         chipDisplay: MultiSelectChipDisplay(
           onTap: (value) {
             setState(() {
-              switch((value as Category).id) {
+              switch ((value as Category).id) {
                 case Cat.SELF_CARE:
                   _selectedSelfCare.remove(value);
                   break;
@@ -239,14 +209,20 @@ class _InterestStatusState extends State<InterestStatus> {
                   break;
               }
 
-              _selectedItems = [_selectedSocialActivities, _selectedFood, _selectedSelfCare, _selectedScienceAndTechnology, _selectedGames, _selectedSports, _selectedArtAndLiterature, _selectedPopularCulture].
-              expand((x) => x).toList();
+              _selectedItems = [
+                _selectedSocialActivities,
+                _selectedFood,
+                _selectedSelfCare,
+                _selectedScienceAndTechnology,
+                _selectedGames,
+                _selectedSports,
+                _selectedArtAndLiterature,
+                _selectedPopularCulture
+              ].expand((x) => x).toList();
 
               print(_selectedItems);
             });
           },
-        )
-
-    );
+        ));
   }
 }

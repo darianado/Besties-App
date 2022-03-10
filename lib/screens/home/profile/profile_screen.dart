@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants.dart';
+import 'package:project_seg/screens/home/profile/components/cached_image.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -17,6 +18,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     final _userState = Provider.of<UserState>(context);
+
+    wrapWidget() {
+      return Wrap(
+          spacing: 6.0,
+          runSpacing: 6.0,
+          children: _userState.user?.userData?.interests.map<Widget>((e) => chip(e, kSecondaryColour)).toList() ?? []);
+    }
 
     return Scaffold(
       backgroundColor: kWhiteColour,
@@ -52,9 +60,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 120.0, bottom: 30.0),
                   child: Center(
-                    child: CircleAvatar(
-                      radius: 100,
-                      backgroundImage: AssetImage("assets/images/empty_profile_picture.jpg"),
+                    child: Material(
+                      shape: CircleBorder(),
+                      clipBehavior: Clip.antiAlias,
+                      elevation: 20.0,
+                      child: SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: CachedImage(userId: _userState.user?.user?.uid),
+                      ),
                     ),
                   ),
                 ),
@@ -63,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: Text(
-                'Name',
+                _userState.user?.userData?.fullName ?? "-",
                 style: TextStyle(
                   color: kTertiaryColour,
                   fontSize: 40.0,
@@ -80,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
               Text(
-                'University',
+                _userState.user?.userData?.university ?? "-",
                 style: const TextStyle(
                   fontSize: 30,
                   color: kTertiaryColour,
@@ -90,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text(
-                "21",
+                "${_userState.user?.userData?.age}",
                 style: TextStyle(
                   fontSize: 20,
                   color: kTertiaryColour,
@@ -100,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text(
-                "Bio",
+                _userState.user?.userData?.bio ?? "-",
                 style: TextStyle(
                   fontSize: 20,
                   color: kTertiaryColour,
@@ -109,13 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             Padding(
               padding: const EdgeInsets.all(15.0),
-              child: Text(
-                "Preferences",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: kTertiaryColour,
-                ),
-              ),
+              child: wrapWidget(),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 30.0),
@@ -147,6 +155,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget chip(String label, Color color) {
+    return Chip(
+      labelPadding: EdgeInsets.all(5.0),
+      label: Text(
+        label[0].toUpperCase() + label.substring(1).toLowerCase(),
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ),
+      backgroundColor: color,
+      elevation: 6.0,
+      shadowColor: Colors.grey[60],
+      padding: EdgeInsets.all(6.0),
     );
   }
 }

@@ -15,28 +15,31 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
     final _userState = Provider.of<UserState>(context);
+    final uid = _userState.user?.user?.uid;
 
-    return FutureBuilder(
-      future: FeedProfileManager.getProfileContainers('oqcGC8SUkqX1FKvssZXwYrmaJFA3', 1),
-      builder: (context, AsyncSnapshot<List<ProfileContainer>?> snapshot) {
-        List<ProfileContainer>? snapshotData = snapshot.data;
+    if (uid != null) {
+      return FutureBuilder(
+        future: FeedProfileManager.getProfileContainers(uid, 1),
+        builder: (context, AsyncSnapshot<List<ProfileContainer>> snapshot) {
+          List<ProfileContainer>? snapshotData = snapshot.data;
 
-        if (snapshotData == null) {
-
-          return PageView(
-            scrollDirection: Axis.vertical,
-            children: snapshotData as List<ProfileContainer>,
-          );
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
-    );
+          if (snapshotData != null) {
+            return PageView(
+              scrollDirection: Axis.vertical,
+              children: snapshotData,
+            );
+          } else {
+            return const Center(child: CircularProgressIndicator());
+          }
+        },
+      );
+    } else {
+      return CircularProgressIndicator();
+    }
   }
 }

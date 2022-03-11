@@ -199,7 +199,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                     width: 0.80 * screenWidth,
                     height: 0.07 * screenHeight,
                     child: ElevatedButton(
-                      onPressed: () => context.pushNamed("register_description"),
+                      onPressed: () => context.pushNamed("register_description", extra: RegisterBasicInfoScreen()),
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
                           primary: kTertiaryColour,

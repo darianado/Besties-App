@@ -14,7 +14,7 @@ class FeedProfileManager {
       'userId': uid,
       'recs': recs,
     });
-  
+
     return HashMap.from(resp.data);
   }
 
@@ -32,12 +32,14 @@ class FeedProfileManager {
         .toList()
         .map((e) => HashMap.from(e as Map))
         .toList();
-        //print(allData);
+    print("--- getProfile ---" + allData.runtimeType.toString());
     return allData;
   }
 
-  static Future<List<ProfileContainer>> getProfileContainers(String uid, int recs) async {
+  static Future<List<ProfileContainer>> getProfileContainers(
+      String uid, int recs) async {
     dynamic data = await getProfileData(uid, recs);
+    print("--- getContainers ---" + data.runtimeType.toString());
     return data.map((e) => ProfileContainer(profile: e)).toList();
   }
 }

@@ -15,28 +15,23 @@ class FeedScreen extends StatefulWidget {
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-
+  
   @override
   Widget build(BuildContext context) {
-
-    Future<List<ProfileContainer>> getContainers(String uid, int recs) async {
-      List<ProfileContainer> containers =
-          await FeedProfileManager.getProfileContainers(uid, recs);
-
-      return containers;
-    }
-
     double screenHeight = MediaQuery.of(context).size.height;
 
     final _userState = Provider.of<UserState>(context);
 
     return FutureBuilder(
-      future: getContainers('KxeqzASITNRMdOOvCwGzCmnTJpF3', 5),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done /*&& snapshot.hasData*/) {
+      future: FeedProfileManager.getProfileContainers('oqcGC8SUkqX1FKvssZXwYrmaJFA3', 1),
+      builder: (context, AsyncSnapshot<List<ProfileContainer>?> snapshot) {
+        List<ProfileContainer>? snapshotData = snapshot.data;
+
+        if (snapshotData == null) {
+
           return PageView(
             scrollDirection: Axis.vertical,
-            children: snapshot.data as List<ProfileContainer>,
+            children: snapshotData as List<ProfileContainer>,
           );
         } else {
           return const Center(child: CircularProgressIndicator());

@@ -5,8 +5,12 @@ import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/screens/components/reusable_card.dart';
 import 'package:project_seg/screens/components/widgets.dart';
+import 'package:project_seg/models/User/UserData.dart';
+
 
 class RegisterBasicInfoScreen extends StatefulWidget {
+  const RegisterBasicInfoScreen({Key? key}) : super(key: key);
+
   @override
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
@@ -17,6 +21,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _dob = TextEditingController();
   final TextEditingController _gender = TextEditingController();
+   UserData userData = UserData();
+  
+ 
+
 
   DateTime selectedDate = DateTime.now();
   bool dateChanged = false;
@@ -199,7 +207,14 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                     width: 0.80 * screenWidth,
                     height: 0.07 * screenHeight,
                     child: ElevatedButton(
-                      onPressed: () => context.pushNamed("register_description"),
+                      onPressed: () {
+                        userData.firstName = _firstName.text;
+                        userData.lastName =_lastName.text;
+                        userData.gender= genderLabel(selectedGender);
+                        
+                        //userData.dob= DateTime.parse(_dob.text);
+                          context.pushNamed("register_description",extra :userData);
+                      },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
                           primary: kTertiaryColour,

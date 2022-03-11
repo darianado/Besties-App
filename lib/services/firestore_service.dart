@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/services/user_state.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
@@ -41,5 +43,32 @@ class FirestoreService {
     _firebaseFirestore.collection("users").doc(uid).set(demo);
   }
 
-  void saveUserData(UserData data) {}
+  void saveUserData(UserData data) {
+
+        final dataMap = {
+      "dob": data.dob,
+      "firstName": data.firstName,
+      "lastName": data.lastName,
+      "university": data.university,
+      "gender": data.gender,
+      "relationshipStatus": data.relationshipStatus,
+      "bio": data.bio,
+      "interests": ["volunteering", "christian"],
+      "location": {"lat": 51.48, "lon": 0.086},
+      "preferences": {
+        "interests": ["buddhism", "christian", "islam"],
+        "maxAge": 30,
+        "minAge": 18
+      }
+    };
+
+    UserState _userState = UserState.instance;
+
+    String? uid = _userState.user?.user?.uid ;
+
+      if (uid!= null){
+        _firebaseFirestore.collection("users").doc(uid).set(dataMap);
+    }
+ 
+  }
 }

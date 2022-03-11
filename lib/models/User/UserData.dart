@@ -16,15 +16,15 @@ class GeoLocation {
 }
 
 class UserData {
-  final DateTime? dob;
-  final String? firstName, lastName;
-  final String? gender;
-  final String? university;
-  final String? bio;
-  final String? relationshipStatus;
-  final List<String>? interests;
-  final GeoLocation? location;
-  final Preferences? preferences;
+   DateTime? dob;
+   String? firstName, lastName;
+   String? gender;
+   String? university;
+   String? bio;
+   String? relationshipStatus;
+   List<String>? interests;
+   GeoLocation? location;
+   Preferences? preferences;
 
   UserData(
       {this.dob,

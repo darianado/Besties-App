@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
@@ -81,7 +82,7 @@ class AppRouter {
             path: "description",
             pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
-              child: RegisterDescriptionScreen(),
+              child: RegisterDescriptionScreen(userData: state.extra! as UserData),
             ),
           ),
           GoRoute(
@@ -89,7 +90,7 @@ class AppRouter {
             path: "interests",
             pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
-              child: RegisterInterestsScreen(),
+              child: RegisterInterestsScreen(userData: state.extra! as UserData),
             ),
           ),
         ],

@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/categories.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 class RegisterInterestsScreen extends StatelessWidget {
+
+   RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
+    UserData userData;
+
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
@@ -12,7 +18,7 @@ class RegisterInterestsScreen extends StatelessWidget {
     void saveToFirestore() {
       final FirestoreService _firestoreService = FirestoreService.instance;
 
-      _firestoreService.signUpUser(_userState.user!.user!.uid);
+      _firestoreService.saveUserData(userData);
     }
 
     return Scaffold(

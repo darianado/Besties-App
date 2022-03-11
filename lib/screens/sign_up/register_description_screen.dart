@@ -2,17 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/widgets.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
+  RegisterDescriptionScreen({Key? key, required this.userData}) : super(key: key);
+
+  UserData userData;
+
   @override
-  _RegisterDescriptionScreenState createState() => _RegisterDescriptionScreenState();
+  _RegisterDescriptionScreenState createState() => _RegisterDescriptionScreenState(userData: userData);
 }
 
 class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
+
+  _RegisterDescriptionScreenState({Key? key, required this.userData}) ;
+
   final GlobalKey _key = GlobalKey<FormState>();
   final TextEditingController _university = TextEditingController();
   final TextEditingController _bio = TextEditingController();
+  UserData userData;
 
   @override
   void dispose() {
@@ -136,7 +146,10 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                     width: 0.80 * screenWidth,
                     height: 0.07 * screenHeight,
                     child: ElevatedButton(
-                      onPressed: () => context.pushNamed("register_interests"),
+                      onPressed: () {
+                        userData.bio=_bio.text;
+                        context.pushNamed("register_interests", extra: userData);
+                      } ,
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(
                           primary: kTertiaryColour,

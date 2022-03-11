@@ -27,6 +27,7 @@ class FirestoreService {
       "lastName": "Garcia",
       "university": "King's College London",
       "gender": "non-binary",
+      "relationshipStatus": "single",
       "bio": "Hello! This is my bio. This text is rather long, so we can check everything's working.",
       "interests": ["volunteering", "christian"],
       "location": {"lat": 51.48, "lon": 0.086},

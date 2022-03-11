@@ -18,6 +18,8 @@ class UserData {
   final int age;
   final String firstName, lastName;
   final String gender;
+  final String university;
+  final String bio;
   final List<String> interests;
   final GeoLocation location;
   final Preferences preferences;
@@ -25,6 +27,8 @@ class UserData {
   UserData(
       {required this.age,
       required this.gender,
+      required this.university,
+      required this.bio,
       required this.interests,
       required this.location,
       required this.preferences,
@@ -38,6 +42,8 @@ class UserData {
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
+      university: data?['university'],
+      bio: data?['bio'],
       interests: List<String>.from(data?['interests']),
       location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
       preferences: Preferences(
@@ -46,5 +52,9 @@ class UserData {
         minAge: data?['preferences']['minAge'],
       ),
     );
+  }
+
+  String? get fullName {
+    return (firstName) + " " + (lastName);
   }
 }

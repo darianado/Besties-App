@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/User/ActiveUser.dart';
+import 'package:project_seg/models/User/UserData.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
@@ -21,7 +22,7 @@ class FirestoreService {
 
   void signUpUser(String uid) {
     final demo = {
-      "age": 20,
+      "dob": DateTime.utc(2000, 07, 20),
       "firstName": "Amy",
       "lastName": "Garcia",
       "university": "King's College London",
@@ -38,4 +39,6 @@ class FirestoreService {
 
     _firebaseFirestore.collection("users").doc(uid).set(demo);
   }
+
+  void saveUserData(UserData data) {}
 }

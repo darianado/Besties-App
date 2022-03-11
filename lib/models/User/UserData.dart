@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:age_calculator/age_calculator.dart';
 
 class Preferences {
   final List<String> interests;
@@ -15,30 +16,22 @@ class GeoLocation {
 }
 
 class UserData {
-  final int age;
-  final String firstName, lastName;
-  final String gender;
-  final String university;
-  final String bio;
-  final List<String> interests;
-  final GeoLocation location;
-  final Preferences preferences;
+  final DateTime? dob;
+  final String? firstName, lastName;
+  final String? gender;
+  final String? university;
+  final String? bio;
+  final List<String>? interests;
+  final GeoLocation? location;
+  final Preferences? preferences;
 
   UserData(
-      {required this.age,
-      required this.gender,
-      required this.university,
-      required this.bio,
-      required this.interests,
-      required this.location,
-      required this.preferences,
-      required this.firstName,
-      required this.lastName});
+      {this.dob, this.gender, this.university, this.bio, this.interests, this.location, this.preferences, this.firstName, this.lastName});
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
     return UserData(
-      age: data?['age'],
+      dob: (data?['dob'] as Timestamp).toDate(),
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
@@ -55,6 +48,15 @@ class UserData {
   }
 
   String? get fullName {
-    return (firstName) + " " + (lastName);
+    return (firstName ?? "") + (firstName != null ? " " : "") + (lastName ?? "");
+  }
+
+  int? get age {
+    DateTime? localDob = dob;
+    if (localDob != null) {
+      return AgeCalculator.age(localDob).years;
+    } else {
+      return null;
+    }
   }
 }

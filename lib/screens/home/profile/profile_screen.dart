@@ -23,7 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Wrap(
           spacing: 6.0,
           runSpacing: 6.0,
-          children: _userState.user?.userData?.interests.map<Widget>((e) => chip(e, kSecondaryColour)).toList() ?? []);
+          children: _userState.user?.userData?.interests?.map<Widget>((e) => chip(e, kSecondaryColour)).toList() ?? []);
     }
 
     return Scaffold(

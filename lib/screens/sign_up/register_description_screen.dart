@@ -96,7 +96,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             width: 10,
                           ),
                           Expanded(
-                            child: University(),
+                            child: University(userData: userData),
                           ),
                         ],
                       ),

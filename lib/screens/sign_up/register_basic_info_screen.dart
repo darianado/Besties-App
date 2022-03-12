@@ -30,7 +30,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
   bool dateChanged = false;
   Gender selectedGender = Gender.other;
 
-  _selectDate(BuildContext context) async {
+  void _selectDate(BuildContext context) async {
     DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate, // Refer step 1
@@ -197,7 +197,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             width: 10,
                           ),
                           Expanded(
-                            child: RelationshipStatus(),
+                            child: RelationshipStatus(userData: userData),
                           ),
                         ],
                       ),
@@ -211,8 +211,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         userData.firstName = _firstName.text;
                         userData.lastName =_lastName.text;
                         userData.gender= genderLabel(selectedGender);
-                        
-                        //userData.dob= DateTime.parse(_dob.text);
+                        userData.dob=selectedDate;
                           context.pushNamed("register_description",extra :userData);
                       },
                       child: Text("Next"),

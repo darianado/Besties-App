@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/screens/components/widgets.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/models/User/UserData.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -100,7 +101,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
                 Expanded(
-                  child: RelationshipStatus(),
+                  child: Text("testing")
+                  //RelationshipStatus(userData: ),
                 ),
               ]),
               ElevatedButton(

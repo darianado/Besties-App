@@ -140,7 +140,8 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
               ),
               Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
                 Expanded(
-                  child: University(),
+                  child:Text("Testing"),
+                  // University(),
                 ),
               ]),
               ElevatedButton(

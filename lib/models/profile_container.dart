@@ -1,12 +1,13 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import '../constants.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
 class ProfileContainer extends StatelessWidget {
-  final HashMap profile;
+  final UserData profile;
 
   const ProfileContainer({Key? key, required this.profile}) : super(key: key);
 
@@ -34,7 +35,10 @@ class ProfileContainer extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    showModalBottomSheet(context: context, builder: (context) => CompleteProfileDetails(profile: profile));
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) =>
+                            CompleteProfileDetails(profile: profile));
                     // Scaffold.of(context)
                     //     .showBottomSheet((context) => CompleteProfileDetails(
                     //           profile: profile,
@@ -56,7 +60,7 @@ class ProfileContainer extends StatelessWidget {
 
 // FloatingActionButton to like the displayed profile.
 class LikeProfileButton extends StatelessWidget {
-  final HashMap profile;
+  final UserData profile;
 
   const LikeProfileButton({Key? key, required this.profile}) : super(key: key);
 
@@ -66,7 +70,7 @@ class LikeProfileButton extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("You liked" + profile['firstName'] + "!"),
+          title: Text("You liked " + (profile.firstName ?? "null") + "!"),
           actions: [
             TextButton(
               child: const Text("Dismiss"),
@@ -97,9 +101,10 @@ class LikeProfileButton extends StatelessWidget {
 
 // Widget that displays the profile's full name and location arranged in a column.
 class PartialProfileDetails extends StatelessWidget {
-  final HashMap profile;
+  final UserData profile;
 
-  const PartialProfileDetails({Key? key, required this.profile}) : super(key: key);
+  const PartialProfileDetails({Key? key, required this.profile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +119,7 @@ class PartialProfileDetails extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(bottom: 3.5),
           child: Text(
-            profile['firstName'],
+            profile.firstName ?? "null",
             style: const TextStyle(
               fontSize: kProfileNameFontSize,
               color: kSecondaryColour,
@@ -144,7 +149,7 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
           Text(
-            profile['location'],
+            profile.university ?? "null",
             style: const TextStyle(
               fontSize: kProfileLocationFontSize,
               color: kSecondaryColour,
@@ -159,9 +164,10 @@ class PartialProfileDetails extends StatelessWidget {
 
 // Widget that displays all of the profile's details as a sliding bottom sheet.
 class CompleteProfileDetails extends StatelessWidget {
-  final HashMap profile;
+  final UserData profile;
 
-  const CompleteProfileDetails({Key? key, required this.profile}) : super(key: key);
+  const CompleteProfileDetails({Key? key, required this.profile})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -178,9 +184,13 @@ class CompleteProfileDetails extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ...([profile['firstName'], "lastName", profile['location']]).map((element) {
+                ...([
+                  profile.firstName ?? "null",
+                  profile.lastName ?? "null",
+                  profile.university ?? "null",
+                ]).map((element) {
                   return Text(
-                    element,
+                    element.toString(),
                     style: const TextStyle(
                       fontSize: kProfileNameFontSize,
                       color: kSecondaryColour,

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/screens/components/reusable_card.dart';
 import 'package:project_seg/screens/components/widgets.dart';
 import 'package:project_seg/models/User/UserData.dart';
-
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 class RegisterBasicInfoScreen extends StatefulWidget {
   const RegisterBasicInfoScreen({Key? key}) : super(key: key);
@@ -21,10 +23,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
   final TextEditingController _lastName = TextEditingController();
   final TextEditingController _dob = TextEditingController();
   final TextEditingController _gender = TextEditingController();
-   UserData userData = UserData();
-  
- 
-
+  UserData userData = UserData();
 
   DateTime selectedDate = DateTime.now();
   bool dateChanged = false;
@@ -59,6 +58,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+    UserState _userState = Provider.of<UserState>(context);
+
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -80,6 +81,26 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  OutlinedButton(
+                    onPressed: () => _userState.signOut(),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.red.shade100),
+                      primary: Colors.red,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.signOutAlt,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Sign out"),
+                      ],
+                    ),
+                  ),
                   const Padding(
                     padding: EdgeInsets.fromLTRB(22.0, 10.0, 22.0, 30.0),
                     child: Text('TELL US ABOUT YOURSELF',
@@ -209,10 +230,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         userData.firstName = _firstName.text;
-                        userData.lastName =_lastName.text;
-                        userData.gender= genderLabel(selectedGender);
-                        userData.dob=selectedDate;
-                          context.pushNamed("register_description",extra :userData);
+                        userData.lastName = _lastName.text;
+                        userData.gender = genderLabel(selectedGender);
+                        userData.dob = selectedDate;
+                        context.pushNamed("register_description", extra: userData);
                       },
                       child: Text("Next"),
                       style: ElevatedButton.styleFrom(

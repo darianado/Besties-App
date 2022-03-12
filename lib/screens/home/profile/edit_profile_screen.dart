@@ -3,6 +3,8 @@ import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/screens/components/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -26,6 +28,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    UserState _userState = Provider.of<UserState>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple,
@@ -50,9 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   SizedBox(width: 20),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, '/edit_profile');
-                    },
+                    onPressed: () {},
                     child: const Text("UPLOAD NEW PICTURE"),
                   ),
                 ],
@@ -100,10 +102,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 ),
               ),
               Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-                Expanded(
-                  child: Text("testing")
-                  //RelationshipStatus(userData: ),
-                ),
+                Expanded(child: Text("testing")
+                    //RelationshipStatus(userData: ),
+                    ),
               ]),
               ElevatedButton(
                 onPressed: () => context.pushNamed("edit_password", params: {'page': 'profile'}),

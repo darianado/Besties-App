@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
                 bodyColor: Colors.orange,
                 displayColor: Colors.red,
               ),
+              /*
               // Define the default brightness and colors.
               brightness: Brightness.light,
               scaffoldBackgroundColor: kWhiteColour,
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
                 headline6: TextStyle(fontSize: 25.0, fontStyle: FontStyle.italic),
                 bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
               ),
+              */
             ),
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,

@@ -20,7 +20,7 @@ class StorageService {
 
     String downloadUrl = await firstImageRef.getDownloadURL();
 
-    print("Downloading URL: $downloadUrl");
+    //print("Downloading URL: $downloadUrl");
 
     return downloadUrl;
   }

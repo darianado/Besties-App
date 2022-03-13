@@ -16,14 +16,13 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    //double screenWidth = MediaQuery.of(context).size.width;
+    double screenWidth = MediaQuery.of(context).size.width;
     //double screenHeight = MediaQuery.of(context).size.height;
     final _userState = Provider.of<UserState>(context);
 
     const double profileImageRadius = 100;
-    const double profileImageOffset = profileImageRadius * 0.75;
-    const double profileHeaderExtendedHeight = 180;
-    const double profileHeaderCollapsedHeight = 120;
+    const double profileHeaderExtendedHeight = 220;
+    const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -33,7 +32,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             pinned: true,
             expandedHeight: profileHeaderExtendedHeight,
             collapsedHeight: profileHeaderCollapsedHeight,
+            automaticallyImplyLeading: false,
             excludeHeaderSemantics: false,
+            actions: [
+              IconButton(
+                onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
+              ),
+            ],
             flexibleSpace: Stack(
               alignment: Alignment.bottomCenter,
               clipBehavior: Clip.none,
@@ -48,8 +57,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: -profileImageOffset,
+                Padding(
+                  padding: const EdgeInsets.only(top: 50.0, bottom: 10.0),
                   child: Material(
                     shape: CircleBorder(),
                     clipBehavior: Clip.antiAlias,
@@ -57,7 +66,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: SizedBox(
                       height: 2 * profileImageRadius,
                       width: 2 * profileImageRadius,
-                      child: CachedImage(userId: _userState.user?.user?.uid),
+                      child: CachedImage(url: _userState.user?.userData?.profileImageUrl),
                     ),
                   ),
                 ),
@@ -67,24 +76,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.only(top: profileImageOffset, left: 15, right: 15),
+              padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20, bottom: 10),
-                    child: Text(
-                      _userState.user?.userData?.fullName ?? "-",
-                      style: TextStyle(
-                        color: kTertiaryColour,
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                  Text(
+                    _userState.user?.userData?.fullName ?? "-",
+                    style: TextStyle(
+                      color: kTertiaryColour,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  chip(kTertiaryColour, icon: FontAwesomeIcons.university, label: _userState.user?.userData?.university ?? "-"),
+                  chip(kTertiaryColour,
+                      icon: FontAwesomeIcons.university, label: _userState.user?.userData?.university ?? "-", textColor: kTertiaryColour),
                   SizedBox(
                     height: 10,
                   ),
@@ -105,6 +112,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: kTertiaryColour.withOpacity(0.1),

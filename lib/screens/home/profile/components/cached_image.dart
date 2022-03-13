@@ -4,49 +4,38 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/services/storage_service.dart';
 
 class CachedImage extends StatelessWidget {
-  final String? userId;
+  final String? url;
 
   const CachedImage({
     Key? key,
-    this.userId,
+    this.url,
   }) : super(key: key);
 
   Widget errorPlaceholder() {
     return Icon(
       FontAwesomeIcons.exclamationCircle,
       size: 16,
-      color: Colors.amber,
+      color: Colors.orange,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    if (userId != null) {
-      return FutureBuilder(
-        future: StorageService.instance.getUrlForUserAvatar(userId!),
-        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
-          String? url = snapshot.data;
-
-          if (url != null) {
-            return CachedNetworkImage(
-              imageUrl: url,
-              errorWidget: (context, url, error) {
-                return errorPlaceholder();
-              },
-              placeholder: (context, url) {
-                return Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                  ),
-                );
-              },
-              fit: BoxFit.cover,
-            );
-          } else {
-            return errorPlaceholder();
-          }
+    if (url != null) {
+      return CachedNetworkImage(
+        imageUrl: url!,
+        errorWidget: (context, url, error) {
+          return errorPlaceholder();
         },
+        placeholder: (context, url) {
+          return Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+            ),
+          );
+        },
+        fit: BoxFit.cover,
       );
     } else {
       return errorPlaceholder();

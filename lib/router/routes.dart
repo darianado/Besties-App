@@ -118,9 +118,13 @@ class AppRouter {
           GoRoute(
             name: "edit_profile",
             path: "edit-profile",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: EditProfileScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(

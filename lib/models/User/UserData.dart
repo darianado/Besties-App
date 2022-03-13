@@ -16,15 +16,16 @@ class GeoLocation {
 }
 
 class UserData {
-   DateTime? dob;
-   String? firstName, lastName;
-   String? gender;
-   String? university;
-   String? bio;
-   String? relationshipStatus;
-   List<String>? interests;
-   GeoLocation? location;
-   Preferences? preferences;
+  DateTime? dob;
+  String? firstName, lastName;
+  String? gender;
+  String? university;
+  String? bio;
+  String? relationshipStatus;
+  String? profileImageUrl;
+  List<String>? interests;
+  GeoLocation? location;
+  Preferences? preferences;
 
   UserData(
       {this.dob,
@@ -34,6 +35,7 @@ class UserData {
       this.relationshipStatus,
       this.interests,
       this.location,
+      this.profileImageUrl,
       this.preferences,
       this.firstName,
       this.lastName});
@@ -48,6 +50,7 @@ class UserData {
       university: data?['university'],
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],
+      profileImageUrl: data?['profileImageUrl'],
       interests: List<String>.from(data?['interests']),
       location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
       preferences: Preferences(

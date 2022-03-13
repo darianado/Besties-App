@@ -22,6 +22,16 @@ class FirestoreService {
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
 
+  void setProfileImageUrl(String url) {
+    UserState _userState = UserState.instance;
+
+    String? uid = _userState.user?.user?.uid;
+
+    if (uid != null) {
+      _firebaseFirestore.collection("users").doc(uid).set({"profileImageUrl": url}, firestore.SetOptions(merge: true));
+    }
+  }
+
   void signUpUser(String uid) {
     final demo = {
       "dob": DateTime.utc(2000, 07, 20),
@@ -44,8 +54,7 @@ class FirestoreService {
   }
 
   void saveUserData(UserData data) {
-
-        final dataMap = {
+    final dataMap = {
       "dob": data.dob,
       "firstName": data.firstName,
       "lastName": data.lastName,
@@ -53,6 +62,8 @@ class FirestoreService {
       "gender": data.gender,
       "relationshipStatus": data.relationshipStatus,
       "bio": data.bio,
+      "profileImageUrl":
+          "https://firebasestorage.googleapis.com/v0/b/seg-djangoals.appspot.com/o/test%2Fpexels-anastasia-shuraeva-5704720.jpg?alt=media&token=a29ea3d2-6efc-4f1a-a3b6-a02f5304492f",
       "interests": ["volunteering", "christian"],
       "location": {"lat": 51.48, "lon": 0.086},
       "preferences": {
@@ -64,11 +75,10 @@ class FirestoreService {
 
     UserState _userState = UserState.instance;
 
-    String? uid = _userState.user?.user?.uid ;
+    String? uid = _userState.user?.user?.uid;
 
-      if (uid!= null){
-        _firebaseFirestore.collection("users").doc(uid).set(dataMap);
+    if (uid != null) {
+      _firebaseFirestore.collection("users").doc(uid).set(dataMap);
     }
- 
   }
 }

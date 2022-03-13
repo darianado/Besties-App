@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
+import 'package:project_seg/screens/home/profile/components/bio_field.dart';
 import 'package:project_seg/screens/home/profile/components/cached_image.dart';
+import 'package:project_seg/screens/home/profile/components/chip_widget.dart';
+import 'package:project_seg/screens/home/profile/components/edit_dob_button.dart';
+import 'package:project_seg/screens/home/profile/components/gender_button.dart';
+import 'package:project_seg/screens/home/profile/components/relationship_status_button.dart';
+import 'package:project_seg/screens/home/profile/components/university_button.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -21,7 +27,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final _userState = Provider.of<UserState>(context);
 
     const double profileImageRadius = 100;
-    const double profileHeaderExtendedHeight = 220;
+    const double profileHeaderExtendedHeight = 430;
     const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
@@ -34,44 +40,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
             collapsedHeight: profileHeaderCollapsedHeight,
             automaticallyImplyLeading: false,
             excludeHeaderSemantics: false,
+            backgroundColor: Colors.transparent,
             actions: [
-              IconButton(
-                onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.white,
+              Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: Material(
+                  shape: CircleBorder(),
+                  clipBehavior: Clip.antiAlias,
+                  color: kTertiaryColour,
+                  child: InkWell(
+                    child: IconButton(
+                      onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ],
-            flexibleSpace: Stack(
-              alignment: Alignment.bottomCenter,
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.65, 1],
-                      colors: [kTertiaryColour, kLightBlue],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 50.0, bottom: 10.0),
-                  child: Material(
-                    shape: CircleBorder(),
-                    clipBehavior: Clip.antiAlias,
-                    elevation: 20.0,
-                    child: SizedBox(
-                      height: 2 * profileImageRadius,
-                      width: 2 * profileImageRadius,
-                      child: CachedImage(url: _userState.user?.userData?.profileImageUrl),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
@@ -88,10 +77,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 25,
                   ),
-                  chip(kTertiaryColour,
-                      icon: FontAwesomeIcons.university, label: _userState.user?.userData?.university ?? "-", textColor: kTertiaryColour),
+                  UniversityButton(
+                    editable: false,
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -101,29 +91,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      chip(kTertiaryColour, icon: FontAwesomeIcons.birthdayCake, label: "${_userState.user?.userData?.age}"),
-                      (_userState.user?.userData?.gender == "male")
-                          ? chip(Colors.red.shade300, icon: FontAwesomeIcons.mars)
-                          : chip(Colors.red.shade300, icon: FontAwesomeIcons.venus)
+                      DateOfBirthButton(editable: false),
+                      GenderButtton(editable: false),
+                      RelationshipStatusButton(editable: false),
                     ],
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: kTertiaryColour.withOpacity(0.1),
-                    ),
-                    child: Text(
-                      _userState.user?.userData?.bio ?? "-",
-                      style: TextStyle(
-                        fontSize: 17,
-                        color: kTertiaryColour,
-                      ),
-                    ),
+                  BioField(
+                    editable: false,
                   ),
                   SizedBox(
                     height: 25,
@@ -151,8 +128,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     runAlignment: WrapAlignment.center,
                     children: _userState.user?.userData?.interests
                             ?.map(
-                              (interest) => chip(
-                                kTertiaryColour,
+                              (interest) => ChipWidget(
+                                color: kTertiaryColour,
                                 bordered: false,
                                 label: interest,
                                 capitalizeLabel: true,
@@ -224,49 +201,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget chip(Color color,
-      {bool bordered = true, IconData? icon, Color? iconColor, String? label, bool capitalizeLabel = false, Color? textColor}) {
-    return Container(
-      decoration: BoxDecoration(
-          border: (bordered == true)
-              ? Border.all(
-                  color: color,
-                  width: 1,
-                )
-              : null,
-          borderRadius: BorderRadiusDirectional.all(
-            Radius.circular(100),
-          ),
-          color: (bordered == true) ? null : color),
-      child: Padding(
-        padding: const EdgeInsets.all(6.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            (icon != null)
-                ? Icon(
-                    icon,
-                    color: (iconColor != null) ? iconColor : color,
-                    size: 15,
-                  )
-                : Container(),
-            (icon != null && label != null)
-                ? SizedBox(
-                    width: 5,
-                  )
-                : Container(),
-            (label != null)
-                ? Text(
-                    (capitalizeLabel == true) ? label[0].toUpperCase() + label.substring(1).toLowerCase() : label,
-                    style: TextStyle(color: (textColor != null) ? textColor : color),
-                  )
-                : Container(),
-          ],
-        ),
       ),
     );
   }

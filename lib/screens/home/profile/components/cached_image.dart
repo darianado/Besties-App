@@ -28,10 +28,10 @@ class CachedImage extends StatelessWidget {
           return errorPlaceholder();
         },
         placeholder: (context, url) {
-          return Padding(
-            padding: const EdgeInsets.all(5.0),
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: CircularProgressIndicator(),
             ),
           );
         },

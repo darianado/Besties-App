@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:project_seg/models/app_context.dart';
 import 'package:project_seg/router/routes.dart';
+import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -13,13 +15,15 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   final userState = UserState.instance;
-  runApp(MyApp(userState: userState));
+  final contextState = ContextState.instance;
+  runApp(MyApp(userState: userState, contextState: contextState));
 }
 
 class MyApp extends StatelessWidget {
   final UserState userState;
+  final ContextState contextState;
 
-  const MyApp({Key? key, required this.userState}) : super(key: key);
+  const MyApp({Key? key, required this.userState, required this.contextState}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,10 @@ class MyApp extends StatelessWidget {
         Provider<AppRouter>(
           lazy: false,
           create: (BuildContext context) => AppRouter(userState),
+        ),
+        ChangeNotifierProvider<ContextState>(
+          lazy: false,
+          create: (BuildContext context) => contextState,
         )
       ],
       child: Builder(

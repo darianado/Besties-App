@@ -255,7 +255,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
     );
   }
 
-  Expanded genderOptions(@required Gender gender) {
+  
+
+Expanded genderOptions(@required Gender gender) {
     return Expanded(
       child: ReusableCard(
         color: Colors.transparent,

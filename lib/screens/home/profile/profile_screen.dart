@@ -142,60 +142,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 40,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(
-                        child: OutlinedButton(
-                          onPressed: () => _userState.signOut(),
-                          style: OutlinedButton.styleFrom(
-                            side: BorderSide(color: Colors.red.shade100),
-                            primary: Colors.red,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.signOutAlt,
-                                size: 18,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text("Sign out"),
-                            ],
-                          ),
+                  ElevatedButton(
+                    onPressed: () => context.pushNamed("edit_password", params: {'page': 'profile'}),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        kTertiaryColour.withOpacity(0.8),
+                      ),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.lock,
+                          size: 18,
                         ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                              kTertiaryColour.withOpacity(0.4),
-                            ),
-                            elevation: MaterialStateProperty.all(0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                FontAwesomeIcons.cog,
-                                size: 18,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              Text("Settings"),
-                            ],
-                          ),
+                        SizedBox(
+                          width: 5,
                         ),
-                      ),
-                    ],
-                  )
+                        Text("Change password"),
+                      ],
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () => _userState.signOut(),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.red.shade100),
+                      primary: Colors.red,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.signOutAlt,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Sign out"),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

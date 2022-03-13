@@ -30,125 +30,128 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.purple,
-        title: const Text('Edit your preferences'),
-      ),
-      body: Center(
-        child: SingleChildScrollView(
-          child: Form(
-            key: _key,
-            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              const Padding(
-                padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                child: Text('Edit your preferences', style: TextStyle(fontSize: 20.0)),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Age",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              RangeSlider(
-                values: _currentAgeRangeValues,
-                min: 16,
-                max: 30,
-                divisions: 15,
-                labels: RangeLabels(
-                  _currentAgeRangeValues.start.round().toString(),
-                  _currentAgeRangeValues.end.round().toString(),
+    return Container(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          title: const Text('Edit your preferences'),
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Form(
+              key: _key,
+              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
+                  child: Text('Edit your preferences', style: TextStyle(fontSize: 50.0)),
                 ),
-                onChanged: (RangeValues values) {
-                  setState(() {
-                    _currentAgeRangeValues = values;
-                  });
-                },
-              ),
-              SizedBox(
-                height: 30.0,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Distance",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              RangeSlider(
-                values: _currentDistanceRangeValues,
-                min: 16,
-                max: 30,
-                divisions: 15,
-                labels: RangeLabels(
-                  _currentDistanceRangeValues.start.round().toString(),
-                  _currentDistanceRangeValues.end.round().toString(),
+                const SizedBox(height: 30),
+                SizedBox(
+                  height: 30.0,
                 ),
-                onChanged: (RangeValues values) {
-                  setState(() {
-                    _currentDistanceRangeValues = values;
-                  });
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    "Select the gender you are interested in",
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      fontSize: 15,
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
                     ),
+                    Text(
+                      "Age",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                RangeSlider(
+                  values: _currentAgeRangeValues,
+                  min: 16,
+                  max: 30,
+                  divisions: 15,
+                  labels: RangeLabels(
+                    _currentAgeRangeValues.start.round().toString(),
+                    _currentAgeRangeValues.end.round().toString(),
                   ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  buildCheckBox(Gender.male, isMaleChecked),
-                  Text("Male"),
-                  SizedBox(
-                    width: 20,
+                  onChanged: (RangeValues values) {
+                    setState(() {
+                      _currentAgeRangeValues = values;
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Distance",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                RangeSlider(
+                  values: _currentDistanceRangeValues,
+                  min: 16,
+                  max: 30,
+                  divisions: 15,
+                  labels: RangeLabels(
+                    _currentDistanceRangeValues.start.round().toString(),
+                    _currentDistanceRangeValues.end.round().toString(),
                   ),
-                  buildCheckBox(Gender.female, isFemaleChecked),
-                  Text("Female"),
-                  SizedBox(
-                    width: 20,
+                  onChanged: (RangeValues values) {
+                    setState(() {
+                      _currentDistanceRangeValues = values;
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(
+                      "Select the gender you are interested in",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    buildCheckBox(Gender.male, isMaleChecked),
+                    Text("Male"),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    buildCheckBox(Gender.female, isFemaleChecked),
+                    Text("Female"),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    buildCheckBox(Gender.other, isOtherChecked),
+                    Text("Other"),
+                  ],
+                ),
+                Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+                  /*
+                  Expanded(
+                    child: University(),
                   ),
-                  buildCheckBox(Gender.other, isOtherChecked),
-                  Text("Other"),
-                ],
-              ),
-              Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-                Expanded(
-                  child:Text("Testing"),
-                  // University(),
+                  */
+                ]),
+                ElevatedButton(
+                  onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
+                  child: const Text("SAVE NEW INFORMATION"),
                 ),
               ]),
-              ElevatedButton(
-                onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
-                child: const Text("SAVE NEW INFORMATION"),
-              ),
-            ]),
+            ),
           ),
         ),
       ),

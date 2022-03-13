@@ -16,7 +16,7 @@ class AuthService {
   static AuthService get instance => _instance;
 
   Stream<auth.User?> get user {
-    return _firebaseAuth.userChanges();
+    return _firebaseAuth.authStateChanges();
   }
 
   auth.User? get currentUser {

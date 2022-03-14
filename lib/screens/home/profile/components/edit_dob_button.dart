@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/home/profile/components/chip_widget.dart';
 import 'package:project_seg/screens/home/profile/components/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
@@ -12,17 +13,26 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 class DateOfBirthButton extends StatelessWidget {
-  final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
+  final bool wiggling;
+  final bool shouldExpand;
+  final String label;
+  final Color color;
+  final Function(DateTime?)? onSave;
 
-  DateOfBirthButton({
-    Key? key,
-    this.editable = false,
-  }) : super(key: key);
+  DateOfBirthButton(
+      {Key? key,
+      this.wiggling = false,
+      this.editable = false,
+      this.shouldExpand = false,
+      required this.label,
+      this.onSave,
+      this.color = Colors.green})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (editable) {
+    if (wiggling) {
       return ShakeAnimatedWidget(
         duration: Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 1.5),
@@ -38,9 +48,10 @@ class DateOfBirthButton extends StatelessWidget {
     final _contextState = Provider.of<ContextState>(context);
 
     return ChipWidget(
-      color: Colors.green,
+      color: color,
       icon: FontAwesomeIcons.birthdayCake,
-      label: "${_userState.user?.userData?.age}",
+      label: label,
+      shouldExpand: shouldExpand,
       onTap: getOnTap(context),
     );
   }
@@ -65,12 +76,14 @@ class DateOfBirthButton extends StatelessWidget {
       lastDate: DateTime.now(),
     );
 
-    saveSelection(uid, picked);
+    if (onSave != null) onSave!(picked);
   }
 
+/*
   Future<void> saveSelection(String? userId, DateTime? dateOfBirth) async {
     if (userId != null && dateOfBirth != null) {
       await _firestoreService.setDateOfBirth(userId, dateOfBirth);
     }
   }
+  */
 }

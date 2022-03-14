@@ -9,18 +9,22 @@ class ChipWidget extends StatelessWidget {
   final bool capitalizeLabel;
   final Color? textColor;
   final Function? onTap;
+  final bool mini;
+  final bool shouldExpand;
 
-  const ChipWidget(
-      {Key? key,
-      required this.color,
-      this.bordered = true,
-      this.icon,
-      this.iconColor,
-      this.label,
-      this.capitalizeLabel = false,
-      this.textColor,
-      this.onTap})
-      : super(key: key);
+  const ChipWidget({
+    Key? key,
+    required this.color,
+    this.bordered = true,
+    this.icon,
+    this.iconColor,
+    this.label,
+    this.capitalizeLabel = false,
+    this.textColor,
+    this.onTap,
+    this.shouldExpand = false,
+    this.mini = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,27 +38,27 @@ class ChipWidget extends StatelessWidget {
           Radius.circular(100),
         ),
         child: Container(
+          width: (shouldExpand) ? double.infinity : null,
           decoration: BoxDecoration(
-              border: (bordered == true)
-                  ? Border.all(
-                      color: color,
-                      width: 1,
-                    )
-                  : null,
+              border: Border.all(
+                color: color,
+                width: 1,
+              ),
               borderRadius: BorderRadiusDirectional.all(
                 Radius.circular(100),
               ),
               color: (bordered == true) ? null : color),
           child: Padding(
-            padding: const EdgeInsets.all(9.0),
+            padding: EdgeInsets.all(((mini) ? 6.0 : 9.0)),
             child: Row(
               mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 (icon != null)
                     ? Icon(
                         icon,
                         color: (iconColor != null) ? iconColor : color,
-                        size: 22,
+                        size: (mini) ? 15 : 22,
                       )
                     : Container(),
                 (icon != null && label != null)
@@ -65,7 +69,7 @@ class ChipWidget extends StatelessWidget {
                 (label != null)
                     ? Text(
                         (capitalizeLabel == true) ? capitalize(label!) : label!,
-                        style: TextStyle(color: (textColor != null) ? textColor : color, fontSize: 18),
+                        style: TextStyle(color: (textColor != null) ? textColor : color, fontSize: (mini) ? 16 : 18),
                       )
                     : Container(),
               ],

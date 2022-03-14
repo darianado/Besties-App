@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 class EditDialogDropdown extends StatefulWidget {
   final List<String> items;
   String? value;
-  final Function(String?, String?) onSave;
+  final Function(String?) onSave;
 
   EditDialogDropdown({Key? key, required this.items, value, required this.onSave})
       : value = safelyGetValue(items, value),
@@ -13,6 +13,7 @@ class EditDialogDropdown extends StatefulWidget {
 
   static String? safelyGetValue(List<String> items, String? proposedValue) {
     if (proposedValue != null && items.contains(proposedValue)) return proposedValue;
+    if (items.isNotEmpty) return items.first;
     return null;
   }
 
@@ -61,7 +62,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                   child: ElevatedButton(
                     onPressed: () async {
                       Navigator.of(context).pop();
-                      await widget.onSave(_userState.user?.user?.uid, widget.value);
+                      await widget.onSave(widget.value);
                     },
                     child: Text("Save"),
                   ),

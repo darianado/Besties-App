@@ -14,10 +14,20 @@ import 'package:go_router/go_router.dart';
 class GenderButtton extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
+  final bool wiggling;
+  final bool shouldExpand;
+  final String label;
+  final Color color;
+  final Function(String?)? onSave;
 
   GenderButtton({
     Key? key,
     this.editable = false,
+    this.wiggling = false,
+    this.shouldExpand = false,
+    required this.label,
+    this.color = Colors.indigo,
+    this.onSave,
   }) : super(key: key);
 
   @override
@@ -49,7 +59,8 @@ class GenderButtton extends StatelessWidget {
     final _contextState = Provider.of<ContextState>(context);
 
     return ChipWidget(
-      color: Colors.indigo.shade500,
+      color: color,
+      shouldExpand: shouldExpand,
       icon: getIconForGender(_userState.user?.userData?.gender),
       onTap: getOnTap(context),
     );
@@ -59,7 +70,9 @@ class GenderButtton extends StatelessWidget {
     final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
-    if (!editable) return null;
+    final _onSave = onSave;
+
+    if (!editable || (_onSave == null)) return null;
 
     return () => showDialog(
           context: context,
@@ -67,15 +80,9 @@ class GenderButtton extends StatelessWidget {
             return EditDialogDropdown(
               items: _contextState.context?.genders ?? [],
               value: _userState.user?.userData?.gender,
-              onSave: saveSelection,
+              onSave: _onSave,
             );
           },
         );
-  }
-
-  Future<void> saveSelection(String? userId, String? gender) async {
-    if (userId != null && gender != null) {
-      await _firestoreService.setGender(userId, gender);
-    }
   }
 }

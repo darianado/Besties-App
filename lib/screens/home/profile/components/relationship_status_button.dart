@@ -14,15 +14,25 @@ import 'package:go_router/go_router.dart';
 class RelationshipStatusButton extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
+  final bool wiggling;
+  final bool shouldExpand;
+  final String label;
+  final Color color;
+  final Function(String?)? onSave;
 
   RelationshipStatusButton({
     Key? key,
     this.editable = false,
+    this.wiggling = false,
+    this.shouldExpand = false,
+    required this.label,
+    this.color = Colors.red,
+    this.onSave,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (editable) {
+    if (wiggling) {
       return ShakeAnimatedWidget(
         duration: Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 1),
@@ -34,13 +44,11 @@ class RelationshipStatusButton extends StatelessWidget {
   }
 
   Widget chip(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
-
     return ChipWidget(
-      color: Colors.red.shade400,
+      color: color,
+      shouldExpand: shouldExpand,
       icon: FontAwesomeIcons.heart,
-      label: _userState.user?.userData?.relationshipStatus ?? "-",
+      label: label,
       onTap: getOnTap(context),
     );
   }
@@ -49,23 +57,19 @@ class RelationshipStatusButton extends StatelessWidget {
     final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
-    if (!editable) return null;
+    final _onSave = onSave;
+
+    if (!editable || (_onSave == null)) return null;
 
     return () => showDialog(
           context: context,
           builder: (BuildContext context) {
             return EditDialogDropdown(
               items: _contextState.context?.relationshipStatuses ?? [],
-              value: _userState.user?.userData?.relationshipStatus,
-              onSave: saveSelection,
+              value: label,
+              onSave: _onSave,
             );
           },
         );
-  }
-
-  Future<void> saveSelection(String? userId, String? relationshipStatus) async {
-    if (userId != null && relationshipStatus != null) {
-      await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
-    }
   }
 }

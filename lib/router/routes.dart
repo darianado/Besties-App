@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
@@ -19,6 +21,15 @@ class AppRouter {
   final UserState userState;
 
   AppRouter(this.userState);
+
+  printState(UserData state) {
+    print("STATE:");
+    print("   Name: ${state.fullName}");
+    print("   Gender: ${state.gender}");
+    print("   Uni: ${state.university}");
+    print("   Bio: ${state.bio}");
+    //print("   Interests: ${state}");
+  }
 
   late final router = GoRouter(
     refreshListenable: userState,
@@ -72,25 +83,40 @@ class AppRouter {
           GoRoute(
             name: "register_basic_info",
             path: "basic-info",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            //builder: (context, state) => RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: RegisterBasicInfoScreen(),
+              child: RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(
             name: "register_description",
             path: "description",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            //builder: (context, state) => RegisterDescriptionScreen(userData: state.extra! as UserData),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: RegisterDescriptionScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(
             name: "register_interests",
             path: "interests",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            //builder: (context, state) => RegisterInterestsScreen(userData: state.extra! as UserData),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: RegisterInterestsScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
         ],

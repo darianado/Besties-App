@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/app_context.dart';
+import 'package:project_seg/models/category.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 
@@ -25,6 +26,11 @@ class FirestoreService {
 
   Stream<AppContext> appContext() {
     return _firebaseFirestore.collection("app").doc("context").snapshots().map((snapshot) => AppContext.fromSnapshot(snapshot));
+  }
+
+  Future<List<Category>> fetchInterests() async {
+    final snapshot = await _firebaseFirestore.collection("app").doc("context").collection("interests").get();
+    return snapshot.docs.map((doc) => (Category.fromSnapshot(doc))).toList();
   }
 
   void setProfileImageUrl(String url) {

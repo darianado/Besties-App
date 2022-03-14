@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:age_calculator/age_calculator.dart';
+import 'package:project_seg/models/category.dart';
 
 class Preferences {
   final List<String> interests;
@@ -23,7 +24,7 @@ class UserData {
   String? bio;
   String? relationshipStatus;
   String? profileImageUrl;
-  List<String>? interests;
+  List<Category>? interests;
   GeoLocation? location;
   Preferences? preferences;
 
@@ -51,7 +52,7 @@ class UserData {
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],
       profileImageUrl: data?['profileImageUrl'],
-      interests: List<String>.from(data?['interests']),
+      interests: List<String>.from(data?['interests']).map((str) => Category(catId: str, title: str, interests: [])).toList(),
       location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
       preferences: Preferences(
         interests: List<String>.from(data?['preferences']['interests']),
@@ -72,5 +73,17 @@ class UserData {
     } else {
       return null;
     }
+  }
+
+  String? get humanReadableDateOfBirth {
+    int? year = dob?.year;
+    int? month = dob?.month;
+    int? day = dob?.day;
+
+    if (year != null && month != null && day != null) {
+      return "$day-$month-$year";
+    }
+
+    return null;
   }
 }

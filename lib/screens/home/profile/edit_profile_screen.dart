@@ -12,6 +12,7 @@ import 'package:project_seg/screens/home/profile/components/edit_dob_button.dart
 import 'package:project_seg/screens/home/profile/components/gender_button.dart';
 import 'package:project_seg/screens/home/profile/components/relationship_status_button.dart';
 import 'package:project_seg/screens/home/profile/components/university_button.dart';
+import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final FirestoreService _firestoreService = FirestoreService.instance;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _uniController = TextEditingController();
@@ -153,6 +155,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   UniversityButton(
                     editable: true,
+                    wiggling: true,
+                    label: _userState.user?.userData?.university ?? "",
+                    onSave: (university) => saveUniversity(_userState.user?.user?.uid, university),
                   ),
                   SizedBox(
                     height: 10,
@@ -163,9 +168,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(editable: true),
-                      GenderButtton(editable: true),
-                      RelationshipStatusButton(editable: true),
+                      DateOfBirthButton(
+                        editable: true,
+                        wiggling: true,
+                        label: "${_userState.user?.userData?.age}",
+                        onSave: (dateOfBirth) => saveDateOfBirth(_userState.user?.user?.uid, dateOfBirth),
+                      ),
+                      GenderButtton(
+                        editable: true,
+                        wiggling: true,
+                        label: _userState.user?.userData?.gender ?? "",
+                        onSave: (gender) => saveGender(_userState.user?.user?.uid, gender),
+                      ),
+                      RelationshipStatusButton(
+                          editable: true,
+                          wiggling: true,
+                          label: _userState.user?.userData?.relationshipStatus ?? "",
+                          onSave: (relationshipStatus) => saveRelationshipStatus(_userState.user?.user?.uid, relationshipStatus)),
                     ],
                   ),
                   SizedBox(
@@ -193,6 +212,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   SizedBox(
                     height: 10,
                   ),
+                  /*
                   Wrap(
                     spacing: 9.0,
                     runSpacing: 9.0,
@@ -211,6 +231,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             .toList() ??
                         [],
                   ),
+                  */
                 ],
               ),
             ),
@@ -218,6 +239,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> saveDateOfBirth(String? userId, DateTime? dateOfBirth) async {
+    if (userId != null && dateOfBirth != null) {
+      await _firestoreService.setDateOfBirth(userId, dateOfBirth);
+    }
+  }
+
+  Future<void> saveRelationshipStatus(String? userId, String? relationshipStatus) async {
+    if (userId != null && relationshipStatus != null) {
+      await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
+    }
+  }
+
+  Future<void> saveGender(String? userId, String? gender) async {
+    if (userId != null && gender != null) {
+      await _firestoreService.setGender(userId, gender);
+    }
+  }
+
+  Future<void> saveUniversity(String? userId, String? university) async {
+    if (userId != null && university != null) {
+      await _firestoreService.setUniversity(userId, university);
+    }
   }
 }
 

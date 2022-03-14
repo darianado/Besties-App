@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/home/profile/components/bio_field.dart';
 import 'package:project_seg/screens/home/profile/components/cached_image.dart';
 import 'package:project_seg/screens/home/profile/components/chip_widget.dart';
@@ -8,6 +9,7 @@ import 'package:project_seg/screens/home/profile/components/edit_dob_button.dart
 import 'package:project_seg/screens/home/profile/components/gender_button.dart';
 import 'package:project_seg/screens/home/profile/components/relationship_status_button.dart';
 import 'package:project_seg/screens/home/profile/components/university_button.dart';
+import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -80,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 25,
                   ),
                   UniversityButton(
-                    editable: false,
+                    label: _userState.user?.userData?.university ?? "",
                   ),
                   SizedBox(
                     height: 10,
@@ -91,9 +93,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(editable: false),
-                      GenderButtton(editable: false),
-                      RelationshipStatusButton(editable: false),
+                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
                     ],
                   ),
                   SizedBox(
@@ -121,6 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 10,
                   ),
+                  /*
                   Wrap(
                     spacing: 9.0,
                     runSpacing: 9.0,
@@ -139,6 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             .toList() ??
                         [],
                   ),
+                  */
                   SizedBox(
                     height: 40,
                   ),

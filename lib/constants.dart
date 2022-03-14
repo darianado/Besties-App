@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 const kBottomContainerHeight = 80.0;
-const kActiveCardColor =  Color(0xFF00CFFF);
+const kActiveCardColor = Color(0xFF00CFFF);
 const kInactiveCardColor = Colors.transparent;
 const kActiveSliderColor = Color(0xFFEB1555);
 const kInactiveSliderColor = Color(0xFF8D8E98);
@@ -13,6 +13,8 @@ const kSecondaryColour = Color(0xFF001F54);
 const kTertiaryColour = Color(0xFF034078);
 const kLightBlue = Color(0xFF1282A2);
 const kWhiteColour = Color(0xFFFEFCFB);
+
+const kLightTertiaryColour = Color.fromARGB(26, 3, 64, 120);
 
 // Constants that identify each page's icon index in the navbar.
 const int kProfileIconIndex = 0;

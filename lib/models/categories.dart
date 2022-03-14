@@ -3,16 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/chip_display/multi_select_chip_display.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
 
-enum Cat {
-  SELF_CARE,
-  FOOD,
-  SOCIAL_ACTIVITIES,
-  SCIENCEandTECHNOLOGY,
-  GAMES,
-  SPORTS,
-  ARTandLITERATURE,
-  POPULARCULTURE
-}
+enum Cat { SELF_CARE, FOOD, SOCIAL_ACTIVITIES, SCIENCEandTECHNOLOGY, GAMES, SPORTS, ARTandLITERATURE, POPULARCULTURE }
 
 class Category {
   final Cat id;
@@ -92,44 +83,29 @@ class _InterestStatusState extends State<InterestStatus> {
     Category(id: Cat.GAMES, name: "Music"),
   ];
 
-  final _itemsSocialActivities = _socialActivities
-      .map((social_activity) =>
-          MultiSelectItem<Category>(social_activity, social_activity.name))
-      .toList();
+  final _itemsSocialActivities =
+      _socialActivities.map((social_activity) => MultiSelectItem<Category>(social_activity, social_activity.name)).toList();
   List<Category> _selectedSocialActivities = [];
 
-  final _itemsFood =
-      _food.map((food) => MultiSelectItem<Category>(food, food.name)).toList();
+  final _itemsFood = _food.map((food) => MultiSelectItem<Category>(food, food.name)).toList();
   List<Category> _selectedFood = [];
 
-  final _itemsSelfCare = _selfCare
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemsSelfCare = _selfCare.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedSelfCare = [];
 
-  final _itemsScienceAndTechnology = _scienceAndTechnology
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemsScienceAndTechnology = _scienceAndTechnology.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedScienceAndTechnology = [];
 
-  final _itemGames = _games
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemGames = _games.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedGames = [];
 
-  final _itemSports = _sports
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemSports = _sports.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedSports = [];
 
-  final _itemArtAndLiterature = _art_and_literature
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemArtAndLiterature = _art_and_literature.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedArtAndLiterature = [];
 
-  final _itemPopularCulture = _popularCulture
-      .map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name))
-      .toList();
+  final _itemPopularCulture = _popularCulture.map((selfCare) => MultiSelectItem<Category>(selfCare, selfCare.name)).toList();
   List<Category> _selectedPopularCulture = [];
 
   List<Category> _selectedItems = [];
@@ -142,10 +118,8 @@ class _InterestStatusState extends State<InterestStatus> {
         child: ExpansionTile(
           title: Text(dropdownValue),
           children: <Widget>[
-            buildMultiSelectBottomSheetField(Cat.SOCIAL_ACTIVITIES,
-                _itemsSocialActivities, _selectedSocialActivities),
-            _selectedSocialActivities == null ||
-                    _selectedSocialActivities.isEmpty
+            buildMultiSelectBottomSheetField(Cat.SOCIAL_ACTIVITIES, _itemsSocialActivities, _selectedSocialActivities),
+            _selectedSocialActivities == null || _selectedSocialActivities.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
                     alignment: Alignment.centerLeft,
@@ -154,8 +128,7 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(
-                Cat.FOOD, _itemsFood, _selectedFood),
+            buildMultiSelectBottomSheetField(Cat.FOOD, _itemsFood, _selectedFood),
             _selectedFood == null || _selectedFood.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
@@ -165,8 +138,7 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(
-                Cat.SELF_CARE, _itemsSelfCare, _selectedSelfCare),
+            buildMultiSelectBottomSheetField(Cat.SELF_CARE, _itemsSelfCare, _selectedSelfCare),
             _selectedSelfCare == null || _selectedSelfCare.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
@@ -176,10 +148,8 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(Cat.SCIENCEandTECHNOLOGY,
-                _itemsScienceAndTechnology, _selectedScienceAndTechnology),
-            _selectedScienceAndTechnology == null ||
-                    _selectedScienceAndTechnology.isEmpty
+            buildMultiSelectBottomSheetField(Cat.SCIENCEandTECHNOLOGY, _itemsScienceAndTechnology, _selectedScienceAndTechnology),
+            _selectedScienceAndTechnology == null || _selectedScienceAndTechnology.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
                     alignment: Alignment.centerLeft,
@@ -188,8 +158,7 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(
-                Cat.GAMES, _itemGames, _selectedGames),
+            buildMultiSelectBottomSheetField(Cat.GAMES, _itemGames, _selectedGames),
             _selectedGames == null || _selectedGames.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
@@ -199,8 +168,7 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(
-                Cat.SPORTS, _itemSports, _selectedSports),
+            buildMultiSelectBottomSheetField(Cat.SPORTS, _itemSports, _selectedSports),
             _selectedSports == null || _selectedSports.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
@@ -210,10 +178,8 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(Cat.ARTandLITERATURE,
-                _itemArtAndLiterature, _selectedArtAndLiterature),
-            _selectedArtAndLiterature == null ||
-                    _selectedArtAndLiterature.isEmpty
+            buildMultiSelectBottomSheetField(Cat.ARTandLITERATURE, _itemArtAndLiterature, _selectedArtAndLiterature),
+            _selectedArtAndLiterature == null || _selectedArtAndLiterature.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
                     alignment: Alignment.centerLeft,
@@ -222,8 +188,7 @@ class _InterestStatusState extends State<InterestStatus> {
                       style: TextStyle(color: Colors.black54),
                     ))
                 : Container(),
-            buildMultiSelectBottomSheetField(Cat.POPULARCULTURE,
-                _itemPopularCulture, _selectedPopularCulture),
+            buildMultiSelectBottomSheetField(Cat.POPULARCULTURE, _itemPopularCulture, _selectedPopularCulture),
             _selectedPopularCulture == null || _selectedPopularCulture.isEmpty
                 ? Container(
                     padding: EdgeInsets.all(10),
@@ -257,72 +222,56 @@ class _InterestStatusState extends State<InterestStatus> {
               case Cat.SELF_CARE:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedSelfCare = items;
                 break;
               case Cat.FOOD:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedFood = items;
                 break;
               case Cat.SOCIAL_ACTIVITIES:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedSocialActivities = items;
                 break;
               case Cat.SCIENCEandTECHNOLOGY:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedScienceAndTechnology = items;
                 break;
               case Cat.GAMES:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedGames = items;
                 break;
               case Cat.SPORTS:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedSports = items;
                 break;
               case Cat.ARTandLITERATURE:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedArtAndLiterature = items;
                 break;
               case Cat.POPULARCULTURE:
                 List<Category> items = [];
                 if (!(values == null || values.isEmpty)) {
-                  items = values
-                      .map((e) => Category(name: (e as Category).name, id: cat))
-                      .toList();
+                  items = values.map((e) => Category(name: (e as Category).name, id: cat)).toList();
                 }
                 _selectedPopularCulture = items;
                 break;

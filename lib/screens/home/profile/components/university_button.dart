@@ -14,15 +14,25 @@ import 'package:go_router/go_router.dart';
 class UniversityButton extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
+  final bool wiggling;
+  final bool shouldExpand;
+  final String label;
+  final Color color;
+  final Function(String?)? onSave;
 
   UniversityButton({
     Key? key,
     this.editable = false,
+    this.wiggling = false,
+    this.shouldExpand = false,
+    required this.label,
+    this.color = kTertiaryColour,
+    this.onSave,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (editable) {
+    if (wiggling) {
       return ShakeAnimatedWidget(
         duration: Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 1),
@@ -38,10 +48,10 @@ class UniversityButton extends StatelessWidget {
     final _contextState = Provider.of<ContextState>(context);
 
     return ChipWidget(
-      color: kTertiaryColour,
+      color: color,
+      shouldExpand: shouldExpand,
       icon: FontAwesomeIcons.university,
-      label: _userState.user?.userData?.university ?? "-",
-      textColor: kTertiaryColour,
+      label: label,
       onTap: getOnTap(context),
     );
   }
@@ -50,23 +60,19 @@ class UniversityButton extends StatelessWidget {
     final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
-    if (!editable) return null;
+    final _onSave = onSave;
+
+    if (!editable || (_onSave == null)) return null;
 
     return () => showDialog(
           context: context,
           builder: (BuildContext context) {
             return EditDialogDropdown(
               items: _contextState.context?.universities ?? [],
-              value: _userState.user?.userData?.university,
-              onSave: saveSelection,
+              value: label,
+              onSave: _onSave,
             );
           },
         );
-  }
-
-  Future<void> saveSelection(String? userId, String? university) async {
-    if (userId != null && university != null) {
-      await _firestoreService.setUniversity(userId, university);
-    }
   }
 }

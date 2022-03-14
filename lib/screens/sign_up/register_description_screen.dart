@@ -17,9 +17,11 @@ class RegisterDescriptionScreen extends StatefulWidget {
 }
 
 class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
-  final GlobalKey _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _university = TextEditingController();
   final TextEditingController _bio = TextEditingController();
+
+  bool couldNotValidateUniversity = false;
 
   @override
   void dispose() {
@@ -61,7 +63,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(
-                onPressed: () => context.goNamed("register_basic_info", extra: widget.userData),
+                onPressed: () => context.goNamed("register_photo", extra: widget.userData),
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: kPrimaryColour,
@@ -74,7 +76,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
                   child: Text(
-                    'TELL US ABOUT YOURSELF',
+                    '... and a bit more about ${widget.userData.firstName}',
                     style: TextStyle(
                       fontSize: 29.0,
                       fontWeight: FontWeight.bold,
@@ -119,6 +121,19 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           widget.userData.university = university;
                         }),
                       ),
+                      (couldNotValidateUniversity)
+                          ? Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Text(
+                                    "You must fill in this field",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(),
                       SizedBox(
                         height: 40,
                       ),
@@ -138,25 +153,27 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         height: 10,
                       ),
                       TextFormField(
-                        controller: _bio,
-                        minLines: 6,
-                        maxLength: _contextState.context?.maxBioLength ?? 200,
-                        maxLines: 10,
-                        textAlignVertical: TextAlignVertical.top,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(10),
-                              ),
-                              borderSide: BorderSide.none),
-                          labelText: "Enter a bio here...",
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          filled: true,
-                          fillColor: kLightTertiaryColour,
-                        ),
-                        onChanged: (value) => widget.userData.bio = value,
-                        textInputAction: TextInputAction.next,
-                      ),
+                          controller: _bio,
+                          minLines: 6,
+                          maxLength: _contextState.context?.maxBioLength ?? 200,
+                          maxLines: 10,
+                          textAlignVertical: TextAlignVertical.top,
+                          decoration: const InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10),
+                                ),
+                                borderSide: BorderSide.none),
+                            labelText: "Enter a bio here...",
+                            floatingLabelBehavior: FloatingLabelBehavior.never,
+                            filled: true,
+                            fillColor: kLightTertiaryColour,
+                          ),
+                          onChanged: (value) => widget.userData.bio = value,
+                          textInputAction: TextInputAction.next,
+                          validator: (content) {
+                            if (content == null || content.isEmpty) return "A bio is required";
+                          }),
                       SizedBox(
                         height: 60,
                       ),
@@ -165,6 +182,16 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
+                            if (!_key.currentState!.validate()) return;
+
+                            if (widget.userData.university == null) {
+                              setState(() {
+                                couldNotValidateUniversity = true;
+                              });
+                              return;
+                            }
+                            couldNotValidateUniversity = false;
+
                             context.goNamed("register_interests", extra: widget.userData);
                           },
                           child: Text("Next"),

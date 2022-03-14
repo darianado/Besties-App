@@ -96,14 +96,13 @@ class FirestoreService {
       "gender": data.gender,
       "relationshipStatus": data.relationshipStatus,
       "bio": data.bio,
-      "profileImageUrl":
-          "https://firebasestorage.googleapis.com/v0/b/seg-djangoals.appspot.com/o/test%2Fpexels-anastasia-shuraeva-5704720.jpg?alt=media&token=a29ea3d2-6efc-4f1a-a3b6-a02f5304492f",
-      "interests": ["volunteering", "christian"],
+      "profileImageUrl": data.profileImageUrl,
+      "interests": data.flattenedInterests?.map((e) => e.title).toList(),
       "location": {"lat": 51.48, "lon": 0.086},
       "preferences": {
-        "interests": ["buddhism", "christian", "islam"],
-        "maxAge": 30,
-        "minAge": 18
+        "interests": data.flattenedInterests?.map((e) => e.title).toList(),
+        "maxAge": (data.age != null) ? data.age! + 2 : 50,
+        "minAge": (data.age != null) ? data.age! - 2 : 18
       }
     };
 

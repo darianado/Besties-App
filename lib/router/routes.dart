@@ -13,6 +13,7 @@ import 'package:project_seg/screens/recover_password/recover_password_screen.dar
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/screens/sign_up/register_description_screen.dart';
 import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
+import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -87,6 +88,19 @@ class AppRouter {
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+          ),
+          GoRoute(
+            name: "register_photo",
+            path: "photo",
+            //builder: (context, state) => RegisterDescriptionScreen(userData: state.extra! as UserData),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: RegisterPhotoScreen(userData: state.extra! as UserData),
               transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
@@ -191,6 +205,7 @@ class AppRouter {
       final recoverPasswordLoc = state.namedLocation("recover_password");
       final registerLoc = state.namedLocation("register");
       final registerBasicInfoLoc = state.namedLocation("register_basic_info");
+      final registerPhotoLoc = state.namedLocation("register_photo");
       final registerDescriptionLoc = state.namedLocation("register_description");
       final registerInterestsLoc = state.namedLocation("register_interests");
 
@@ -200,6 +215,7 @@ class AppRouter {
       final goingToRecoverPassword = state.subloc == recoverPasswordLoc;
       final goingToRegister = state.subloc == registerLoc;
       final goingToRegisterBasicInfo = state.subloc == registerBasicInfoLoc;
+      final goingToRegisterPhotoLoc = state.subloc == registerPhotoLoc;
       final goingToRegisterDescriptionLoc = state.subloc == registerDescriptionLoc;
       final goingToRegisterInterestsLoc = state.subloc == registerInterestsLoc;
 
@@ -219,7 +235,7 @@ class AppRouter {
           loggedIn &&
           emailVerified &&
           !fetchedUser &&
-          !(goingToRegisterBasicInfo || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
+          !(goingToRegisterBasicInfo || goingToRegisterPhotoLoc || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
         return registerBasicInfoLoc;
       }
 
@@ -230,6 +246,7 @@ class AppRouter {
               (goingToLogin ||
                   goingToRegister ||
                   goingToRegisterBasicInfo ||
+                  goingToRegisterPhotoLoc ||
                   goingToRegisterDescriptionLoc ||
                   goingToRegisterInterestsLoc))) {
         return feedLoc;

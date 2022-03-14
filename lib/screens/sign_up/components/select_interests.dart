@@ -31,8 +31,6 @@ class _SelectInterestsState extends State<SelectInterests> {
 
   @override
   Widget build(BuildContext context) {
-    print("Rebuilding");
-
     return FutureBuilder<List<Category>>(
       future: possibleCategories,
       builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:age_calculator/age_calculator.dart';
 import 'package:project_seg/models/category.dart';
+import 'package:project_seg/models/interest.dart';
 
 class Preferences {
   final List<String> interests;
@@ -8,12 +9,27 @@ class Preferences {
   final int minAge;
 
   Preferences({required this.interests, required this.maxAge, required this.minAge});
+
+  Map toMap() {
+    return {
+      "interests": interests,
+      "maxAge": maxAge,
+      "minAge": minAge,
+    };
+  }
 }
 
 class GeoLocation {
   final double lat, lon;
 
   GeoLocation({required this.lat, required this.lon});
+
+  Map toMap() {
+    return {
+      "lat": lat,
+      "lon": lon,
+    };
+  }
 }
 
 class UserData {
@@ -24,7 +40,7 @@ class UserData {
   String? bio;
   String? relationshipStatus;
   String? profileImageUrl;
-  List<Category>? interests;
+  List<Category>? categorizedInterests;
   GeoLocation? location;
   Preferences? preferences;
 
@@ -34,7 +50,7 @@ class UserData {
       this.university,
       this.bio,
       this.relationshipStatus,
-      this.interests,
+      this.categorizedInterests,
       this.location,
       this.profileImageUrl,
       this.preferences,
@@ -52,7 +68,7 @@ class UserData {
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],
       profileImageUrl: data?['profileImageUrl'],
-      interests: List<String>.from(data?['interests']).map((str) => Category(catId: str, title: str, interests: [])).toList(),
+      categorizedInterests: List<String>.from(data?['interests']).map((str) => Category(catId: str, title: str, interests: [])).toList(),
       location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
       preferences: Preferences(
         interests: List<String>.from(data?['preferences']['interests']),
@@ -85,5 +101,28 @@ class UserData {
     }
 
     return null;
+  }
+
+  List<Interest>? get flattenedInterests {
+    return categorizedInterests
+        ?.map((category) => category.interests.where((interest) => interest.selected).toList())
+        .expand((i) => i)
+        .toList();
+  }
+
+  Map toMap() {
+    return {
+      "dob": dob,
+      "firstName": firstName,
+      "lastName": lastName,
+      "university": university,
+      "gender": gender,
+      "relationshipStatus": relationshipStatus,
+      "bio": bio,
+      "profileImageUrl": profileImageUrl,
+      "categorizedInterests": flattenedInterests?.map((e) => e.title).toList(),
+      "location": location?.toMap(),
+      "preferences": preferences?.toMap()
+    };
   }
 }

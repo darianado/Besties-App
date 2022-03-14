@@ -14,7 +14,7 @@ class StorageService {
 
   static StorageService get instance => _instance;
 
-  Future<void> changeUserPhoto(String userId, File? image) async {
+  Future<String?> changeUserPhoto(String userId, File? image) async {
     print("Changing");
 
     if (image != null) {
@@ -28,13 +28,13 @@ class StorageService {
 
       String ref = 'user_avatars/$userId/${Uuid().v4()}.png';
 
-      print("This is the file ref: " + ref);
+      //print("This is the file ref: " + ref);
 
       storage.TaskSnapshot upload = await _firebaseStorage.ref(ref).putFile(file);
 
-      String downloadUrl = await upload.ref.getDownloadURL();
+      return await upload.ref.getDownloadURL();
 
-      FirestoreService.instance.setProfileImageUrl(downloadUrl);
+      //FirestoreService.instance.setProfileImageUrl(downloadUrl);
     }
   }
 }

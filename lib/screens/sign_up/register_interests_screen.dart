@@ -19,6 +19,8 @@ class RegisterInterestsScreen extends StatefulWidget {
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
+  bool couldNotValidateInterests = false;
+
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
@@ -52,13 +54,19 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
-                child: Text(
-                  'TELL US ABOUT YOURSELF',
-                  style: TextStyle(
-                    fontSize: 29.0,
-                    fontWeight: FontWeight.bold,
-                    color: kSecondaryColour,
-                  ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Finally, what do you like?',
+                        style: TextStyle(
+                          fontSize: 29.0,
+                          fontWeight: FontWeight.bold,
+                          color: kSecondaryColour,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -84,18 +92,47 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                   ),
                   const SizedBox(height: 20),
                   SelectInterests(
-                    initialCategories: widget.userData.interests ?? [],
+                    initialCategories: widget.userData.categorizedInterests ?? [],
                     onChange: (newCategories) {
-                      //print(newCategories.map((e) => e.interests.where((e) => e.selected).map((e) => e.title)));
-                      widget.userData.interests = newCategories;
+                      widget.userData.categorizedInterests = newCategories;
                     },
                   ),
+                  (couldNotValidateInterests)
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: Text(
+                                  "Ensure you have selected between 1 and 10 interests",
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container(),
                   const SizedBox(height: 50),
                   Container(
                     height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => saveToFirestore(),
+                      onPressed: () {
+                        final _interests = widget.userData.flattenedInterests;
+
+                        if (_interests == null || _interests.length < 1 || _interests.length > 10) {
+                          setState(() {
+                            couldNotValidateInterests = true;
+                          });
+                          return;
+                        }
+
+                        setState(() {
+                          couldNotValidateInterests = false;
+                        });
+
+                        saveToFirestore();
+                      },
                       child: Text("Done"),
                       style: ElevatedButton.styleFrom(
                         primary: kTertiaryColour,

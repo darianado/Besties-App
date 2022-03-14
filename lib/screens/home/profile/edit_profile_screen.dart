@@ -65,7 +65,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1.5),
         aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
       );
-      await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
+      String? url = await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
+
+      if (url != null) FirestoreService.instance.setProfileImageUrl(url);
 
       setState(() {
         loadingPicture = false;

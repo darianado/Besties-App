@@ -51,7 +51,7 @@ class FirestoreService {
 
   void saveUserData(UserData data) {}
 
-  // Feed profile methods
+  // Requests a List of recommended uids from Firebase.
   static Future<List<String>> getRecommendedUsers(String uid, int recs) async {
     HttpsCallable callable =
         FirebaseFunctions.instanceFor(region: 'europe-west2')
@@ -65,18 +65,25 @@ class FirestoreService {
     HashMap raw = HashMap.from(resp.data);
 
     List<String> uids = List<String>.from(raw['data']);
-
     return uids;
   }
 
+  // Filters all  users based on recommended users' uids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
     List<String> uids = await getRecommendedUsers(uid, recs);
 
     CollectionReference _collectionRef =
         FirebaseFirestore.instance.collection('users');
-    QuerySnapshot querySnapshot = await _collectionRef
-        //.where(FieldPath.documentId, whereIn: uids) //TODO .filter by uids
-        .get();
+    QuerySnapshot querySnapshot;
+
+    if (uids.isEmpty) {
+      querySnapshot = await _collectionRef
+          .get();
+    } else {
+      querySnapshot = await _collectionRef
+          .where(FieldPath.documentId, whereIn: uids)
+          .get();
+    }
 
     final users = querySnapshot.docs
         .map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>))
@@ -84,6 +91,7 @@ class FirestoreService {
     return users;
   }
 
+  // Creates Profile Containers from a List of User Data.
   static Future<List<ProfileContainer>> getProfileContainers(
       String uid, int recs) async {
     List<UserData> data = await getProfileData(uid, recs);

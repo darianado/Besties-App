@@ -10,10 +10,10 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:go_router/go_router.dart';
 
 class SelectInterests extends StatefulWidget {
-  SelectInterests({Key? key, required this.initialCategories, required this.onChange}) : super(key: key);
+  SelectInterests({Key? key, required this.selected, required this.onChange}) : super(key: key);
 
-  List<Category> initialCategories;
-  final Function(List<Category>) onChange;
+  CategorizedInterests selected;
+  final Function(CategorizedInterests) onChange;
 
   @override
   State<SelectInterests> createState() => _SelectInterestsState();
@@ -21,7 +21,7 @@ class SelectInterests extends StatefulWidget {
 
 class _SelectInterestsState extends State<SelectInterests> {
   final FirestoreService _firestoreService = FirestoreService.instance;
-  late Future<List<Category>>? possibleCategories;
+  late Future<CategorizedInterests>? possibleCategories;
 
   @override
   void initState() {
@@ -31,12 +31,12 @@ class _SelectInterestsState extends State<SelectInterests> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Category>>(
+    return FutureBuilder<CategorizedInterests>(
       future: possibleCategories,
-      builder: (BuildContext context, AsyncSnapshot<List<Category>> snapshot) {
-        List<Category>? possibleCategories = snapshot.data;
+      builder: (BuildContext context, AsyncSnapshot<CategorizedInterests> snapshot) {
+        CategorizedInterests? possible = snapshot.data;
 
-        if (possibleCategories == null) {
+        if (possible == null) {
           return const Center(
             child: SizedBox(
               height: 50,
@@ -48,26 +48,35 @@ class _SelectInterestsState extends State<SelectInterests> {
 
         //categories.first.interests.first.selected = true;
 
-        widget.initialCategories = syncCategories(widget.initialCategories, possibleCategories);
+        //widget.initialCategories = syncCategories(widget.initialCategories, possibleCategories);
+
+        widget.selected = retainPossible(widget.selected, possible);
+        widget.selected = addMissingCategories(widget.selected, possible);
 
         return Column(
           children: [
             Column(
-              children: widget.initialCategories.map((category) {
+              children: possible.categories.map((category) {
+                Category _selected = widget.selected.categories
+                    .singleWhere((e) => e.title == category.title, orElse: () => Category(title: category.title, interests: []));
+
                 return CategoryView(
                   category: category,
+                  selected: _selected,
                   onTap: () {
                     showModalBottomSheet(
                         context: context,
                         builder: (BuildContext context) {
                           return EditInterestBottomSheet(
                             category: category,
+                            selected: _selected,
                             onChange: (newCategory) {
+                              print("Selected: ${newCategory.interests.map((e) => e.title)}");
                               setState(() {
-                                category = newCategory;
+                                _selected = newCategory;
                               });
 
-                              widget.onChange(widget.initialCategories);
+                              widget.onChange(widget.selected);
                             },
                           );
                         });
@@ -81,30 +90,47 @@ class _SelectInterestsState extends State<SelectInterests> {
     );
   }
 
-  List<Category> syncCategories(List<Category> sync, List<Category> fetchedCategories) {
-    fetchedCategories.forEach((category) {
-      final _oldCategoryIndex = sync.indexWhere((element) => element.catId == category.catId);
+  CategorizedInterests retainPossible(CategorizedInterests categories, CategorizedInterests filter) {
+    CategorizedInterests _localCategories = categories;
 
-      if (_oldCategoryIndex != -1) {
+    _localCategories.categories.forEach((category) {
+      int? _filterCategoryIndex = filter.categories.indexWhere((e) => e.title == category.title);
+
+      if (_filterCategoryIndex == -1) {
+        _localCategories.categories.remove(category);
+      } else {
         category.interests.forEach((interest) {
-          final _oldInterestIndex = sync.elementAt(_oldCategoryIndex).interests.indexWhere((element) => element.title == interest.title);
+          int _filterInterestIndex =
+              filter.categories.elementAt(_filterCategoryIndex).interests.indexWhere((e) => e.title == interest.title);
 
-          if (_oldInterestIndex != -1) {
-            //print("Setting selected for ${interest.title}, based on cat: ${_oldCategoryIndex} and interest: ${_oldInterestIndex}");
-            interest.selected = sync.elementAt(_oldCategoryIndex).interests.elementAt(_oldInterestIndex).selected;
-          }
+          if (_filterInterestIndex == -1) category.interests.remove(interest);
         });
       }
     });
 
-    return fetchedCategories;
+    return _localCategories;
+  }
+
+  CategorizedInterests addMissingCategories(CategorizedInterests categories, CategorizedInterests filter) {
+    CategorizedInterests _localCategories = categories;
+
+    filter.categories.forEach((category) {
+      int _categoryIndex = categories.categories.indexWhere((e) => e.title == category.title);
+
+      if (_categoryIndex == -1) {
+        _localCategories.categories.add(Category(title: category.title, interests: []));
+      }
+    });
+
+    return _localCategories;
   }
 }
 
 class EditInterestBottomSheet extends StatefulWidget {
-  EditInterestBottomSheet({Key? key, required this.category, required this.onChange}) : super(key: key);
+  EditInterestBottomSheet({Key? key, required this.category, required this.selected, required this.onChange}) : super(key: key);
 
   Category category;
+  Category selected;
   final Function(Category) onChange;
 
   @override
@@ -141,7 +167,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                         spacing: 6.0,
                         runSpacing: 6.0,
                         children: widget.category.interests.map((interest) {
-                          if (interest.selected) {
+                          if (isInBoth(interest, widget.category.interests, widget.selected.interests)) {
                             return ChipWidget(
                               color: kTertiaryColour,
                               label: interest.title,
@@ -150,7 +176,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                               mini: true,
                               onTap: () {
                                 setState(() {
-                                  interest.selected = false;
+                                  widget.selected.interests.remove(interest);
                                 });
                               },
                             );
@@ -162,7 +188,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                               mini: true,
                               onTap: () {
                                 setState(() {
-                                  interest.selected = true;
+                                  widget.selected.interests.add(interest);
                                 });
                               },
                             );
@@ -184,7 +210,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                       onPressed: () {
                         Navigator.of(context).pop();
 
-                        widget.onChange(widget.category);
+                        widget.onChange(widget.selected);
                       },
                       child: Text("OK"),
                     ),
@@ -201,15 +227,17 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
     );
   }
 
-  List<Interest> selected() {
-    return widget.category.interests.where((element) => !element.selected).toList();
+  bool isInBoth(Interest interest, List<Interest> first, List<Interest> second) {
+    return first.where((element) => element.title == interest.title).isNotEmpty &&
+        second.where((element) => element.title == interest.title).isNotEmpty;
   }
 }
 
 class CategoryView extends StatelessWidget {
-  CategoryView({Key? key, required this.category, required this.onTap}) : super(key: key);
+  CategoryView({Key? key, required this.category, required this.selected, required this.onTap}) : super(key: key);
 
   Category category;
+  Category selected;
   final Function onTap;
 
   @override
@@ -239,7 +267,7 @@ class CategoryView extends StatelessWidget {
                         Icon(Icons.arrow_downward),
                       ],
                     ),
-                    (selected().isNotEmpty)
+                    (selected.interests.isNotEmpty)
                         ? SizedBox(
                             height: 20,
                           )
@@ -250,7 +278,7 @@ class CategoryView extends StatelessWidget {
                           child: Wrap(
                             spacing: 6.0,
                             runSpacing: 6.0,
-                            children: selected()
+                            children: selected.interests
                                 .map((e) => ChipWidget(
                                       color: kTertiaryColour,
                                       label: e.title,
@@ -271,10 +299,6 @@ class CategoryView extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  List<Interest> selected() {
-    return category.interests.where((element) => element.selected).toList();
   }
 }
 

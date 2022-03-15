@@ -17,7 +17,7 @@ class BioField extends StatelessWidget {
     if (editable) {
       return ShakeAnimatedWidget(
         duration: Duration(milliseconds: 200),
-        shakeAngle: Rotation.deg(z: 1),
+        shakeAngle: Rotation.deg(z: 0.6),
         child: bio(context, getOnTap(context)),
       );
     } else {

@@ -28,9 +28,9 @@ class FirestoreService {
     return _firebaseFirestore.collection("app").doc("context").snapshots().map((snapshot) => AppContext.fromSnapshot(snapshot));
   }
 
-  Future<List<Category>> fetchInterests() async {
+  Future<CategorizedInterests> fetchInterests() async {
     final snapshot = await _firebaseFirestore.collection("app").doc("context").collection("interests").get();
-    return snapshot.docs.map((doc) => (Category.fromSnapshot(doc))).toList();
+    return CategorizedInterests(categories: snapshot.docs.map((doc) => (Category.fromSnapshot(doc))).toList());
   }
 
   void setProfileImageUrl(String url) {
@@ -66,52 +66,17 @@ class FirestoreService {
         .set({"relationshipStatus": relationshipStatus}, firestore.SetOptions(merge: true));
   }
 
-  void signUpUser(String uid) {
-    final demo = {
-      "dob": DateTime.utc(2000, 07, 20),
-      "firstName": "Amy",
-      "lastName": "Garcia",
-      "university": "King's College London",
-      "gender": "non-binary",
-      "relationshipStatus": "single",
-      "bio": "Hello! This is my bio. This text is rather long, so we can check everything's working.",
-      "interests": ["volunteering", "christian"],
-      "location": {"lat": 51.48, "lon": 0.086},
-      "preferences": {
-        "interests": ["buddhism", "christian", "islam"],
-        "maxAge": 30,
-        "minAge": 18
-      }
-    };
-
-    _firebaseFirestore.collection("users").doc(uid).set(demo);
-  }
-
   void saveUserData(UserData data) {
-    final dataMap = {
-      "dob": data.dob,
-      "firstName": data.firstName,
-      "lastName": data.lastName,
-      "university": data.university,
-      "gender": data.gender,
-      "relationshipStatus": data.relationshipStatus,
-      "bio": data.bio,
-      "profileImageUrl": data.profileImageUrl,
-      "interests": data.flattenedInterests?.map((e) => e.title).toList(),
-      "location": {"lat": 51.48, "lon": 0.086},
-      "preferences": {
-        "interests": data.flattenedInterests?.map((e) => e.title).toList(),
-        "maxAge": (data.age != null) ? data.age! + 2 : 50,
-        "minAge": (data.age != null) ? data.age! - 2 : 18
-      }
-    };
-
     UserState _userState = UserState.instance;
 
     String? uid = _userState.user?.user?.uid;
 
     if (uid != null) {
-      _firebaseFirestore.collection("users").doc(uid).set(dataMap);
+      // The following two lines should probably be done differently, but this way we at least populate something.
+      data.preferences = Preferences(interests: data.categorizedInterests ?? CategorizedInterests(categories: []), maxAge: 50, minAge: 20);
+      data.location = GeoLocation(lat: 50, lon: 0);
+
+      _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
 }

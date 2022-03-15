@@ -16,21 +16,13 @@ import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
 import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
+import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 
 class AppRouter {
   final UserState userState;
 
   AppRouter(this.userState);
-
-  printState(UserData state) {
-    print("STATE:");
-    print("   Name: ${state.fullName}");
-    print("   Gender: ${state.gender}");
-    print("   Uni: ${state.university}");
-    print("   Bio: ${state.bio}");
-    //print("   Interests: ${state}");
-  }
 
   late final router = GoRouter(
     refreshListenable: userState,
@@ -209,46 +201,73 @@ class AppRouter {
       final registerDescriptionLoc = state.namedLocation("register_description");
       final registerInterestsLoc = state.namedLocation("register_interests");
 
+      final goingToFeed = state.subloc == feedLoc;
       final goingToSplash = state.subloc == splashLoc;
       final goingToLogin = state.subloc == loginLoc;
       final goingToEmailVerify = state.subloc == emailVerifyLoc;
       final goingToRecoverPassword = state.subloc == recoverPasswordLoc;
       final goingToRegister = state.subloc == registerLoc;
       final goingToRegisterBasicInfo = state.subloc == registerBasicInfoLoc;
-      final goingToRegisterPhotoLoc = state.subloc == registerPhotoLoc;
-      final goingToRegisterDescriptionLoc = state.subloc == registerDescriptionLoc;
-      final goingToRegisterInterestsLoc = state.subloc == registerInterestsLoc;
+      final goingToRegisterPhoto = state.subloc == registerPhotoLoc;
+      final goingToRegisterDescription = state.subloc == registerDescriptionLoc;
+      final goingToRegisterInterests = state.subloc == registerInterestsLoc;
+
+      /*
+      print("State of the union: ");
+      print("    initialized? ${initialized}");
+      print("    logged in? ${loggedIn}");
+      print("    email verified? ${emailVerified}");
+      print("    fetched user data? ${fetchedUser}");
+      print("----------");
+      print("    goingToSplash? ${goingToSplash}");
+      print("    goingToEmailVerify? ${goingToEmailVerify}");
+      print("----------");
+      print("    goingToLogin? ${goingToLogin}");
+      print("    goingToRegister? ${goingToRegister}");
+      print("    goingToRegisterBasicInfo? ${goingToRegisterBasicInfo}");
+      print("    goingToRegisterPhoto? ${goingToRegisterPhoto}");
+      print("    goingToRegisterDescription? ${goingToRegisterDescription}");
+      print("    goingToRegisterInterests? ${goingToRegisterInterests}");
+      print("#################################################");
+      */
 
       if (!initialized && !goingToSplash) {
+        print("Redirecting to splash page");
         return splashLoc;
       }
 
       if (initialized && loggedIn && !emailVerified && !goingToEmailVerify) {
+        print("Redirecting to email verify page");
         return emailVerifyLoc;
       }
 
       if (initialized && !loggedIn && !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
+        print("Redirecting to login page");
         return loginLoc;
       }
 
       if (initialized &&
           loggedIn &&
-          emailVerified &&
           !fetchedUser &&
-          !(goingToRegisterBasicInfo || goingToRegisterPhotoLoc || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
+          emailVerified &&
+          !(goingToRegisterBasicInfo || goingToRegisterPhoto || goingToRegisterDescription || goingToRegisterInterests)) {
+        print("Redirecting to basic info page");
         return registerBasicInfoLoc;
       }
 
-      if ((initialized && goingToSplash) ||
-          (emailVerified && goingToEmailVerify) ||
-          (loggedIn &&
-              fetchedUser &&
-              (goingToLogin ||
-                  goingToRegister ||
-                  goingToRegisterBasicInfo ||
-                  goingToRegisterPhotoLoc ||
-                  goingToRegisterDescriptionLoc ||
-                  goingToRegisterInterestsLoc))) {
+      if (initialized &&
+          loggedIn &&
+          fetchedUser &&
+          (goingToSplash ||
+              goingToEmailVerify ||
+              goingToLogin ||
+              goingToRegister ||
+              goingToRegisterBasicInfo ||
+              goingToRegisterPhoto ||
+              goingToRegisterDescription ||
+              goingToRegisterInterests) &&
+          !goingToFeed) {
+        print("Redirecting to feed page");
         return feedLoc;
       }
 

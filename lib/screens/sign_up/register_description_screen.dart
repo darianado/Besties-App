@@ -170,7 +170,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             fillColor: kLightTertiaryColour,
                           ),
                           onChanged: (value) => widget.userData.bio = value,
-                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.sentences,
                           validator: (content) {
                             if (content == null || content.isEmpty) return "A bio is required";
                           }),

@@ -9,6 +9,7 @@ import 'package:project_seg/screens/home/profile/components/edit_dob_button.dart
 import 'package:project_seg/screens/home/profile/components/gender_button.dart';
 import 'package:project_seg/screens/home/profile/components/relationship_status_button.dart';
 import 'package:project_seg/screens/home/profile/components/university_button.dart';
+import 'package:project_seg/screens/sign_up/components/display_interests.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -123,26 +124,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  /*
-                  Wrap(
-                    spacing: 9.0,
-                    runSpacing: 9.0,
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    children: _userState.user?.userData?.interests
-                            ?.map(
-                              (interest) => ChipWidget(
-                                color: kTertiaryColour,
-                                bordered: false,
-                                label: interest,
-                                capitalizeLabel: true,
-                                textColor: Colors.white,
-                              ),
-                            )
-                            .toList() ??
-                        [],
+                  DisplayInterests(
+                    items: _userState.user?.userData?.flattenedInterests ?? [],
                   ),
-                  */
                   SizedBox(
                     height: 40,
                   ),

@@ -35,6 +35,17 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
     _lastName.dispose();
   }
 
+  IconData getIconForGender(String? gender) {
+    switch (gender?.toLowerCase()) {
+      case "male":
+        return FontAwesomeIcons.mars;
+      case "female":
+        return FontAwesomeIcons.venus;
+      default:
+        return FontAwesomeIcons.venusMars;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     UserState _userState = Provider.of<UserState>(context);
@@ -129,7 +140,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             border: InputBorder.none,
                             labelText: 'First name',
                           ),
-                          textInputAction: TextInputAction.next,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
                           validator: (content) {
                             if (content == null || content.isEmpty) return "First name is required";
                           },
@@ -151,7 +163,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                               border: InputBorder.none,
                               labelText: 'Last name',
                             ),
-                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.text,
+                            textCapitalization: TextCapitalization.words,
                             validator: (content) {
                               if (content == null || content.isEmpty) return "Last name is required";
                             }),
@@ -222,8 +235,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   bordered: widget.userData.gender == gender ? false : true,
                                   textColor: (widget.userData.gender == gender) ? Colors.white : null,
                                   iconColor: (widget.userData.gender == gender) ? Colors.white : null,
-                                  icon: FontAwesomeIcons.mars,
+                                  icon: getIconForGender(gender),
                                   label: gender,
+                                  mini: true,
                                   onTap: () => setState(() {
                                     widget.userData.gender = gender;
                                   }),

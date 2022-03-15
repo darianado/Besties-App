@@ -3,16 +3,31 @@ import 'package:age_calculator/age_calculator.dart';
 import 'package:project_seg/models/category.dart';
 import 'package:project_seg/models/interest.dart';
 
+class CategorizedInterests {
+  final List<Category> categories;
+
+  CategorizedInterests({required this.categories});
+
+  factory CategorizedInterests.fromMap(List<dynamic> list) {
+    final categories = list.map((e) => Category.fromMap(e)).toList();
+    return CategorizedInterests(categories: categories);
+  }
+
+  List<Map<String, dynamic>> toList() {
+    return categories.map((e) => e.toMap()).toList();
+  }
+}
+
 class Preferences {
-  final List<String> interests;
+  final CategorizedInterests interests;
   final int maxAge;
   final int minAge;
 
   Preferences({required this.interests, required this.maxAge, required this.minAge});
 
-  Map toMap() {
+  Map<String, dynamic> toMap() {
     return {
-      "interests": interests,
+      "interests": interests.toList(),
       "maxAge": maxAge,
       "minAge": minAge,
     };
@@ -24,7 +39,7 @@ class GeoLocation {
 
   GeoLocation({required this.lat, required this.lon});
 
-  Map toMap() {
+  Map<String, dynamic> toMap() {
     return {
       "lat": lat,
       "lon": lon,
@@ -40,7 +55,7 @@ class UserData {
   String? bio;
   String? relationshipStatus;
   String? profileImageUrl;
-  List<Category>? categorizedInterests;
+  CategorizedInterests? categorizedInterests;
   GeoLocation? location;
   Preferences? preferences;
 
@@ -59,6 +74,11 @@ class UserData {
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
+
+    final _categorizedInterests = CategorizedInterests.fromMap(data?['categorizedInterests']);
+
+    print(_categorizedInterests.runtimeType);
+
     return UserData(
       dob: (data?['dob'] as Timestamp).toDate(),
       firstName: data?['firstName'],
@@ -68,13 +88,14 @@ class UserData {
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],
       profileImageUrl: data?['profileImageUrl'],
-      categorizedInterests: List<String>.from(data?['interests']).map((str) => Category(catId: str, title: str, interests: [])).toList(),
-      location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
+      categorizedInterests: _categorizedInterests,
+      /*location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
       preferences: Preferences(
         interests: List<String>.from(data?['preferences']['interests']),
         maxAge: data?['preferences']['maxAge'],
         minAge: data?['preferences']['minAge'],
       ),
+      */
     );
   }
 
@@ -104,13 +125,10 @@ class UserData {
   }
 
   List<Interest>? get flattenedInterests {
-    return categorizedInterests
-        ?.map((category) => category.interests.where((interest) => interest.selected).toList())
-        .expand((i) => i)
-        .toList();
+    return categorizedInterests?.categories.map((category) => category.interests).expand((i) => i).toList();
   }
 
-  Map toMap() {
+  Map<String, dynamic> toMap() {
     return {
       "dob": dob,
       "firstName": firstName,
@@ -120,7 +138,7 @@ class UserData {
       "relationshipStatus": relationshipStatus,
       "bio": bio,
       "profileImageUrl": profileImageUrl,
-      "categorizedInterests": flattenedInterests?.map((e) => e.title).toList(),
+      "categorizedInterests": categorizedInterests?.toList(),
       "location": location?.toMap(),
       "preferences": preferences?.toMap()
     };

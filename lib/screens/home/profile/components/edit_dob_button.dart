@@ -1,16 +1,10 @@
 import 'package:animated_widgets/animated_widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants.dart';
-import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/home/profile/components/chip_widget.dart';
-import 'package:project_seg/screens/home/profile/components/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 
 class DateOfBirthButton extends StatelessWidget {
   final bool editable;
@@ -78,12 +72,4 @@ class DateOfBirthButton extends StatelessWidget {
 
     if (onSave != null) onSave!(picked);
   }
-
-/*
-  Future<void> saveSelection(String? userId, DateTime? dateOfBirth) async {
-    if (userId != null && dateOfBirth != null) {
-      await _firestoreService.setDateOfBirth(userId, dateOfBirth);
-    }
-  }
-  */
 }

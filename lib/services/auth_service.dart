@@ -38,12 +38,14 @@ class AuthService {
   }
 
   Future<void> sendVerificationEmail() async {
+    print("Sending verification email");
     await currentUser?.sendEmailVerification(null);
   }
 
   Future<void> reloadUser() async {
     try {
       await _firebaseAuth.currentUser?.reload();
+      print("User is verified? ${currentUser?.emailVerified}");
     } catch (e) {
       // calling reload on a null user.
       return;

@@ -92,10 +92,12 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                   ),
                   const SizedBox(height: 20),
                   SelectInterests(
-                    initialCategories: widget.userData.categorizedInterests ?? [],
                     onChange: (newCategories) {
-                      widget.userData.categorizedInterests = newCategories;
+                      setState(() {
+                        widget.userData.categorizedInterests = newCategories;
+                      });
                     },
+                    selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
                   ),
                   (couldNotValidateInterests)
                       ? Row(

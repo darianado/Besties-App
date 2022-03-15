@@ -123,19 +123,6 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.only(8.0),
-        //   child: Text(
-        //     profile.lastName,
-        //     style: const TextStyle(
-        //       fontSize: kProfileNameFontSize,
-        //       color: kSecondaryColour,
-        //       fontWeight: FontWeight.w300,
-        //     ),
-        //   ),
-        // ),
-        //   ],
-        // ),
         Row(children: [
           const Padding(
             padding: EdgeInsets.only(right: 8.0),

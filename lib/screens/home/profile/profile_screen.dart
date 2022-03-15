@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kWhiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -53,17 +53,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
+                      onPressed: () => context.pushNamed("edit_profile",
+                          params: {'page': 'profile'}),
                       icon: Icon(
-                        Icons.edit,
-                        color: Colors.white,
+                        FontAwesomeIcons.pen,
+                        color: kWhiteColour,
+                        size: 17.0,
                       ),
                     ),
                   ),
                 ),
               ),
             ],
-            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
+            flexibleSpace:
+                CachedImage(url: _userState.user?.userData?.profileImageUrl),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
@@ -71,6 +74,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
               child: Column(
                 children: [
+                  SizedBox(
+                    height: 15,
+                  ),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
                     style: TextStyle(
@@ -80,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: 25,
+                    height: 15,
                   ),
                   UniversityButton(
                     label: _userState.user?.userData?.university ?? "",
@@ -94,9 +100,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
-                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
-                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
+                      DateOfBirthButton(
+                          label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(
+                          label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(
+                          label:
+                              _userState.user?.userData?.relationshipStatus ??
+                                  ""),
                     ],
                   ),
                   SizedBox(
@@ -131,7 +142,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 40,
                   ),
                   ElevatedButton(
-                    onPressed: () => context.pushNamed("edit_password", params: {'page': 'profile'}),
+                    onPressed: () => context.pushNamed("edit_password",
+                        params: {'page': 'profile'}),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
                         kTertiaryColour.withOpacity(0.8),

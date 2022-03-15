@@ -35,8 +35,7 @@ class _LogInScreenState extends State<LogInScreen> {
     try {
       await userState.signIn(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
 
@@ -60,9 +59,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Theme(
       data: ThemeData(
-        textTheme:
-            GoogleFonts.nunitoSansTextTheme((Theme.of(context).textTheme))
-                .apply(bodyColor: kWhiteColour),
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -90,10 +87,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                       title: const Text(
                         'BESTIES',
-                        style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: kWhiteColour),
+                        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: kWhiteColour),
                       ),
                       centerTitle: true,
                       automaticallyImplyLeading: false),
@@ -107,17 +101,14 @@ class _LogInScreenState extends State<LogInScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           const Padding(
-                            padding:
-                                EdgeInsets.fromLTRB(22.0, 35.0, 22.0, 35.0),
+                            padding: EdgeInsets.fromLTRB(22.0, 35.0, 22.0, 35.0),
                             child: Text(
                               'Log in',
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold),
+                              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                30.0, 35.0, 30.0, 10.0),
+                            padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 10.0),
                             child: TextFormField(
                               controller: _email,
                               decoration: const InputDecoration(
@@ -129,15 +120,12 @@ class _LogInScreenState extends State<LogInScreen> {
                                     color: kWhiteColour,
                                   ),
                                   labelText: 'Email address'),
-                              validator: (value) => !isEmail(_email.text)
-                                  ? "Invalid Email"
-                                  : null,
+                              validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
                               textInputAction: TextInputAction.next,
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(
-                                30.0, 10.0, 30.0, 2.0),
+                            padding: const EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 2.0),
                             child: TextFormField(
                               controller: _password,
                               obscureText: true,
@@ -159,14 +147,11 @@ class _LogInScreenState extends State<LogInScreen> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(
-                                right: 25.0, bottom: 40.0),
+                            padding: const EdgeInsets.only(right: 25.0, bottom: 40.0),
                             child: Align(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
-                                child: const Text('Forget password?',
-                                    style: TextStyle(
-                                        fontSize: 12, color: kWhiteColour)),
+                                child: const Text('Forget password?', style: TextStyle(fontSize: 12, color: kWhiteColour)),
                                 onPressed: () {
                                   context.pushNamed("recover_password");
                                 },
@@ -187,8 +172,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                           strokeWidth: 3,
                                         ),
                                       )
-                                    : Text("Log In",
-                                        style: GoogleFonts.nunito()),
+                                    : Text("Log In", style: GoogleFonts.nunito()),
                                 style: ElevatedButton.styleFrom(
                                     primary: kWhiteColour,
                                     onPrimary: kPrimaryColour,
@@ -199,9 +183,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                       fontSize: 25,
                                       fontWeight: FontWeight.bold,
                                     ),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(50))),
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
                               )),
                           Container(
                             padding: const EdgeInsets.all(35.0),
@@ -216,18 +198,13 @@ class _LogInScreenState extends State<LogInScreen> {
                                 Expanded(
                                   flex: 1,
                                   child: OutlinedButton(
-                                    onPressed: () =>
-                                        context.pushNamed("register"),
+                                    onPressed: () => context.pushNamed("register"),
                                     style: OutlinedButton.styleFrom(
                                       primary: kWhiteColour,
-                                      shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(30))),
-                                      side: const BorderSide(
-                                          color: kWhiteColour, width: 1.5),
+                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
+                                      side: const BorderSide(color: kWhiteColour, width: 1.5),
                                     ),
-                                    child: const Text("Sign up",
-                                        style: TextStyle(color: kWhiteColour)),
+                                    child: const Text("Sign up", style: TextStyle(color: kWhiteColour)),
                                   ),
                                 ),
                               ],

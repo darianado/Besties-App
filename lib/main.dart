@@ -24,8 +24,7 @@ class MyApp extends StatelessWidget {
   final UserState userState;
   final ContextState contextState;
 
-  const MyApp({Key? key, required this.userState, required this.contextState})
-      : super(key: key);
+  const MyApp({Key? key, required this.userState, required this.contextState}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +49,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-                textTheme: GoogleFonts.nunitoSansTextTheme(
-                    (Theme.of(context).textTheme))
-                /*
+              textTheme: GoogleFonts.nunitoTextTheme((Theme.of(context).textTheme)),
+              /*
               primaryTextTheme: const TextTheme(
                 bodyText1: TextStyle(),
                 bodyText2: TextStyle(),
@@ -61,7 +59,7 @@ class MyApp extends StatelessWidget {
                 displayColor: Colors.red,
               ),
               */
-                /*
+              /*
               // Define the default brightness and colors.
               brightness: Brightness.light,
               scaffoldBackgroundColor: kWhiteColour,
@@ -73,7 +71,7 @@ class MyApp extends StatelessWidget {
                 bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
               ),
               */
-                ),
+            ),
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,
           );

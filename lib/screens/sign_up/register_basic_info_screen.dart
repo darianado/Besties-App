@@ -300,7 +300,6 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         height: 60,
                       ),
                       Container(
-                        height: 50,
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
@@ -338,15 +337,25 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             context.goNamed("register_photo", extra: widget.userData);
                           },
                           child: Text("Next"),
+                          /*
                           style: ElevatedButton.styleFrom(
                             primary: kTertiaryColour,
                             onPrimary: kWhiteColour,
-                            fixedSize: const Size(300, 100),
                             shadowColor: kTertiaryColour,
                             elevation: 12,
-                            textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            textStyle: TextStyle,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                          */
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(kTertiaryColour),
+                            textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                              ),
                             ),
                           ),
                         ),

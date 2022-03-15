@@ -272,25 +272,6 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                         ],
                       ),
-<<<<<<< HEAD
-                    ]),
-                  ),
-                  SizedBox(
-                    width: 0.80 * screenWidth,
-                    height: 0.07 * screenHeight,
-                    child: ElevatedButton(
-                      onPressed: () => context.pushNamed("register_description", extra: RegisterBasicInfoScreen()),
-                      child: Text("Next"),
-                      style: ElevatedButton.styleFrom(
-                          primary: kTertiaryColour,
-                          onPrimary: kWhiteColour,
-                          fixedSize: const Size(300, 100),
-                          shadowColor: kTertiaryColour,
-                          elevation: 12,
-                          textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-                    ),
-=======
                       SizedBox(
                         height: 10,
                       ),
@@ -371,7 +352,6 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         ),
                       ),
                     ],
->>>>>>> main
                   ),
                 ),
               ),

@@ -77,7 +77,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                 ],
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () => _authService.sendVerificationEmail(),
                 child: Text("Resend email"),
               ),
             ],

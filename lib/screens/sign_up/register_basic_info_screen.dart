@@ -1,198 +1,278 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/models/gender_implementation.dart';
-import 'package:project_seg/screens/components/reusable_card.dart';
-import 'package:project_seg/screens/components/widgets.dart';
+import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
+import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
+import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 class RegisterBasicInfoScreen extends StatefulWidget {
+  RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
+
+  UserData userData;
+
   @override
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
 
 class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
-  final GlobalKey _key = GlobalKey<FormState>();
+  final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
-  final TextEditingController _dob = TextEditingController();
-  final TextEditingController _gender = TextEditingController();
 
-  DateTime selectedDate = DateTime.now();
-  bool dateChanged = false;
-  Gender selectedGender = Gender.other;
-
-  _selectDate(BuildContext context) async {
-    DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate, // Refer step 1
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
-    );
-    if (picked != null && picked != selectedDate) {
-      dateChanged = true;
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
+  bool couldNotValidateDOB = false;
+  bool couldNotValidateGender = false;
+  bool couldNotValidateRelationshipStatus = false;
 
   @override
   void dispose() {
     super.dispose();
     _firstName.dispose();
     _lastName.dispose();
-    _dob.dispose();
-    _gender.dispose();
+  }
+
+  IconData getIconForGender(String? gender) {
+    switch (gender?.toLowerCase()) {
+      case "male":
+        return FontAwesomeIcons.mars;
+      case "female":
+        return FontAwesomeIcons.venus;
+      default:
+        return FontAwesomeIcons.venusMars;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    UserState _userState = Provider.of<UserState>(context);
+    ContextState _contextState = Provider.of<ContextState>(context);
+
+    final _firstNameText = widget.userData.firstName;
+    if (_firstNameText != null) {
+      _firstName.text = _firstNameText;
+    }
+
+    final _lastNameText = widget.userData.lastName;
+    if (_lastNameText != null) {
+      _lastName.text = _lastNameText;
+    }
 
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        stops: [0.4, 0.8, 1],
-        colors: [
-          Color(0xFFFEFCFB),
-          Color(0xFFE2F9FE),
-          Color(0xFFD8F8FF),
-        ],
-      )),
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.4, 0.8, 1],
+          colors: [
+            Color(0xFFFEFCFB),
+            Color(0xFFE2F9FE),
+            Color(0xFFD8F8FF),
+          ],
+        ),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Form(
-              key: _key,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(22.0, 10.0, 22.0, 30.0),
-                    child: Text('TELL US ABOUT YOURSELF',
-                        style: TextStyle(
-                          fontSize: 29.0,
-                          fontWeight: FontWeight.bold,
-                          color: kSecondaryColour,
-                        )),
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.white,
+              expandedHeight: 150,
+              collapsedHeight: 100,
+              actions: [
+                IconButton(
+                  onPressed: () => _userState.signOut(),
+                  icon: Icon(
+                    FontAwesomeIcons.signOutAlt,
+                    color: kPrimaryColour,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 5.0),
-                    child: TextFormField(
-                      controller: _firstName,
-                      decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          icon: Icon(
-                            Icons.person,
+                ),
+              ],
+              flexibleSpace: Container(
+                width: double.infinity,
+                height: double.infinity,
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Let\'s start with the basics..',
+                          style: TextStyle(
+                            fontSize: 29.0,
+                            fontWeight: FontWeight.bold,
                             color: kSecondaryColour,
                           ),
-                          labelText: 'First name'),
-                      textInputAction: TextInputAction.next,
-                    ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 5.0),
-                    child: TextFormField(
-                      controller: _lastName,
-                      decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          icon: Icon(
-                            Icons.person,
-                            color: kSecondaryColour,
+                ),
+              ),
+            ),
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Form(
+                key: _key,
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kLightTertiaryColour,
+                        ),
+                        child: TextFormField(
+                          controller: _firstName,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            labelText: 'First name',
                           ),
-                          labelText: 'Last name'),
-                      textInputAction: TextInputAction.next,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
-                    child: Column(children: <Widget>[
-                      Row(children: const <Widget>[
-                        Text('BIRTHDAY',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: kSecondaryColour,
-                            )),
-                      ]),
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (content) {
+                            if (content == null || content.isEmpty) return "First name is required";
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kLightTertiaryColour,
+                        ),
+                        child: TextFormField(
+                            controller: _lastName,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              labelText: 'Last name',
+                            ),
+                            keyboardType: TextInputType.text,
+                            textCapitalization: TextCapitalization.words,
+                            validator: (content) {
+                              if (content == null || content.isEmpty) return "Last name is required";
+                            }),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
                       Row(
                         children: [
-                          buildIcon(Icons.cake_outlined, kSecondaryColour),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Expanded(
-                            child: OutlinedButton(
-                              onPressed: () => _selectDate(context),
-                              style: OutlinedButton.styleFrom(
-                                primary: kWhiteColour,
-                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                side: const BorderSide(color: kSecondaryColour, width: 1.5),
-                              ),
-                              child: Text(
-                                dateChanged == false ? 'Select a date' : "${selectedDate.toLocal()}".split(' ')[0],
-                                style: const TextStyle(
-                                  color: kSecondaryColour,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                          Text(
+                            'BIRTHDAY',
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColour.withOpacity(0.5),
                             ),
                           ),
                         ],
                       ),
-                    ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
-                    child: Column(children: <Widget>[
-                      Row(children: const <Widget>[
-                        Text('GENDER',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: kSecondaryColour,
-                            )),
-                      ]),
-                      Row(
-                        children: [
-                          buildIcon(Icons.transgender_outlined, kSecondaryColour),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          genderOptions(Gender.male),
-                          genderOptions(Gender.female),
-                          genderOptions(Gender.other),
-                        ],
+                      SizedBox(
+                        height: 10,
                       ),
-                    ]),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20.0, 25.0, 20.0, 5.0),
-                    child: Column(children: <Widget>[
-                      Row(children: const <Widget>[
-                        Text('RELATIONSHIP STATUS',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF041731),
-                            )),
-                      ]),
+                      DateOfBirthButton(
+                        editable: true,
+                        shouldExpand: true,
+                        color: kSecondaryColour,
+                        label: (widget.userData.dob != null) ? "${widget.userData.humanReadableDateOfBirth}" : "Select a date",
+                        onSave: (dateTime) => setState(() {
+                          widget.userData.dob = dateTime;
+                        }),
+                      ),
+                      (couldNotValidateDOB)
+                          ? Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Text(
+                                    "You must fill in this field",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: 25,
+                      ),
                       Row(
                         children: [
-                          buildIcon(Icons.favorite, const Color(0xFF041731)),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: RelationshipStatus(),
+                          Text(
+                            'GENDER',
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColour.withOpacity(0.5),
+                            ),
                           ),
                         ],
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: _contextState.context?.genders?.map((gender) {
+                                return ChipWidget(
+                                  color: Colors.indigo,
+                                  bordered: widget.userData.gender == gender ? false : true,
+                                  textColor: (widget.userData.gender == gender) ? Colors.white : null,
+                                  iconColor: (widget.userData.gender == gender) ? Colors.white : null,
+                                  icon: getIconForGender(gender),
+                                  label: gender,
+                                  mini: true,
+                                  onTap: () => setState(() {
+                                    widget.userData.gender = gender;
+                                  }),
+                                );
+                              }).toList() ??
+                              []),
+                      (couldNotValidateGender)
+                          ? Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Text(
+                                    "You must fill in this field",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: 25,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'RELATIONSHIP STATUS',
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.bold,
+                              color: kPrimaryColour.withOpacity(0.5),
+                            ),
+                          ),
+                        ],
+                      ),
+<<<<<<< HEAD
                     ]),
                   ),
                   SizedBox(
@@ -210,51 +290,94 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
                     ),
+=======
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RelationshipStatusButton(
+                        editable: true,
+                        shouldExpand: true,
+                        label: (widget.userData.relationshipStatus != null) ? widget.userData.relationshipStatus! : "Click to select",
+                        onSave: (relationshipStatus) => setState(() {
+                          widget.userData.relationshipStatus = relationshipStatus;
+                        }),
+                      ),
+                      (couldNotValidateRelationshipStatus)
+                          ? Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Text(
+                                    "You must fill in this field",
+                                    style: TextStyle(color: Colors.red),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      SizedBox(
+                        height: 60,
+                      ),
+                      Container(
+                        height: 50,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (!_key.currentState!.validate()) return;
+
+                            if (widget.userData.dob == null) {
+                              setState(() {
+                                couldNotValidateDOB = true;
+                              });
+                              return;
+                            }
+                            couldNotValidateDOB = false;
+
+                            if (widget.userData.gender == null) {
+                              setState(() {
+                                couldNotValidateGender = true;
+                              });
+                              return;
+                            }
+                            couldNotValidateGender = false;
+
+                            if (widget.userData.relationshipStatus == null) {
+                              setState(() {
+                                couldNotValidateRelationshipStatus = true;
+                              });
+                              return;
+                            }
+                            couldNotValidateRelationshipStatus = false;
+
+                            setState(() {
+                              widget.userData.firstName = _firstName.text;
+                              widget.userData.lastName = _lastName.text;
+                            });
+
+                            context.goNamed("register_photo", extra: widget.userData);
+                          },
+                          child: Text("Next"),
+                          style: ElevatedButton.styleFrom(
+                            primary: kTertiaryColour,
+                            onPrimary: kWhiteColour,
+                            fixedSize: const Size(300, 100),
+                            shadowColor: kTertiaryColour,
+                            elevation: 12,
+                            textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+>>>>>>> main
                   ),
-                ],
+                ),
               ),
             ),
-          ),
+          ],
         ),
-      ),
-    );
-  }
-
-  Expanded genderOptions(@required Gender gender) {
-    return Expanded(
-      child: ReusableCard(
-        color: Colors.transparent,
-        // selectedGender == gender ? kActiveCardColor : kInactiveCardColor,
-        cardChild: OutlinedButton(
-          onPressed: () {
-            setState(() {
-              selectedGender = gender;
-            });
-          },
-          style: OutlinedButton.styleFrom(
-            backgroundColor: selectedGender == gender ? kActiveCardColor : kInactiveCardColor,
-            primary: const Color(0xFFFEFCFB),
-            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-            side: const BorderSide(color: Color(0xFF041731), width: 1.5),
-          ),
-          child: Text(
-            genderLabel(gender),
-            style: const TextStyle(
-              color: Color(0xFF041731),
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-
-        // Text(
-        //   genderLabel(gender),
-        //   style: const TextStyle(fontSize: 22),
-        // ),
-        onPress: () {
-          setState(() {
-            selectedGender = gender;
-          });
-        },
       ),
     );
   }

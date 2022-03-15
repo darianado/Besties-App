@@ -38,7 +38,5 @@ class UserState extends ChangeNotifier {
 
   Future<void> signUp(String email, String password) async => await _authService.signUp(email, password);
 
-  Future<void> signOut() async {
-    await _authService.signOut();
-  }
+  Future<void> signOut() async => await _authService.signOut();
 }

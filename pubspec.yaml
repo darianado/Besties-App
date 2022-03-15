@@ -57,6 +57,11 @@ dependencies:
   cloud_functions: ^3.2.9
   cached_network_image: ^3.2.0
   age_calculator: ^1.0.0
+  animated_widgets: ^1.1.0
+  image_picker: ^0.8.4+11
+  uuid: ^3.0.6
+  image_cropper: ^1.5.0
+  quiver: ^3.0.1+1
 
 dev_dependencies:
   flutter_test:

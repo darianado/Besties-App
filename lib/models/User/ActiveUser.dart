@@ -5,11 +5,12 @@ import 'package:project_seg/models/User/UserData.dart';
 class ActiveUser {
   final User? user;
   final UserData? userData;
+  bool? emailVerified;
 
-  ActiveUser({this.user, this.userData});
+  ActiveUser({this.user, this.userData, this.emailVerified});
 
   factory ActiveUser.fromSnapshot(User user, DocumentSnapshot<Map>? doc) {
-    return ActiveUser(user: user, userData: (doc != null) ? UserData.fromSnapshot(doc) : null);
+    return ActiveUser(user: user, userData: (doc != null) ? UserData.fromSnapshot(doc) : null, emailVerified: user.emailVerified);
   }
 
   bool get hasInconsistentState {

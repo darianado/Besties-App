@@ -1,6 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/screens/home/profile/components/cached_image.dart';
+import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/buttons/bio_field.dart';
+import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
+import 'package:project_seg/screens/components/buttons/gender_button.dart';
+import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
+import 'package:project_seg/screens/components/buttons/university_button.dart';
+import 'package:project_seg/screens/components/display_interests.dart';
+import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -16,161 +26,158 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
+    //double screenHeight = MediaQuery.of(context).size.height;
     final _userState = Provider.of<UserState>(context);
 
-    wrapWidget() {
-      return Wrap(
-          spacing: 6.0,
-          runSpacing: 6.0,
-          children: _userState.user?.userData?.interests?.map<Widget>((e) => chip(e, kSecondaryColour)).toList() ?? []);
-    }
+    const double profileImageRadius = 100;
+    const double profileHeaderExtendedHeight = 430;
+    const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
-      backgroundColor: kWhiteColour,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Container(
-                  height: 0.3 * screenHeight,
-                  width: screenWidth,
-                  decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: [0.65, 1],
-                    colors: [kTertiaryColour, kLightBlue],
-                  )),
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 35.0, right: 10.0),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.edit,
-                          color: kWhiteColour,
-                        ),
-                        onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
+      backgroundColor: Colors.white,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            expandedHeight: profileHeaderExtendedHeight,
+            collapsedHeight: profileHeaderCollapsedHeight,
+            automaticallyImplyLeading: false,
+            excludeHeaderSemantics: false,
+            backgroundColor: Colors.transparent,
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 13.0),
+                child: Material(
+                  shape: CircleBorder(),
+                  clipBehavior: Clip.antiAlias,
+                  color: kTertiaryColour,
+                  child: InkWell(
+                    child: IconButton(
+                      onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
+                      icon: Icon(
+                        Icons.edit,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 120.0, bottom: 30.0),
-                  child: Center(
-                    child: Material(
-                      shape: CircleBorder(),
-                      clipBehavior: Clip.antiAlias,
-                      elevation: 20.0,
-                      child: SizedBox(
-                        height: 200,
-                        width: 200,
-                        child: CachedImage(userId: _userState.user?.user?.uid),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                _userState.user?.userData?.fullName ?? "-",
-                style: TextStyle(
-                  color: kTertiaryColour,
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold,
-                ),
               ),
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: kTertiaryColour,
-                ),
-              ),
-              Text(
-                _userState.user?.userData?.university ?? "-",
-                style: const TextStyle(
-                  fontSize: 30,
-                  color: kTertiaryColour,
-                ),
-              ),
-            ]),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                "${_userState.user?.userData?.age}",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: kTertiaryColour,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text(
-                _userState.user?.userData?.bio ?? "-",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: kTertiaryColour,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: wrapWidget(),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10.0, 30.0, 10.0, 30.0),
-              child: SizedBox(
-                width: 0.80 * screenWidth,
-                height: 0.07 * screenHeight,
-                child: ElevatedButton(
-                  onPressed: () => context.pushNamed("edit_preferences", params: {'page': 'profile'}),
-                  child: const Text(
-                    "Edit preferences",
+            ],
+            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
+          ),
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+              child: Column(
+                children: [
+                  Text(
+                    _userState.user?.userData?.fullName ?? "-",
                     style: TextStyle(
-                      fontSize: 20,
+                      color: kTertiaryColour,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                    primary: kTertiaryColour,
-                    onPrimary: kWhiteColour,
-                    shadowColor: kTertiaryColour,
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+                  SizedBox(
+                    height: 25,
                   ),
-                ),
+                  UniversityButton(
+                    label: _userState.user?.userData?.university ?? "",
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Wrap(
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    children: [
+                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioField(
+                    editable: false,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "INTERESTS",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: kPrimaryColour.withOpacity(0.3),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  DisplayInterests(
+                    items: _userState.user?.userData?.flattenedInterests ?? [],
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => context.pushNamed("edit_password", params: {'page': 'profile'}),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        kTertiaryColour.withOpacity(0.8),
+                      ),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.lock,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Change password"),
+                      ],
+                    ),
+                  ),
+                  OutlinedButton(
+                    onPressed: () => _userState.signOut(),
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.red.shade100),
+                      primary: Colors.red,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.signOutAlt,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Text("Sign out"),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
-            ElevatedButton(
-              onPressed: () => _userState.signOut(),
-              child: Text("Sign out"),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
-
-  Widget chip(String label, Color color) {
-    return Chip(
-      labelPadding: EdgeInsets.all(5.0),
-      label: Text(
-        label[0].toUpperCase() + label.substring(1).toLowerCase(),
-        style: TextStyle(
-          color: Colors.white,
-        ),
-      ),
-      backgroundColor: color,
-      elevation: 6.0,
-      shadowColor: Colors.grey[60],
-      padding: EdgeInsets.all(6.0),
     );
   }
 }

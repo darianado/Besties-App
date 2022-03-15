@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
@@ -10,8 +13,10 @@ import 'package:project_seg/screens/recover_password/recover_password_screen.dar
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/screens/sign_up/register_description_screen.dart';
 import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
+import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
+import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 
 class AppRouter {
@@ -71,25 +76,53 @@ class AppRouter {
           GoRoute(
             name: "register_basic_info",
             path: "basic-info",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            //builder: (context, state) => RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: RegisterBasicInfoScreen(),
+              child: RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+          ),
+          GoRoute(
+            name: "register_photo",
+            path: "photo",
+            //builder: (context, state) => RegisterDescriptionScreen(userData: state.extra! as UserData),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: RegisterPhotoScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(
             name: "register_description",
             path: "description",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            //builder: (context, state) => RegisterDescriptionScreen(userData: state.extra! as UserData),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: RegisterDescriptionScreen(),
+              child: RegisterDescriptionScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(
             name: "register_interests",
             path: "interests",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            //builder: (context, state) => RegisterInterestsScreen(userData: state.extra! as UserData),
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: RegisterInterestsScreen(),
+              child: RegisterInterestsScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
         ],
@@ -117,9 +150,13 @@ class AppRouter {
           GoRoute(
             name: "edit_profile",
             path: "edit-profile",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: EditProfileScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
             ),
           ),
           GoRoute(
@@ -160,55 +197,77 @@ class AppRouter {
       final recoverPasswordLoc = state.namedLocation("recover_password");
       final registerLoc = state.namedLocation("register");
       final registerBasicInfoLoc = state.namedLocation("register_basic_info");
+      final registerPhotoLoc = state.namedLocation("register_photo");
       final registerDescriptionLoc = state.namedLocation("register_description");
       final registerInterestsLoc = state.namedLocation("register_interests");
 
+      final goingToFeed = state.subloc == feedLoc;
       final goingToSplash = state.subloc == splashLoc;
       final goingToLogin = state.subloc == loginLoc;
       final goingToEmailVerify = state.subloc == emailVerifyLoc;
       final goingToRecoverPassword = state.subloc == recoverPasswordLoc;
       final goingToRegister = state.subloc == registerLoc;
       final goingToRegisterBasicInfo = state.subloc == registerBasicInfoLoc;
-      final goingToRegisterDescriptionLoc = state.subloc == registerDescriptionLoc;
-      final goingToRegisterInterestsLoc = state.subloc == registerInterestsLoc;
+      final goingToRegisterPhoto = state.subloc == registerPhotoLoc;
+      final goingToRegisterDescription = state.subloc == registerDescriptionLoc;
+      final goingToRegisterInterests = state.subloc == registerInterestsLoc;
+
+      /*
+      print("State of the union: ");
+      print("    initialized? ${initialized}");
+      print("    logged in? ${loggedIn}");
+      print("    email verified? ${emailVerified}");
+      print("    fetched user data? ${fetchedUser}");
+      print("----------");
+      print("    goingToSplash? ${goingToSplash}");
+      print("    goingToEmailVerify? ${goingToEmailVerify}");
+      print("----------");
+      print("    goingToLogin? ${goingToLogin}");
+      print("    goingToRegister? ${goingToRegister}");
+      print("    goingToRegisterBasicInfo? ${goingToRegisterBasicInfo}");
+      print("    goingToRegisterPhoto? ${goingToRegisterPhoto}");
+      print("    goingToRegisterDescription? ${goingToRegisterDescription}");
+      print("    goingToRegisterInterests? ${goingToRegisterInterests}");
+      print("#################################################");
+      */
 
       if (!initialized && !goingToSplash) {
+        print("Redirecting to splash page");
         return splashLoc;
       }
 
       if (initialized && loggedIn && !emailVerified && !goingToEmailVerify) {
+        print("Redirecting to email verify page");
         return emailVerifyLoc;
       }
 
       if (initialized && !loggedIn && !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
+        print("Redirecting to login page");
         return loginLoc;
       }
-      /*
+
       if (initialized &&
           loggedIn &&
-          (emailVerified && goingToEmailVerify) &&
           !fetchedUser &&
-          !(goingToRegisterBasicInfo || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
-        return registerBasicInfoLoc;
-      }
-      */
-      if (initialized &&
-          loggedIn &&
           emailVerified &&
-          !fetchedUser &&
-          !(goingToRegisterBasicInfo || goingToRegisterDescriptionLoc || goingToRegisterInterestsLoc)) {
+          !(goingToRegisterBasicInfo || goingToRegisterPhoto || goingToRegisterDescription || goingToRegisterInterests)) {
+        print("Redirecting to basic info page");
         return registerBasicInfoLoc;
       }
 
-      if ((initialized && goingToSplash) ||
-          (emailVerified && goingToEmailVerify) ||
-          (loggedIn &&
-              fetchedUser &&
-              (goingToLogin ||
-                  goingToRegister ||
-                  goingToRegisterBasicInfo ||
-                  goingToRegisterDescriptionLoc ||
-                  goingToRegisterInterestsLoc))) {
+      if (initialized &&
+          loggedIn &&
+          fetchedUser &&
+          (goingToSplash ||
+              goingToEmailVerify ||
+              goingToLogin ||
+              goingToRegister ||
+              goingToRegisterBasicInfo ||
+              goingToRegisterPhoto ||
+              goingToRegisterDescription ||
+              goingToRegisterInterests) &&
+          !goingToFeed) {
+        print("Redirecting to feed page");
         return feedLoc;
       }
 

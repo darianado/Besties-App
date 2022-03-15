@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/models/categories.dart';
-import 'package:project_seg/screens/sign_up/components/select_interests.dart';
+import 'package:project_seg/screens/components/select_interests.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/services/firestore_service.dart';

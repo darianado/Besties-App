@@ -3,15 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/screens/home/profile/components/chip_widget.dart';
-import 'package:project_seg/screens/home/profile/components/edit_dialog_dropdown.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
-class RelationshipStatusButton extends StatelessWidget {
+class UniversityButton extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
   final bool wiggling;
@@ -20,13 +20,13 @@ class RelationshipStatusButton extends StatelessWidget {
   final Color color;
   final Function(String?)? onSave;
 
-  RelationshipStatusButton({
+  UniversityButton({
     Key? key,
     this.editable = false,
     this.wiggling = false,
     this.shouldExpand = false,
     required this.label,
-    this.color = Colors.red,
+    this.color = kTertiaryColour,
     this.onSave,
   }) : super(key: key);
 
@@ -44,10 +44,13 @@ class RelationshipStatusButton extends StatelessWidget {
   }
 
   Widget chip(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+    final _contextState = Provider.of<ContextState>(context);
+
     return ChipWidget(
       color: color,
       shouldExpand: shouldExpand,
-      icon: FontAwesomeIcons.heart,
+      icon: FontAwesomeIcons.university,
       label: label,
       onTap: getOnTap(context),
     );
@@ -65,7 +68,7 @@ class RelationshipStatusButton extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogDropdown(
-              items: _contextState.context?.relationshipStatuses ?? [],
+              items: _contextState.context?.universities ?? [],
               value: label,
               onSave: _onSave,
             );

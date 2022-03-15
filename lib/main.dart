@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/app_context.dart';
+import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';

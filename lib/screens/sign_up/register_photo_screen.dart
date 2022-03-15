@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/screens/home/profile/components/cached_image.dart';
+import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';

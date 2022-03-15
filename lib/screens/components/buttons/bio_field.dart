@@ -1,7 +1,7 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/screens/home/profile/components/edit_dialog_textfield.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';

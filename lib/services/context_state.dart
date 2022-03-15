@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/app_context.dart';
+import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class ContextState extends ChangeNotifier {

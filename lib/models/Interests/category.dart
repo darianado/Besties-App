@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_seg/models/interest.dart';
+import 'package:project_seg/models/Interests/interest.dart';
 
 class Category {
   String title;

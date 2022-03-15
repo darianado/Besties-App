@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/gender_implementation.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class AppContext {

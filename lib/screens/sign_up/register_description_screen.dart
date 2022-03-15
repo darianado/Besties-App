@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/screens/home/profile/components/university_button.dart';
+import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:provider/provider.dart';
 

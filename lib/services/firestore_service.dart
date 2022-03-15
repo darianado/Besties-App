@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/app_context.dart';
-import 'package:project_seg/models/category.dart';
+import 'package:project_seg/models/App/app_context.dart';
+import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 

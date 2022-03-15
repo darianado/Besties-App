@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:age_calculator/age_calculator.dart';
-import 'package:project_seg/models/category.dart';
-import 'package:project_seg/models/interest.dart';
+import 'package:project_seg/models/Interests/category.dart';
+import 'package:project_seg/models/Interests/interest.dart';
 
 class CategorizedInterests {
   final List<Category> categories;

@@ -5,6 +5,7 @@ import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'constants.dart';
 import 'firebase_options.dart';
@@ -48,7 +49,9 @@ class MyApp extends StatelessWidget {
           final router = Provider.of<AppRouter>(context, listen: false).router;
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(fontFamily: 'Roboto'
+            theme: ThemeData(
+                textTheme: GoogleFonts.nunitoSansTextTheme(
+                    (Theme.of(context).textTheme))
                 /*
               primaryTextTheme: const TextTheme(
                 bodyText1: TextStyle(),

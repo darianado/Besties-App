@@ -10,6 +10,7 @@ import 'package:project_seg/constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -202,7 +203,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     strokeWidth: 3,
                                   ),
                                 )
-                              : Text("Register"),
+                              : Text("Register", style: GoogleFonts.nunito()),
                           style: ElevatedButton.styleFrom(
                               primary: kTertiaryColour,
                               onPrimary: kWhiteColour,
@@ -210,9 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               shadowColor: kTertiaryColour,
                               elevation: 12,
                               textStyle: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 25,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 25, fontWeight: FontWeight.bold),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(50))),
                         ),

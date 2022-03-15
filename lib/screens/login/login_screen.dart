@@ -7,6 +7,7 @@ import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants.dart';
 
@@ -59,7 +60,9 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Theme(
       data: ThemeData(
-        fontFamily: 'Roboto',
+        textTheme:
+            GoogleFonts.nunitoSansTextTheme((Theme.of(context).textTheme))
+                .apply(bodyColor: kWhiteColour),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -184,17 +187,18 @@ class _LogInScreenState extends State<LogInScreen> {
                                           strokeWidth: 3,
                                         ),
                                       )
-                                    : Text("Log In"),
+                                    : Text("Log In",
+                                        style: GoogleFonts.nunito()),
                                 style: ElevatedButton.styleFrom(
                                     primary: kWhiteColour,
                                     onPrimary: kPrimaryColour,
                                     fixedSize: const Size(300, 100),
                                     shadowColor: kPrimaryColour,
                                     elevation: 12,
-                                    textStyle: const TextStyle(
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Roboto'),
+                                    textStyle: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                     shape: RoundedRectangleBorder(
                                         borderRadius:
                                             BorderRadius.circular(50))),

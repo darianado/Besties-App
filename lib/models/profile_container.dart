@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import '../constants.dart';
@@ -14,12 +15,11 @@ class ProfileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(
-            "assets/images/empty_profile_picture.jpg", // profile.picture
-          ),
-          fit: BoxFit.fill,
+          fit: BoxFit.cover,
+          image: NetworkImage(profile.profileImageUrl ??
+              "assets/images/empty_profile_picture.jpg"),
         ),
       ),
       height: MediaQuery.of(context).size.height,
@@ -39,10 +39,6 @@ class ProfileContainer extends StatelessWidget {
                         context: context,
                         builder: (context) =>
                             CompleteProfileDetails(profile: profile));
-                    // Scaffold.of(context)
-                    //     .showBottomSheet((context) => CompleteProfileDetails(
-                    //           profile: profile,
-                    //         ));
                   },
                   child: PartialProfileDetails(
                     profile: profile,

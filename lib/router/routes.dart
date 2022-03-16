@@ -201,6 +201,7 @@ class AppRouter {
       final registerDescriptionLoc = state.namedLocation("register_description");
       final registerInterestsLoc = state.namedLocation("register_interests");
 
+
       final goingToFeed = state.subloc == feedLoc;
       final goingToSplash = state.subloc == splashLoc;
       final goingToLogin = state.subloc == loginLoc;

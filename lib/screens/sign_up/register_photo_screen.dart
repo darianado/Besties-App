@@ -30,7 +30,11 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
     final _userState = Provider.of<UserState>(context);
 
     void pickImage() async {
-      XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
+      XFile? file = await _picker.pickImage(
+          source: ImageSource.gallery,
+          maxHeight: 800,
+          maxWidth: 800,
+          imageQuality: 90);
       if (file == null) return;
 
       setState(() {
@@ -43,7 +47,8 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1.5),
         aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
       );
-      String? url = await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
+      String? url = await StorageService.instance
+          .changeUserPhoto(_userState.user!.user!.uid, f);
 
       setState(() {
         widget.userData.profileImageUrl = url;
@@ -58,11 +63,12 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
             pinned: true,
             automaticallyImplyLeading: false,
             foregroundColor: kTertiaryColour,
-            backgroundColor: Colors.white,
-            expandedHeight: 150,
+            backgroundColor: kWhiteColour,
+            expandedHeight: 120,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed("register_basic_info", extra: widget.userData),
+              onPressed: () => context.goNamed("register_basic_info",
+                  extra: widget.userData),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: kPrimaryColour,
@@ -73,14 +79,14 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
                         style: TextStyle(
-                          fontSize: 29.0,
+                          fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                           color: kSecondaryColour,
                         ),
@@ -114,8 +120,11 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                 children: [
                                   Container(
                                     width: double.infinity,
-                                    child: (widget.userData.profileImageUrl != null)
-                                        ? CachedImage(url: widget.userData.profileImageUrl)
+                                    child: (widget.userData.profileImageUrl !=
+                                            null)
+                                        ? CachedImage(
+                                            url:
+                                                widget.userData.profileImageUrl)
                                         : Image.asset(
                                             "assets/images/empty_profile_picture.jpg",
                                             fit: BoxFit.cover,
@@ -130,18 +139,19 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                     width: 100,
                                     alignment: Alignment.center,
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Icon(
                                           Icons.photo,
-                                          color: Colors.white,
+                                          color: kWhiteColour,
                                         ),
                                         SizedBox(
                                           width: 10,
                                         ),
                                         Text(
                                           "EDIT",
-                                          style: TextStyle(color: Colors.white),
+                                          style: TextStyle(color: kWhiteColour),
                                         ),
                                       ],
                                     ),
@@ -167,13 +177,12 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                         ],
                       )
                     : Container(),
-                const SizedBox(height: 50),
+                const SizedBox(height: 25),
                 Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                     children: [
                       Container(
-                        height: 50,
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
@@ -187,18 +196,24 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               couldNotValidatePhotoSelection = false;
                             });
 
-                            context.goNamed("register_description", extra: widget.userData);
+                            context.goNamed("register_description",
+                                extra: widget.userData);
                           },
                           child: Text("Next"),
-                          style: ElevatedButton.styleFrom(
-                            primary: kTertiaryColour,
-                            onPrimary: kWhiteColour,
-                            fixedSize: const Size(300, 100),
-                            shadowColor: kTertiaryColour,
-                            elevation: 12,
-                            textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(kTertiaryColour),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(10.0)),
+                            textStyle: MaterialStateProperty.all(
+                                Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    ?.apply(fontWeightDelta: 2)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
                             ),
                           ),
                         ),

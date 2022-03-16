@@ -64,7 +64,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     final _userState = Provider.of<UserState>(context);
@@ -113,25 +112,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: SingleChildScrollView(
               child: Form(
                 key: _formKey,
-                //  autovalidate: true,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      const Padding(
-                        padding: EdgeInsets.fromLTRB(22.0, 28.0, 22.0, 30.0),
-                        child: Text(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(22, 0, 22, 30),
+                  //  autovalidate: true,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
                           'Sign up',
                           style: TextStyle(
                               fontSize: 35,
                               color: kTertiaryColour,
                               fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 30.0, right: 30.0, bottom: 25.0),
-                        child: TextFormField(
+                        SizedBox(height: 40),
+                        TextFormField(
                           controller: _email,
                           decoration: const InputDecoration(
                               border: UnderlineInputBorder(),
@@ -141,11 +137,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               !isEmail(_email.text) ? "Invalid Email" : null,
                           textInputAction: TextInputAction.next,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 30.0, right: 30.0, bottom: 25.0),
-                        child: TextFormField(
+                        SizedBox(height: 30),
+                        TextFormField(
                           controller: _password,
                           obscureText: true,
                           decoration: const InputDecoration(
@@ -164,11 +157,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           },
                           textInputAction: TextInputAction.next,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: 30.0, right: 30.0, bottom: 40.0),
-                        child: TextFormField(
+                        SizedBox(height: 30),
+                        TextFormField(
                           controller: _confirmPassword,
                           obscureText: true,
                           decoration: const InputDecoration(
@@ -188,64 +178,71 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             return null;
                           },
                         ),
-                      ),
-                      SizedBox(
-                        width: 0.85 * screenWidth,
-                        height: 0.07 * screenHeight,
-                        child: ElevatedButton(
-                          onPressed: () => submitForm(_formKey),
-                          child: (isLoading)
-                              ? SizedBox(
-                                  height: 30,
-                                  width: 30,
-                                  child: CircularProgressIndicator(
-                                    color: kWhiteColour,
-                                    strokeWidth: 3,
-                                  ),
-                                )
-                              : Text("Register", style: GoogleFonts.nunito()),
-                          style: ElevatedButton.styleFrom(
-                              primary: kTertiaryColour,
-                              onPrimary: kWhiteColour,
-                              fixedSize: const Size(300, 100),
-                              shadowColor: kTertiaryColour,
-                              elevation: 12,
-                              textStyle: TextStyle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50))),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(35.0),
-                        child: Row(
-                          children: <Widget>[
-                            const Expanded(
-                              flex: 2,
-                              child: Text(
-                                'Have an account? Log in now?',
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: OutlinedButton(
-                                onPressed: () => context.goNamed("login"),
-                                style: OutlinedButton.styleFrom(
-                                  primary: kTertiaryColour,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(30))),
-                                  side: const BorderSide(
-                                      color: kTertiaryColour, width: 1.5),
+                        SizedBox(height: 40),
+                        SizedBox(
+                          width: double.infinity,
+                          height: 0.07 * screenHeight,
+                          child: ElevatedButton(
+                            onPressed: () => submitForm(_formKey),
+                            child: (isLoading)
+                                ? SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: CircularProgressIndicator(
+                                      color: kWhiteColour,
+                                      strokeWidth: 3,
+                                    ),
+                                  )
+                                : Text("Register"),
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(kTertiaryColour),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(10.0)),
+                              textStyle: MaterialStateProperty.all(
+                                  Theme.of(context)
+                                      .textTheme
+                                      .headline5
+                                      ?.apply(fontWeightDelta: 2)),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(40),
                                 ),
-                                child: const Text("Log in",
-                                    style: TextStyle(color: kTertiaryColour)),
                               ),
                             ),
-                          ],
+                          ),
                         ),
-                      )
-                    ]),
+                        SizedBox(height: 20),
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              const Expanded(
+                                flex: 2,
+                                child: Text(
+                                  'Have an account? Log in now?',
+                                ),
+                              ),
+                              Expanded(
+                                flex: 1,
+                                child: OutlinedButton(
+                                  onPressed: () => context.goNamed("login"),
+                                  style: OutlinedButton.styleFrom(
+                                    primary: kTertiaryColour,
+                                    shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(30))),
+                                    side: const BorderSide(
+                                        color: kTertiaryColour, width: 1.5),
+                                  ),
+                                  child: const Text("Log in",
+                                      style: TextStyle(color: kTertiaryColour)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]),
+                ),
               ),
             ))));
   }

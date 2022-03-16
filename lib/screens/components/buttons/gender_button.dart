@@ -61,7 +61,7 @@ class GenderButtton extends StatelessWidget {
     return ChipWidget(
       color: color,
       shouldExpand: shouldExpand,
-      icon: getIconForGender(_userState.user?.userData?.gender),
+      icon: getIconForGender(label),
       onTap: getOnTap(context),
     );
   }

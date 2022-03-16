@@ -194,6 +194,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     height: 20,
                   ),
                   BioField(
+                    label: _userState.user?.userData?.bio ?? " ",
                     editable: true,
                   ),
                   SizedBox(

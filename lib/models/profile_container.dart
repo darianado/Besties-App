@@ -4,6 +4,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import '../constants.dart';
+import 'package:blur/blur.dart';
+
+import '../screens/components/buttons/bio_field.dart';
+import '../screens/components/buttons/edit_dob_button.dart';
+import '../screens/components/buttons/gender_button.dart';
+import '../screens/components/buttons/relationship_status_button.dart';
+import '../screens/components/buttons/university_button.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
@@ -27,27 +34,49 @@ class ProfileContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(25.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (context) =>
-                            CompleteProfileDetails(profile: profile));
-                  },
-                  child: PartialProfileDetails(
-                    profile: profile,
-                  ),
-                ),
-                LikeProfileButton(profile: profile),
-              ],
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.16,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: <Color>[
+                  kWhiteColour,
+                  Color.fromARGB(0, 255, 255, 255),
+                ],
+                begin: Alignment.bottomCenter,
+                end: Alignment.topCenter,
+                tileMode: TileMode.mirror,
+              ),
             ),
-          ),
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: GestureDetector(
+                onTap: () {
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) =>
+                          CompleteProfileDetails(profile: profile));
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    PartialProfileDetails(
+                      profile: profile,
+                    ),
+                    LikeProfileButton(profile: profile),
+                  ],
+                ),
+              ),
+            ),
+          )
+          // .frosted(
+          //   frostOpacity: 0,
+          //   frostColor: Color.fromARGB(255, 255, 255, 255),
+          //   blur: 4,
+          //   width: MediaQuery.of(context).size.width,
+          //   height: 115,
+          // ),
         ],
       ),
     );
@@ -66,7 +95,7 @@ class LikeProfileButton extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("You liked " + (profile.firstName ?? "null") + "!"),
+          title: Text("You liked " + (profile.firstName ?? " ") + "!"),
           actions: [
             TextButton(
               child: const Text("Dismiss"),
@@ -108,14 +137,10 @@ class PartialProfileDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   crossAxisAlignment: CrossAxisAlignment.center,
-        //   children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 3.5),
           child: Text(
-            profile.firstName ?? "null",
+            profile.firstName ?? " ",
             style: const TextStyle(
               fontSize: kProfileNameFontSize,
               color: kSecondaryColour,
@@ -123,19 +148,6 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
         ),
-        // Padding(
-        //   padding: const EdgeInsets.only(8.0),
-        //   child: Text(
-        //     profile.lastName,
-        //     style: const TextStyle(
-        //       fontSize: kProfileNameFontSize,
-        //       color: kSecondaryColour,
-        //       fontWeight: FontWeight.w300,
-        //     ),
-        //   ),
-        // ),
-        //   ],
-        // ),
         Row(children: [
           const Padding(
             padding: EdgeInsets.only(right: 8.0),
@@ -145,7 +157,7 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
           Text(
-            profile.university ?? "null",
+            profile.university ?? " ",
             style: const TextStyle(
               fontSize: kProfileLocationFontSize,
               color: kSecondaryColour,
@@ -168,47 +180,65 @@ class CompleteProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.70,
+      height: MediaQuery.of(context).size.height * 0.50,
       width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ...([
-                  profile.firstName ?? "null",
-                  profile.lastName ?? "null",
-                  profile.university ?? "null",
-                ]).map((element) {
-                  return Text(
-                    element.toString(),
-                    style: const TextStyle(
-                      fontSize: kProfileNameFontSize,
-                      color: kSecondaryColour,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  );
-                }).toList()
-              ],
-            ),
-            FloatingActionButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              backgroundColor: kWhiteColour,
-              child: const Icon(
-                Icons.highlight_off_rounded,
-                color: Colors.blue,
-                size: 30,
+      child: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            pinned: true,
+            automaticallyImplyLeading: false,
+            excludeHeaderSemantics: false,
+            backgroundColor: kWhiteColour,
+            flexibleSpace: Text(
+              profile.fullName ?? " ",
+              style: const TextStyle(
+                color: kTertiaryColour,
+                fontSize: 40.0,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ],
-        ),
+          ),
+          SliverFillRemaining(
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  UniversityButton(
+                    label: profile.university ?? " ",
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Wrap(
+                    spacing: 6.0,
+                    runSpacing: 6.0,
+                    alignment: WrapAlignment.center,
+                    runAlignment: WrapAlignment.center,
+                    children: [
+                      DateOfBirthButton(label: (profile.age ?? " ").toString()),
+                      GenderButtton(label: profile.gender ?? " "),
+                      RelationshipStatusButton(
+                          label: profile.relationshipStatus ?? " "),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  BioField(
+                    label: profile.bio ?? " ",
+                    editable: false,
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

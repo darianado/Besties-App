@@ -9,8 +9,10 @@ import 'package:provider/provider.dart';
 class BioField extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
+  final String label;
 
-  BioField({Key? key, this.editable = false}) : super(key: key);
+  BioField({Key? key, required this.label, this.editable = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,7 @@ class BioField extends StatelessWidget {
             color: kTertiaryColour.withOpacity(0.1),
           ),
           child: Text(
-            _userState.user?.userData?.bio ?? " ",
+            label,
             style: TextStyle(
               fontSize: 18,
               color: kTertiaryColour,
@@ -64,7 +66,8 @@ class BioField extends StatelessWidget {
     return () => showDialog(
         context: context,
         builder: (BuildContext context) {
-          return EditDialogTextField(value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
+          return EditDialogTextField(
+              value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
         });
   }
 

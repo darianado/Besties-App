@@ -103,6 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     height: 20,
                   ),
                   BioField(
+                    label: _userState.user?.userData?.bio ?? " ",
                     editable: false,
                   ),
                   SizedBox(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -27,9 +28,12 @@ class _FeedScreenState extends State<FeedScreen> {
           List<ProfileContainer>? snapshotData = snapshot.data;
 
           if (snapshotData != null) {
-            return PageView(
-              scrollDirection: Axis.vertical,
-              children: snapshotData,
+            return Container(
+              color: kTertiaryColour,
+              child: PageView(
+                scrollDirection: Axis.vertical,
+                children: snapshotData,
+              ),
             );
           } else {
             return const Center(child: CircularProgressIndicator());

@@ -331,8 +331,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             couldNotValidateRelationshipStatus = false;
 
                             setState(() {
-                              widget.userData.firstName = _firstName.text;
-                              widget.userData.lastName = _lastName.text;
+                              widget.userData.firstName = _firstName.text.trim();
+                              widget.userData.lastName = _lastName.text.trim();
                             });
 
                             context.goNamed("register_photo", extra: widget.userData);

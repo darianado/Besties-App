@@ -3,6 +3,8 @@ import 'dart:collection';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/services/firestore_service.dart';
+import 'package:provider/provider.dart';
 import '../constants.dart';
 import 'package:blur/blur.dart';
 
@@ -11,6 +13,7 @@ import '../screens/components/buttons/edit_dob_button.dart';
 import '../screens/components/buttons/gender_button.dart';
 import '../screens/components/buttons/relationship_status_button.dart';
 import '../screens/components/buttons/university_button.dart';
+import '../services/user_state.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
@@ -21,6 +24,7 @@ class ProfileContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -69,7 +73,7 @@ class ProfileContainer extends StatelessWidget {
                     PartialProfileDetails(
                       profile: profile,
                     ),
-                    LikeProfileButton(profile: profile),
+                    LikeProfileButton(profile: profile, userState: _userState),
                   ],
                 ),
               ),
@@ -90,12 +94,16 @@ class ProfileContainer extends StatelessWidget {
 
 // FloatingActionButton to like the displayed profile.
 class LikeProfileButton extends StatelessWidget {
-  final UserData profile;
 
-  const LikeProfileButton({Key? key, required this.profile}) : super(key: key);
+  final UserData profile;
+  final UserState userState;
+
+  const LikeProfileButton({Key? key, required this.profile, required this.userState}) : super(key: key);
 
   // Method that generates an AlertDialog
   void likeProfile(BuildContext context) {
+    final FirestoreService _firestoreService = FirestoreService.instance;
+    _firestoreService.setAdmirer(profile.uid, userState.user!.user!.uid);
     showDialog(
       context: context,
       builder: (BuildContext context) {

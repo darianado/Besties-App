@@ -48,6 +48,7 @@ class GeoLocation {
 }
 
 class UserData {
+  String? uid;
   DateTime? dob;
   String? firstName, lastName;
   String? gender;
@@ -58,9 +59,13 @@ class UserData {
   CategorizedInterests? categorizedInterests;
   GeoLocation? location;
   Preferences? preferences;
+  List<String>? admirers;
+  List<String>? matches;
 
   UserData(
-      {this.dob,
+      {
+      this.uid,
+      this.dob,
       this.gender,
       this.university,
       this.bio,
@@ -70,7 +75,9 @@ class UserData {
       this.profileImageUrl,
       this.preferences,
       this.firstName,
-      this.lastName});
+      this.lastName,
+      this.admirers,
+      this.matches});
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
@@ -80,6 +87,7 @@ class UserData {
     print(_categorizedInterests.runtimeType);
 
     return UserData(
+      uid: data?['uid'],
       dob: (data?['dob'] as Timestamp).toDate(),
       firstName: data?['firstName'],
       lastName: data?['lastName'],
@@ -128,8 +136,9 @@ class UserData {
     return categorizedInterests?.categories.map((category) => category.interests).expand((i) => i).toList();
   }
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap(String uid) {
     return {
+      "uid" :uid,
       "dob": dob,
       "firstName": firstName,
       "lastName": lastName,
@@ -140,7 +149,9 @@ class UserData {
       "profileImageUrl": profileImageUrl,
       "categorizedInterests": categorizedInterests?.toList(),
       "location": location?.toMap(),
-      "preferences": preferences?.toMap()
+      "preferences": preferences?.toMap(),
+      "admirers":admirers,
+      "matches":matches 
     };
   }
 }

@@ -10,6 +10,7 @@ import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 
+
 import '../models/profile_container.dart';
 
 class FirestoreService {
@@ -153,6 +154,22 @@ class FirestoreService {
         .set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
+    Future<void> setAdmirer(String? profileId, String admirerId) async {
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(profileId).set({'admirers':firestore.FieldValue.arrayUnion([admirerId])}, firestore.SetOptions(merge: true));
+  }
+
+   Future<void> setMatch(String? profileId, String admirerId) async {
+     await _firebaseFirestore
+        .collection("users")
+        .doc(profileId).set({'matches':firestore.FieldValue.arrayUnion([admirerId])}, firestore.SetOptions(merge: true));
+
+     await _firebaseFirestore
+        .collection("users")
+        .doc(admirerId).set({'matches':firestore.FieldValue.arrayUnion([profileId])}, firestore.SetOptions(merge: true));
+  }
+
   Future<void> setBio(String userId, String bio) async {
     return await _firebaseFirestore
         .collection("users")
@@ -166,6 +183,7 @@ class FirestoreService {
         {"relationshipStatus": relationshipStatus},
         firestore.SetOptions(merge: true));
   }
+
 
   void saveUserData(UserData data) {
     UserState _userState = UserState.instance;
@@ -181,7 +199,7 @@ class FirestoreService {
           minAge: 20);
       data.location = GeoLocation(lat: 50, lon: 0);
 
-      _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
+      _firebaseFirestore.collection("users").doc(uid).set(data.toMap(uid));
     }
   }
 }

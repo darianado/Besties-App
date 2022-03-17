@@ -2,14 +2,21 @@ import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:project_seg/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
+
 
 class RecentChats extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+    final userUrl = _userState.user?.user?.photoURL;
+
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: kTertiaryColour,
+            color: kChatList,
         ),
         child: ClipRRect(
           child: ListView.builder(
@@ -20,15 +27,17 @@ class RecentChats extends StatelessWidget {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => ChatScreen(user: chat.sender))),
+                          builder: (_) => ChatScreen(user: chat.senderEmail))),
                   child: Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                        color: chat.unread ? Color(0xFFFFEFEE) : Colors.white,
+                        color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20)
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                          topRight: Radius.circular(20),
                     )
                   ),
                   child: Row(
@@ -43,7 +52,7 @@ class RecentChats extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                chat.sender.name,
+                                chat.senderEmail,
                                 style: TextStyle(
                                     color: kInactiveSliderColor,
                                     fontSize: 15,
@@ -68,7 +77,7 @@ class RecentChats extends StatelessWidget {
                       ),
                       Column(
                         children: <Widget>[
-                          chat.unread ? GStyle.badge(true) : Text(''),
+                          //chat.unread ? GStyle.badge(true) : Text(''),
                           Text(
                             chat.time,
                             style: TextStyle(

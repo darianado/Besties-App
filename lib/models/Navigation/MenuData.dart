@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/screens/chat/contact_page.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
 
@@ -50,11 +51,7 @@ MenuData menuData = MenuData(
       icon: FontAwesomeIcons.solidComment,
       routeName: "chat",
       path: "/chat",
-      destinationWidget: Container(
-        child: const Center(
-          child: Text("This is where the chat goes."),
-        ),
-      ),
+      destinationWidget: Contact_Page(),
     ),
   ],
 );

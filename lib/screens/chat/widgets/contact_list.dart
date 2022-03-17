@@ -18,7 +18,7 @@ class Contacts extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  "Friends",
+                  "Your matched friends",
                   style: TextStyle(
                     color: kWhiteColour,
                     fontSize: 18,

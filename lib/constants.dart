@@ -12,6 +12,8 @@ const kChatSenderColour = Color(0xFFADD8E6);
 const kChatTextColour = Color(0xFF232B2B);
 const kChatTimeColour = Color(0xFF7F7F7F);
 const kChatReceiverColour = Color(0xFF87CEFA);
+const kContactList = Color(0xFFADD8E6);
+const kChatList = Color (0xFFB0E0E6);
 
 
 // colour scheme for the app

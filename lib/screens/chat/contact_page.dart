@@ -21,10 +21,11 @@ class _Contact_PageState extends State<Contact_Page> {
     final currentUser = _userState.user?.user;
 
     return Scaffold(
-      backgroundColor: kTertiaryColour,
+      backgroundColor: kContactList,
       appBar: AppBar(
+        backgroundColor: kContactList,
         title: Text(
-          'Chats',
+          'Your conversations',
           style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
         ),
       ),

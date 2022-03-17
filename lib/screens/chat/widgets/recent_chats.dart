@@ -16,7 +16,7 @@ class RecentChats extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-            color: kTertiaryColour,
+            color: kChatList,
         ),
         child: ClipRRect(
           child: ListView.builder(
@@ -32,10 +32,12 @@ class RecentChats extends StatelessWidget {
                     margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                        //color: chat.unread ? Color(0xFFFFEFEE) : Colors.white,
+                        color: Colors.white,
                         borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20)
+                          topLeft: Radius.circular(20),
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                          topRight: Radius.circular(20),
                     )
                   ),
                   child: Row(

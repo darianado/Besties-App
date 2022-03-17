@@ -7,6 +7,13 @@ const kActiveSliderColor = Color(0xFFEB1555);
 const kInactiveSliderColor = Color(0xFF8D8E98);
 const kBottomContainerColor = Color(0xFFEB1555);
 
+//colours for chat
+const kChatSenderColour = Color(0xFFADD8E6);
+const kChatTextColour = Color(0xFF232B2B);
+const kChatTimeColour = Color(0xFF7F7F7F);
+const kChatReceiverColour = Color(0xFF87CEFA);
+
+
 // colour scheme for the app
 const kPrimaryColour = Color(0xFF0A1128);
 const kSecondaryColour = Color(0xFF001F54);

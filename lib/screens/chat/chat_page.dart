@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/message_model.dart';
 
+import '../../constants.dart';
+
 
 
 class ChatScreen extends StatefulWidget {
@@ -15,45 +17,72 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  _messagebuilder(Message message, bool mine) {
+  _messagebuilder(Message message) {
     Container msg = Container(
-      margin: mine
+      margin: message.getMine()
           ? EdgeInsets.only (top: 8, bottom: 8, left: 80)
           : EdgeInsets.only (top: 8, bottom: 8),
       padding: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       width: MediaQuery.of(context).size.width * 0.75,
-      decoration: BoxDecoration(
-          color: mine ? Theme.of(context).accentColor : Color(0xFFFFEFEE),
-          borderRadius: mine
-              ? BorderRadius.only(
-                  topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))
-              : BorderRadius.only(
-                  topRight: Radius.circular(15),
-                  bottomRight: Radius.circular(15))),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            message.time,
-            style: TextStyle(
-                color: Colors.blueGrey,
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
+      child: Flexible(
+          child: Container(
+            padding: EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: message.getMine() ? kChatSenderColour : kChatReceiverColour,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(30),
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+                topRight: Radius.circular(30),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SizedBox(
+                  height: 3,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    message.text,
+                    style: TextStyle(
+                        color: kChatTextColour,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(
+                  height: 3,
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    message.time,
+                    style: TextStyle(
+                        color: kChatTimeColour,
+                        fontSize: 10,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+
+              ],
+            ),
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Text(
-            message.text,
-            style: TextStyle(
-                color: Colors.blueGrey,
-                fontSize: 16,
-                fontWeight: FontWeight.w600),
-          ),
-        ],
       ),
+
+      // decoration: BoxDecoration(
+      //     color: mine ? kChatSenderColour : kTertiaryColour,
+      //     borderRadius: mine
+      //         ? BorderRadius.only(
+      //             topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))
+      //         : BorderRadius.only(
+      //             topRight: Radius.circular(15),
+      //             bottomRight: Radius.circular(15))),
+
+
     );
-     if (mine) {
+     if (message.getMine()) {
       return msg;
     }
     return Row(
@@ -70,10 +99,11 @@ class _ChatScreenState extends State<ChatScreen> {
       color: Colors.white,
       child: Row(
         children: <Widget>[
+          //if users are able to send messages
           IconButton(
             icon: Icon(Icons.photo),
             iconSize: 25.0,
-            color: Theme.of(context).primaryColor,
+            color: kSecondaryColour,
             onPressed: () {},
           ),
           Expanded(
@@ -84,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
             icon: Icon(Icons.send),
             iconSize: 25.0,
-            color: Theme.of(context).primaryColor,
+            color: kSecondaryColour,
             onPressed: () {},
           )
         ],
@@ -133,7 +163,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemBuilder: (BuildContext context, int index) {
                         final Message message = messages[index];
                         bool mine = message.sender.email == currentUser.email;
-                        return _messagebuilder(message, mine);
+                        return _messagebuilder(message);
                       }),
                 ),
               ),

@@ -3,7 +3,7 @@ import 'package:project_seg/constants.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-
+import 'package:lottie/lottie.dart';
 import '../../../models/profile_container.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -30,9 +30,19 @@ class _FeedScreenState extends State<FeedScreen> {
           if (snapshotData != null) {
             return Container(
               color: kTertiaryColour,
-              child: PageView(
-                scrollDirection: Axis.vertical,
-                children: snapshotData,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  // SizedBox(
+                  //   height: 300,
+                  //   width: 300,
+                  //   child: Lottie.asset('assets/lotties/loading-dots.json'),
+                  // ),
+                  PageView(
+                    scrollDirection: Axis.vertical,
+                    children: snapshotData,
+                  ),
+                ],
               ),
             );
           } else {
@@ -41,7 +51,7 @@ class _FeedScreenState extends State<FeedScreen> {
         },
       );
     } else {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
   }
 }

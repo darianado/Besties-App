@@ -53,6 +53,11 @@ class ProfileContainer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(20.0),
+                        ),
+                      ),
                       context: context,
                       builder: (context) =>
                           CompleteProfileDetails(profile: profile));
@@ -181,61 +186,82 @@ class CompleteProfileDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.50,
-      width: MediaQuery.of(context).size.width,
-      child: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            automaticallyImplyLeading: false,
-            excludeHeaderSemantics: false,
-            backgroundColor: kWhiteColour,
-            flexibleSpace: Text(
-              profile.fullName ?? " ",
-              style: const TextStyle(
-                color: kTertiaryColour,
-                fontSize: 40.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          SliverFillRemaining(
-            child: Padding(
-              padding: const EdgeInsets.all(25.0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 25,
+      child: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: Column(
+              children: [
+                Text(
+                  profile.fullName ?? " ",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: kTertiaryColour,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                  UniversityButton(
-                    label: profile.university ?? " ",
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Wrap(
-                    spacing: 6.0,
-                    runSpacing: 6.0,
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    children: [
-                      DateOfBirthButton(label: (profile.age ?? " ").toString()),
-                      GenderButtton(label: profile.gender ?? " "),
-                      RelationshipStatusButton(
-                          label: profile.relationshipStatus ?? " "),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  BioField(
-                    label: profile.bio ?? " ",
-                    editable: false,
-                  ),
-                  SizedBox(
-                    height: 25,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                UniversityButton(
+                  label: profile.university ?? " ",
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Wrap(
+                  spacing: 6.0,
+                  runSpacing: 6.0,
+                  alignment: WrapAlignment.center,
+                  runAlignment: WrapAlignment.center,
+                  children: [
+                    DateOfBirthButton(label: (profile.age ?? " ").toString()),
+                    GenderButtton(label: profile.gender ?? " "),
+                    RelationshipStatusButton(
+                        label: profile.relationshipStatus ?? " "),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                BioField(
+                  label: profile.bio ?? " ",
+                  editable: false,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "YOU HAVE",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: kPrimaryColour.withOpacity(0.3),
+                      ),
+                    ),
+                    const Text(
+                      " NO ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: kTertiaryColour,
+                      ),
+                    ),
+                    Text(
+                      "INTERESTS IN COMMON!",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: kPrimaryColour.withOpacity(0.3),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

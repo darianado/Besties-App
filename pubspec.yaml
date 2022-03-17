@@ -89,6 +89,7 @@ flutter:
   assets:
     - assets/images/empty_profile_picture.jpg
     - assets/lotties/mail-verification.json
+    - assets/lotties/loading-dots.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import '../../constants/constant.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:project_seg/constants/colours.dart';
 
 
@@ -20,6 +20,8 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+
+  final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
   TextEditingController _textController = new TextEditingController();
   
   List<Message> _messages = [
@@ -42,6 +44,14 @@ void _handleSubmitted(String text){
   String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
   _textController.clear();
   Message message = new Message("current user", time, text, true, false);
+  final newMessage = {
+      "sender": message.senderEmail,
+      "time" : message.time,
+      "text" : message.text,
+      "unread" : message.unread,
+      "mine" : message.mine,
+    };
+    _firebaseFirestore.collection("messages").add(newMessage);
   setState(() {
     //getMessages
     _messages.insert(0, message);

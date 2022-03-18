@@ -8,6 +8,7 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/services/user_state.dart';
 
 import '../models/profile_container.dart';
@@ -49,6 +50,7 @@ class FirestoreService {
 
     _firebaseFirestore.collection("users").doc(uid).set(demo);
   }
+
 
   // Requests a List of recommended uids from Firebase.
   static Future<List<String>> getRecommendedUsers(String uid, int recs) async {

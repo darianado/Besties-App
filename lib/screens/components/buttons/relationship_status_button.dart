@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
-import 'package:project_seg/screens/components/widget/chip_widget.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';

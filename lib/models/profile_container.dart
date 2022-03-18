@@ -97,7 +97,8 @@ class ProfileContainer extends StatelessWidget {
       }
     }
 
-    dynamic commonInterests = userInterests.intersection(profileInterests).length;
+    dynamic commonInterests =
+        userInterests.intersection(profileInterests).length;
     if (commonInterests == 0) {
       return "NO";
     } else {
@@ -108,17 +109,18 @@ class ProfileContainer extends StatelessWidget {
 
 // FloatingActionButton to like the displayed profile.
 class LikeProfileButton extends StatelessWidget {
-
   final UserData profile;
   final UserState userState;
 
-  const LikeProfileButton({Key? key, required this.profile, required this.userState}) : super(key: key);
+  const LikeProfileButton(
+      {Key? key, required this.profile, required this.userState})
+      : super(key: key);
 
   // Method that generates an AlertDialog
   void likeProfile(BuildContext context) {
     final FirestoreService _firestoreService = FirestoreService.instance;
     _firestoreService.setAdmirer(profile.uid, userState.user!.user!.uid);
-    
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -176,26 +178,63 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
         ),
-        Row(
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Icons.school_outlined,
-                color: kSecondaryColour,
-              ),
+        Row(children: [
+          const Padding(
+            padding: EdgeInsets.only(right: 8.0),
+            child: Icon(
+              Icons.school_outlined,
+              color: kSecondaryColour,
             ),
-            Text(
-              profile.university ?? " ",
-              style: const TextStyle(
-                fontSize: kProfileLocationFontSize,
-                color: kSecondaryColour,
-                fontWeight: FontWeight.w300,
-              ),
+          ),
+          Text(
+            profile.university ?? "null",
+            style: const TextStyle(
+              fontSize: kProfileLocationFontSize,
+              color: kSecondaryColour,
+              fontWeight: FontWeight.w300,
             ),
-          ],
-        ),
+          ),
+        ]),
       ],
     );
+  }
+}
+
+// Widget that displays all of the profile's details as a sliding bottom sheet.
+class CompleteProfileDetails extends StatelessWidget {
+  final UserData profile;
+
+  const CompleteProfileDetails({Key? key, required this.profile})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.70,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.school_outlined,
+                  color: kSecondaryColour,
+                ),
+              ),
+              Text(
+                profile.university ?? " ",
+                style: const TextStyle(
+                  fontSize: kProfileLocationFontSize,
+                  color: kSecondaryColour,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

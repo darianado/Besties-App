@@ -76,10 +76,7 @@ void _handleSubmitted(String text){
                   alignment: Alignment.centerLeft,
                   child: Text(
                     message.text,
-                    style: TextStyle(
-                        color: kChatTextColour,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600),
+                    style: kChatTextStyle,
                   ),
                 ),
                 SizedBox(
@@ -89,10 +86,7 @@ void _handleSubmitted(String text){
                   alignment: Alignment.bottomRight,
                   child: Text(
                     message.time,
-                    style: TextStyle(
-                        color: kChatTimeColour,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w600),
+                    style: kChatTimeStyle,
                   ),
                 ),
 

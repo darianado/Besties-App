@@ -53,21 +53,13 @@ class RecentChats extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 chat.senderEmail,
-                                style: TextStyle(
-                                    color: kInactiveSliderColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                style: kInactiveSliderStyle,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: Text(
                                   chat.text,
-                                  style: TextStyle(
-                                    color: kInactiveSliderColor,
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.bold
-                                  ),
+                                  style: kInactiveSliderStyle,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               )
@@ -80,11 +72,7 @@ class RecentChats extends StatelessWidget {
                           //chat.unread ? GStyle.badge(true) : Text(''),
                           Text(
                             chat.time,
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            style: kUnreadTextStyle,
                           ),
                           SizedBox(
                             height: 5,

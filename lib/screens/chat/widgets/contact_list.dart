@@ -19,12 +19,7 @@ class Contacts extends StatelessWidget {
               children: <Widget>[
                 Text(
                   "Your matched friends",
-                  style: TextStyle(
-                    color: kWhiteColour,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1
-                  ),
+                  style: kContactListStyle,
                 )
               ],
             ),
@@ -57,10 +52,7 @@ class Contacts extends StatelessWidget {
                         ),
                         Text(
                           contacts[index].name,
-                          style: TextStyle(
-                              color: kWhiteColour,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600),
+                          style: kContactListNamesStyle,
                         ),
                       ],
                     ),

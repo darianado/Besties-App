@@ -67,7 +67,9 @@ class ChipWidget extends StatelessWidget {
                 (label != null)
                     ? Text(
                         (capitalizeLabel == true) ? capitalize(label!) : label!,
-                        style: TextStyle(color: (textColor != null) ? textColor : color, fontSize: (mini) ? 16 : 18),
+                        style: TextStyle(
+                            color: (textColor != null) ? textColor : color, fontSize: (mini) ? 16 : 18
+                        ),
                       )
                     : Container(),
               ],

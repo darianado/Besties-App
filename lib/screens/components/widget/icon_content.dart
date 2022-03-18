@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
 class IconContent extends StatelessWidget {
   final String label;

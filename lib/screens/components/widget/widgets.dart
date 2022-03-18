@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../../../constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
 class University extends StatefulWidget {
 
@@ -122,7 +122,7 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
           fixedSize: const Size(300, 100),
           shadowColor: kButtonBackground,
           elevation: 12,
-          textStyle: kNextButtonTextStyle,
+          textStyle: kLargeButtonTextStyle,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
       onPressed: () {
         if (((key.currentState as FormState).validate()) == true) {

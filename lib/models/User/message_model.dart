@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 
 
 class User {
@@ -15,7 +16,6 @@ class User {
 
 class Message {
   final _firestore = FirebaseFirestore.instance;
-
   void getMessages() async {
     final messages = await _firestore.collection('messages').get();
     for (var message in messages.docs){
@@ -27,7 +27,7 @@ class Message {
   //String receiverEmail;
   String time; 
   String text;
-  //bool unread;
+  bool unread;
   bool mine;
 
   Message (
@@ -35,16 +35,12 @@ class Message {
     //this.receiverEmail,
     this.time, 
     this.text, 
-    //this.unread,
     this.mine,
+    this.unread,
     );
 
   String getMessageText(){
     return text;
-  }
-
-  void setMessageText(String messageText){
-    this.text = messageText;
   }
 
   String getMessageUser(){
@@ -55,9 +51,10 @@ class Message {
     return time;
   }
 
-  void setMessageTime(String time){
-    this.time = text;
+  void setRead(){
+    unread = false; 
   }
+
 }
 
 final User currentUser = User ("","Current User", "assets/images/empty_profile_picture.jpg");
@@ -71,11 +68,11 @@ final User sixthUser = User ("", "first friend", "assets/images/empty_profile_pi
 List<User> contacts = [firstUser, secondUser, thirdUser, fourthUser, fifthUser, sixthUser];
 
 List<Message> chats = [
-  Message ("secondUser", '1:00pm', "Message 1", true),
-  Message ("firstUser", '1:00pm', "Message 1",  false),
-  Message ("firstUser", '1:00pm', "Message 1", false),
-  Message ("firstUser", '1:00pm', "Message 1", false),
-  Message ("firstUser", '1:00pm', "Message 1", true),
-  Message ("firstUser", '1:00pm', "Message 1", false),
+  Message ("secondUser", '1:00pm', "Message 1", true, true),
+  Message ("firstUser", '1:00pm', "Message 1",  false, true),
+  Message ("firstUser", '1:00pm', "Message 1", false, true),
+  Message ("firstUser", '1:00pm', "Message 1", false, true),
+  Message ("firstUser", '1:00pm', "Message 1", true, true),
+  Message ("firstUser", '1:00pm', "Message 1", false, true),
 ];
 

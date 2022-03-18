@@ -1,10 +1,10 @@
 import 'dart:io';
 import 'dart:math';
-
+import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';

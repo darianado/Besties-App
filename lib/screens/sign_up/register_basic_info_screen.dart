@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/screens/components/widget/chip_widget.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/services/context_state.dart';

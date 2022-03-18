@@ -4,7 +4,7 @@ import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
-import 'package:project_seg/screens/components/widget/chip_widget.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:go_router/go_router.dart';

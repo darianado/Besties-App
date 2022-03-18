@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/screens/components/widget/chip_widget.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';

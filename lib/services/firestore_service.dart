@@ -124,10 +124,12 @@ class FirestoreService {
      await _firebaseFirestore.collection("users").doc(userId).set({
       'likes': firestore.FieldValue.arrayUnion([profileId])
     }, firestore.SetOptions(merge: true));
-
-  //query database if profile document contains admirer ID already  
-  //then call set match
     
+    
+    List<String>? profileLikes = await getLikes(profileId);
+    if (profileLikes!.contains(userId)){
+      setMatch(profileId, userId);
+    }
   }
 
   Future<void> setMatch(String? profileId, String userId) async {
@@ -149,6 +151,18 @@ class FirestoreService {
         .collection("users")
         .doc(userId)
         .set({"relationshipStatus": relationshipStatus}, firestore.SetOptions(merge: true));
+  }
+
+    static Future<List<String>?> getLikes(String ?uid) async {
+
+    CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
+    QuerySnapshot querySnapshot;
+
+     querySnapshot = await _collectionRef.where(FieldPath.documentId, isEqualTo: uid).get();
+    
+    final UserData data = querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).first;
+    
+    return data.likes;
   }
 
   void saveUserData(UserData data) {

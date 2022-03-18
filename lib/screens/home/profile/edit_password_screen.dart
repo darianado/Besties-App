@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/auth_service.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class EditPasswordScreen extends StatefulWidget {
   @override

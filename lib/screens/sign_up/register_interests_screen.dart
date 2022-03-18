@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/User/UserData.dart';
@@ -7,6 +7,7 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class RegisterInterestsScreen extends StatefulWidget {
   RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:intl/intl.dart';
-import '../../constants.dart';
+import '../../constants/constant.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:project_seg/constants/colours.dart';
 
 
 
@@ -50,15 +51,16 @@ void _handleSubmitted(String text){
   _messagebuilder(Message message) {
     Container msg = Container(
       margin: message.mine
-          ? EdgeInsets.only (top: 8, bottom: 8, left: 80)
-          : EdgeInsets.only (top: 8, bottom: 8),
+          ? const EdgeInsets.only (top: 8, bottom: 8, left: 80)
+          : const EdgeInsets.only (top: 8, bottom: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       width: MediaQuery.of(context).size.width * 0.75,
       child: Flexible(
           child: Container(
-            padding: EdgeInsets.all(14),
+            padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(30),
                 bottomLeft: Radius.circular(30),
                 bottomRight: Radius.circular(30),
@@ -68,7 +70,7 @@ void _handleSubmitted(String text){
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                SizedBox(
+                const SizedBox(
                   height: 3,
                 ),
                 Align(
@@ -78,7 +80,7 @@ void _handleSubmitted(String text){
                     style: kChatTextStyle,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 3,
                 ),
                 Align(
@@ -124,7 +126,7 @@ void _handleSubmitted(String text){
         children: <Widget>[
           //if users are able to send messages
           IconButton(
-            icon: Icon(Icons.photo),
+            icon: const Icon(Icons.photo),
             iconSize: 25.0,
             color: kSecondaryColour,
             onPressed: () {},
@@ -141,7 +143,7 @@ void _handleSubmitted(String text){
             ),
           ),
           IconButton(
-            icon: Icon(Icons.send),
+            icon: const Icon(Icons.send),
             iconSize: 25.0,
             color: kSecondaryColour,
             onPressed: () {
@@ -162,12 +164,15 @@ void _handleSubmitted(String text){
       appBar: AppBar(
         title: Text(
           currentUser.toString(),
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.bold
+          ),
         ),
         elevation: 0.0,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.more_horiz),
+            icon: const Icon(Icons.more_horiz),
             iconSize: 30.0,
             color: Colors.white,
             onPressed: () {},
@@ -180,18 +185,18 @@ void _handleSubmitted(String text){
           children: <Widget>[
             Expanded(
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30))),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30)),
                   child: ListView.builder(
                       reverse: true,
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       itemCount: _messages.length,
                       itemBuilder: (BuildContext context, int index) {
                         final Message message = _messages[index];

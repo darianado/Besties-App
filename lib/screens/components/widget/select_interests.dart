@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:multi_select_flutter/multi_select_flutter.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
@@ -8,6 +8,7 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class SelectInterests extends StatefulWidget {
   SelectInterests({Key? key, required this.selected, required this.onChange}) : super(key: key);

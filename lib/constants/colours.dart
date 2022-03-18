@@ -18,6 +18,10 @@ const kChatList = Color (0xFFB0E0E6);
 //colours for next button
 const kButtonBackground = Color(0xFF041731);
 
+//colours for the landing page
+const kPrimaryColourLanding = Color(0xFF0083A1);
+const kShadowLanding = Color(0xFF041731);
+
 
 // colour scheme for the app
 const kPrimaryColour = Color(0xFF0A1128);

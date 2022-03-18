@@ -15,7 +15,7 @@ class RecentChats extends StatelessWidget {
 
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: kChatList,
         ),
         child: ClipRRect(
@@ -29,9 +29,9 @@ class RecentChats extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (_) => ChatScreen(user: chat.senderEmail))),
                   child: Container(
-                    margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
+                    margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
@@ -45,7 +45,7 @@ class RecentChats extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -74,7 +74,7 @@ class RecentChats extends StatelessWidget {
                             chat.time,
                             style: kUnreadTextStyle,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                         ],

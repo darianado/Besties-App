@@ -32,7 +32,7 @@ class DisplayInterests extends StatelessWidget {
       children: items.map((interest) {
         if (wiggling) {
           return ShakeAnimatedWidget(
-            duration: Duration(milliseconds: 200),
+            duration: const Duration(milliseconds: 200),
             shakeAngle: Rotation.deg(z: 1.5),
             child: chip(interest.title),
           );

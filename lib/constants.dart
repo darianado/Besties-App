@@ -122,6 +122,11 @@ const kChatAppBarStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+//border for chip widget
+const kBorderRadiusChip = BorderRadius.all(
+  Radius.circular(100),
+);
+
 
 class GStyle {
     // notificatio 

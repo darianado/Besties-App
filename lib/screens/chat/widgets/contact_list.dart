@@ -9,14 +9,14 @@ class Contacts extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
+              children: const <Widget>[
                 Text(
                   "Your matched friends",
                   style: kContactListStyle,
@@ -27,7 +27,7 @@ class Contacts extends StatelessWidget {
           Container(
             height: 120,
             child: ListView.builder(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               scrollDirection: Axis.horizontal,
               itemCount: contacts.length,
               itemBuilder: (BuildContext context, int index) {
@@ -39,7 +39,7 @@ class Contacts extends StatelessWidget {
                     )
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
                         CircleAvatar(
@@ -47,7 +47,7 @@ class Contacts extends StatelessWidget {
                           backgroundImage:
                               AssetImage(contacts[index].imageUrl),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 6,
                         ),
                         Text(

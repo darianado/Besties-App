@@ -119,7 +119,7 @@ class LikeProfileButton extends StatelessWidget {
   // Method that generates an AlertDialog
   void likeProfile(BuildContext context) {
     final FirestoreService _firestoreService = FirestoreService.instance;
-    _firestoreService.setAdmirer(profile.uid, userState.user!.user!.uid);
+    _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
 
     showDialog(
       context: context,

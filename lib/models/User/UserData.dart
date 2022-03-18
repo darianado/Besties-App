@@ -8,7 +8,7 @@ class CategorizedInterests {
 
   CategorizedInterests({required this.categories});
 
-  factory CategorizedInterests.fromMap(List<dynamic> list) {
+  factory CategorizedInterests.fromList(List<dynamic> list) {
     final categories = list.map((e) => Category.fromMap(e)).toList();
     return CategorizedInterests(categories: categories);
   }
@@ -25,9 +25,14 @@ class Preferences {
 
   Preferences({required this.interests, required this.maxAge, required this.minAge});
 
+  factory Preferences.fromMap(Map<String, dynamic> map) {
+    final _interests = CategorizedInterests.fromList(map['categorizedInterests']);
+    return Preferences(interests: _interests, maxAge: map['maxAge'], minAge: map['minAge']);
+  }
+
   Map<String, dynamic> toMap() {
     return {
-      "interests": interests.toList(),
+      "categorizedInterests": interests.toList(),
       "maxAge": maxAge,
       "minAge": minAge,
     };
@@ -38,6 +43,10 @@ class GeoLocation {
   final double lat, lon;
 
   GeoLocation({required this.lat, required this.lon});
+
+  factory GeoLocation.fromMap(Map<String, dynamic> map) {
+    return GeoLocation(lat: map['lat'], lon: map['lon']);
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -81,12 +90,10 @@ class UserData {
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
 
-    final _categorizedInterests = CategorizedInterests.fromMap(data?['categorizedInterests']);
-
-    print(_categorizedInterests.runtimeType);
+    final _categorizedInterests = CategorizedInterests.fromList(data?['categorizedInterests']);
 
     return UserData(
-      uid: doc.id,
+      uid: doc.id, // This was "data?['uid']" but we can get the document ID directly, so no need
       dob: (data?['dob'] as Timestamp).toDate(),
       firstName: data?['firstName'],
       lastName: data?['lastName'],
@@ -96,13 +103,8 @@ class UserData {
       relationshipStatus: data?['relationshipStatus'],
       profileImageUrl: data?['profileImageUrl'],
       categorizedInterests: _categorizedInterests,
-      /*location: GeoLocation(lat: data?['location']['lat'], lon: data?['location']['lon']),
-      preferences: Preferences(
-        interests: List<String>.from(data?['preferences']['interests']),
-        maxAge: data?['preferences']['maxAge'],
-        minAge: data?['preferences']['minAge'],
-      ),
-      */
+      location: GeoLocation.fromMap(data?['location']),
+      preferences: Preferences.fromMap(data?['preferences']),
     );
   }
 
@@ -150,7 +152,7 @@ class UserData {
       "location": location?.toMap(),
       "preferences": preferences?.toMap(),
       "admirers": admirers,
-      "matches": matches
+      "matches": matches,
     };
   }
 }

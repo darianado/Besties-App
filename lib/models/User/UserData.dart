@@ -93,7 +93,7 @@ class UserData {
     final _categorizedInterests = CategorizedInterests.fromList(data?['categorizedInterests']);
 
     return UserData(
-      uid: doc.id, // This was "data?['uid']" but we can get the document ID directly, so no need
+      uid: doc.id,
       dob: (data?['dob'] as Timestamp).toDate(),
       firstName: data?['firstName'],
       lastName: data?['lastName'],

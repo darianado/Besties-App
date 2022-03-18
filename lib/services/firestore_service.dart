@@ -67,7 +67,8 @@ class FirestoreService {
 
   // Filters all  users based on recommended users' uids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
-    List<String> uids = await getRecommendedUsers(uid, recs);
+    //List<String> uids = await getRecommendedUsers(uid, recs);
+    List<String> uids = [];
 
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;

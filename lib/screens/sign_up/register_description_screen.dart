@@ -169,7 +169,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             filled: true,
                             fillColor: kLightTertiaryColour,
                           ),
-                          onChanged: (value) => widget.userData.bio = value,
+                          onChanged: (value) => widget.userData.bio = value.trim(),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                           validator: (content) {

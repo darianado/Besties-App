@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/services/context_state.dart';
@@ -81,11 +81,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                   padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                   child: Text(
                     '... and a bit more about ${widget.userData.firstName}',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: kSecondaryColour,
-                    ),
+                    style: kRegisterUserPagesStyle,
                   ),
                 ),
               ),
@@ -105,11 +101,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         children: <Widget>[
                           Text(
                             'UNIVERSITY',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -133,7 +125,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],

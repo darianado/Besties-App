@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
@@ -107,11 +107,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       Expanded(
                         child: Text(
                           'Let\'s start with the basics...',
-                          style: TextStyle(
-                            fontSize: 29.0,
-                            fontWeight: FontWeight.bold,
-                            color: kSecondaryColour,
-                          ),
+                          style: kRegisterUserPagesStyle,
                         ),
                       ),
                     ],
@@ -175,11 +171,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'BIRTHDAY',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -204,7 +196,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],
@@ -217,11 +209,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'GENDER',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -259,7 +247,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],
@@ -272,11 +260,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: <Widget>[
                           Text(
                             'RELATIONSHIP STATUS',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -301,7 +285,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],

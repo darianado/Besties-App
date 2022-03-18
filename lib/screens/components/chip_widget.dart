@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 
 class ChipWidget extends StatelessWidget {
   final Color color;

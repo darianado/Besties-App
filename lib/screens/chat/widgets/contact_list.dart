@@ -1,6 +1,6 @@
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class Contacts extends StatelessWidget {

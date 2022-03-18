@@ -63,8 +63,7 @@ class UserData {
   List<String>? matches;
 
   UserData(
-      {
-      this.uid,
+      {this.uid,
       this.dob,
       this.gender,
       this.university,
@@ -87,7 +86,7 @@ class UserData {
     print(_categorizedInterests.runtimeType);
 
     return UserData(
-      uid: data?['uid'],
+      uid: doc.id,
       dob: (data?['dob'] as Timestamp).toDate(),
       firstName: data?['firstName'],
       lastName: data?['lastName'],
@@ -138,7 +137,7 @@ class UserData {
 
   Map<String, dynamic> toMap(String uid) {
     return {
-      "uid" :uid,
+      "uid": uid,
       "dob": dob,
       "firstName": firstName,
       "lastName": lastName,
@@ -150,8 +149,8 @@ class UserData {
       "categorizedInterests": categorizedInterests?.toList(),
       "location": location?.toMap(),
       "preferences": preferences?.toMap(),
-      "admirers":admirers,
-      "matches":matches 
+      "admirers": admirers,
+      "matches": matches
     };
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../../../constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
 class University extends StatefulWidget {
 

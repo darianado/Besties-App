@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:intl/intl.dart';
-import '../../constants/constant.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
 
 

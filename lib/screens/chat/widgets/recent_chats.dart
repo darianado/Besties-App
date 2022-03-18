@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
 
 class GStyle {

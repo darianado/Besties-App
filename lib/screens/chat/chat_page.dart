@@ -23,25 +23,25 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textController = new TextEditingController();
   
   List<Message> _messages = [
-  Message ("currentUser", '1:00pm', 'Message 1', false),
-  Message ("firstUser", '1:00pm', 'Message 1', false),
-  Message ("currentUser", '1:00pm', 'Message 1', false),
-  Message ("firstUser", '1:00pm', 'Message 1', false),
-  Message ("currentUser", '1:00pm', 'Message 1', true),
-  Message ("firstUser", '1:00pm', 'Message 1', true),
-  Message ("currentUser", '1:00pm', 'Message 1', true),
-  Message ("firstUser", '1:00pm', 'Message 1', true),
-  Message ("currentUser", '1:00pm', 'Message 1', true),
-  Message ("firstUser", '1:00pm', 'Message 1', false),
-  Message ("currentUser", '1:00pm', 'Message 1', false),
-  Message ("firstUser", '1:00pm', 'Message 1', false),
+  Message ("currentUser", '1:00pm', 'Message 1', false, true),
+  Message ("firstUser", '1:00pm', 'Message 1', false, true),
+  Message ("currentUser", '1:00pm', 'Message 1', false, true),
+  Message ("firstUser", '1:00pm', 'Message 1', false, true),
+  Message ("currentUser", '1:00pm', 'Message 1', true, true),
+  Message ("firstUser", '1:00pm', 'Message 1', true, true),
+  Message ("currentUser", '1:00pm', 'Message 1', true, true),
+  Message ("firstUser", '1:00pm', 'Message 1', true, true),
+  Message ("currentUser", '1:00pm', 'Message 1', true, true),
+  Message ("firstUser", '1:00pm', 'Message 1', false, true),
+  Message ("currentUser", '1:00pm', 'Message 1', false, true),
+  Message ("firstUser", '1:00pm', 'Message 1', false, true),
 ];
 
 void _handleSubmitted(String text){
   DateTime now = DateTime.now();
   String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
   _textController.clear();
-  Message message = new Message("current user", time, text, true);
+  Message message = new Message("current user", time, text, true, false);
   setState(() {
     //getMessages
     _messages.insert(0, message);
@@ -119,8 +119,8 @@ void _handleSubmitted(String text){
 
  _builMessageComposer() {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
-      height: 70,
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      height: 100,
       color: Colors.white,
       child: Row(
         children: <Widget>[
@@ -133,8 +133,13 @@ void _handleSubmitted(String text){
           ),
           Expanded(
             child: TextField(
+              maxLines: null,
+              keyboardType: TextInputType.multiline,
               controller: _textController,
-              decoration: const InputDecoration(hintText: "Send a message..."),
+              decoration: InputDecoration(
+                hintText: "Send a message...",
+                isCollapsed: true
+              ),
             ),
           ),
           IconButton(
@@ -152,7 +157,6 @@ void _handleSubmitted(String text){
 
   @override
   Widget build(BuildContext context) {
-
     final _userState = Provider.of<UserState>(context);
     final currentUser = _userState.user?.user?.email;
     return Scaffold(
@@ -196,6 +200,7 @@ void _handleSubmitted(String text){
                       itemCount: _messages.length,
                       itemBuilder: (BuildContext context, int index) {
                         final Message message = _messages[index];
+                         _messages[index].setRead();
                         return _messagebuilder(message);
                       }),
                 ),

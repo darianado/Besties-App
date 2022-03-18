@@ -15,6 +15,9 @@ const kChatReceiverColour = Color(0xFF87CEFA);
 const kContactList = Color(0xFFADD8E6);
 const kChatList = Color (0xFFB0E0E6);
 
+//colours for next button
+const kButtonBackground = Color(0xFF041731);
+
 
 // colour scheme for the app
 const kPrimaryColour = Color(0xFF0A1128);
@@ -48,6 +51,13 @@ const kLargeButtonTextStyle = TextStyle(
   fontSize: 25.0,
   fontWeight: FontWeight.bold,
 );
+
+//styling next button
+const kNextButtonTextStyle = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.bold,
+);
+
 
 const kTitleTextStyle = TextStyle(
   fontSize: 50.0,

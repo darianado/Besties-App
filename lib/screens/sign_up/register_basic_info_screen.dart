@@ -9,6 +9,7 @@ import 'package:project_seg/screens/components/buttons/relationship_status_butto
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/screens/components/widget/relationship_status.dart';
 
 class RegisterBasicInfoScreen extends StatefulWidget {
   RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);

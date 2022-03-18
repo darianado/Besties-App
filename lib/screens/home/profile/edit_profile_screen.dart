@@ -12,7 +12,7 @@ import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
-import 'package:project_seg/screens/components/display_interests.dart';
+import 'package:project_seg/screens/components/widget/display_interests.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';

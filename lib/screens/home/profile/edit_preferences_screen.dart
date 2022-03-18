@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
-import 'package:project_seg/screens/components/widgets.dart';
+import 'package:project_seg/screens/components/widget/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class EditPreferencesScreen extends StatefulWidget {

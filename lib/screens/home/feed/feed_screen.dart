@@ -3,7 +3,6 @@ import 'package:project_seg/constants.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:lottie/lottie.dart';
 import '../../../models/profile_container.dart';
 
 class FeedScreen extends StatefulWidget {
@@ -20,7 +19,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
     final _userState = Provider.of<UserState>(context);
     final uid = _userState.user?.user?.uid;
-
+    
     if (uid != null) {
       return FutureBuilder(
         future: FirestoreService.getProfileContainers(uid, 1),
@@ -46,12 +45,12 @@ class _FeedScreenState extends State<FeedScreen> {
               ),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: kTertiaryColour,));
           }
         },
       );
     } else {
-      return const CircularProgressIndicator();
+      return const CircularProgressIndicator(color: kTertiaryColour,);
     }
   }
 }

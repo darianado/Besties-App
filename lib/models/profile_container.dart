@@ -1,30 +1,24 @@
-import 'dart:collection';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:project_seg/models/User/UserData.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
+import 'package:provider/provider.dart';
 import '../constants.dart';
-import 'package:blur/blur.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
-import '../screens/components/buttons/bio_field.dart';
-import '../screens/components/buttons/edit_dob_button.dart';
-import '../screens/components/buttons/gender_button.dart';
-import '../screens/components/buttons/relationship_status_button.dart';
-import '../screens/components/buttons/university_button.dart';
+import '../screens/components/sliding_profile_details.dart';
+import '../services/firestore_service.dart';
+import '../services/user_state.dart';
+import 'Interests/category.dart';
+import 'Interests/interest.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
 class ProfileContainer extends StatelessWidget {
   final UserData profile;
 
-  const ProfileContainer({Key? key, required this.profile}) : super(key: key);
+  ProfileContainer({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -57,14 +51,17 @@ class ProfileContainer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20.0),
-                        ),
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20.0),
                       ),
-                      context: context,
-                      builder: (context) =>
-                          CompleteProfileDetails(profile: profile));
+                    ),
+                    context: context,
+                    builder: (context) => SlidingProfileDetails(
+                      profile: profile,
+                      commonInterests: getCommonInterests(_userState),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,33 +70,57 @@ class ProfileContainer extends StatelessWidget {
                     PartialProfileDetails(
                       profile: profile,
                     ),
-                    LikeProfileButton(profile: profile),
+                    LikeProfileButton(profile: profile, userState: _userState),
                   ],
                 ),
               ),
             ),
-          )
-          // .frosted(
-          //   frostOpacity: 0,
-          //   frostColor: Color.fromARGB(255, 255, 255, 255),
-          //   blur: 4,
-          //   width: MediaQuery.of(context).size.width,
-          //   height: 115,
-          // ),
+          ),
         ],
       ),
     );
+  }
+
+  String getCommonInterests(UserState _userState) {
+    Set<String> userInterests = <String>{};
+    Set<String> profileInterests = <String>{};
+
+    for (Category category
+        in _userState.user!.userData!.categorizedInterests!.categories) {
+      for (Interest interest in category.interests) {
+        userInterests.add(interest.title);
+      }
+    }
+    for (Category category in profile.categorizedInterests!.categories) {
+      for (Interest interest in category.interests) {
+        profileInterests.add(interest.title);
+      }
+    }
+
+    dynamic commonInterests =
+        userInterests.intersection(profileInterests).length;
+    if (commonInterests == 0) {
+      return "NO";
+    } else {
+      return commonInterests.toString();
+    }
   }
 }
 
 // FloatingActionButton to like the displayed profile.
 class LikeProfileButton extends StatelessWidget {
   final UserData profile;
+  final UserState userState;
 
-  const LikeProfileButton({Key? key, required this.profile}) : super(key: key);
+  const LikeProfileButton(
+      {Key? key, required this.profile, required this.userState})
+      : super(key: key);
 
   // Method that generates an AlertDialog
   void likeProfile(BuildContext context) {
+    final FirestoreService _firestoreService = FirestoreService.instance;
+    _firestoreService.setAdmirer(profile.uid, userState.user!.user!.uid);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -166,7 +187,7 @@ class PartialProfileDetails extends StatelessWidget {
             ),
           ),
           Text(
-            profile.university ?? " ",
+            profile.university ?? "null",
             style: const TextStyle(
               fontSize: kProfileLocationFontSize,
               color: kSecondaryColour,
@@ -180,130 +201,40 @@ class PartialProfileDetails extends StatelessWidget {
 }
 
 // Widget that displays all of the profile's details as a sliding bottom sheet.
-class CompleteProfileDetails extends StatefulWidget {
+class CompleteProfileDetails extends StatelessWidget {
   final UserData profile;
 
   const CompleteProfileDetails({Key? key, required this.profile})
       : super(key: key);
 
   @override
-  State<CompleteProfileDetails> createState() => _CompleteProfileDetailsState();
-}
-
-class _CompleteProfileDetailsState extends State<CompleteProfileDetails> {
-  late AutoScrollController controller;
-
-  @override
-  void initState() {
-    super.initState();
-    controller = AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-        axis: Axis.vertical);
-  }
-
-  Future<dynamic> _scrollBackToTop(details) async {
-    await controller.scrollToIndex(0,
-        duration: const Duration(milliseconds: 500),
-        preferPosition: AutoScrollPosition.begin);
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.43,
-      child: Listener(
-        onPointerUp: (details) => _scrollBackToTop(details),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          controller: controller,
-          physics: const ClampingScrollPhysics(),
-          children: [
-            AutoScrollTag(
-              key: const ValueKey(0),
-              index: 0,
-              controller: controller,
-              child: Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Column(
-                  children: [
-                    Text(
-                      widget.profile.fullName ?? " ",
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: kTertiaryColour,
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    UniversityButton(
-                      label: widget.profile.university ?? " ",
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Wrap(
-                      spacing: 6.0,
-                      runSpacing: 6.0,
-                      alignment: WrapAlignment.center,
-                      runAlignment: WrapAlignment.center,
-                      children: [
-                        DateOfBirthButton(
-                            label: (widget.profile.age ?? " ").toString()),
-                        GenderButtton(label: widget.profile.gender ?? " "),
-                        RelationshipStatusButton(
-                            label: widget.profile.relationshipStatus ?? " "),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    BioField(
-                      label: widget.profile.bio ?? " ",
-                      editable: false,
-                    ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "YOU HAVE",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: kPrimaryColour.withOpacity(0.3),
-                          ),
-                        ),
-                        const Text(
-                          " 3 ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: kTertiaryColour,
-                          ),
-                        ),
-                        Text(
-                          "INTERESTS IN COMMON!",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: kPrimaryColour.withOpacity(0.3),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+        height: MediaQuery.of(context).size.height * 0.70,
+        width: MediaQuery.of(context).size.width,
+        child: Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.school_outlined,
+                  color: kSecondaryColour,
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
+              Text(
+                profile.university ?? " ",
+                style: const TextStyle(
+                  fontSize: kProfileLocationFontSize,
+                  color: kSecondaryColour,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ],
+          ),
+        ));
   }
 }

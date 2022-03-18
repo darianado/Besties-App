@@ -14,7 +14,8 @@ class RegisterInterestsScreen extends StatefulWidget {
   UserData userData;
 
   @override
-  State<RegisterInterestsScreen> createState() => _RegisterInterestsScreenState();
+  State<RegisterInterestsScreen> createState() =>
+      _RegisterInterestsScreenState();
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
@@ -38,10 +39,11 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             automaticallyImplyLeading: false,
             foregroundColor: kTertiaryColour,
             backgroundColor: Colors.white,
-            expandedHeight: 150,
+            expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed("register_description", extra: widget.userData),
+              onPressed: () => context.goNamed("register_description",
+                  extra: widget.userData),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: kPrimaryColour,
@@ -52,14 +54,14 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
                         style: TextStyle(
-                          fontSize: 29.0,
+                          fontSize: 30.0,
                           fontWeight: FontWeight.bold,
                           color: kSecondaryColour,
                         ),
@@ -76,7 +78,6 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
                   Text(
                     "It is time to choose categories you are interested in.",
                     textAlign: TextAlign.center,
@@ -96,7 +97,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                         widget.userData.categorizedInterests = newCategories;
                       });
                     },
-                    selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
+                    selected: widget.userData.categorizedInterests ??
+                        CategorizedInterests(categories: []),
                   ),
                   (couldNotValidateInterests)
                       ? Row(
@@ -105,7 +107,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                               child: Padding(
                                 padding: const EdgeInsets.all(3.0),
                                 child: Text(
-                                  "Ensure you have selected between 1 and 10 interests",
+                                  "Ensure you have selected at least 1 interest",
                                   style: TextStyle(color: Colors.red),
                                 ),
                               ),
@@ -113,15 +115,16 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                           ],
                         )
                       : Container(),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 20),
                   Container(
-                    height: 50,
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
                         final _interests = widget.userData.flattenedInterests;
 
-                        if (_interests == null || _interests.length < 1 || _interests.length > 10) {
+                        if (_interests == null ||
+                            _interests.length < 1 ||
+                            _interests.length > 10) {
                           setState(() {
                             couldNotValidateInterests = true;
                           });
@@ -135,20 +138,23 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                         saveToFirestore();
                       },
                       child: Text("Done"),
-                      style: ElevatedButton.styleFrom(
-                        primary: kTertiaryColour,
-                        onPrimary: kWhiteColour,
-                        fixedSize: const Size(300, 100),
-                        shadowColor: kTertiaryColour,
-                        elevation: 12,
-                        textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(kTertiaryColour),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            EdgeInsets.all(10.0)),
+                        textStyle: MaterialStateProperty.all(Theme.of(context)
+                            .textTheme
+                            .headline5
+                            ?.apply(fontWeightDelta: 2)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 50),
                 ],
               ),
             ),

@@ -7,6 +7,7 @@ import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants.dart';
 
@@ -34,7 +35,8 @@ class _LogInScreenState extends State<LogInScreen> {
     try {
       await userState.signIn(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
 
@@ -45,7 +47,6 @@ class _LogInScreenState extends State<LogInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     final _userState = Provider.of<UserState>(context);
@@ -58,6 +59,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Theme(
       data: ThemeData(
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -76,7 +78,7 @@ class _LogInScreenState extends State<LogInScreen> {
             child: Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: PreferredSize(
-                  preferredSize: Size.fromHeight(0.1 * screenHeight), // here the desired height
+                  preferredSize: Size.fromHeight(0.1 * screenHeight),
                   child: AppBar(
                       elevation: 0,
                       backgroundColor: Colors.transparent,
@@ -85,7 +87,10 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                       title: const Text(
                         'BESTIES',
-                        style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 35,
+                            fontWeight: FontWeight.bold,
+                            color: kWhiteColour),
                       ),
                       centerTitle: true,
                       automaticallyImplyLeading: false),
@@ -94,20 +99,19 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: SingleChildScrollView(
                   child: Form(
                     key: _formKey,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          const Padding(
-                            padding: EdgeInsets.fromLTRB(22.0, 35.0, 22.0, 35.0),
-                            child: Text(
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(22, 0, 22, 30),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Text(
                               'Log in',
-                              style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                  fontSize: 35, fontWeight: FontWeight.bold),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30.0, 35.0, 30.0, 5.0),
-                            child: TextFormField(
+                            SizedBox(height: 40),
+                            TextFormField(
                               controller: _email,
                               decoration: const InputDecoration(
                                   fillColor: kWhiteColour,
@@ -118,13 +122,13 @@ class _LogInScreenState extends State<LogInScreen> {
                                     color: kWhiteColour,
                                   ),
                                   labelText: 'Email address'),
-                              validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
+                              validator: (value) => !isEmail(_email.text)
+                                  ? "Invalid Email"
+                                  : null,
                               textInputAction: TextInputAction.next,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30.0, 5.0, 30.0, 2.0),
-                            child: TextFormField(
+                            SizedBox(height: 30),
+                            TextFormField(
                               controller: _password,
                               obscureText: true,
                               decoration: const InputDecoration(
@@ -143,69 +147,88 @@ class _LogInScreenState extends State<LogInScreen> {
                               },
                               textInputAction: TextInputAction.next,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 25.0, bottom: 40.0),
-                            child: Align(
+                            Align(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
-                                child: const Text('Forget password?', style: TextStyle(fontSize: 12, color: kWhiteColour)),
+                                child: const Text('Forget password?',
+                                    style: TextStyle(
+                                        fontSize: 12, color: kWhiteColour)),
                                 onPressed: () {
                                   context.pushNamed("recover_password");
                                 },
                               ),
                             ),
-                          ),
-                          SizedBox(
-                              width: 0.85 * screenWidth,
-                              height: 0.08 * screenHeight,
-                              child: ElevatedButton(
-                                onPressed: () => submitForm(_formKey),
-                                child: (isLoading)
-                                    ? SizedBox(
-                                        height: 30,
-                                        width: 30,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 3,
+                            SizedBox(height: 30),
+                            SizedBox(
+                                width: double.infinity,
+                                height: 0.07 * screenHeight,
+                                child: ElevatedButton(
+                                  onPressed: () => submitForm(_formKey),
+                                  child: (isLoading)
+                                      ? SizedBox(
+                                          height: 30,
+                                          width: 30,
+                                          child: CircularProgressIndicator(
+                                            color: Colors.white,
+                                            strokeWidth: 3,
+                                          ),
+                                        )
+                                      : Text(
+                                          "Log In",
+                                          style:
+                                              TextStyle(color: kTertiaryColour),
                                         ),
-                                      )
-                                    : Text("Log In"),
-                                style: ElevatedButton.styleFrom(
-                                    primary: kWhiteColour,
-                                    onPrimary: kPrimaryColour,
-                                    fixedSize: const Size(300, 100),
-                                    shadowColor: kPrimaryColour,
-                                    elevation: 12,
-                                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-                              )),
-                          Container(
-                            padding: const EdgeInsets.all(35.0),
-                            child: Row(
-                              children: <Widget>[
-                                const Expanded(
-                                  flex: 2,
-                                  child: Text(
-                                    'New here? Sign up now?',
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: OutlinedButton(
-                                    onPressed: () => context.pushNamed("register"),
-                                    style: OutlinedButton.styleFrom(
-                                      primary: kWhiteColour,
-                                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30))),
-                                      side: const BorderSide(color: kWhiteColour, width: 1.5),
+                                  style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.all(kWhiteColour),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(10.0)),
+                                    textStyle: MaterialStateProperty.all(
+                                        Theme.of(context)
+                                            .textTheme
+                                            .headline5
+                                            ?.apply(fontWeightDelta: 2)),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
                                     ),
-                                    child: const Text("Sign up", style: TextStyle(color: kWhiteColour)),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ]),
+                                )),
+                            SizedBox(height: 30),
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  const Expanded(
+                                    flex: 2,
+                                    child: Text(
+                                      'New here? Sign up now?',
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: OutlinedButton(
+                                      onPressed: () =>
+                                          context.pushNamed("register"),
+                                      style: OutlinedButton.styleFrom(
+                                        primary: kWhiteColour,
+                                        shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30))),
+                                        side: const BorderSide(
+                                            color: kWhiteColour, width: 1.5),
+                                      ),
+                                      child: const Text("Sign up",
+                                          style:
+                                              TextStyle(color: kWhiteColour)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ]),
+                    ),
                   ),
                 ))));
       }),

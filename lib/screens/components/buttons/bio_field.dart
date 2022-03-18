@@ -11,8 +11,7 @@ class BioField extends StatelessWidget {
   final bool editable;
   final String label;
 
-  BioField({Key? key, required this.label, this.editable = false})
-      : super(key: key);
+  BioField({Key? key, required this.label, this.editable = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,14 +65,13 @@ class BioField extends StatelessWidget {
     return () => showDialog(
         context: context,
         builder: (BuildContext context) {
-          return EditDialogTextField(
-              value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
+          return EditDialogTextField(value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
         });
   }
 
   Future<void> saveBio(String? userId, String? bio) async {
     if (userId != null && bio != null) {
-      await _firestoreService.setBio(userId, bio);
+      await _firestoreService.setBio(userId, bio.trim());
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'dart:async';
-
+import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';

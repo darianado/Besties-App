@@ -7,7 +7,7 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'constants.dart';
+import 'constants/constant.dart';
 import 'firebase_options.dart';
 
 void main() async {

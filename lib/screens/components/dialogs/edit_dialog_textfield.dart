@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class EditDialogTextField extends StatefulWidget {
   String value;

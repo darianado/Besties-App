@@ -7,9 +7,10 @@ import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constants.dart';
+import '../../constants/constant.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);

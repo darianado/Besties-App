@@ -71,9 +71,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
           end: Alignment.bottomLeft,
           stops: [0.4, 0.8, 1],
           colors: [
-            Color(0xFFFEFCFB),
-            Color(0xFFE2F9FE),
-            Color(0xFFD8F8FF),
+            kWhiteColour,
+            kWhiteColourShade2,
+            kWhiteColourShade3,
           ],
         ),
       ),
@@ -323,7 +323,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             couldNotValidateRelationshipStatus = false;
 
                             setState(() {
-                              widget.userData.firstName = _firstName.text.trim();
+                              widget.userData.firstName =
+                                  _firstName.text.trim();
                               widget.userData.lastName = _lastName.text.trim();
                             });
 

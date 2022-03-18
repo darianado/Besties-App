@@ -32,7 +32,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
     try {
       await _authService.changePassword(currentPassword, newPassword);
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
   }
@@ -49,9 +50,9 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          Color(0xFFFEFCFB),
-          Color(0xFFE2F9FE),
-          Color(0xFFD8F8FF),
+          kWhiteColour,
+          kWhiteColourShade2,
+          kWhiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -62,98 +63,115 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
             child: Form(
               key: _formKey,
               //  autovalidate: true,
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 5.0),
-                  child: TextFormField(
-                    controller: _oldPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        icon: Icon(
-                          Icons.lock,
-                          color: kSecondaryColour,
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(22, 30, 22, 30),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Change your password',
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 40),
+                      TextFormField(
+                        controller: _oldPassword,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(
+                              Icons.lock,
+                              color: kSecondaryColour,
+                            ),
+                            labelText: 'Enter your current password'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                        controller: _newPassword,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(
+                              Icons.lock,
+                              color: kSecondaryColour,
+                            ),
+                            labelText: 'Enter your new password'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          if (value == _oldPassword.text) {
+                            return "Please enter a different password to old one.";
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 30),
+                      TextFormField(
+                        controller: _confirmNewPassword,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(
+                              Icons.lock,
+                              color: kSecondaryColour,
+                            ),
+                            labelText: 'Confirm your new password:'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter some text';
+                          }
+                          if (value != _newPassword.text) {
+                            return "Please type the same password";
+                          }
+                          return null;
+                        },
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 50),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 0.07 * screenHeight,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (((_formKey.currentState as FormState)
+                                    .validate()) ==
+                                true) {
+                              _changePassword(
+                                  _oldPassword.text, _newPassword.text);
+                              context.pushNamed("home",
+                                  params: {'page': 'profile'});
+                            }
+                          },
+                          child: Text("Update"),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(kTertiaryColour),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(10.0)),
+                            textStyle: MaterialStateProperty.all(
+                                Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    ?.apply(fontWeightDelta: 2)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
+                            ),
+                          ),
                         ),
-                        labelText: 'Enter your current password'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 5.0),
-                  child: TextFormField(
-                    controller: _newPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        icon: Icon(
-                          Icons.lock,
-                          color: kSecondaryColour,
-                        ),
-                        labelText: 'Enter your new password'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      if (value == _oldPassword.text) {
-                        return "Please enter a different password to old one.";
-                      }
-                      return null;
-                    },
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 5.0),
-                  child: TextFormField(
-                    controller: _confirmNewPassword,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                        border: UnderlineInputBorder(),
-                        icon: Icon(
-                          Icons.lock,
-                          color: kSecondaryColour,
-                        ),
-                        labelText: 'Confirm your new password:'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      if (value != _newPassword.text) {
-                        return "Please type the same password";
-                      }
-                      return null;
-                    },
-                    textInputAction: TextInputAction.next,
-                  ),
-                ),
-                SizedBox(
-                  width: 0.80 * screenWidth,
-                  height: 0.07 * screenHeight,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (((_formKey.currentState as FormState).validate()) == true) {
-                        _changePassword(_oldPassword.text, _newPassword.text);
-                        context.pushNamed("home", params: {'page': 'profile'});
-                      }
-                    },
-                    child: Text("CHANGE YOUR PASSWORD"),
-                    style: ElevatedButton.styleFrom(
-                        primary: kTertiaryColour,
-                        onPrimary: kWhiteColour,
-                        fixedSize: const Size(300, 100),
-                        shadowColor: kTertiaryColour,
-                        elevation: 12,
-                        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-                  ),
-                ),
-              ]),
+                      ),
+                    ]),
+              ),
             ),
           ))),
     );

@@ -87,8 +87,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(
-                  0.1 * screenHeight), // here the desired height
+              preferredSize: Size.fromHeight(0.1 * screenHeight),
               child: AppBar(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
@@ -225,8 +224,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     side: const BorderSide(
                                         color: kTertiaryColour, width: 1.5),
                                   ),
-                                  child: const Text("Log in",
-                                      style: kTertiaryStyle,
+                                  child: const Text(
+                                    "Log in",
+                                    style: kTertiaryStyle,
                                   ),
                                 ),
                               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../components/widgets.dart';
+import '../components/widget/widgets.dart';
 
 class LandingScreen extends StatefulWidget {
   @override

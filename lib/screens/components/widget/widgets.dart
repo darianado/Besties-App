@@ -122,7 +122,7 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
           fixedSize: const Size(300, 100),
           shadowColor: kButtonBackground,
           elevation: 12,
-          textStyle: kNextButtonTextStyle,
+          textStyle: kLargeButtonTextStyle,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
       onPressed: () {
         if (((key.currentState as FormState).validate()) == true) {

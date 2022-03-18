@@ -1,9 +1,6 @@
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
-import 'package:project_seg/constants/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
 

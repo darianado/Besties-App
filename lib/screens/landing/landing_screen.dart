@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import '../components/widget/widgets.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -41,7 +42,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
               title: const Text(
                 'BESTIES',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                style: kLandingPageTitleStyle,
               ),
               centerTitle: true,
               automaticallyImplyLeading: false),
@@ -63,7 +64,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     fixedSize: const Size(300, 100),
                     shadowColor: Color(0xFF041731),
                     elevation: 12,
-                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textStyle: kLandingPageButtonsStyle,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
               ),
             ),
@@ -82,7 +83,7 @@ class _LandingScreenState extends State<LandingScreen> {
                       fixedSize: const Size(300, 100),
                       shadowColor: Color(0xFF041731),
                       elevation: 12,
-                      textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textStyle: kLandingPageButtonsStyle,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
                 )),
           ]),

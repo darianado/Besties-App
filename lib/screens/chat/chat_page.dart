@@ -164,10 +164,7 @@ void _handleSubmitted(String text){
       appBar: AppBar(
         title: Text(
           currentUser.toString(),
-          style: const TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold
-          ),
+          style: kChatAppBarStyle,
         ),
         elevation: 0.0,
         actions: <Widget>[

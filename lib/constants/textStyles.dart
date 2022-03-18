@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'colours.dart';
+import 'package:flutter/cupertino.dart';
 
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
@@ -16,11 +17,6 @@ const kLargeButtonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-//styling next button
-const kNextButtonTextStyle = TextStyle(
-  fontSize: 25,
-  fontWeight: FontWeight.bold,
-);
 
 
 const kTitleTextStyle = TextStyle(
@@ -85,3 +81,35 @@ const kChatAppBarStyle = TextStyle(
   fontSize: 28,
   fontWeight: FontWeight.bold,
 );
+
+//text style for bio field
+const kTertiaryStyle = TextStyle(
+  fontSize: 18,
+  color: kTertiaryColour,
+);
+
+//text style for profile details
+ TextStyle kInterestMatchedStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 12,
+  color: kPrimaryColour.withOpacity(0.3),
+);
+
+const kNoInterestStyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 12,
+  color: kTertiaryColour,
+);
+
+//landing page
+const kLandingPageButtonsStyle = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+);
+
+const kLandingPageTitleStyle = TextStyle(
+    fontSize: 35,
+    fontWeight: FontWeight.bold,
+);
+
+

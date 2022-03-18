@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -44,10 +45,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
                 maxLength: _contextState.context?.maxBioLength ?? 200,
                 maxLines: 10,
                 decoration: InputDecoration(border: InputBorder.none),
-                style: TextStyle(
-                  fontSize: 17,
-                  color: kTertiaryColour,
-                ),
+                style: kTertiaryStyle,
               ),
             ),
             Row(

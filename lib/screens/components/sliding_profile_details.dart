@@ -1,5 +1,6 @@
 // Widget that displays all of the profile's details as a sliding bottom sheet.
 import 'package:flutter/cupertino.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../../models/User/UserData.dart';
@@ -104,36 +105,20 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                       children: [
                         Text(
                           "YOU HAVE ",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: kPrimaryColour.withOpacity(0.3),
-                          ),
+                          style: kInterestMatchedStyle,
                         ),
                         Text(
                           widget.commonInterests ?? "NO",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                            color: kTertiaryColour,
-                          ),
+                          style: kNoInterestStyle,
                         ),
                         widget.commonInterests == "1"
                             ? Text(
                                 " INTEREST IN COMMON!",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: kPrimaryColour.withOpacity(0.3),
-                                ),
+                                style: kInterestMatchedStyle,
                               )
                             : Text(
                                 " INTERESTS IN COMMON!",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
-                                  color: kPrimaryColour.withOpacity(0.3),
-                                ),
+                                style: kInterestMatchedStyle,
                               ),
                       ],
                     ),

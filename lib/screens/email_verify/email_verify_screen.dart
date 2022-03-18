@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -65,12 +63,17 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   ),
                   Text(
                     "You've got mail!",
-                    style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
                   ),
                   SizedBox(height: 30),
                   Text(
                     "Before you can proceed, head over to your inbox to activate your account.",
-                    style: TextStyle(fontSize: 18, color: Colors.white),
+                    style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 100)

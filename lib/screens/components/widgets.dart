@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 
+import '../../constants.dart';
+
 class RelationshipStatus extends StatefulWidget {
 
   RelationshipStatus({Key? key, required this.userData}) : super(key: key);
@@ -166,12 +168,12 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
     height: 0.07 * screenHeight,
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
-          primary: const Color(0xFF041731),
-          onPrimary: const Color(0xFFFEFCFB),
+          primary: kButtonBackground,
+          onPrimary: kWhiteColour,
           fixedSize: const Size(300, 100),
-          shadowColor: const Color(0xFF041731),
+          shadowColor: kButtonBackground,
           elevation: 12,
-          textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          textStyle: kNextButtonTextStyle,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
       onPressed: () {
         if (((key.currentState as FormState).validate()) == true) {

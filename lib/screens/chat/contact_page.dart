@@ -26,7 +26,7 @@ class _Contact_PageState extends State<Contact_Page> {
         backgroundColor: kContactList,
         title: Text(
           'Your conversations',
-          style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          style: kChatAppBarStyle,
         ),
       ),
       body: Column(

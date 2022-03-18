@@ -1,17 +1,14 @@
-// import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
-import 'package:project_seg/constants/constant.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -83,8 +80,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           stops: [0.4, 0.8, 1],
           colors: [
             kWhiteColour,
-            Color(0xFFE2F9FE),
-            Color(0xFFD8F8FF),
+            kWhiteColourShade2,
+            kWhiteColourShade3,
           ],
         )),
         child: Scaffold(
@@ -100,11 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   title: const Text(
                     'BESTIES',
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: kLightBlue,
-                    ),
+                    style: kRegisterPageStyle,
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),
@@ -122,10 +115,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: <Widget>[
                         Text(
                           'Sign up',
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: kTertiaryColour,
-                              fontWeight: FontWeight.bold),
+                          style: kRegisterPageStyle,
                         ),
                         SizedBox(height: 40),
                         TextFormField(
@@ -236,7 +226,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         color: kTertiaryColour, width: 1.5),
                                   ),
                                   child: const Text("Log in",
-                                      style: TextStyle(color: kTertiaryColour)),
+                                      style: kTertiaryStyle,
+                                  ),
                                 ),
                               ),
                             ],

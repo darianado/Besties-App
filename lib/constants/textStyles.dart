@@ -59,6 +59,10 @@ const kInactiveSliderStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const kRedTextStyle = TextStyle(
+    color: Colors.red
+);
+
 const kUnreadTextStyle = TextStyle(
   color: Colors.grey,
   fontSize: 12,
@@ -111,5 +115,26 @@ const kLandingPageTitleStyle = TextStyle(
     fontSize: 35,
     fontWeight: FontWeight.bold,
 );
+
+//register_screen page
+const kRegisterPageStyle = TextStyle(
+  fontSize: 35,
+  fontWeight: FontWeight.bold,
+  color: kTertiaryColour,
+);
+
+//register interests page
+const kRegisterUserPagesStyle = TextStyle(
+    fontSize: 30.0,
+    fontWeight: FontWeight.bold,
+    color: kSecondaryColour,
+);
+
+ TextStyle kRegisterUserComponentsStyle = TextStyle(
+  fontSize: 13.0,
+  fontWeight: FontWeight.bold,
+  color: kPrimaryColour.withOpacity(0.5),
+);
+
 
 

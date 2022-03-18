@@ -29,5 +29,7 @@ const kSecondaryColour = Color(0xFF001F54);
 const kTertiaryColour = Color(0xFF034078);
 const kLightBlue = Color(0xFF1282A2);
 const kWhiteColour = Color(0xFFFEFCFB);
+const kWhiteColourShade2 = Color(0xFFE2F9FE);
+const kWhiteColourShade3 = Color(0xFFD8F8FF);
 
 const kLightTertiaryColour = Color.fromARGB(26, 3, 64, 120);

@@ -3,7 +3,6 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:provider/provider.dart';
 import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
-
 import '../screens/components/sliding_profile_details.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';

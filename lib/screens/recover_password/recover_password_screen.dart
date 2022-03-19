@@ -89,7 +89,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       textInputAction: TextInputAction.next,
                     ),
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 35),
                   Container(
                     width: double.infinity,
                     child: ElevatedButton(
@@ -117,11 +117,39 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       ),
                     ),
                   ),
-                  TextButton(
-                    child: Text('Return to Log In',
-                        style: TextStyle(color: kTertiaryColour)),
-                    onPressed: () => context.goNamed("login"),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    child: OutlinedButton(
+                      onPressed: () => context.goNamed("login"),
+                      child: const Text(
+                        "Return to log in",
+                        style: TextStyle(color: kTertiaryColour),
+                      ),
+                      style: ButtonStyle(
+                        side: MaterialStateProperty.all(BorderSide(
+                          color: kTertiaryColour,
+                          width: 1.5,
+                        )),
+                        padding: MaterialStateProperty.all<EdgeInsets>(
+                            EdgeInsets.all(10.0)),
+                        textStyle: MaterialStateProperty.all(Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.apply(fontWeightDelta: 2)),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
+                  // TextButton(
+                  //   child: Text('Return to Log In',
+                  //       style: TextStyle(color: kTertiaryColour)),
+                  //   onPressed: () => context.goNamed("login"),
+                  // ),
                 ],
               ),
             ),

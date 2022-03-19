@@ -148,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         params: {'page': 'profile'}),
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(
-                        kTertiaryColour.withOpacity(0.8),
+                        kTertiaryColour.withOpacity(0.9),
                       ),
                       elevation: MaterialStateProperty.all(0),
                     ),

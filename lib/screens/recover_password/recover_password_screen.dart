@@ -108,7 +108,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                         textStyle: MaterialStateProperty.all(Theme.of(context)
                             .textTheme
                             .headline6
-                            ?.apply(fontWeightDelta: 2)),
+                            ?.apply(fontWeightDelta: 1)),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40),
@@ -136,7 +136,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                         textStyle: MaterialStateProperty.all(Theme.of(context)
                             .textTheme
                             .headline6
-                            ?.apply(fontWeightDelta: 2)),
+                            ?.apply(fontWeightDelta: 1)),
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40),
@@ -145,11 +145,6 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       ),
                     ),
                   ),
-                  // TextButton(
-                  //   child: Text('Return to Log In',
-                  //       style: TextStyle(color: kTertiaryColour)),
-                  //   onPressed: () => context.goNamed("login"),
-                  // ),
                 ],
               ),
             ),

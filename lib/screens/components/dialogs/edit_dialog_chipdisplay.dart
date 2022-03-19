@@ -35,43 +35,47 @@ class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SelectInterests(
-              onChange: (newCategories) {
-                setState(() {
-                  //widget.values = newCategories;
-                });
-              },
-              selected: _userState.user?.userData?.categorizedInterests ??
-                  CategorizedInterests(categories: []),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Flexible(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text("Cancel"),
-                  ),
+                SelectInterests(
+                  onChange: (newCategories) {
+                    setState(() {
+                      widget.values = newCategories;
+                    });
+                  },
+                  selected: _userState.user?.userData?.categorizedInterests ??
+                      CategorizedInterests(categories: []),
                 ),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      await widget.onSave(widget.values);
-                    },
-                    child: Text("Save"),
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text("Cancel"),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          Navigator.of(context).pop();
+                          await widget.onSave(widget.values);
+                        },
+                        child: Text("Save"),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
+          ),
         ),
       ),
     );

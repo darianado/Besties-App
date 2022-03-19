@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
@@ -231,7 +232,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   DisplayInterests(
                     wiggling: true,
-                    onTap: () => print("Tapped!"),
+                    onTap: (interests) =>
+                        saveInterests(_userState.user?.user?.uid, interests),
                     items: _userState.user?.userData?.flattenedInterests ?? [],
                   ),
                 ],
@@ -265,6 +267,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> saveUniversity(String? userId, String? university) async {
     if (userId != null && university != null) {
       await _firestoreService.setUniversity(userId, university);
+    }
+  }
+
+  Future<void> saveInterests(String? userId, List<Interest> interests) async {
+    if (userId != null && interests != null && !interests.isEmpty) {
+      await _firestoreService.setInterests(userId, interests);
     }
   }
 }

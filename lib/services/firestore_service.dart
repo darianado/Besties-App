@@ -186,7 +186,8 @@ class FirestoreService {
         firestore.SetOptions(merge: true));
   }
 
-  Future<void> setInterests(String userId, List<Interest> interests) async {
+  Future<void> setInterests(
+      String userId, CategorizedInterests interests) async {
     return await _firebaseFirestore.collection("users").doc(userId).set(
         {"categorizedInterests": interests}, firestore.SetOptions(merge: true));
   }

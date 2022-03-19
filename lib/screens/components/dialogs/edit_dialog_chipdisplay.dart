@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/Interests/interest.dart';
+import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 class EditDialogChipDisplay extends StatefulWidget {
-  final List<Interest> items;
-  List<Interest>? values;
-  final Function(List<Interest>?) onSave;
+  //final CategorizedInterests items;
+  CategorizedInterests? values;
+  final Function(CategorizedInterests?) onSave;
 
   EditDialogChipDisplay(
-      {Key? key, required this.items, values, required this.onSave})
+      {Key? key, /*required this.items,*/ values, required this.onSave})
       : values = /*safelyGetValue(items, value)*/ values == null
             ? values
             : null,
@@ -36,18 +38,14 @@ class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            DropdownButton(
-              isExpanded: true,
-              items: widget.items
-                  .map(
-                    (str) => DropdownMenuItem(
-                      value: str,
-                      child: Text(str),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (String? value) => changeSelection(value),
-              value: widget.value,
+            SelectInterests(
+              onChange: (newCategories) {
+                setState(() {
+                  //widget.values = newCategories;
+                });
+              },
+              selected: _userState.user?.userData?.categorizedInterests ??
+                  CategorizedInterests(categories: []),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -66,7 +64,7 @@ class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
                   child: ElevatedButton(
                     onPressed: () async {
                       Navigator.of(context).pop();
-                      await widget.onSave(widget.value);
+                      await widget.onSave(widget.values);
                     },
                     child: Text("Save"),
                   ),
@@ -79,10 +77,10 @@ class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
     );
   }
 
-  void changeSelection(String? selected) {
+  void changeSelection(CategorizedInterests? selected) {
     if (selected != null) {
       setState(() {
-        widget.value = selected;
+        widget.values = selected;
       });
     }
   }

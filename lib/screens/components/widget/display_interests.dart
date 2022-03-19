@@ -2,7 +2,9 @@ import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/interest.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog_chipdisplay.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +24,7 @@ class DisplayInterests extends StatelessWidget {
   final List<Interest> items;
   final bool wiggling;
   final bool mini;
-  final Function(List<Interest>?)? onTap;
+  final Function(CategorizedInterests?)? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class DisplayInterests extends StatelessWidget {
   }
 
   Function? getOnTap(String label, BuildContext context) {
-    //final _userState = Provider.of<UserState>(context);
+    final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
     final _onSave = onTap;
@@ -72,8 +74,9 @@ class DisplayInterests extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogChipDisplay(
-              items: _contextState.context?.universities ?? [],
-              value: label,
+              //items: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
+              values: _userState.user?.userData?.categorizedInterests ??
+                  CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

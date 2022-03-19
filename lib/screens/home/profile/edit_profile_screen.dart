@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/interest.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
@@ -270,8 +271,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  Future<void> saveInterests(String? userId, List<Interest> interests) async {
-    if (userId != null && interests != null && !interests.isEmpty) {
+  Future<void> saveInterests(
+      String? userId, CategorizedInterests? interests) async {
+    if (userId != null && interests != null) {
       await _firestoreService.setInterests(userId, interests);
     }
   }

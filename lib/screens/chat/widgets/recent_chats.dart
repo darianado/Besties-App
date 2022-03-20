@@ -3,6 +3,8 @@ import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 
 class GStyle {
@@ -17,12 +19,8 @@ class GStyle {
 }
 
 class RecentChats extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    //final _userState = Provider.of<UserState>(context);
-    //final userUrl = _userState.user?.user?.photoURL;
-    
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
@@ -44,12 +42,7 @@ class RecentChats extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                         color:Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20),
-                          topRight: Radius.circular(20),
-                    )
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

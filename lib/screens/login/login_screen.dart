@@ -212,13 +212,24 @@ class _LogInScreenState extends State<LogInScreen> {
                                     child: OutlinedButton(
                                       onPressed: () =>
                                           context.pushNamed("register"),
-                                      style: OutlinedButton.styleFrom(
-                                        primary: kWhiteColour,
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(30))),
-                                        side: const BorderSide(
-                                            color: kWhiteColour, width: 1.5),
+                                      style: ButtonStyle(
+                                        side: MaterialStateProperty.all(
+                                            BorderSide(
+                                          color: kWhiteColour,
+                                          width: 1,
+                                        )),
+                                        padding: MaterialStateProperty.all<
+                                            EdgeInsets>(EdgeInsets.all(10.0)),
+                                        textStyle: MaterialStateProperty.all(
+                                            Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                          ),
+                                        ),
                                       ),
                                       child: const Text("Sign up",
                                           style:

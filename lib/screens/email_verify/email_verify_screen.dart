@@ -48,7 +48,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     onPressed: () => _userState.signOut(),
                     icon: Icon(
                       FontAwesomeIcons.signOutAlt,
-                      color: Colors.white,
+                      color: kWhiteColour,
                     ),
                   ),
                 ],
@@ -59,29 +59,49 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   SizedBox(
                     height: 300,
                     width: 300,
-                    child: Lottie.asset('assets/lotties/mail-verification.json'),
+                    child:
+                        Lottie.asset('assets/lotties/mail-verification.json'),
                   ),
                   Text(
                     "You've got mail!",
                     style: TextStyle(
                         fontSize: 35,
                         fontWeight: FontWeight.bold,
-                        color: Colors.white),
+                        color: kWhiteColour),
                   ),
                   SizedBox(height: 30),
                   Text(
                     "Before you can proceed, head over to your inbox to activate your account.",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white),
+                    style: TextStyle(fontSize: 18, color: kWhiteColour),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 100)
                 ],
               ),
-              ElevatedButton(
-                onPressed: () => _authService.sendVerificationEmail(),
-                child: Text("Resend email"),
+              Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: OutlinedButton(
+                  onPressed: () => _authService.sendVerificationEmail(),
+                  child: Text(
+                    "Resend email",
+                    style: TextStyle(color: kWhiteColour.withOpacity(0.7)),
+                  ),
+                  style: ButtonStyle(
+                    side: MaterialStateProperty.all(BorderSide(
+                      color: kWhiteColour.withOpacity(0.8),
+                      width: 1,
+                    )),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                        EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0)),
+                    textStyle: MaterialStateProperty.all(
+                        Theme.of(context).textTheme.bodyMedium),
+                    shape: MaterialStateProperty.all(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

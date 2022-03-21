@@ -11,6 +11,7 @@ import 'package:project_seg/constants/colours.dart';
 
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
+
   static PageController controller =
       PageController(viewportFraction: 1, keepPage: true);
 
@@ -50,9 +51,10 @@ class _FeedScreenState extends State<FeedScreen> {
         future: FirestoreService.getProfileContainers(uid, 1000),
         builder: (context, AsyncSnapshot<Queue<ProfileContainer>> snapshot) {
           displayedContainers = snapshot.data;
-          print(displayedContainers!.length);
 
           if (displayedContainers != null) {
+            //print(displayedContainers!.length);
+
             return Container(
               color: kTertiaryColour,
               child: Stack(
@@ -63,10 +65,13 @@ class _FeedScreenState extends State<FeedScreen> {
                   //   width: 300,
                   //   child: Lottie.asset('assets/lotties/loading-dots.json'),
                   // ),
-                  PageView(
-                    controller: FeedScreen.controller,
-                    scrollDirection: Axis.vertical,
-                    children: displayedContainers!.toList(),
+                  RefreshIndicator(
+                    onRefresh: () => refreshProfileContainers(uid, 1000),
+                    child: PageView(
+                      controller: FeedScreen.controller,
+                      scrollDirection: Axis.vertical,
+                      children: displayedContainers!.toList(),
+                    ),
                   ),
                 ],
               ),
@@ -84,5 +89,17 @@ class _FeedScreenState extends State<FeedScreen> {
         color: kTertiaryColour,
       );
     }
+  }
+
+  Future<void> refreshProfileContainers(uid, recs) async {
+    Queue<ProfileContainer>? newContainers =
+        await FirestoreService.getProfileContainers(uid, 3);
+
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      displayedContainers = newContainers;
+      print(displayedContainers!.length);
+    });
   }
 }

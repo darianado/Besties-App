@@ -1,56 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
 
-class EditDialogDropdown extends StatefulWidget {
-  final List<String> items;
-  String? value;
-  final Function(String?) onSave;
+class EditDialogTextField extends StatefulWidget {
+  String value;
+  final Function(String?, String) onSave;
 
-  EditDialogDropdown({Key? key, required this.items, value, required this.onSave})
-      : value = safelyGetValue(items, value),
-        super(key: key);
-
-  static String? safelyGetValue(List<String> items, String? proposedValue) {
-    if (proposedValue != null && items.contains(proposedValue)) return proposedValue;
-    if (items.isNotEmpty) return items.first;
-    return null;
-  }
+  EditDialogTextField({Key? key, required this.value, required this.onSave}) : super(key: key);
 
   @override
-  State<EditDialogDropdown> createState() => _EditDialogDropdownState();
+  State<EditDialogTextField> createState() => _EditDialogTextFieldState();
 }
 
-class _EditDialogDropdownState extends State<EditDialogDropdown> {
+class _EditDialogTextFieldState extends State<EditDialogTextField> {
+  TextEditingController _textFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final _contextState = Provider.of<ContextState>(context);
     final _userState = Provider.of<UserState>(context);
+
+    _textFieldController.text = widget.value;
 
     return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(13))),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
+        padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            DropdownButton(
-              isExpanded: true,
-              items: widget.items
-                  .map(
-                    (str) => DropdownMenuItem(
-                      value: str,
-                      child: Text(
-                        str,
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (String? value) => changeSelection(value),
-              value: widget.value,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: kTertiaryColour.withOpacity(0.1),
+              ),
+              child: TextField(
+                controller: _textFieldController,
+                minLines: 1,
+                maxLength: _contextState.context?.maxBioLength ?? 200,
+                maxLines: 10,
+                decoration: InputDecoration(border: InputBorder.none),
+                style: TextStyle(
+                  fontSize: 17,
+                  color: kTertiaryColour,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
@@ -93,7 +96,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                     ),
                     onPressed: () async {
                       Navigator.of(context).pop();
-                      await widget.onSave(widget.value);
+                      await widget.onSave(_userState.user?.user?.uid, _textFieldController.text);
                     },
                     child: Text("Save"),
                   ),
@@ -105,12 +108,5 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
       ),
     );
   }
-
-  void changeSelection(String? selected) {
-    if (selected != null) {
-      setState(() {
-        widget.value = selected;
-      });
-    }
-  }
 }
+

@@ -10,7 +10,7 @@ class Category {
   factory Category.fromSnapshot(DocumentSnapshot<Map> snapshot) {
     Map? data = snapshot.data();
 
-    List<Interest> interests = List<String>.from(data?['entries']).map((str) => Interest(title: str)).toList();
+    List<Interest> interests = List<String>.from(data?['interests']).map((str) => Interest(title: str)).toList();
 
     return Category(
       title: data?['title'],
@@ -19,14 +19,14 @@ class Category {
   }
 
   factory Category.fromMap(Map<String, dynamic> map) {
-    final _interests = List<String>.from(map['entries']).map((e) => Interest(title: e)).toList();
+    final _interests = List<String>.from(map['interests']).map((e) => Interest(title: e)).toList();
     return Category(title: map['title'], interests: _interests);
   }
 
   Map<String, dynamic> toMap() {
     return {
       "title": title,
-      "entries": interests.map((e) => e.title).toList(),
+      "interests": interests.map((e) => e.title).toList(),
     };
   }
 }

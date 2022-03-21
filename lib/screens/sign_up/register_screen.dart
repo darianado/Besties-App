@@ -216,13 +216,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 flex: 1,
                                 child: OutlinedButton(
                                   onPressed: () => context.goNamed("login"),
-                                  style: OutlinedButton.styleFrom(
-                                    primary: kTertiaryColour,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(30))),
-                                    side: const BorderSide(
-                                        color: kTertiaryColour, width: 1.5),
+                                  style: ButtonStyle(
+                                    side: MaterialStateProperty.all(BorderSide(
+                                      color: kTertiaryColour,
+                                      width: 1,
+                                    )),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(7.0)),
+                                    textStyle: MaterialStateProperty.all(
+                                        Theme.of(context).textTheme.bodyMedium),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                    ),
                                   ),
                                   child: const Text(
                                     "Log in",

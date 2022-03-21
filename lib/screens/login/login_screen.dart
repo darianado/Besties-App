@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -60,7 +61,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Theme(
       data: ThemeData(
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: Colors.white),
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: kSimpleWhiteColour),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -72,8 +73,8 @@ class _LogInScreenState extends State<LogInScreen> {
               stops: [0.4, 0.8, 1],
               colors: [
                 kPrimaryColour,
-                Color(0xFF026689),
-                Color(0xFF00CFFF),
+                kLoginBlue,
+                kActiveCardColor,
               ],
             )),
             child: Scaffold(
@@ -88,10 +89,7 @@ class _LogInScreenState extends State<LogInScreen> {
                       ),
                       title: const Text(
                         'BESTIES',
-                        style: TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-                            color: kWhiteColour),
+                        style: kWhiteBoldStyle,
                       ),
                       centerTitle: true,
                       automaticallyImplyLeading: false),
@@ -108,8 +106,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           children: <Widget>[
                             Text(
                               'Log in',
-                              style: TextStyle(
-                                  fontSize: 35, fontWeight: FontWeight.bold),
+                              style: kLogInScreenStyle,
                             ),
                             SizedBox(height: 40),
                             TextFormField(
@@ -152,8 +149,8 @@ class _LogInScreenState extends State<LogInScreen> {
                               alignment: Alignment.bottomRight,
                               child: TextButton(
                                 child: const Text('Forget password?',
-                                    style: TextStyle(
-                                        fontSize: 12, color: kWhiteColour)),
+                                    style: kLogInPasswordStyle,
+                                ),
                                 onPressed: () {
                                   context.pushNamed("recover_password");
                                 },
@@ -176,8 +173,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                         )
                                       : Text(
                                           "Log In",
-                                          style:
-                                              TextStyle(color: kTertiaryColour),
+                                          style: kTertiaryColourTextStyle,
                                         ),
                                   style: ButtonStyle(
                                     backgroundColor:
@@ -212,17 +208,28 @@ class _LogInScreenState extends State<LogInScreen> {
                                     child: OutlinedButton(
                                       onPressed: () =>
                                           context.pushNamed("register"),
-                                      style: OutlinedButton.styleFrom(
-                                        primary: kWhiteColour,
-                                        shape: const RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(30))),
-                                        side: const BorderSide(
-                                            color: kWhiteColour, width: 1.5),
+                                      style: ButtonStyle(
+                                        side: MaterialStateProperty.all(
+                                            BorderSide(
+                                          color: kWhiteColour,
+                                          width: 1,
+                                        )),
+                                        padding: MaterialStateProperty.all<
+                                            EdgeInsets>(EdgeInsets.all(10.0)),
+                                        textStyle: MaterialStateProperty.all(
+                                            Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium),
+                                        shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(40),
+                                          ),
+                                        ),
                                       ),
                                       child: const Text("Sign up",
-                                          style:
-                                              TextStyle(color: kWhiteColour)),
+                                          style: kWhiteColourTextStyle,
+                                      ),
                                     ),
                                   ),
                                 ],

@@ -79,7 +79,6 @@ class UserData {
       this.bio,
       this.relationshipStatus,
       this.categorizedInterests,
-      this.location,
       this.profileImageUrl,
       this.preferences,
       this.firstName,
@@ -103,7 +102,6 @@ class UserData {
       relationshipStatus: data?['relationshipStatus'],
       profileImageUrl: data?['profileImageUrl'],
       categorizedInterests: _categorizedInterests,
-      location: GeoLocation.fromMap(data?['location']),
       preferences: Preferences.fromMap(data?['preferences']),
     );
   }

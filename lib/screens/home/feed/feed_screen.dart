@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -9,15 +10,33 @@ import '../../../models/profile_container.dart';
 import 'package:project_seg/constants/colours.dart';
 
 class FeedScreen extends StatefulWidget {
-  const FeedScreen({Key? key}) : super(key: key);
+  FeedScreen({Key? key}) : super(key: key);
+  static PageController controller =
+      PageController(viewportFraction: 1, keepPage: true);
+
+  static void animateToTop() {
+    controller.animateToPage(0,
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+  }
 
   @override
   _FeedScreenState createState() => _FeedScreenState();
 }
 
 class _FeedScreenState extends State<FeedScreen> {
-  Queue<ProfileContainer>? availableContainers = Queue();
-  Queue<ProfileContainer> displayedContainers = Queue();
+  Queue<ProfileContainer>? displayedContainers = Queue();
+
+  double? currentPageValue = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    FeedScreen.controller.addListener(() {
+      setState(() {
+        currentPageValue = FeedScreen.controller.page;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +49,10 @@ class _FeedScreenState extends State<FeedScreen> {
       return FutureBuilder(
         future: FirestoreService.getProfileContainers(uid, 1000),
         builder: (context, AsyncSnapshot<Queue<ProfileContainer>> snapshot) {
-          availableContainers = snapshot.data;
-          print(availableContainers!.length);
+          displayedContainers = snapshot.data;
+          print(displayedContainers!.length);
 
-          if (availableContainers != null) {
-            initialiseContainers(2);
-            print(displayedContainers.length);
+          if (displayedContainers != null) {
             return Container(
               color: kTertiaryColour,
               child: Stack(
@@ -47,13 +64,9 @@ class _FeedScreenState extends State<FeedScreen> {
                   //   child: Lottie.asset('assets/lotties/loading-dots.json'),
                   // ),
                   PageView(
+                    controller: FeedScreen.controller,
                     scrollDirection: Axis.vertical,
-                    children: displayedContainers.toList(),
-                    onPageChanged: (p) => setState(
-                      () {
-                        updateContainerList(1);
-                      },
-                    ),
+                    children: displayedContainers!.toList(),
                   ),
                 ],
               ),
@@ -71,21 +84,5 @@ class _FeedScreenState extends State<FeedScreen> {
         color: kTertiaryColour,
       );
     }
-  }
-
-  void initialiseContainers(int nOfContainers) {
-    for (int i = 0; i < nOfContainers; i++) {
-      displayedContainers.add(availableContainers!.removeFirst());
-    }
-  }
-
-  void updateContainerList(int nOfContainers) async {
-    for (int i = 0; i < nOfContainers; i++) {
-      displayedContainers.add(availableContainers!.removeFirst());
-    }
-
-    displayedContainers.removeFirst();
-    print("AvailableContainers: " + availableContainers!.length.toString());
-    print("DisplayedContainers: " + displayedContainers.length.toString());
   }
 }

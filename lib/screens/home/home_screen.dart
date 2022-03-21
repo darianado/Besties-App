@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
 import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -58,6 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeSelection(int index) {
+    if(index == _selectedIndex){
+      FeedScreen.animateToTop();
+    }
     context.go("/" + pathOfIndex(index));
   }
 

@@ -13,11 +13,6 @@ const double kProfileLocationFontSize = 18;
 
 
 
-//border for chip widget
-const kBorderRadiusChip = BorderRadius.all(
-  Radius.circular(100),
-);
-
 
 class GStyle {
     // notificatio 

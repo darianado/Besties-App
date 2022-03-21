@@ -40,7 +40,8 @@ const kLightTertiaryColour = Color.fromARGB(26, 3, 64, 120);
 const kGradientColour = Color.fromARGB(0, 255, 255, 255);
 
 //standard colours
-Color kGreyShadeDark = Colors.grey.shade500;
+const Color kGreyShadeDark = Colors.grey.shade500;
 //const kTransparent =  Colors.transparent;
-Color kSimpleWhiteColour = Colors.white;
-Color kIndigoColour = Colors.indigo;
+const Color kSimpleWhiteColour = Colors.white;
+const Color kIndigoColour = Colors.indigo;
+const Color kRedColour = Colors.red;

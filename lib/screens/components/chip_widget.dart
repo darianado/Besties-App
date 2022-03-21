@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 
+import '../../constants/borders.dart';
+
 class ChipWidget extends StatelessWidget {
   final Color color;
   final bool bordered;
@@ -42,9 +44,7 @@ class ChipWidget extends StatelessWidget {
                 color: color,
                 width: 1,
               ),
-              borderRadius: const BorderRadiusDirectional.all(
-                Radius.circular(100),
-              ),
+              borderRadius: kAllDirectionalCircularBorder,
               color: (bordered == true) ? null : color),
           child: Padding(
             padding: EdgeInsets.all(((mini) ? 6.0 : 9.0)),

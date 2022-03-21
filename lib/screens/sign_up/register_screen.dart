@@ -56,8 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       setState(() {
         isLoading = false;
       });
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
   }
@@ -110,129 +109,115 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Padding(
                   padding: EdgeInsets.fromLTRB(22, 0, 22, 30),
                   //  autovalidate: true,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Sign up',
-                          style: kRegisterPageStyle,
+                  child:
+                      Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+                    Text(
+                      'Sign up',
+                      style: kRegisterPageStyle,
+                    ),
+                    SizedBox(height: 40),
+                    TextFormField(
+                      controller: _email,
+                      decoration: const InputDecoration(
+                          border: UnderlineInputBorder(), icon: Icon(Icons.email, color: kTertiaryColour), labelText: 'Email address'),
+                      validator: (value) => !isEmail(_email.text) ? "Invalid Email" : null,
+                      textInputAction: TextInputAction.next,
+                    ),
+                    SizedBox(height: 30),
+                    TextFormField(
+                      controller: _password,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: UnderlineInputBorder(),
+                        icon: Icon(
+                          Icons.lock,
+                          color: kTertiaryColour,
                         ),
-                        SizedBox(height: 40),
-                        TextFormField(
-                          controller: _email,
-                          decoration: const InputDecoration(
-                              border: UnderlineInputBorder(),
-                              icon: Icon(Icons.email, color: kTertiaryColour),
-                              labelText: 'Email address'),
-                          validator: (value) =>
-                              !isEmail(_email.text) ? "Invalid Email" : null,
-                          textInputAction: TextInputAction.next,
-                        ),
-                        SizedBox(height: 30),
-                        TextFormField(
-                          controller: _password,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                            border: UnderlineInputBorder(),
-                            icon: Icon(
-                              Icons.lock,
-                              color: kTertiaryColour,
-                            ),
-                            labelText: 'Password',
+                        labelText: 'Password',
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                      textInputAction: TextInputAction.next,
+                    ),
+                    SizedBox(height: 30),
+                    TextFormField(
+                      controller: _confirmPassword,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                          border: UnderlineInputBorder(),
+                          icon: Icon(
+                            Icons.lock,
+                            color: kTertiaryColour,
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          textInputAction: TextInputAction.next,
-                        ),
-                        SizedBox(height: 30),
-                        TextFormField(
-                          controller: _confirmPassword,
-                          obscureText: true,
-                          decoration: const InputDecoration(
-                              border: UnderlineInputBorder(),
-                              icon: Icon(
-                                Icons.lock,
-                                color: kTertiaryColour,
-                              ),
-                              labelText: 'Confirm password'),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            if (value != _password.text) {
-                              return "Please type the same password";
-                            }
-                            return null;
-                          },
-                        ),
-                        SizedBox(height: 40),
-                        SizedBox(
-                          width: double.infinity,
-                          height: 0.07 * screenHeight,
-                          child: ElevatedButton(
-                            onPressed: () => submitForm(_formKey),
-                            child: (isLoading)
-                                ? SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: CircularProgressIndicator(
-                                      color: kWhiteColour,
-                                      strokeWidth: 3,
-                                    ),
-                                  )
-                                : Text("Register"),
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(kTertiaryColour),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(10.0)),
-                              textStyle: MaterialStateProperty.all(
-                                  Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      ?.apply(fontWeightDelta: 2)),
-                              shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              const Expanded(
-                                flex: 2,
-                                child: Text(
-                                  'Have an account? Log in now?',
+                          labelText: 'Confirm password'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        if (value != _password.text) {
+                          return "Please type the same password";
+                        }
+                        return null;
+                      },
+                    ),
+                    SizedBox(height: 40),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 0.07 * screenHeight,
+                      child: ElevatedButton(
+                        onPressed: () => submitForm(_formKey),
+                        child: (isLoading)
+                            ? SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: CircularProgressIndicator(
+                                  color: kWhiteColour,
+                                  strokeWidth: 3,
                                 ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: OutlinedButton(
-                                  onPressed: () => context.goNamed("login"),
-                                  style: ButtonStyle(
-                                    side: MaterialStateProperty.all(kBorderSideTertiaryColour2),
-                                    padding:
-                                        MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.all(7.0)),
-                                    textStyle: MaterialStateProperty.all(
-                                        Theme.of(context).textTheme.bodyMedium),
-                                    shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                                  ),
-                                  child: const Text(
-                                    "Log in",
-                                    style: kTertiaryStyle,
-                                  ),
-                                ),
-                              ),
-                            ],
+                              )
+                            : Text("Register"),
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all(kTertiaryColour),
+                          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
+                          textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.headline5?.apply(fontWeightDelta: 2)),
+                          shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    Container(
+                      child: Row(
+                        children: <Widget>[
+                          const Expanded(
+                            flex: 2,
+                            child: Text(
+                              'Have an account? Log in now?',
+                            ),
                           ),
-                        )
-                      ]),
+                          Expanded(
+                            flex: 1,
+                            child: OutlinedButton(
+                              onPressed: () => context.goNamed("login"),
+                              style: ButtonStyle(
+                                side: MaterialStateProperty.all(kBorderSideTertiaryColour2),
+                                padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(7.0)),
+                                textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
+                                shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
+                              ),
+                              child: const Text(
+                                "Log in",
+                                style: kTertiaryStyle,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ]),
                 ),
               ),
             ))));

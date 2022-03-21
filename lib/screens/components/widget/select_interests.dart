@@ -153,9 +153,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                 children: [
                   Text(
                     widget.category.title,
-                    style: TextStyle(
-                        fontSize: 25
-                    ),
+                    style: TextStyle(fontSize: 25),
                   ),
                 ],
               ),
@@ -265,9 +263,7 @@ class CategoryView extends StatelessWidget {
                       children: [
                         Text(
                           category.title,
-                          style: TextStyle(
-                              fontSize: 20
-                          ),
+                          style: TextStyle(fontSize: 20),
                         ),
                         Icon(Icons.arrow_downward),
                       ],

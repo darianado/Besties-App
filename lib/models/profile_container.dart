@@ -192,8 +192,8 @@ class PartialProfileDetails extends StatelessWidget {
             child: Text(
               profile.university ?? "null",
               style: kProfileContainerUniversityStyle,
-              ),
             ),
+          ),
         ]),
       ],
     );
@@ -210,27 +210,28 @@ class CompleteProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: kSecondaryColour,
-                ),
+      height: MediaQuery.of(context).size.height * 0.70,
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.school_outlined,
+                color: kSecondaryColour,
               ),
-              Text(
-                profile.university ?? " ",
-                style: kProfileContainerUniversityStyle,
-              ),
-            ],
-          ),
-        ));
+            ),
+            Text(
+              profile.university ?? " ",
+              style: kProfileContainerUniversityStyle,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

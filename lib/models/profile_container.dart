@@ -210,31 +210,32 @@ class CompleteProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: kSecondaryColour,
-                ),
+      height: MediaQuery.of(context).size.height * 0.70,
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.school_outlined,
+                color: kSecondaryColour,
               ),
-              Text(
-                profile.university ?? " ",
-                style: const TextStyle(
-                  fontSize: kProfileLocationFontSize,
-                  color: kSecondaryColour,
-                  fontWeight: FontWeight.w300,
-                ),
+            ),
+            Text(
+              profile.university ?? " ",
+              style: const TextStyle(
+                fontSize: kProfileLocationFontSize,
+                color: kSecondaryColour,
+                fontWeight: FontWeight.w300,
               ),
-            ],
-          ),
-        ));
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

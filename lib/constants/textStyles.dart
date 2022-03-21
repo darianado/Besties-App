@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'constant.dart';
 
 const kLabelTextStyle = TextStyle(
+  color: kInactiveSliderColor,
   fontSize: 18.0,
-  color: Color(0xFF8D8E98),
 );
 
 const kNumberTextStyle = TextStyle(
@@ -34,8 +34,8 @@ const kTitleTextStyle = TextStyle(
 );
 
 const kResultTextStyle = TextStyle(
+  color: kLightGreen,
   fontSize: 22.0,
-  color: Color(0xFF24D876),
   fontWeight: FontWeight.bold,
 );
 
@@ -69,11 +69,11 @@ const kInactiveSliderStyle = TextStyle(
 );
 
 const kRedTextStyle = TextStyle(
-    color: Colors.red
+    color: kRedColour,
 );
 
 const kUnreadTextStyle = TextStyle(
-  color: Colors.grey,
+  color: kGreyColour,
   fontSize: 12,
   fontWeight: FontWeight.bold,
 );
@@ -103,15 +103,15 @@ const kTertiaryStyle = TextStyle(
 
 //text style for profile details
  TextStyle kInterestMatchedStyle = TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 12,
   color: kPrimaryColour.withOpacity(0.3),
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
 );
 
 const kNoInterestStyle = TextStyle(
-  fontWeight: FontWeight.bold,
-  fontSize: 12,
   color: kTertiaryColour,
+  fontSize: 12,
+  fontWeight: FontWeight.bold,
 );
 
 //landing page
@@ -127,34 +127,34 @@ const kLandingPageTitleStyle = TextStyle(
 
 //register_screen page
 const kRegisterPageStyle = TextStyle(
+  color: kTertiaryColour,
   fontSize: 35,
   fontWeight: FontWeight.bold,
-  color: kTertiaryColour,
 );
 
 //register interests page
 const kRegisterUserPagesStyle = TextStyle(
-    fontSize: 30.0,
-    fontWeight: FontWeight.bold,
-    color: kSecondaryColour,
+  color: kSecondaryColour,
+  fontSize: 30.0,
+  fontWeight: FontWeight.bold,
 );
 
  TextStyle kRegisterUserComponentsStyle = TextStyle(
-  fontSize: 13.0,
-  fontWeight: FontWeight.bold,
-  color: kPrimaryColour.withOpacity(0.5),
+   color: kPrimaryColour.withOpacity(0.5),
+   fontSize: 13.0,
+   fontWeight: FontWeight.bold,
 );
 
  //profile constainer
 const kProfileContainerStyle = TextStyle(
-  fontSize: kProfileNameFontSize,
   color: kSecondaryColour,
+  fontSize: kProfileNameFontSize,
   fontWeight: FontWeight.bold,
 );
 
 const kProfileContainerUniversityStyle = TextStyle(
-  fontSize: kProfileLocationFontSize,
   color: kSecondaryColour,
+  fontSize: kProfileLocationFontSize,
   fontWeight: FontWeight.w300,
 );
 
@@ -167,9 +167,9 @@ const kProfileDetailsNameStyle = TextStyle(
 
 // email verify
 const TextStyle kWhiteBoldStyle = TextStyle(
-    fontSize: 35,
-    fontWeight: FontWeight.bold,
-    color: kWhiteColour,
+  color: kWhiteColour,
+  fontSize: 35,
+  fontWeight: FontWeight.bold,
 );
 
 TextStyle kResendEmailStyle = TextStyle(
@@ -177,8 +177,9 @@ TextStyle kResendEmailStyle = TextStyle(
 );
 
 TextStyle kEmailCheckStyle = TextStyle(
-  fontSize: 18,
   color: kWhiteColour,
+  fontSize: 18,
+
 );
 
 //login screen
@@ -188,8 +189,8 @@ const TextStyle kLogInScreenStyle = TextStyle(
 );
 
 const TextStyle kLogInPasswordStyle = TextStyle(
-    fontSize: 12,
-    color: kWhiteColour,
+  color: kWhiteColour,
+  fontSize: 12,
 );
 
 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
-import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../constants/textStyles.dart';
 import '../screens/components/sliding_profile_details.dart';
+import '../screens/components/widget/widgets.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';
 import 'Interests/category.dart';
@@ -49,7 +50,7 @@ class ProfileContainer extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(25.0),
+              padding: const EdgeInsets.all(25.0),
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
@@ -151,10 +152,7 @@ class LikeProfileButton extends StatelessWidget {
         likeProfile(context);
       },
       backgroundColor: kSecondaryColour,
-      child: const Icon(
-        Icons.thumb_up_off_alt_rounded,
-        color: kWhiteColour,
-      ),
+      child: buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
     );
   }
 }
@@ -177,7 +175,7 @@ class PartialProfileDetails extends StatelessWidget {
           maxLines: 2,
           style: kProfileContainerStyle,
         ),
-        SizedBox(height: 3),
+        const SizedBox(height: 3),
         Row(children: [
           const Padding(
             padding: EdgeInsets.only(right: 7.5),
@@ -218,12 +216,10 @@ class CompleteProfileDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
+               Padding(
                 padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: kSecondaryColour,
-                ),
+                child: buildIcons(Icons.school_outlined, kSecondaryColour),
+
               ),
               Text(
                 profile.university ?? " ",
@@ -233,4 +229,6 @@ class CompleteProfileDetails extends StatelessWidget {
           ),
         ));
   }
+
+
 }

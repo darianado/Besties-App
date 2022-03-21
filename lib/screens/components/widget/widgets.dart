@@ -102,13 +102,13 @@ Expanded buildNameSpace(@required String spaceLabel, @required TextEditingContro
   );
 }
 
-Icon buildIcon(IconData iconInput, Color colorInput) {
-  return Icon(
-    iconInput,
-    color: colorInput,
-    size: 24.0,
-  );
-}
+// Icon buildIconFixedSize(IconData iconInput, Color colourInput) {
+//   return Icon(
+//     iconInput,
+//     color: colourInput,
+//     size: 24.0,
+//   );
+// }
 
 SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
   double screenWidth = MediaQuery.of(context).size.width;
@@ -136,6 +136,8 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
     ),
   );
 }
+
+
 
 
 

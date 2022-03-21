@@ -33,3 +33,5 @@ const kWhiteColourShade2 = Color(0xFFE2F9FE);
 const kWhiteColourShade3 = Color(0xFFD8F8FF);
 
 const kLightTertiaryColour = Color.fromARGB(26, 3, 64, 120);
+const kGradientColour = Color.fromARGB(0, 255, 255, 255);
+

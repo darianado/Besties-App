@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'colours.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'constant.dart';
+
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
@@ -135,6 +137,20 @@ const kRegisterUserPagesStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: kPrimaryColour.withOpacity(0.5),
 );
+
+ //profile constainer
+const kProfileContainerStyle = TextStyle(
+  fontSize: kProfileNameFontSize,
+  color: kSecondaryColour,
+  fontWeight: FontWeight.bold,
+);
+
+const kProfileContainerUniversityStyle = TextStyle(
+  fontSize: kProfileLocationFontSize,
+  color: kSecondaryColour,
+  fontWeight: FontWeight.w300,
+);
+
 
 
 

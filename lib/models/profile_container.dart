@@ -3,6 +3,7 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:provider/provider.dart';
 import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
+import '../constants/textStyles.dart';
 import '../screens/components/sliding_profile_details.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';
@@ -39,7 +40,7 @@ class ProfileContainer extends StatelessWidget {
               gradient: LinearGradient(
                 colors: <Color>[
                   kWhiteColour,
-                  Color.fromARGB(0, 255, 255, 255),
+                  kGradientColour,
                 ],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
@@ -47,7 +48,7 @@ class ProfileContainer extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(25.0),
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
@@ -177,11 +178,7 @@ class PartialProfileDetails extends StatelessWidget {
         Text(
           profile.firstName ?? " ",
           maxLines: 2,
-          style: const TextStyle(
-            fontSize: kProfileNameFontSize,
-            color: kSecondaryColour,
-            fontWeight: FontWeight.bold,
-          ),
+          style: kProfileContainerStyle,
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -197,13 +194,9 @@ class PartialProfileDetails extends StatelessWidget {
           Expanded(
             child: Text(
               profile.university ?? "null",
-              style: const TextStyle(
-                fontSize: kProfileLocationFontSize,
-                color: kSecondaryColour,
-                fontWeight: FontWeight.w300,
+              style: kProfileContainerUniversityStyle,
               ),
             ),
-          ),
         ]),
       ],
     );
@@ -237,11 +230,7 @@ class CompleteProfileDetails extends StatelessWidget {
               ),
               Text(
                 profile.university ?? " ",
-                style: const TextStyle(
-                  fontSize: kProfileLocationFontSize,
-                  color: kSecondaryColour,
-                  fontWeight: FontWeight.w300,
-                ),
+                style: kProfileContainerUniversityStyle,
               ),
             ],
           ),

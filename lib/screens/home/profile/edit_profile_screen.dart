@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/interest.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
@@ -52,11 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _bioController.text = _userState.user?.userData?.bio ?? "-";
 
     void pickImage() async {
-      XFile? file = await _picker.pickImage(
-          source: ImageSource.gallery,
-          maxHeight: 800,
-          maxWidth: 800,
-          imageQuality: 90);
+      XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
       if (file == null) return;
 
       setState(() {
@@ -69,8 +67,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1.5),
         aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
       );
-      String? url = await StorageService.instance
-          .changeUserPhoto(_userState.user!.user!.uid, f);
+      String? url = await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
 
       if (url != null) FirestoreService.instance.setProfileImageUrl(url);
 
@@ -98,8 +95,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context
-                          .pushNamed("home", params: {'page': 'profile'}),
+                      onPressed: () => context.pushNamed("home", params: {'page': 'profile'}),
                       icon: Icon(
                         Icons.check,
                         color: kWhiteColour,
@@ -122,8 +118,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          CachedImage(
-                              url: _userState.user?.userData?.profileImageUrl),
+                          CachedImage(url: _userState.user?.userData?.profileImageUrl),
                           Column(
                             children: [
                               Expanded(
@@ -166,8 +161,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     editable: true,
                     wiggling: true,
                     label: _userState.user?.userData?.university ?? "",
-                    onSave: (university) =>
-                        saveUniversity(_userState.user?.user?.uid, university),
+                    onSave: (university) => saveUniversity(_userState.user?.user?.uid, university),
                   ),
                   SizedBox(
                     height: 10,
@@ -182,25 +176,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         editable: true,
                         wiggling: true,
                         label: "${_userState.user?.userData?.age}",
-                        onSave: (dateOfBirth) => saveDateOfBirth(
-                            _userState.user?.user?.uid, dateOfBirth),
+                        onSave: (dateOfBirth) => saveDateOfBirth(_userState.user?.user?.uid, dateOfBirth),
                       ),
                       GenderButtton(
                         editable: true,
                         wiggling: true,
                         label: _userState.user?.userData?.gender ?? "",
-                        onSave: (gender) =>
-                            saveGender(_userState.user?.user?.uid, gender),
+                        onSave: (gender) => saveGender(_userState.user?.user?.uid, gender),
                       ),
                       RelationshipStatusButton(
                           editable: true,
                           wiggling: true,
-                          label:
-                              _userState.user?.userData?.relationshipStatus ??
-                                  "",
-                          onSave: (relationshipStatus) =>
-                              saveRelationshipStatus(_userState.user?.user?.uid,
-                                  relationshipStatus)),
+                          label: _userState.user?.userData?.relationshipStatus ?? "",
+                          onSave: (relationshipStatus) => saveRelationshipStatus(_userState.user?.user?.uid, relationshipStatus)),
                     ],
                   ),
                   SizedBox(
@@ -231,8 +219,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   DisplayInterests(
                     wiggling: true,
-                    onTap: () => print("Tapped!"),
+                    editable: true,
+                    onSave: (categorizedInterests) {
+                      print("Got new interests: ");
+                      print(categorizedInterests?.toList());
+                      saveInterests(_userState.user?.user?.uid, categorizedInterests);
+                    },
                     items: _userState.user?.userData?.flattenedInterests ?? [],
+                  ),
+                  SizedBox(
+                    height: 50,
                   ),
                 ],
               ),
@@ -249,8 +245,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  Future<void> saveRelationshipStatus(
-      String? userId, String? relationshipStatus) async {
+  Future<void> saveRelationshipStatus(String? userId, String? relationshipStatus) async {
     if (userId != null && relationshipStatus != null) {
       await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
     }
@@ -265,6 +260,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> saveUniversity(String? userId, String? university) async {
     if (userId != null && university != null) {
       await _firestoreService.setUniversity(userId, university);
+    }
+  }
+
+  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
+    if (userId != null && interests != null) {
+      await _firestoreService.setInterests(userId, interests);
     }
   }
 }
@@ -284,8 +285,7 @@ class ShakeWidget extends StatelessWidget {
   }) : super(key: key);
 
   /// convert 0-1 to 0-1-0
-  double shake(double animation) =>
-      2 * (0.5 - (0.5 - curve.transform(animation)).abs());
+  double shake(double animation) => 2 * (0.5 - (0.5 - curve.transform(animation)).abs());
 
   @override
   Widget build(BuildContext context) {

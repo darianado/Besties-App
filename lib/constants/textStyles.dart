@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'colours.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'constant.dart';
+
 const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
   color: Color(0xFF8D8E98),
@@ -17,6 +19,13 @@ const kLargeButtonTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const kTertiaryColourTextStyle = TextStyle(
+    color: kTertiaryColour,
+);
+
+const kWhiteColourTextStyle = TextStyle(
+    color: kWhiteColour,
+);
 
 
 const kTitleTextStyle = TextStyle(
@@ -135,6 +144,57 @@ const kRegisterUserPagesStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: kPrimaryColour.withOpacity(0.5),
 );
+
+ //profile constainer
+const kProfileContainerStyle = TextStyle(
+  fontSize: kProfileNameFontSize,
+  color: kSecondaryColour,
+  fontWeight: FontWeight.bold,
+);
+
+const kProfileContainerUniversityStyle = TextStyle(
+  fontSize: kProfileLocationFontSize,
+  color: kSecondaryColour,
+  fontWeight: FontWeight.w300,
+);
+
+//profile sliding details
+const kProfileDetailsNameStyle = TextStyle(
+  color: kTertiaryColour,
+  fontSize: 40.0,
+  fontWeight: FontWeight.bold,
+);
+
+// email verify
+const TextStyle kWhiteBoldStyle = TextStyle(
+    fontSize: 35,
+    fontWeight: FontWeight.bold,
+    color: kWhiteColour,
+);
+
+TextStyle kResendEmailStyle = TextStyle(
+    color: kWhiteColour.withOpacity(0.7),
+);
+
+TextStyle kEmailCheckStyle = TextStyle(
+  fontSize: 18,
+  color: kWhiteColour,
+);
+
+//login screen
+const TextStyle kLogInScreenStyle = TextStyle(
+    fontSize: 35,
+    fontWeight: FontWeight.bold,
+);
+
+const TextStyle kLogInPasswordStyle = TextStyle(
+    fontSize: 12,
+    color: kWhiteColour,
+);
+
+
+
+
 
 
 

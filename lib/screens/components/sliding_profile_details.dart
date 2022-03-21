@@ -62,11 +62,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                     Text(
                       widget.profile.fullName ?? " ",
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: kTertiaryColour,
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: kProfileDetailsNameStyle,
                     ),
                     const SizedBox(
                       height: 25,

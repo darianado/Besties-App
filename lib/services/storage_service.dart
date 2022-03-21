@@ -26,7 +26,7 @@ class StorageService {
 
       File file = File(image.path);
 
-      String ref = 'user_avatars/$userId/${Uuid().v4()}.png';
+      String ref = 'profile_pictures/$userId/${Uuid().v4()}.png';
 
       //print("This is the file ref: " + ref);
 

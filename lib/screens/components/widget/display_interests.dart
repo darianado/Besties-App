@@ -16,15 +16,17 @@ class DisplayInterests extends StatelessWidget {
   const DisplayInterests({
     Key? key,
     required this.items,
+    this.editable = false,
     this.wiggling = false,
     this.mini = true,
-    this.onTap,
+    this.onSave,
   }) : super(key: key);
 
   final List<Interest> items;
   final bool wiggling;
+  final bool editable;
   final bool mini;
-  final Function(CategorizedInterests?)? onTap;
+  final Function(CategorizedInterests?)? onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -66,17 +68,16 @@ class DisplayInterests extends StatelessWidget {
     final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
-    final _onSave = onTap;
+    final _onSave = onSave;
 
-    if (/*!editable ||*/ (_onSave == null)) return null;
+    if (!editable || (_onSave == null)) return null;
 
     return () => showDialog(
           context: context,
           builder: (BuildContext context) {
             return EditDialogChipDisplay(
               //items: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
-              values: _userState.user?.userData?.categorizedInterests ??
-                  CategorizedInterests(categories: []),
+              values: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

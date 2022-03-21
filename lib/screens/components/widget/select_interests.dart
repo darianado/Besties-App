@@ -95,10 +95,11 @@ class _SelectInterestsState extends State<SelectInterests> {
     CategorizedInterests _localCategories = categories;
 
     _localCategories.categories.forEach((category) {
-      int? _filterCategoryIndex = filter.categories.indexWhere((e) => e.title == category.title);
+      int? _filterCategoryIndex = filter.categories.indexWhere((e) => e.title.toLowerCase() == category.title.toLowerCase());
 
       if (_filterCategoryIndex == -1) {
-        _localCategories.categories.remove(category);
+        //_localCategories.categories.remove(category);
+        // Concurrency error
       } else {
         category.interests.forEach((interest) {
           int _filterInterestIndex =
@@ -177,7 +178,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                               mini: true,
                               onTap: () {
                                 setState(() {
-                                  widget.selected.interests.remove(interest);
+                                  widget.selected.interests.removeWhere((element) => element.title == interest.title);
                                 });
                               },
                             );

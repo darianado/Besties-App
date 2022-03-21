@@ -10,11 +10,8 @@ class EditDialogChipDisplay extends StatefulWidget {
   CategorizedInterests? values;
   final Function(CategorizedInterests?) onSave;
 
-  EditDialogChipDisplay(
-      {Key? key, /*required this.items,*/ values, required this.onSave})
-      : values = /*safelyGetValue(items, value)*/ values == null
-            ? values
-            : null,
+  EditDialogChipDisplay({Key? key, /*required this.items,*/ values, required this.onSave})
+      : values = /*safelyGetValue(items, value)*/ values == null ? values : null,
         super(key: key);
 
   /*static String? safelyGetValue(List<String> items, String? proposedValue) {
@@ -46,8 +43,7 @@ class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
                       widget.values = newCategories;
                     });
                   },
-                  selected: _userState.user?.userData?.categorizedInterests ??
-                      CategorizedInterests(categories: []),
+                  selected: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
                 ),
                 Row(
                   mainAxisSize: MainAxisSize.max,

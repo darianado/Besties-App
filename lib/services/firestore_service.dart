@@ -160,7 +160,7 @@ class FirestoreService {
     return await _firebaseFirestore
         .collection("users")
         .doc(userId)
-        .set({"categorizedInterests": interests}, firestore.SetOptions(merge: true));
+        .set({"categorizedInterests": interests.toList()}, firestore.SetOptions(merge: true));
   }
 
   void saveUserData(UserData data) {

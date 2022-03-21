@@ -8,12 +8,14 @@ import 'package:project_seg/services/context_state.dart';
 import 'package:provider/provider.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
-  RegisterDescriptionScreen({Key? key, required this.userData}) : super(key: key);
+  RegisterDescriptionScreen({Key? key, required this.userData})
+      : super(key: key);
 
   UserData userData;
 
   @override
-  _RegisterDescriptionScreenState createState() => _RegisterDescriptionScreenState();
+  _RegisterDescriptionScreenState createState() =>
+      _RegisterDescriptionScreenState();
 }
 
 class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
@@ -63,7 +65,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(
-                onPressed: () => context.goNamed("register_photo", extra: widget.userData),
+                onPressed: () =>
+                    context.goNamed("register_photo", extra: widget.userData),
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: kPrimaryColour,
@@ -74,11 +77,11 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                 height: double.infinity,
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 5),
+                  padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                   child: Text(
                     '... and a bit more about ${widget.userData.firstName}',
                     style: TextStyle(
-                      fontSize: 29.0,
+                      fontSize: 30.0,
                       fontWeight: FontWeight.bold,
                       color: kSecondaryColour,
                     ),
@@ -116,7 +119,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         editable: true,
                         shouldExpand: true,
                         color: kSecondaryColour,
-                        label: widget.userData.university ?? "Select your university",
+                        label: widget.userData.university ??
+                            "Select your university",
                         onSave: (university) => setState(() {
                           widget.userData.university = university;
                         }),
@@ -164,7 +168,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                                   Radius.circular(10),
                                 ),
                                 borderSide: BorderSide.none),
-                            labelText: "Enter a bio here...",
+                            labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
                             fillColor: kLightTertiaryColour,
@@ -173,13 +177,11 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                           validator: (content) {
-                            if (content == null || content.isEmpty) return "A bio is required";
+                            if (content == null || content.isEmpty)
+                              return "A bio is required";
                           }),
-                      SizedBox(
-                        height: 60,
-                      ),
+                      SizedBox(height: 35),
                       Container(
-                        height: 50,
                         width: double.infinity,
                         child: ElevatedButton(
                           onPressed: () {
@@ -193,18 +195,24 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             }
                             couldNotValidateUniversity = false;
 
-                            context.goNamed("register_interests", extra: widget.userData);
+                            context.goNamed("register_interests",
+                                extra: widget.userData);
                           },
                           child: Text("Next"),
-                          style: ElevatedButton.styleFrom(
-                            primary: kTertiaryColour,
-                            onPrimary: kWhiteColour,
-                            fixedSize: const Size(300, 100),
-                            shadowColor: kTertiaryColour,
-                            elevation: 12,
-                            textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50),
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(kTertiaryColour),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                                EdgeInsets.all(10.0)),
+                            textStyle: MaterialStateProperty.all(
+                                Theme.of(context)
+                                    .textTheme
+                                    .headline5
+                                    ?.apply(fontWeightDelta: 2)),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(40),
+                              ),
                             ),
                           ),
                         ),

@@ -5,6 +5,7 @@ import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'constants.dart';
 import 'firebase_options.dart';
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
+              textTheme: GoogleFonts.nunitoTextTheme((Theme.of(context).textTheme)),
+              /*
               primaryTextTheme: const TextTheme(
                 bodyText1: TextStyle(),
                 bodyText2: TextStyle(),
@@ -55,6 +58,7 @@ class MyApp extends StatelessWidget {
                 bodyColor: Colors.orange,
                 displayColor: Colors.red,
               ),
+              */
               /*
               // Define the default brightness and colors.
               brightness: Brightness.light,

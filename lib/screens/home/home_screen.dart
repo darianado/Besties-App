@@ -59,13 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeSelection(int index) {
-    if(index == _selectedIndex){
+    if (index == 1 && _selectedIndex == 1) {
       FeedScreen.animateToTop();
     }
     context.go("/" + pathOfIndex(index));
   }
 
-  List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();
+  List<Widget> get itemWidgets =>
+      menuData.items.map((e) => e.destinationWidget).toList();
 
   @override
   Widget build(BuildContext context) {

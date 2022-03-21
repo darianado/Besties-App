@@ -162,14 +162,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () => _userState.signOut(),
                     style: ButtonStyle(
                       side: MaterialStateProperty.all(BorderSide(
-                        color: Colors.red.shade200,
+                        color: kRedLightShade,
                         width: 1,
                       )),
                       padding: MaterialStateProperty.all<EdgeInsets>(
                           EdgeInsets.all(10.0)),
                       textStyle: MaterialStateProperty.all(
                           Theme.of(context).textTheme.bodyMedium),
-                      foregroundColor: MaterialStateProperty.all(Colors.red),
+                      foregroundColor: MaterialStateProperty.all(kRedColour),
                       elevation: MaterialStateProperty.all(0),
                     ),
                     child: Row(

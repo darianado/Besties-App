@@ -10,6 +10,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
+import '../../constants/borders.dart';
+
 class RegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -194,11 +196,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       .textTheme
                                       .headline5
                                       ?.apply(fontWeightDelta: 2)),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(40),
-                                ),
-                              ),
+                              shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                             ),
                           ),
                         ),
@@ -217,20 +215,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 child: OutlinedButton(
                                   onPressed: () => context.goNamed("login"),
                                   style: ButtonStyle(
-                                    side: MaterialStateProperty.all(BorderSide(
-                                      color: kTertiaryColour,
-                                      width: 1,
-                                    )),
+                                    side: MaterialStateProperty.all(kBorderSideTertiaryColour2),
                                     padding:
                                         MaterialStateProperty.all<EdgeInsets>(
                                             EdgeInsets.all(7.0)),
                                     textStyle: MaterialStateProperty.all(
                                         Theme.of(context).textTheme.bodyMedium),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                    ),
+                                    shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                                   ),
                                   child: const Text(
                                     "Log in",

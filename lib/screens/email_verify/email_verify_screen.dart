@@ -7,6 +7,7 @@ import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/borders.dart';
 import '../../constants/textStyles.dart';
 
 class EmailVerifyScreen extends StatefulWidget {
@@ -94,14 +95,10 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                         EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0)),
                     textStyle: MaterialStateProperty.all(
                         Theme.of(context).textTheme.bodyMedium),
-                    shape: MaterialStateProperty.all(
-                      RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
-                      ),
+                    shape: MaterialStateProperty.all(kRoundedRectangulareBorder40)
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

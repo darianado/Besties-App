@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:provider/provider.dart';
+import '../constants/borders.dart';
 import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../constants/textStyles.dart';
@@ -52,11 +53,7 @@ class ProfileContainer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20.0),
-                      ),
-                    ),
+                    shape: kRoundedRectangulareBorder,
                     context: context,
                     builder: (context) => SlidingProfileDetails(
                       profile: profile,

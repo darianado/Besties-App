@@ -8,6 +8,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
+import '../../../constants/borders.dart';
+
 class SelectInterests extends StatefulWidget {
   SelectInterests({Key? key, required this.selected, required this.onChange}) : super(key: key);
 
@@ -249,7 +251,7 @@ class CategoryView extends StatelessWidget {
         width: double.infinity,
         child: Material(
           clipBehavior: Clip.hardEdge,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: kCircularBorderRadius15,
           color: kLightTertiaryColour,
           child: InkWell(
             onTap: () => onTap(),

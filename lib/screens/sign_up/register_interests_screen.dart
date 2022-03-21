@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
+import '../../constants/borders.dart';
 import '../../constants/textStyles.dart';
 
 class RegisterInterestsScreen extends StatefulWidget {
@@ -146,11 +147,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                             .textTheme
                             .headline5
                             ?.apply(fontWeightDelta: 2)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
+                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                       ),
                     ),
                   ),

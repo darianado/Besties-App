@@ -6,6 +6,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
+import '../../../constants/borders.dart';
+
 class EditDialogTextField extends StatefulWidget {
   String value;
   final Function(String?, String) onSave;
@@ -36,7 +38,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
               width: double.infinity,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: kCircularBorderRadius10,
                 color: kTertiaryColour.withOpacity(0.1),
               ),
               child: TextField(

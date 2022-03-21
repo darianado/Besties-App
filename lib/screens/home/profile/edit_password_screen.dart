@@ -10,6 +10,8 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../../constants/borders.dart';
+
 class EditPasswordScreen extends StatefulWidget {
   @override
   _EditPasswordScreenState createState() => _EditPasswordScreenState();
@@ -101,7 +103,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                 const EdgeInsets.symmetric(horizontal: 12.0),
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: kCircularBorderRadius10,
                               color: kTertiaryColour.withOpacity(0.1),
                             ),
                             child: TextFormField(
@@ -129,7 +131,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                 const EdgeInsets.symmetric(horizontal: 12.0),
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: kCircularBorderRadius10,
                               color: kTertiaryColour.withOpacity(0.1),
                             ),
                             child: TextFormField(
@@ -160,7 +162,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                 const EdgeInsets.symmetric(horizontal: 12.0),
                             width: double.infinity,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: kCircularBorderRadius10,
                               color: kTertiaryColour.withOpacity(0.1),
                             ),
                             child: TextFormField(
@@ -211,11 +213,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                         .textTheme
                                         .headline5
                                         ?.apply(fontWeightDelta: 2)),
-                                shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(40),
-                                  ),
-                                ),
+                                shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                               ),
                             ),
                           ),

@@ -41,6 +41,9 @@ const kGradientColour = Color.fromARGB(0, 255, 255, 255);
 
 //standard colours
 Color kGreyShadeDark = Colors.grey.shade500;
+Color kRedLightShade = Colors.red.shade200;
+
 //const kTransparent =  Colors.transparent;
-Color kSimpleWhiteColour = Colors.white;
-Color kIndigoColour = Colors.indigo;
+const Color kSimpleWhiteColour = Colors.white;
+const Color kIndigoColour = Colors.indigo;
+const Color kRedColour = Colors.red;

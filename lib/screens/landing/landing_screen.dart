@@ -24,9 +24,9 @@ class _LandingScreenState extends State<LandingScreen> {
         stops: [0.1, 0.2, 1],
         colors: [
           // Color(0xFF827081),
-          Color(0xFF00CFFF),
-          Color(0xFF01B3E0),
-          Color(0xFF041731),
+          kActiveCardColor,
+          kSecondColourLanding,
+          kShadowLanding,
         ],
       )),
       child: Scaffold(

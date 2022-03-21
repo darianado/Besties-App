@@ -7,6 +7,8 @@ import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/textStyles.dart';
+
 class EmailVerifyScreen extends StatefulWidget {
   const EmailVerifyScreen({Key? key}) : super(key: key);
 
@@ -64,15 +66,12 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   ),
                   Text(
                     "You've got mail!",
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: kWhiteColour),
+                    style: kWhiteBoldStyle,
                   ),
                   SizedBox(height: 30),
                   Text(
                     "Before you can proceed, head over to your inbox to activate your account.",
-                    style: TextStyle(fontSize: 18, color: kWhiteColour),
+                    style: kEmailCheckStyle,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 100)
@@ -84,7 +83,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   onPressed: () => _authService.sendVerificationEmail(),
                   child: Text(
                     "Resend email",
-                    style: TextStyle(color: kWhiteColour.withOpacity(0.7)),
+                    style: kResendEmailStyle,
                   ),
                   style: ButtonStyle(
                     side: MaterialStateProperty.all(BorderSide(

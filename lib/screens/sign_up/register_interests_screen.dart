@@ -41,7 +41,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             pinned: true,
             automaticallyImplyLeading: false,
             foregroundColor: kTertiaryColour,
-            backgroundColor: Colors.white,
+            backgroundColor: kSimpleWhiteColour,
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(

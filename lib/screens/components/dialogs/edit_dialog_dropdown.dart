@@ -29,7 +29,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
 
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(13))),
+          borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
         child: Column(

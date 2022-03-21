@@ -14,7 +14,7 @@ class GStyle {
             alignment: Alignment.center, height: !isdot ? height : height/2, width: !isdot ? width : width/2,
             decoration: BoxDecoration(
                 color: color,
-                borderRadius: kCircularBorderRadius,
+                borderRadius: kCircularBorderRadius100,
             ),
             //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
         );

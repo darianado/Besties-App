@@ -66,13 +66,13 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
                       onPrimary: Color(0xFF0A1128),
                       side: BorderSide(color: Colors.grey, width: 1),
                       fixedSize: const Size(100, 30),
-                      shadowColor: Color(0xFF0083A1),
-                      elevation: 4,
+                      //shadowColor: Color(0xFF0083A1),
+                      //elevation: 4,
                       textStyle: const TextStyle(
                         fontSize: 17,
                       ),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text("Cancel"),
@@ -86,13 +86,13 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
                     style: ElevatedButton.styleFrom(
                       primary: Color(0xFF001F54),
                       fixedSize: const Size(100, 30),
-                      shadowColor: Color(0xFF0083A1),
-                      elevation: 4,
+                      //shadowColor: Color(0xFF0083A1),
+                      //elevation: 4,
                       textStyle: const TextStyle(
                         fontSize: 17,
                       ),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
                     ),
                     onPressed: () async {
                       Navigator.of(context).pop();

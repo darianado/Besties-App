@@ -1,21 +1,31 @@
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
-import 'package:project_seg/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
+
+class GStyle {
+    // 消息红点
+    static badge({Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
+        return Container(
+            alignment: Alignment.center, height: !isdot ? height : height/2, width: !isdot ? width : width/2,
+            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(100.0)),
+            //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
+        );
+    }
+}
 
 class RecentChats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final userUrl = _userState.user?.user?.photoURL;
-
+    //final _userState = Provider.of<UserState>(context);
+    //final userUrl = _userState.user?.user?.photoURL;
+    
     return Expanded(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             color: kChatList,
         ),
         child: ClipRRect(
@@ -27,12 +37,13 @@ class RecentChats extends StatelessWidget {
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => ChatScreen(user: chat.senderEmail))),
+                          builder: (_) => ChatScreen(user: chat.senderEmail))
+                          ),
                   child: Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
-                        color: Colors.white,
+                        color:Colors.white,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           bottomLeft: Radius.circular(20),
@@ -45,7 +56,7 @@ class RecentChats extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Column(
@@ -62,19 +73,19 @@ class RecentChats extends StatelessWidget {
                                   style: kInactiveSliderStyle,
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              )
+                              ),
                             ],
                           ),
                         ],
                       ),
                       Column(
                         children: <Widget>[
-                          //chat.unread ? GStyle.badge(true) : Text(''),
+                          if (chat.unread) GStyle.badge(),
                           Text(
                             chat.time,
                             style: kUnreadTextStyle,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 5,
                           ),
                         ],

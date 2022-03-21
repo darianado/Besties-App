@@ -1,10 +1,11 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class BioField extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
@@ -47,10 +48,7 @@ class BioField extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: TextStyle(
-              fontSize: 18,
-              color: kTertiaryColour,
-            ),
+            style: kTertiaryStyle,
           ),
         ),
       ),

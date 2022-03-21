@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
@@ -14,6 +14,7 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -71,7 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+              padding: const EdgeInsets.fromLTRB(10, 15, 15, 15),
               child: Column(
                 children: [
                   SizedBox(
@@ -91,9 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   UniversityButton(
                     label: _userState.user?.userData?.university ?? "",
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   Wrap(
                     spacing: 6.0,
                     runSpacing: 6.0,
@@ -110,16 +109,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ""),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 20),
                   BioField(
                     label: _userState.user?.userData?.bio ?? " ",
                     editable: false,
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
+                  SizedBox(height: 25),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -133,21 +128,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  SizedBox(height: 10),
                   DisplayInterests(
                     items: _userState.user?.userData?.flattenedInterests ?? [],
                   ),
-                  SizedBox(
-                    height: 40,
-                  ),
+                  SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () => context.pushNamed("edit_password",
                         params: {'page': 'profile'}),
                     style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(10.0)),
+                      textStyle: MaterialStateProperty.all(
+                          Theme.of(context).textTheme.bodyMedium),
                       backgroundColor: MaterialStateProperty.all(
-                        kTertiaryColour.withOpacity(0.8),
+                        kTertiaryColour.withOpacity(0.9),
                       ),
                       elevation: MaterialStateProperty.all(0),
                     ),
@@ -158,18 +153,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           FontAwesomeIcons.lock,
                           size: 18,
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5),
                         Text("Change password"),
                       ],
                     ),
                   ),
                   OutlinedButton(
                     onPressed: () => _userState.signOut(),
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.red.shade100),
-                      primary: Colors.red,
+                    style: ButtonStyle(
+                      side: MaterialStateProperty.all(BorderSide(
+                        color: Colors.red.shade200,
+                        width: 1,
+                      )),
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          EdgeInsets.all(10.0)),
+                      textStyle: MaterialStateProperty.all(
+                          Theme.of(context).textTheme.bodyMedium),
+                      foregroundColor: MaterialStateProperty.all(Colors.red),
+                      elevation: MaterialStateProperty.all(0),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -178,9 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           FontAwesomeIcons.signOutAlt,
                           size: 18,
                         ),
-                        SizedBox(
-                          width: 5,
-                        ),
+                        SizedBox(width: 5),
                         Text("Sign out"),
                       ],
                     ),

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project_seg/constants/textStyles.dart';
+import '../../constants/colours.dart';
 import '../components/widget/widgets.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -22,9 +24,9 @@ class _LandingScreenState extends State<LandingScreen> {
         stops: [0.1, 0.2, 1],
         colors: [
           // Color(0xFF827081),
-          Color(0xFF00CFFF),
-          Color(0xFF01B3E0),
-          Color(0xFF041731),
+          kActiveCardColor,
+          kSecondColourLanding,
+          kShadowLanding,
         ],
       )),
       child: Scaffold(
@@ -41,7 +43,7 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
               title: const Text(
                 'BESTIES',
-                style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+                style: kLandingPageTitleStyle,
               ),
               centerTitle: true,
               automaticallyImplyLeading: false),
@@ -59,11 +61,11 @@ class _LandingScreenState extends State<LandingScreen> {
                 },
                 child: const Text(" LOG IN"),
                 style: ElevatedButton.styleFrom(
-                    primary: Color(0xFF0083A1),
+                    primary: kPrimaryColourLanding,
                     fixedSize: const Size(300, 100),
-                    shadowColor: Color(0xFF041731),
+                    shadowColor: kShadowLanding,
                     elevation: 12,
-                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textStyle: kLandingPageButtonsStyle,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
               ),
             ),
@@ -77,12 +79,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   },
                   child: const Text("SIGN UP"),
                   style: ElevatedButton.styleFrom(
-                      primary: Color(0xFFFEFCFB),
-                      onPrimary: Color(0xFF041731),
+                      primary: kWhiteColour,
+                      onPrimary: kShadowLanding,
                       fixedSize: const Size(300, 100),
-                      shadowColor: Color(0xFF041731),
+                      shadowColor: kShadowLanding,
                       elevation: 12,
-                      textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      textStyle: kLandingPageButtonsStyle,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
                 )),
           ]),

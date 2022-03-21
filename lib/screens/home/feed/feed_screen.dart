@@ -1,11 +1,12 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import '../../../models/profile_container.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);

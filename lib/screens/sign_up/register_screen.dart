@@ -1,16 +1,14 @@
-// import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
-import 'package:project_seg/constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -82,15 +80,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
           stops: [0.4, 0.8, 1],
           colors: [
             kWhiteColour,
-            Color(0xFFE2F9FE),
-            Color(0xFFD8F8FF),
+            kWhiteColourShade2,
+            kWhiteColourShade3,
           ],
         )),
         child: Scaffold(
             backgroundColor: Colors.transparent,
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(
-                  0.1 * screenHeight), // here the desired height
+              preferredSize: Size.fromHeight(0.1 * screenHeight),
               child: AppBar(
                   elevation: 0,
                   backgroundColor: Colors.transparent,
@@ -99,11 +96,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   title: const Text(
                     'BESTIES',
-                    style: TextStyle(
-                      fontSize: 35,
-                      fontWeight: FontWeight.bold,
-                      color: kLightBlue,
-                    ),
+                    style: kRegisterPageStyle,
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),
@@ -121,10 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       children: <Widget>[
                         Text(
                           'Sign up',
-                          style: TextStyle(
-                              fontSize: 35,
-                              color: kTertiaryColour,
-                              fontWeight: FontWeight.bold),
+                          style: kRegisterPageStyle,
                         ),
                         SizedBox(height: 40),
                         TextFormField(
@@ -226,16 +216,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 flex: 1,
                                 child: OutlinedButton(
                                   onPressed: () => context.goNamed("login"),
-                                  style: OutlinedButton.styleFrom(
-                                    primary: kTertiaryColour,
-                                    shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(30))),
-                                    side: const BorderSide(
-                                        color: kTertiaryColour, width: 1.5),
+                                  style: ButtonStyle(
+                                    side: MaterialStateProperty.all(BorderSide(
+                                      color: kTertiaryColour,
+                                      width: 1,
+                                    )),
+                                    padding:
+                                        MaterialStateProperty.all<EdgeInsets>(
+                                            EdgeInsets.all(7.0)),
+                                    textStyle: MaterialStateProperty.all(
+                                        Theme.of(context).textTheme.bodyMedium),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                      ),
+                                    ),
                                   ),
-                                  child: const Text("Log in",
-                                      style: TextStyle(color: kTertiaryColour)),
+                                  child: const Text(
+                                    "Log in",
+                                    style: kTertiaryStyle,
+                                  ),
                                 ),
                               ),
                             ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/constant.dart';
 
 class ChipWidget extends StatelessWidget {
   final Color color;
@@ -29,15 +30,11 @@ class ChipWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.all(
-        Radius.circular(100),
-      ),
+      borderRadius:  kBorderRadiusChip,
       color: Colors.white,
       child: InkWell(
         onTap: (onTap != null) ? (() => onTap!()) : (null),
-        borderRadius: BorderRadius.all(
-          Radius.circular(100),
-        ),
+        borderRadius: kBorderRadiusChip,
         child: Container(
           width: (shouldExpand) ? double.infinity : null,
           decoration: BoxDecoration(
@@ -45,7 +42,7 @@ class ChipWidget extends StatelessWidget {
                 color: color,
                 width: 1,
               ),
-              borderRadius: BorderRadiusDirectional.all(
+              borderRadius: const BorderRadiusDirectional.all(
                 Radius.circular(100),
               ),
               color: (bordered == true) ? null : color),
@@ -63,14 +60,16 @@ class ChipWidget extends StatelessWidget {
                       )
                     : Container(),
                 (icon != null && label != null)
-                    ? SizedBox(
+                    ? const SizedBox(
                         width: 5,
                       )
                     : Container(),
                 (label != null)
                     ? Text(
                         (capitalizeLabel == true) ? capitalize(label!) : label!,
-                        style: TextStyle(color: (textColor != null) ? textColor : color, fontSize: (mini) ? 16 : 18),
+                        style: TextStyle(
+                            color: (textColor != null) ? textColor : color, fontSize: (mini) ? 16 : 18
+                        ),
                       )
                     : Container(),
               ],

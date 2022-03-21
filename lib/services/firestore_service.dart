@@ -157,18 +157,22 @@ class FirestoreService {
         .set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
-  Future<void> setAdmirer(String? profileId, String admirerId) async {
-    return await _firebaseFirestore.collection("users").doc(profileId).set({
-      'admirers': firestore.FieldValue.arrayUnion([admirerId])
+  Future<void> setLike(String? profileId, String userId) async {
+     await _firebaseFirestore.collection("users").doc(userId).set({
+      'likes': firestore.FieldValue.arrayUnion([profileId])
     }, firestore.SetOptions(merge: true));
+
+  //query database if profile document contains admirer ID already  
+  //then call set match
+    
   }
 
-  Future<void> setMatch(String? profileId, String admirerId) async {
+  Future<void> setMatch(String? profileId, String userId) async {
     await _firebaseFirestore.collection("users").doc(profileId).set({
-      'matches': firestore.FieldValue.arrayUnion([admirerId])
+      'matches': firestore.FieldValue.arrayUnion([userId])
     }, firestore.SetOptions(merge: true));
 
-    await _firebaseFirestore.collection("users").doc(admirerId).set({
+    await _firebaseFirestore.collection("users").doc(userId).set({
       'matches': firestore.FieldValue.arrayUnion([profileId])
     }, firestore.SetOptions(merge: true));
   }
@@ -201,7 +205,7 @@ class FirestoreService {
           minAge: 20);
       data.location = GeoLocation(lat: 50, lon: 0);
 
-      _firebaseFirestore.collection("users").doc(uid).set(data.toMap(uid));
+      _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
 }

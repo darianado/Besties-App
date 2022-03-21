@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class NavBar extends StatelessWidget {
   final MenuData menuData;
@@ -19,7 +19,7 @@ class NavBar extends StatelessWidget {
       onTap: onPressed,
       items: _items,
       selectedItemColor: kTertiaryColour,
-      unselectedItemColor: Colors.grey.shade500,
+      unselectedItemColor: kGreyShadeDark,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       iconSize: 30,

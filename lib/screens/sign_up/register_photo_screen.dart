@@ -1,9 +1,9 @@
 import 'dart:io';
-
+import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
@@ -85,11 +85,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          color: kSecondaryColour,
-                        ),
+                        style: kRegisterUserPagesStyle,
                       ),
                     ),
                   ],
@@ -151,7 +147,9 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                         ),
                                         Text(
                                           "EDIT",
-                                          style: TextStyle(color: kWhiteColour),
+                                          style: TextStyle(
+                                              color: kWhiteColour
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -170,7 +168,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               padding: const EdgeInsets.all(3.0),
                               child: Text(
                                 "You must select a photo",
-                                style: TextStyle(color: Colors.red),
+                                style: kRedTextStyle,
                               ),
                             ),
                           ),

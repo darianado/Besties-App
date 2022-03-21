@@ -68,7 +68,7 @@ class UserData {
   CategorizedInterests? categorizedInterests;
   GeoLocation? location;
   Preferences? preferences;
-  List<String>? admirers;
+  List<String>? likes;
   List<String>? matches;
 
   UserData(
@@ -79,12 +79,11 @@ class UserData {
       this.bio,
       this.relationshipStatus,
       this.categorizedInterests,
-      this.location,
       this.profileImageUrl,
       this.preferences,
       this.firstName,
       this.lastName,
-      this.admirers,
+      this.likes,
       this.matches});
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
@@ -103,7 +102,6 @@ class UserData {
       relationshipStatus: data?['relationshipStatus'],
       profileImageUrl: data?['profileImageUrl'],
       categorizedInterests: _categorizedInterests,
-      location: GeoLocation.fromMap(data?['location']),
       preferences: Preferences.fromMap(data?['preferences']),
     );
   }
@@ -137,9 +135,8 @@ class UserData {
     return categorizedInterests?.categories.map((category) => category.interests).expand((i) => i).toList();
   }
 
-  Map<String, dynamic> toMap(String uid) {
+  Map<String, dynamic> toMap() {
     return {
-      "uid": uid,
       "dob": dob,
       "firstName": firstName,
       "lastName": lastName,
@@ -151,7 +148,7 @@ class UserData {
       "categorizedInterests": categorizedInterests?.toList(),
       "location": location?.toMap(),
       "preferences": preferences?.toMap(),
-      "admirers": admirers,
+      "likes": likes,
       "matches": matches,
     };
   }

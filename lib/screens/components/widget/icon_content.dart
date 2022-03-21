@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants.dart';
+import 'package:project_seg/constants/textStyles.dart';
 
 class IconContent extends StatelessWidget {
   final String label;
@@ -23,3 +23,5 @@ class IconContent extends StatelessWidget {
     );
   }
 }
+
+

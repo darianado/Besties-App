@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/User/UserData.dart';
@@ -7,6 +7,9 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
+
+import '../../constants/textStyles.dart';
 
 class RegisterInterestsScreen extends StatefulWidget {
   RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
@@ -38,7 +41,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             pinned: true,
             automaticallyImplyLeading: false,
             foregroundColor: kTertiaryColour,
-            backgroundColor: Colors.white,
+            backgroundColor: kSimpleWhiteColour,
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
@@ -60,11 +63,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          color: kSecondaryColour,
-                        ),
+                        style: kRegisterUserPagesStyle,
                       ),
                     ),
                   ],
@@ -108,7 +107,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                                 padding: const EdgeInsets.all(3.0),
                                 child: Text(
                                   "Ensure you have selected at least 1 interest",
-                                  style: TextStyle(color: Colors.red),
+                                  style: kRedTextStyle,
                                 ),
                               ),
                             ),

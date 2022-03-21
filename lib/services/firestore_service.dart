@@ -7,17 +7,20 @@ import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 
 import '../models/profile_container.dart';
 
 class FirestoreService {
-  final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  final firestore.FirebaseFirestore _firebaseFirestore =
+      firestore.FirebaseFirestore.instance;
 
   FirestoreService._privateConstructor();
 
-  static final FirestoreService _instance = FirestoreService._privateConstructor();
+  static final FirestoreService _instance =
+      FirestoreService._privateConstructor();
 
   static FirestoreService get instance => _instance;
 
@@ -37,7 +40,8 @@ class FirestoreService {
       "university": "King's College London",
       "gender": "non-binary",
       "relationshipStatus": "single",
-      "bio": "Hello! This is my bio. This text is rather long, so we can check everything's working.",
+      "bio":
+          "Hello! This is my bio. This text is rather long, so we can check everything's working.",
       "interests": ["volunteering", "christian"],
       "location": {"lat": 51.48, "lon": 0.086},
       "preferences": {
@@ -52,7 +56,9 @@ class FirestoreService {
 
   // Requests a List of recommended uids from Firebase.
   static Future<List<String>> getRecommendedUsers(String uid, int recs) async {
-    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west2')
+            .httpsCallable('requestRecommendations');
 
     final resp = await callable.call(<String, dynamic>{
       'userId': uid,
@@ -70,32 +76,51 @@ class FirestoreService {
     //List<String> uids = await getRecommendedUsers(uid, recs);
     List<String> uids = [];
 
-    CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;
 
     if (uids.isEmpty) {
       querySnapshot = await _collectionRef.get();
     } else {
-      querySnapshot = await _collectionRef.where(FieldPath.documentId, whereIn: uids).get();
+      querySnapshot =
+          await _collectionRef.where(FieldPath.documentId, whereIn: uids).get();
     }
 
-    final users = querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).toList();
+    final users = querySnapshot.docs
+        .map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>))
+        .toList();
     return users;
   }
 
   // Creates Profile Containers from a List of User Data.
-  static Future<List<ProfileContainer>> getProfileContainers(String uid, int recs) async {
+  static Future<Queue<ProfileContainer>> getProfileContainers(
+      String uid, int recs) async {
     List<UserData> data = await getProfileData(uid, recs);
-    return data.map((e) => ProfileContainer(profile: e)).toList();
+    Queue<ProfileContainer> containerQueue = Queue();
+    for (UserData userData in data) {
+      containerQueue.add(ProfileContainer(profile: userData));
+    }
+    return containerQueue;
   }
 
   Stream<AppContext> appContext() {
-    return _firebaseFirestore.collection("app").doc("context").snapshots().map((snapshot) => AppContext.fromSnapshot(snapshot));
+    return _firebaseFirestore
+        .collection("app")
+        .doc("context")
+        .snapshots()
+        .map((snapshot) => AppContext.fromSnapshot(snapshot));
   }
 
   Future<CategorizedInterests> fetchInterests() async {
-    final snapshot = await _firebaseFirestore.collection("app").doc("context").collection("interests").get();
-    return CategorizedInterests(categories: snapshot.docs.map((doc) => (Category.fromSnapshot(doc))).toList());
+    final snapshot = await _firebaseFirestore
+        .collection("app")
+        .doc("context")
+        .collection("interests")
+        .get();
+    return CategorizedInterests(
+        categories:
+            snapshot.docs.map((doc) => (Category.fromSnapshot(doc))).toList());
   }
 
   void setProfileImageUrl(String url) {
@@ -104,20 +129,32 @@ class FirestoreService {
     String? uid = _userState.user?.user?.uid;
 
     if (uid != null) {
-      _firebaseFirestore.collection("users").doc(uid).set({"profileImageUrl": url}, firestore.SetOptions(merge: true));
+      _firebaseFirestore
+          .collection("users")
+          .doc(uid)
+          .set({"profileImageUrl": url}, firestore.SetOptions(merge: true));
     }
   }
 
   Future<void> setUniversity(String userId, String university) async {
-    return await _firebaseFirestore.collection("users").doc(userId).set({"university": university}, firestore.SetOptions(merge: true));
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(userId)
+        .set({"university": university}, firestore.SetOptions(merge: true));
   }
 
   Future<void> setGender(String userId, String gender) async {
-    return await _firebaseFirestore.collection("users").doc(userId).set({"gender": gender}, firestore.SetOptions(merge: true));
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(userId)
+        .set({"gender": gender}, firestore.SetOptions(merge: true));
   }
 
   Future<void> setDateOfBirth(String userId, DateTime dateOfBirth) async {
-    return await _firebaseFirestore.collection("users").doc(userId).set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(userId)
+        .set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
   Future<void> setLike(String? profileId, String userId) async {
@@ -141,14 +178,17 @@ class FirestoreService {
   }
 
   Future<void> setBio(String userId, String bio) async {
-    return await _firebaseFirestore.collection("users").doc(userId).set({"bio": bio}, firestore.SetOptions(merge: true));
-  }
-
-  Future<void> setRelationshipStatus(String userId, String relationshipStatus) async {
     return await _firebaseFirestore
         .collection("users")
         .doc(userId)
-        .set({"relationshipStatus": relationshipStatus}, firestore.SetOptions(merge: true));
+        .set({"bio": bio}, firestore.SetOptions(merge: true));
+  }
+
+  Future<void> setRelationshipStatus(
+      String userId, String relationshipStatus) async {
+    return await _firebaseFirestore.collection("users").doc(userId).set(
+        {"relationshipStatus": relationshipStatus},
+        firestore.SetOptions(merge: true));
   }
 
   void saveUserData(UserData data) {
@@ -158,7 +198,11 @@ class FirestoreService {
 
     if (uid != null) {
       // The following two lines should probably be done differently, but this way we at least populate something.
-      data.preferences = Preferences(interests: data.categorizedInterests ?? CategorizedInterests(categories: []), maxAge: 50, minAge: 20);
+      data.preferences = Preferences(
+          interests:
+              data.categorizedInterests ?? CategorizedInterests(categories: []),
+          maxAge: 50,
+          minAge: 20);
       data.location = GeoLocation(lat: 50, lon: 0);
 
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());

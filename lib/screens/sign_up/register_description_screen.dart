@@ -49,9 +49,9 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          Color(0xFFFEFCFB),
-          Color(0xFFE2F9FE),
-          Color(0xFFD8F8FF),
+          kWhiteColour,
+          kWhiteColourShade2,
+          kWhiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -62,7 +62,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               pinned: true,
               automaticallyImplyLeading: false,
               foregroundColor: kTertiaryColour,
-              backgroundColor: Colors.white,
+              backgroundColor: kSimpleWhiteColour,
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(

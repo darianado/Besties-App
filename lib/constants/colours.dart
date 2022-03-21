@@ -21,6 +21,10 @@ const kButtonBackground = Color(0xFF041731);
 //colours for the landing page
 const kPrimaryColourLanding = Color(0xFF0083A1);
 const kShadowLanding = Color(0xFF041731);
+const kSecondColourLanding = Color(0xFF01B3E0);
+
+//login
+const kLoginBlue = Color(0xFF026689);
 
 
 // colour scheme for the app
@@ -35,3 +39,8 @@ const kWhiteColourShade3 = Color(0xFFD8F8FF);
 const kLightTertiaryColour = Color.fromARGB(26, 3, 64, 120);
 const kGradientColour = Color.fromARGB(0, 255, 255, 255);
 
+//standard colours
+Color kGreyShadeDark = Colors.grey.shade500;
+//const kTransparent =  Colors.transparent;
+Color kSimpleWhiteColour = Colors.white;
+Color kIndigoColour = Colors.indigo;

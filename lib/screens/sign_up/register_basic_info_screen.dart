@@ -84,7 +84,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
             SliverAppBar(
               pinned: true,
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.white,
+              backgroundColor: kSimpleWhiteColour,
               expandedHeight: 120,
               collapsedHeight: 100,
               actions: [
@@ -221,15 +221,15 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           children: _contextState.context?.genders
                                   ?.map((gender) {
                                 return ChipWidget(
-                                  color: Colors.indigo,
+                                  color: kIndigoColour,
                                   bordered: widget.userData.gender == gender
                                       ? false
                                       : true,
                                   textColor: (widget.userData.gender == gender)
-                                      ? Colors.white
+                                      ? kSimpleWhiteColour
                                       : null,
                                   iconColor: (widget.userData.gender == gender)
-                                      ? Colors.white
+                                      ? kSimpleWhiteColour
                                       : null,
                                   icon: getIconForGender(gender),
                                   label: gender,

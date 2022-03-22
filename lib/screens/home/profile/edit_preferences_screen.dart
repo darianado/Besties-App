@@ -52,9 +52,10 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                 const Padding(
                   padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
                   child: Text('Edit your preferences',
-                      style: TextStyle(fontSize: 30.0)),
+                      style: kTitlePreferencesStyle,
+                  ),
                 ),
-                const SizedBox(height: 60),
+                const SizedBox(height: 40),
                 Row(
                   children: const [
                     SizedBox(width: 20),
@@ -67,6 +68,8 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                 ),
                 RangeSlider(
                   values: _currentAgeRangeValues,
+                  activeColor: kTertiaryColour ,
+                  inactiveColor: kGreyColour,
                   min: 16,
                   max: 30,
                   divisions: 15,
@@ -143,11 +146,11 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     ),
                   ],
                 ),
-                SizedBox(width: 20),
+                SizedBox(height: 40),
                 DisplayInterests(
                   items: _userState.user?.userData?.flattenedInterests ?? [],
                 ),
-                SizedBox(width: 20),
+                SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
                   child: const Text("SAVE NEW INFORMATION"),
@@ -164,6 +167,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
   Checkbox buildCheckBox(@required Gender gender, bool isChecked) {
     return Checkbox(
       checkColor: kSimpleWhiteColour,
+      activeColor: kTertiaryColour,
       //fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
       onChanged: (bool? value) {

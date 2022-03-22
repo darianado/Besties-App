@@ -114,6 +114,12 @@ const kNoInterestStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const kTitlePreferencesStyle = TextStyle(
+  color: kTertiaryColour,
+  fontSize: 35.0,
+  fontWeight: FontWeight.bold,
+);
+
 //landing page
 const kLandingPageButtonsStyle = TextStyle(
   fontSize: 20,

@@ -43,7 +43,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.43,
+      height: MediaQuery.of(context).size.height * 0.46,
       child: Listener(
         onPointerUp: (details) => _scrollBackToTop(details),
         child: ListView(

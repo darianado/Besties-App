@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../constants/borders.dart';
 import '../../constants/constant.dart';
 
 class LogInScreen extends StatefulWidget {
@@ -186,11 +187,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                             .textTheme
                                             .headline5
                                             ?.apply(fontWeightDelta: 2)),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(40),
-                                      ),
-                                    ),
+                                    shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                                   ),
                                 )),
                             SizedBox(height: 30),
@@ -220,12 +217,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                             Theme.of(context)
                                                 .textTheme
                                                 .bodyMedium),
-                                        shape: MaterialStateProperty.all(
-                                          RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                          ),
-                                        ),
+                                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                                       ),
                                       child: const Text("Sign up",
                                           style: kWhiteColourTextStyle,

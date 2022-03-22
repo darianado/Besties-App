@@ -69,7 +69,6 @@ class UserData {
   GeoLocation? location;
   Preferences? preferences;
   List<String>? likes;
-  List<String>? matches;
 
   UserData(
       {this.uid,
@@ -83,8 +82,7 @@ class UserData {
       this.preferences,
       this.firstName,
       this.lastName,
-      this.likes,
-      this.matches});
+      this.likes});
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
@@ -97,7 +95,7 @@ class UserData {
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
-      // likes: List<String>.from(data?['likes']),
+      //likes: List<String>.from(data?['likes']),
       university: data?['university'],
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],
@@ -150,7 +148,6 @@ class UserData {
       "location": location?.toMap(),
       "preferences": preferences?.toMap(),
       "likes": likes,
-      "matches": matches,
     };
   }
 }

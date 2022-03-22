@@ -28,10 +28,9 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
     final _userState = Provider.of<UserState>(context);
 
     return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(15))),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
+        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -43,9 +42,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                       value: str,
                       child: Text(
                         str,
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500),
+                        style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
                       ),
                     ),
                   )
@@ -63,34 +60,28 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                       primary: Colors.white,
                       onPrimary: Color(0xFF0A1128),
                       side: BorderSide(color: Colors.grey, width: 1),
-                      fixedSize: const Size(100, 30),
-                     // shadowColor: Color(0xFF0083A1),
-                      //elevation: 4,
                       textStyle: const TextStyle(
                         fontSize: 17,
                       ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text("Cancel"),
                   ),
                 ),
                 SizedBox(
-                  width: 20,
+                  width: 10,
                 ),
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: kTertiaryColour,
-                      fixedSize: const Size(100, 30),
-                     // shadowColor: Color(0xFF0083A1),
+                      // shadowColor: Color(0xFF0083A1),
                       //elevation: 4,
                       textStyle: const TextStyle(
                         fontSize: 17,
                       ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
                     ),
                     onPressed: () async {
                       Navigator.of(context).pop();

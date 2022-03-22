@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:provider/provider.dart';
+
+import '../../constants/borders.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
   RegisterDescriptionScreen({Key? key, required this.userData})
@@ -49,9 +51,9 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          Color(0xFFFEFCFB),
-          Color(0xFFE2F9FE),
-          Color(0xFFD8F8FF),
+          kWhiteColour,
+          kWhiteColourShade2,
+          kWhiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -62,7 +64,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               pinned: true,
               automaticallyImplyLeading: false,
               foregroundColor: kTertiaryColour,
-              backgroundColor: Colors.white,
+              backgroundColor: kSimpleWhiteColour,
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(
@@ -81,11 +83,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                   padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
                   child: Text(
                     '... and a bit more about ${widget.userData.firstName}',
-                    style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.bold,
-                      color: kSecondaryColour,
-                    ),
+                    style: kRegisterUserPagesStyle,
                   ),
                 ),
               ),
@@ -105,11 +103,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         children: <Widget>[
                           Text(
                             'UNIVERSITY',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -133,7 +127,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],
@@ -164,11 +158,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
                           decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                borderSide: BorderSide.none),
+                            border: kOutlineBorder,
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
@@ -210,14 +200,10 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                                     .textTheme
                                     .headline5
                                     ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
+                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

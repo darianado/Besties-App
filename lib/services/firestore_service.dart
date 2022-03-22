@@ -3,10 +3,12 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 
@@ -84,9 +86,13 @@ class FirestoreService {
   }
 
   // Creates Profile Containers from a List of User Data.
-  static Future<List<ProfileContainer>> getProfileContainers(String uid, int recs) async {
+  static Future<Queue<ProfileContainer>> getProfileContainers(String uid, int recs) async {
     List<UserData> data = await getProfileData(uid, recs);
-    return data.map((e) => ProfileContainer(profile: e)).toList();
+    Queue<ProfileContainer> containerQueue = Queue();
+    for (UserData userData in data) {
+      containerQueue.add(ProfileContainer(profile: userData));
+    }
+    return containerQueue;
   }
 
   Stream<AppContext> appContext() {
@@ -121,15 +127,12 @@ class FirestoreService {
   }
 
   Future<void> setLike(String? profileId, String userId) async {
-     await _firebaseFirestore.collection("users").doc(userId).set({
+    await _firebaseFirestore.collection("users").doc(userId).set({
       'likes': firestore.FieldValue.arrayUnion([profileId])
     }, firestore.SetOptions(merge: true));
-    
-    
-    List<String>? profileLikes = await getLikes(profileId);
-    if (profileLikes!.contains(userId)){
-      setMatch(profileId, userId);
-    }
+
+    //query database if profile document contains admirer ID already
+    //then call set match
   }
 
   Future<void> setMatch(String? profileId, String userId) async {
@@ -153,16 +156,11 @@ class FirestoreService {
         .set({"relationshipStatus": relationshipStatus}, firestore.SetOptions(merge: true));
   }
 
-    static Future<List<String>?> getLikes(String ?uid) async {
-
-    CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
-    QuerySnapshot querySnapshot;
-
-     querySnapshot = await _collectionRef.where(FieldPath.documentId, isEqualTo: uid).get();
-    
-    final UserData data = querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).first;
-    
-    return data.likes;
+  Future<void> setInterests(String userId, CategorizedInterests interests) async {
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(userId)
+        .set({"categorizedInterests": interests.toList()}, firestore.SetOptions(merge: true));
   }
 
   void saveUserData(UserData data) {

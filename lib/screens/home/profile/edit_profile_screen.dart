@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/interest.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
@@ -42,7 +44,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    //double screenHeight = MediaQuery.of(context).size.height;
     final _userState = Provider.of<UserState>(context);
 
     const double profileImageRadius = 100;
@@ -76,7 +77,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kWhiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -97,7 +98,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       onPressed: () => context.pushNamed("home", params: {'page': 'profile'}),
                       icon: Icon(
                         Icons.check,
-                        color: Colors.white,
+                        color: kWhiteColour,
                       ),
                     ),
                   ),
@@ -218,8 +219,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   ),
                   DisplayInterests(
                     wiggling: true,
-                    onTap: () => print("Tapped!"),
+                    editable: true,
+                    onSave: (categorizedInterests) {
+                      print("Got new interests: ");
+                      print(categorizedInterests?.toList());
+                      saveInterests(_userState.user?.user?.uid, categorizedInterests);
+                    },
                     items: _userState.user?.userData?.flattenedInterests ?? [],
+                  ),
+                  SizedBox(
+                    height: 50,
                   ),
                 ],
               ),
@@ -251,6 +260,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Future<void> saveUniversity(String? userId, String? university) async {
     if (userId != null && university != null) {
       await _firestoreService.setUniversity(userId, university);
+    }
+  }
+
+  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
+    if (userId != null && interests != null) {
+      await _firestoreService.setInterests(userId, interests);
     }
   }
 }

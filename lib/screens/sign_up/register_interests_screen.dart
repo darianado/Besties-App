@@ -9,6 +9,9 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
+import '../../constants/borders.dart';
+import '../../constants/textStyles.dart';
+
 class RegisterInterestsScreen extends StatefulWidget {
   RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
 
@@ -39,7 +42,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             pinned: true,
             automaticallyImplyLeading: false,
             foregroundColor: kTertiaryColour,
-            backgroundColor: Colors.white,
+            backgroundColor: kSimpleWhiteColour,
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
@@ -61,11 +64,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          color: kSecondaryColour,
-                        ),
+                        style: kRegisterUserPagesStyle,
                       ),
                     ),
                   ],
@@ -109,7 +108,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                                 padding: const EdgeInsets.all(3.0),
                                 child: Text(
                                   "Ensure you have selected at least 1 interest",
-                                  style: TextStyle(color: Colors.red),
+                                  style: kRedTextStyle,
                                 ),
                               ),
                             ),
@@ -148,11 +147,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                             .textTheme
                             .headline5
                             ?.apply(fontWeightDelta: 2)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
+                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                       ),
                     ),
                   ),

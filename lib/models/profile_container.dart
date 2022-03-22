@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:provider/provider.dart';
+import '../constants/borders.dart';
 import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
-
+import '../constants/textStyles.dart';
 import '../screens/components/sliding_profile_details.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';
 import 'Interests/category.dart';
 import 'Interests/interest.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 //  Widget to display a profile in the main feed.
 //  Currently filled with random names and locations.
@@ -35,12 +37,11 @@ class ProfileContainer extends StatelessWidget {
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.16,
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: <Color>[
                   kWhiteColour,
-                  Color.fromARGB(0, 255, 255, 255),
+                  kGradientColour,
                 ],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
@@ -48,15 +49,11 @@ class ProfileContainer extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(25.0),
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20.0),
-                      ),
-                    ),
+                    shape: kRoundedRectangulareBorder,
                     context: context,
                     builder: (context) => SlidingProfileDetails(
                       profile: profile,
@@ -68,10 +65,17 @@ class ProfileContainer extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    PartialProfileDetails(
-                      profile: profile,
+                    Expanded(
+                      flex: 5,
+                      child: PartialProfileDetails(
+                        profile: profile,
+                      ),
                     ),
-                    LikeProfileButton(profile: profile, userState: _userState),
+                    Expanded(
+                      flex: 1,
+                      child: LikeProfileButton(
+                          profile: profile, userState: _userState),
+                    ),
                   ],
                 ),
               ),
@@ -169,31 +173,26 @@ class PartialProfileDetails extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 3.5),
-          child: Text(
-            profile.firstName ?? " ",
-            style: const TextStyle(
-              fontSize: kProfileNameFontSize,
-              color: kSecondaryColour,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        Text(
+          profile.firstName ?? " ",
+          maxLines: 2,
+          style: kProfileContainerStyle,
         ),
+        SizedBox(height: 3),
         Row(children: [
           const Padding(
-            padding: EdgeInsets.only(right: 8.0),
-            child: Icon(
-              Icons.school_outlined,
-              color: kSecondaryColour,
+            padding: EdgeInsets.only(right: 7.5),
+            child: Expanded(
+              child: Icon(
+                FontAwesomeIcons.university,
+                color: kSecondaryColour,
+              ),
             ),
           ),
-          Text(
-            profile.university ?? "null",
-            style: const TextStyle(
-              fontSize: kProfileLocationFontSize,
-              color: kSecondaryColour,
-              fontWeight: FontWeight.w300,
+          Expanded(
+            child: Text(
+              profile.university ?? "null",
+              style: kProfileContainerUniversityStyle,
             ),
           ),
         ]),
@@ -212,31 +211,28 @@ class CompleteProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: kSecondaryColour,
-                ),
+      height: MediaQuery.of(context).size.height * 0.70,
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.school_outlined,
+                color: kSecondaryColour,
               ),
-              Text(
-                profile.university ?? " ",
-                style: const TextStyle(
-                  fontSize: kProfileLocationFontSize,
-                  color: kSecondaryColour,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-            ],
-          ),
-        ));
+            ),
+            Text(
+              profile.university ?? " ",
+              style: kProfileContainerUniversityStyle,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

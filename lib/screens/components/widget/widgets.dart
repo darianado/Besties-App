@@ -3,6 +3,8 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
 
+import '../../../constants/borders.dart';
+
 class University extends StatefulWidget {
 
     University({Key? key, required this.userData}) : super(key: key);
@@ -83,7 +85,7 @@ Expanded buildNameSpace(@required String spaceLabel, @required TextEditingContro
         controller: validator,
         decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: kCircularBorderRadius20,
             ),
             labelText: spaceLabel),
         validator: (value) {
@@ -123,7 +125,8 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
           shadowColor: kButtonBackground,
           elevation: 12,
           textStyle: kLargeButtonTextStyle,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+          shape: RoundedRectangleBorder(borderRadius: kCircularBorderRadius50)
+      ),
       onPressed: () {
         if (((key.currentState as FormState).validate()) == true) {
           Navigator.pushNamed(context, nextPage);

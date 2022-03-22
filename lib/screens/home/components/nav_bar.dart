@@ -19,7 +19,7 @@ class NavBar extends StatelessWidget {
       onTap: onPressed,
       items: _items,
       selectedItemColor: kTertiaryColour,
-      unselectedItemColor: Colors.grey.shade500,
+      unselectedItemColor: kGreyShadeDark,
       showSelectedLabels: false,
       showUnselectedLabels: false,
       iconSize: 30,

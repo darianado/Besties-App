@@ -3,13 +3,15 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+
+import '../../constants/borders.dart';
 
 class RegisterPhotoScreen extends StatefulWidget {
   RegisterPhotoScreen({Key? key, required this.userData}) : super(key: key);
@@ -85,11 +87,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
-                        style: TextStyle(
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                          color: kSecondaryColour,
-                        ),
+                        style: kRegisterUserPagesStyle,
                       ),
                     ),
                   ],
@@ -133,7 +131,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(0.6),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: kCircularBorderRadius10,
                                     ),
                                     height: 60,
                                     width: 100,
@@ -151,7 +149,9 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                         ),
                                         Text(
                                           "EDIT",
-                                          style: TextStyle(color: kWhiteColour),
+                                          style: TextStyle(
+                                              color: kWhiteColour
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -170,7 +170,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               padding: const EdgeInsets.all(3.0),
                               child: Text(
                                 "You must select a photo",
-                                style: TextStyle(color: Colors.red),
+                                style: kRedTextStyle,
                               ),
                             ),
                           ),
@@ -210,11 +210,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                     .textTheme
                                     .headline5
                                     ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
+                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                           ),
                         ),
                       ),

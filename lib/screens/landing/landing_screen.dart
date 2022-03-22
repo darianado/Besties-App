@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:project_seg/constants/textStyles.dart';
+import '../../constants/borders.dart';
 import '../../constants/colours.dart';
 import '../components/widget/widgets.dart';
 
@@ -24,9 +25,9 @@ class _LandingScreenState extends State<LandingScreen> {
         stops: [0.1, 0.2, 1],
         colors: [
           // Color(0xFF827081),
-          Color(0xFF00CFFF),
-          Color(0xFF01B3E0),
-          Color(0xFF041731),
+          kActiveCardColor,
+          kSecondColourLanding,
+          kShadowLanding,
         ],
       )),
       child: Scaffold(
@@ -66,7 +67,7 @@ class _LandingScreenState extends State<LandingScreen> {
                     shadowColor: kShadowLanding,
                     elevation: 12,
                     textStyle: kLandingPageButtonsStyle,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
+                    shape: kRoundedRectangulareBorder50),
               ),
             ),
             const SizedBox(height: 30),
@@ -85,9 +86,12 @@ class _LandingScreenState extends State<LandingScreen> {
                       shadowColor: kShadowLanding,
                       elevation: 12,
                       textStyle: kLandingPageButtonsStyle,
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50))),
-                )),
-          ]),
+                      shape: kRoundedRectangulareBorder50
+                  ),
+                )
+            ),
+          ]
+          ),
         ),
       ),
     );

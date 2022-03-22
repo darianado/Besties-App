@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -27,8 +28,10 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
     final _userState = Provider.of<UserState>(context);
 
     return Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(15))),
       child: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(18, 10, 18, 20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -38,7 +41,12 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                   .map(
                     (str) => DropdownMenuItem(
                       value: str,
-                      child: Text(str),
+                      child: Text(
+                        str,
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
                   )
                   .toList(),
@@ -51,6 +59,19 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
               children: [
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Color(0xFF0A1128),
+                      side: BorderSide(color: Colors.grey, width: 1),
+                      fixedSize: const Size(100, 30),
+                     // shadowColor: Color(0xFF0083A1),
+                      //elevation: 4,
+                      textStyle: const TextStyle(
+                        fontSize: 17,
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text("Cancel"),
                   ),
@@ -60,6 +81,17 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                 ),
                 Expanded(
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: kTertiaryColour,
+                      fixedSize: const Size(100, 30),
+                     // shadowColor: Color(0xFF0083A1),
+                      //elevation: 4,
+                      textStyle: const TextStyle(
+                        fontSize: 17,
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                    ),
                     onPressed: () async {
                       Navigator.of(context).pop();
                       await widget.onSave(widget.value);

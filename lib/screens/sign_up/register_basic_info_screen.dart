@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
@@ -11,6 +11,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/widget/relationship_status.dart';
+
+import '../../constants/borders.dart';
 
 class RegisterBasicInfoScreen extends StatefulWidget {
   RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
@@ -71,9 +73,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
           end: Alignment.bottomLeft,
           stops: [0.4, 0.8, 1],
           colors: [
-            Color(0xFFFEFCFB),
-            Color(0xFFE2F9FE),
-            Color(0xFFD8F8FF),
+            kWhiteColour,
+            kWhiteColourShade2,
+            kWhiteColourShade3,
           ],
         ),
       ),
@@ -84,7 +86,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
             SliverAppBar(
               pinned: true,
               automaticallyImplyLeading: false,
-              backgroundColor: Colors.white,
+              backgroundColor: kSimpleWhiteColour,
               expandedHeight: 120,
               collapsedHeight: 100,
               actions: [
@@ -107,11 +109,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       Expanded(
                         child: Text(
                           'Let\'s start with the basics...',
-                          style: TextStyle(
-                            fontSize: 29.0,
-                            fontWeight: FontWeight.bold,
-                            color: kSecondaryColour,
-                          ),
+                          style: kRegisterUserPagesStyle,
                         ),
                       ),
                     ],
@@ -132,7 +130,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: kCircularBorderRadius10,
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(
@@ -154,7 +152,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: kCircularBorderRadius10,
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(
@@ -175,11 +173,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'BIRTHDAY',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -204,7 +198,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],
@@ -217,11 +211,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'GENDER',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -233,15 +223,15 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           children: _contextState.context?.genders
                                   ?.map((gender) {
                                 return ChipWidget(
-                                  color: Colors.indigo,
+                                  color: kIndigoColour,
                                   bordered: widget.userData.gender == gender
                                       ? false
                                       : true,
                                   textColor: (widget.userData.gender == gender)
-                                      ? Colors.white
+                                      ? kSimpleWhiteColour
                                       : null,
                                   iconColor: (widget.userData.gender == gender)
-                                      ? Colors.white
+                                      ? kSimpleWhiteColour
                                       : null,
                                   icon: getIconForGender(gender),
                                   label: gender,
@@ -259,7 +249,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],
@@ -272,11 +262,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: <Widget>[
                           Text(
                             'RELATIONSHIP STATUS',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: kRegisterUserComponentsStyle,
                           ),
                         ],
                       ),
@@ -301,7 +287,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: TextStyle(color: Colors.red),
+                                    style: kRedTextStyle,
                                   ),
                                 ),
                               ],
@@ -339,7 +325,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             couldNotValidateRelationshipStatus = false;
 
                             setState(() {
-                              widget.userData.firstName = _firstName.text.trim();
+                              widget.userData.firstName =
+                                  _firstName.text.trim();
                               widget.userData.lastName = _lastName.text.trim();
                             });
 
@@ -357,11 +344,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                     .textTheme
                                     .headline5
                                     ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
+                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                           ),
                         ),
                       ),

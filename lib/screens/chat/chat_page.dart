@@ -7,6 +7,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
 
+import '../../constants/borders.dart';
+
 
 
 class ChatScreen extends StatefulWidget {
@@ -60,12 +62,7 @@ void _handleSubmitted(String text){
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(30),
-                bottomLeft: Radius.circular(30),
-                bottomRight: Radius.circular(30),
-                topRight: Radius.circular(30),
-              ),
+              borderRadius: kSymmetricBorderRadius3,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -183,14 +180,11 @@ void _handleSubmitted(String text){
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30))),
+                    color: kSimpleWhiteColour,
+                    borderRadius: kBorderRadiusTLeftTRight,
+                ),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
+                  borderRadius: kBorderRadiusTLeftTRight,
                   child: ListView.builder(
                       reverse: true,
                       padding: const EdgeInsets.only(top: 15),

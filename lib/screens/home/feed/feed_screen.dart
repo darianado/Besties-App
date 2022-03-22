@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -97,7 +98,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 50, 25, 0),
                     child: GestureDetector(
-                      onTap: () => {},
+                      onTap: () => context.pushNamed("edit_preferences", params: {'page': "feed"}),
                       child: const Icon(
                         Icons.menu,
                         color: kWhiteColour,

@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
@@ -16,7 +14,6 @@ import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
 import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
-import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 
 class AppRouter {
@@ -181,10 +178,21 @@ class AppRouter {
           GoRoute(
             name: "edit_preferences",
             path: "edit-preferences",
-            pageBuilder: (context, state) => MaterialPage<void>(
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: EditPreferencesScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                  FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
             ),
+
+            //     MaterialPage<void>(
+            //   key: state.pageKey,
+            //   child: EditPreferencesScreen(),
+            // ),
           ),
           GoRoute(
             name: "edit_password",

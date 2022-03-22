@@ -1,8 +1,5 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +39,6 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-
     final _userState = Provider.of<UserState>(context);
     final uid = _userState.user?.user?.uid;
 
@@ -53,18 +49,11 @@ class _FeedScreenState extends State<FeedScreen> {
           displayedContainers = snapshot.data;
 
           if (displayedContainers != null) {
-            //print(displayedContainers!.length);
-
             return Container(
               color: kTertiaryColour,
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  // SizedBox(
-                  //   height: 300,
-                  //   width: 300,
-                  //   child: Lottie.asset('assets/lotties/loading-dots.json'),
-                  // ),
                   RefreshIndicator(
                     onRefresh: () => refreshProfileContainers(uid, 1000),
                     child: PageView(

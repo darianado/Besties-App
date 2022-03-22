@@ -25,7 +25,7 @@ class IconContent extends StatelessWidget {
 }
 
 //create simple icons by a giving icon and a colour
-Icon buildIcons(IconData iconInput, Color colourInput) {
+ Icon buildIcons(IconData iconInput, Color colourInput) {
   return Icon(
     iconInput,
     color: colourInput,

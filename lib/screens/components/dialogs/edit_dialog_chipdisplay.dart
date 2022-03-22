@@ -30,47 +30,46 @@ class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
     final _userState = Provider.of<UserState>(context);
 
     return Dialog(
+      insetPadding: EdgeInsets.symmetric(horizontal: 10),
       child: Padding(
         padding: const EdgeInsets.all(20),
-        child: Flexible(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SelectInterests(
-                  onChange: (newCategories) {
-                    setState(() {
-                      widget.values = newCategories;
-                    });
-                  },
-                  selected: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text("Cancel"),
-                      ),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SelectInterests(
+                onChange: (newCategories) {
+                  setState(() {
+                    widget.values = newCategories;
+                  });
+                },
+                selected: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: Text("Cancel"),
                     ),
-                    SizedBox(
-                      width: 20,
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                        await widget.onSave(widget.values);
+                      },
+                      child: Text("Save"),
                     ),
-                    Expanded(
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          Navigator.of(context).pop();
-                          await widget.onSave(widget.values);
-                        },
-                        child: Text("Save"),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),

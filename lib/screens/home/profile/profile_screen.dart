@@ -54,8 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context.pushNamed("edit_profile",
-                          params: {'page': 'profile'}),
+                      onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
                       icon: Icon(
                         FontAwesomeIcons.pen,
                         color: kWhiteColour,
@@ -66,8 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ],
-            flexibleSpace:
-                CachedImage(url: _userState.user?.userData?.profileImageUrl),
+            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
@@ -80,6 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: kTertiaryColour,
                       fontSize: 40.0,
@@ -99,14 +98,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(
-                          label: "${_userState.user?.userData?.age}"),
-                      GenderButtton(
-                          label: _userState.user?.userData?.gender ?? ""),
-                      RelationshipStatusButton(
-                          label:
-                              _userState.user?.userData?.relationshipStatus ??
-                                  ""),
+                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -134,13 +128,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 30),
                   ElevatedButton(
-                    onPressed: () => context.pushNamed("edit_password",
-                        params: {'page': 'profile'}),
+                    onPressed: () => context.pushNamed("edit_password", params: {'page': 'profile'}),
                     style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.all(10.0)),
-                      textStyle: MaterialStateProperty.all(
-                          Theme.of(context).textTheme.bodyMedium),
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
+                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
                       backgroundColor: MaterialStateProperty.all(
                         kTertiaryColour.withOpacity(0.9),
                       ),
@@ -165,10 +156,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         color: kRedLightShade,
                         width: 1,
                       )),
-                      padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.all(10.0)),
-                      textStyle: MaterialStateProperty.all(
-                          Theme.of(context).textTheme.bodyMedium),
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
+                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
                       foregroundColor: MaterialStateProperty.all(kRedColour),
                       elevation: MaterialStateProperty.all(0),
                     ),

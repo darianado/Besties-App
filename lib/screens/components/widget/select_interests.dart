@@ -260,11 +260,12 @@ class CategoryView extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          category.title,
-                          style: TextStyle(fontSize: 20),
+                        Expanded(
+                          child: Text(
+                            category.title,
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ),
                         Icon(Icons.arrow_downward),
                       ],
@@ -292,7 +293,7 @@ class CategoryView extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

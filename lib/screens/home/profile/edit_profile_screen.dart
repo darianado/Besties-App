@@ -148,6 +148,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       color: kTertiaryColour.withOpacity(0.2),
                       fontSize: 40.0,
@@ -173,8 +174,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     runAlignment: WrapAlignment.center,
                     children: [
                       DateOfBirthButton(
-                        editable: true,
-                        wiggling: true,
+                        editable: false,
+                        wiggling: false,
                         label: "${_userState.user?.userData?.age}",
                         onSave: (dateOfBirth) => saveDateOfBirth(_userState.user?.user?.uid, dateOfBirth),
                       ),
@@ -221,8 +222,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     wiggling: true,
                     editable: true,
                     onSave: (categorizedInterests) {
-                      print("Got new interests: ");
-                      print(categorizedInterests?.toList());
                       saveInterests(_userState.user?.user?.uid, categorizedInterests);
                     },
                     items: _userState.user?.userData?.flattenedInterests ?? [],

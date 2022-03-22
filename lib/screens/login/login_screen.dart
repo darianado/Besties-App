@@ -38,8 +38,7 @@ class _LogInScreenState extends State<LogInScreen> {
     try {
       await userState.signIn(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
 
@@ -121,9 +120,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                     color: kWhiteColour,
                                   ),
                                   labelText: 'Email address'),
-                              validator: (value) => !isEmail(_email.text)
-                                  ? "Invalid Email"
-                                  : null,
+                              validator: (value) => !isEmail(_email.text.trim()) ? "Please check your email is in the right format" : null,
                               textInputAction: TextInputAction.next,
                             ),
                             SizedBox(height: 30),
@@ -140,7 +137,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               ),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter some text';
+                                  return 'Please enter a password';
                                 }
                                 return null;
                               },
@@ -149,8 +146,9 @@ class _LogInScreenState extends State<LogInScreen> {
                             Align(
                               alignment: Alignment.bottomRight,
                               child: TextButton(
-                                child: const Text('Forget password?',
-                                    style: kLogInPasswordStyle,
+                                child: const Text(
+                                  'Forget password?',
+                                  style: kLogInPasswordStyle,
                                 ),
                                 onPressed: () {
                                   context.pushNamed("recover_password");
@@ -177,16 +175,9 @@ class _LogInScreenState extends State<LogInScreen> {
                                           style: kTertiaryColourTextStyle,
                                         ),
                                   style: ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStateProperty.all(kWhiteColour),
-                                    padding:
-                                        MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.all(10.0)),
-                                    textStyle: MaterialStateProperty.all(
-                                        Theme.of(context)
-                                            .textTheme
-                                            .headline5
-                                            ?.apply(fontWeightDelta: 2)),
+                                    backgroundColor: MaterialStateProperty.all(kWhiteColour),
+                                    padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
+                                    textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.headline5?.apply(fontWeightDelta: 2)),
                                     shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                                   ),
                                 )),
@@ -203,24 +194,19 @@ class _LogInScreenState extends State<LogInScreen> {
                                   Expanded(
                                     flex: 1,
                                     child: OutlinedButton(
-                                      onPressed: () =>
-                                          context.pushNamed("register"),
+                                      onPressed: () => context.pushNamed("register"),
                                       style: ButtonStyle(
-                                        side: MaterialStateProperty.all(
-                                            BorderSide(
+                                        side: MaterialStateProperty.all(BorderSide(
                                           color: kWhiteColour,
                                           width: 1,
                                         )),
-                                        padding: MaterialStateProperty.all<
-                                            EdgeInsets>(EdgeInsets.all(10.0)),
-                                        textStyle: MaterialStateProperty.all(
-                                            Theme.of(context)
-                                                .textTheme
-                                                .bodyMedium),
+                                        padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
+                                        textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
                                         shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                                       ),
-                                      child: const Text("Sign up",
-                                          style: kWhiteColourTextStyle,
+                                      child: const Text(
+                                        "Sign up",
+                                        style: kWhiteColourTextStyle,
                                       ),
                                     ),
                                   ),

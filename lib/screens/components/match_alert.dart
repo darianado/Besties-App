@@ -1,13 +1,14 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 
-class CustomDialog extends StatelessWidget {
+class MatchDialog extends StatelessWidget {
   final String? otherName;
   final String? myImage;
   final String? otherImage;
 
-  const CustomDialog({
+  const MatchDialog({
     Key? key,
     required this.otherName,
     required this.myImage,
@@ -33,7 +34,7 @@ dialogContent(BuildContext context, String? otherName, String? myImage, String? 
       //...bottom card part,
       Container(
         padding: const EdgeInsets.only(
-          top: Consts.avatarRadius + Consts.padding,
+          top: Consts.avatarRadius + 20,
           bottom: Consts.padding,
           left: Consts.padding,
           right: Consts.padding,
@@ -55,21 +56,29 @@ dialogContent(BuildContext context, String? otherName, String? myImage, String? 
           mainAxisSize: MainAxisSize.min, // To make the card compact
           children: <Widget>[
             SizedBox(height: 16.0),
-             Text(
-              "yeeeey a new match with " + otherName.toString(),
+             const Text(
+              "yeeeey a new match " ,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                fontSize: 16.0,
+                fontSize: 33.0,
               ),
             ),
             SizedBox(height: 24.0),
             Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.bottomCenter,
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).pop(); // To close the dialog
                 },
-                child: Text("ok"),
+                style: ElevatedButton.styleFrom(
+                  primary: kSecondaryColour,
+                ),
+                child: Text(
+                  "Text " + otherName.toString() +" now!" ,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                  ),
               ),
             ),
           ],
@@ -79,7 +88,7 @@ dialogContent(BuildContext context, String? otherName, String? myImage, String? 
       //...top circlular image part,
        Positioned(
         left: Consts.padding,
-        right: Consts.padding-100,
+        right: Consts.padding-110,
         child: CircleAvatar(
           backgroundImage:  NetworkImage(myImage ??
               "assets/images/empty_profile_picture.jpg"),
@@ -90,7 +99,7 @@ dialogContent(BuildContext context, String? otherName, String? myImage, String? 
 
 
       Positioned(
-          left: Consts.padding-100,
+          left: Consts.padding-110,
           right: Consts.padding,
           child: CircleAvatar(
             backgroundImage:  NetworkImage(otherImage ??
@@ -98,9 +107,6 @@ dialogContent(BuildContext context, String? otherName, String? myImage, String? 
             radius: Consts.avatarRadius,
           ),
       ),
-
-
-
 
     ],
   );
@@ -110,15 +116,6 @@ class Consts {
   Consts._();
 
   static const double padding = 50.0;
-  static const double avatarRadius = 60.0;
+  static const double avatarRadius = 77.0;
 }
 
-// showDialog(
-//   context: context,
-//   builder: (BuildContext context) => CustomDialog(
-//         title: "Success",
-//         description:
-//             "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-//         buttonText: "Okay",
-//       ),
-// );

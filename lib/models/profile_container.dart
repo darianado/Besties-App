@@ -131,28 +131,12 @@ class LikeProfileButton extends StatelessWidget {
     showDialog(
       context: context,
       builder: 
-      (BuildContext context) => CustomDialog(
+      (BuildContext context) => MatchDialog(
         otherName: profile.firstName,
         myImage: userState.user!.userData!.profileImageUrl,
         otherImage: profile.profileImageUrl,
       ),
 
-
-
-
-      // (BuildContext context) {
-      //   return AlertDialog(
-      //     title: Text("You liked " + (profile.firstName ?? " ") + "!"),
-      //     actions: [
-      //       TextButton(
-      //         child: const Text("Dismiss"),
-      //         onPressed: () {
-      //           Navigator.of(context).pop();
-      //         },
-      //       ),
-      //     ],
-      //   );
-      // },
     );
 
   }

@@ -20,11 +20,11 @@ const kLargeButtonTextStyle = TextStyle(
 );
 
 const kTertiaryColourTextStyle = TextStyle(
-    color: kTertiaryColour,
+  color: kTertiaryColour,
 );
 
 const kWhiteColourTextStyle = TextStyle(
-    color: kWhiteColour,
+  color: kWhiteColour,
 );
 
 
@@ -69,7 +69,7 @@ const kInactiveSliderStyle = TextStyle(
 );
 
 const kRedTextStyle = TextStyle(
-    color: kRedColour,
+  color: kRedColour,
 );
 
 const kUnreadTextStyle = TextStyle(
@@ -102,7 +102,7 @@ const kTertiaryStyle = TextStyle(
 );
 
 //text style for profile details
- TextStyle kInterestMatchedStyle = TextStyle(
+TextStyle kInterestMatchedStyle = TextStyle(
   color: kPrimaryColour.withOpacity(0.3),
   fontSize: 12,
   fontWeight: FontWeight.bold,
@@ -116,13 +116,13 @@ const kNoInterestStyle = TextStyle(
 
 //landing page
 const kLandingPageButtonsStyle = TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.bold,
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
 );
 
 const kLandingPageTitleStyle = TextStyle(
-    fontSize: 35,
-    fontWeight: FontWeight.bold,
+  fontSize: 35,
+  fontWeight: FontWeight.bold,
 );
 
 //register_screen page
@@ -139,13 +139,13 @@ const kRegisterUserPagesStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
- TextStyle kRegisterUserComponentsStyle = TextStyle(
-   color: kPrimaryColour.withOpacity(0.5),
-   fontSize: 13.0,
-   fontWeight: FontWeight.bold,
+TextStyle kRegisterUserComponentsStyle = TextStyle(
+  color: kPrimaryColour.withOpacity(0.5),
+  fontSize: 13.0,
+  fontWeight: FontWeight.bold,
 );
 
- //profile constainer
+//profile constainer
 const kProfileContainerStyle = TextStyle(
   color: kSecondaryColour,
   fontSize: kProfileNameFontSize,
@@ -173,7 +173,7 @@ const TextStyle kWhiteBoldStyle = TextStyle(
 );
 
 TextStyle kResendEmailStyle = TextStyle(
-    color: kWhiteColour.withOpacity(0.7),
+  color: kWhiteColour.withOpacity(0.7),
 );
 
 TextStyle kEmailCheckStyle = TextStyle(
@@ -184,8 +184,8 @@ TextStyle kEmailCheckStyle = TextStyle(
 
 //login screen
 const TextStyle kLogInScreenStyle = TextStyle(
-    fontSize: 35,
-    fontWeight: FontWeight.bold,
+  fontSize: 35,
+  fontWeight: FontWeight.bold,
 );
 
 const TextStyle kLogInPasswordStyle = TextStyle(
@@ -194,8 +194,8 @@ const TextStyle kLogInPasswordStyle = TextStyle(
 );
 
 const TextStyle kDialogStyle = TextStyle(
-    fontSize: 17,
-    fontWeight: FontWeight.w500,
+  fontSize: 17,
+  fontWeight: FontWeight.w500,
 );
 
 const TextStyle kEditPasswordStyle = TextStyle(
@@ -208,9 +208,12 @@ const kBoldStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const kSimpleWhiteColourTextStyle = TextStyle(
+    color: Colors.white
+);
 
-
-
-
-
-
+TextStyle kProfileDetailsNameStyleOpacity = TextStyle(
+  color: kTertiaryColour.withOpacity(0.2),
+  fontSize: 40.0,
+  fontWeight: FontWeight.bold,
+);

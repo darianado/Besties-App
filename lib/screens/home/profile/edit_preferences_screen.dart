@@ -1,7 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../constants/colours.dart';
 import '../../../constants/textStyles.dart';
 

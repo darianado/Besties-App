@@ -31,5 +31,11 @@ class IconContent extends StatelessWidget {
     color: colourInput,
   );
 }
-
+Icon buildIconWithSize(IconData iconInput, Color colourInput, double size) {
+  return Icon(
+    iconInput,
+    color: colourInput,
+    size: size,
+  );
+}
 

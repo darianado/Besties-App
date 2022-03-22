@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
+import '../../../constants/borders.dart';
+import '../../../constants/textStyles.dart';
 
 class EditDialogTextField extends StatefulWidget {
   String value;
@@ -26,7 +27,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
     _textFieldController.text = widget.value;
 
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(13))),
+      shape: kRoundedRectangulareBorder13,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -45,10 +46,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
                 maxLength: _contextState.context?.maxBioLength ?? 200,
                 maxLines: 10,
                 decoration: InputDecoration(border: InputBorder.none),
-                style: TextStyle(
-                  fontSize: 17,
-                  color: kTertiaryColour,
-                ),
+                style: kTertiaryStyle,
               ),
             ),
             SizedBox(
@@ -69,7 +67,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
                       textStyle: const TextStyle(
                         fontSize: 17,
                       ),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                      shape: kRoundedRectangulareBorder15,
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text("Cancel"),
@@ -81,14 +79,14 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Color(0xFF001F54),
+                      primary: kSecondaryColour,
                       fixedSize: const Size(100, 30),
                       //shadowColor: Color(0xFF0083A1),
                       //elevation: 4,
                       textStyle: const TextStyle(
                         fontSize: 17,
                       ),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(100))),
+                      shape: kRoundedRectangulareBorder15,
                     ),
                     onPressed: () async {
                       Navigator.of(context).pop();

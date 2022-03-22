@@ -45,11 +45,11 @@ class RecentChats extends StatelessWidget {
                           builder: (_) => ChatScreen(user: chat.senderEmail))
                           ),
                   child: Container(
-                    margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                        color:Colors.white,
-                        borderRadius: kSymmetricBorderRadius2,
+                    margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: const BoxDecoration(
+                        color: kSimpleWhiteColour,
+                        borderRadius: kSymmetricBorderRadius20,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/services/storage_service.dart';
+
+import '../../constants/colours.dart';
 
 class CachedImage extends StatelessWidget {
   final String? url;
@@ -15,7 +16,7 @@ class CachedImage extends StatelessWidget {
     return Icon(
       FontAwesomeIcons.exclamationCircle,
       size: 16,
-      color: Colors.orange,
+      color: kOrangeColour,
     );
   }
 

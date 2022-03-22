@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
+
+import '../../../constants/textStyles.dart';
+import '../../components/widget/icon_content.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -26,11 +25,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
+    //double screenWidth = MediaQuery.of(context).size.width;
     //double screenHeight = MediaQuery.of(context).size.height;
     final _userState = Provider.of<UserState>(context);
 
-    const double profileImageRadius = 100;
+    //const double profileImageRadius = 100;
     const double profileHeaderExtendedHeight = 430;
     const double profileHeaderCollapsedHeight = 220;
 
@@ -55,11 +54,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   child: InkWell(
                     child: IconButton(
                       onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
-                      icon: Icon(
-                        FontAwesomeIcons.pen,
-                        color: kWhiteColour,
-                        size: 17.0,
-                      ),
+                      icon: buildIconWithSize(FontAwesomeIcons.pen, kWhiteColour, 17.0),
                     ),
                   ),
                 ),
@@ -73,17 +68,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.fromLTRB(10, 15, 15, 15),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: kTertiaryColour,
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: kProfileDetailsNameStyle,
                   ),
                   SizedBox(
                     height: 15,
@@ -114,11 +102,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: kPrimaryColour.withOpacity(0.3),
-                        ),
+                        style: kInterestMatchedStyle,
                       ),
                     ],
                   ),
@@ -140,10 +124,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          FontAwesomeIcons.lock,
-                          size: 18,
-                        ),
+                        buildIconWithSize(FontAwesomeIcons.lock, kWhiteColour, 18.0),
                         SizedBox(width: 5),
                         Text("Change password"),
                       ],
@@ -164,10 +145,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
-                          FontAwesomeIcons.signOutAlt,
-                          size: 18,
-                        ),
+                        buildIconWithSize(FontAwesomeIcons.signOutAlt, kRedColour, 18.0),
                         SizedBox(width: 5),
                         Text("Sign out"),
                       ],

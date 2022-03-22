@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/alerts.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../constants/borders.dart';
+import '../../constants/textStyles.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
@@ -52,95 +53,94 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
       )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Center(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: EdgeInsets.fromLTRB(22, 20, 22, 30),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    'Forgot Password?',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 250,
-                    width: double.infinity,
-                    child: Lottie.asset('assets/lotties/forgot-password.json'),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: kCircularBorderRadius10,
-                      color: kTertiaryColour.withOpacity(0.1),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(22, 20, 22, 30),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      'Forgot Password?',
+                      style: kPasswordStyle,
                     ),
-                    child: TextFormField(
-                      controller: _email,
-                      decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          icon: Icon(
-                            Icons.email,
-                            color: kTertiaryColour,
-                          ),
-                          labelText: 'Enter your email address'),
-                      validator: (value) =>
-                          !isEmail(_email.text) ? "Invalid Email" : null,
-                      textInputAction: TextInputAction.next,
+                    SizedBox(
+                      height: 250,
+                      width: double.infinity,
+                      child: Lottie.asset('assets/lotties/forgot-password.json'),
                     ),
-                  ),
-                  SizedBox(height: 35),
-                  Container(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (((_formKey.currentState as FormState).validate()) ==
-                            true) {
-                          _sendEmailVerification(_email.text);
-                        }
-                      },
-                      child: const Text("Send recovery email"),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(kTertiaryColour),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(10.0)),
-                        textStyle: MaterialStateProperty.all(Theme.of(context)
-                            .textTheme
-                            .headline6
-                            ?.apply(fontWeightDelta: 1)),
-                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: kCircularBorderRadius10,
+                        color: kTertiaryColour.withOpacity(0.1),
+                      ),
+                      child: TextFormField(
+                        controller: _email,
+                        decoration:  InputDecoration(
+                            border: InputBorder.none,
+                            icon: buildIcons(Icons.email, kTertiaryColour),
+                            labelText: 'Enter your email address'),
+                        validator: (value) =>
+                        !isEmail(_email.text) ? "Invalid Email" : null,
+                        textInputAction: TextInputAction.next,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
-                    width: double.infinity,
-                    child: OutlinedButton(
-                      onPressed: () => context.goNamed("login"),
-                      child: const Text(
-                        "Return to log in",
-                        style: TextStyle(color: kTertiaryColour),
-                      ),
-                      style: ButtonStyle(
-                        side: MaterialStateProperty.all(kBorderSideTertiaryColour),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(10.0)),
-                        textStyle: MaterialStateProperty.all(Theme.of(context)
-                            .textTheme
-                            .headline6
-                            ?.apply(fontWeightDelta: 1)),
-                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
+                    const SizedBox(height: 35),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          if (((_formKey.currentState as FormState).validate()) ==
+                              true) {
+                            _sendEmailVerification(_email.text);
+                          }
+                        },
+                        child: const Text("Send recovery email"),
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all(kTertiaryColour),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              const EdgeInsets.all(10.0)),
+                          textStyle: MaterialStateProperty.all(Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.apply(fontWeightDelta: 1)),
+                          shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton(
+                        onPressed: () => context.goNamed("login"),
+                        child: const Text(
+                          "Return to log in",
+                          style: TextStyle(color: kTertiaryColour),
+                        ),
+                        style: ButtonStyle(
+                          side: MaterialStateProperty.all(kBorderSideTertiaryColour),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                              const EdgeInsets.all(10.0)),
+                          textStyle: MaterialStateProperty.all(Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.apply(fontWeightDelta: 1)),
+                          shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
+        )
       ),
     );
   }

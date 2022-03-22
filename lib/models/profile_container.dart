@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
@@ -7,6 +8,7 @@ import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../constants/textStyles.dart';
 import '../screens/components/sliding_profile_details.dart';
+import '../screens/components/widget/icon_content.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';
 import 'Interests/category.dart';
@@ -99,7 +101,7 @@ class ProfileContainer extends StatelessWidget {
 
     ///
     for (Category category
-        in _userState.user!.userData!.categorizedInterests!.categories) {
+    in _userState.user!.userData!.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         userInterests.add(interest.title);
       }
@@ -164,10 +166,7 @@ class LikeProfileButton extends StatelessWidget {
         likeProfile(context);
       },
       backgroundColor: kSecondaryColour,
-      child: const Icon(
-        Icons.thumb_up_off_alt_rounded,
-        color: kWhiteColour,
-      ),
+      child: buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
     );
   }
 }
@@ -213,3 +212,4 @@ class PartialProfileDetails extends StatelessWidget {
     );
   }
 }
+

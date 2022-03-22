@@ -198,7 +198,7 @@ const TextStyle kDialogStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
-const TextStyle kEditPasswordStyle = TextStyle(
+const TextStyle kPasswordStyle = TextStyle(
   fontSize: 30,
   fontWeight: FontWeight.bold,
 );

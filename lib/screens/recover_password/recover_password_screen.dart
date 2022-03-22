@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/alerts.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../constants/borders.dart';
+import '../../constants/textStyles.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
@@ -56,14 +57,14 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
           child: Form(
             key: _formKey,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(22, 20, 22, 30),
+              padding: const EdgeInsets.fromLTRB(22, 20, 22, 30),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Text(
+                  const Text(
                     'Forgot Password?',
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    style: kPasswordStyle,
                   ),
                   SizedBox(
                     height: 250,
@@ -79,20 +80,17 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                     ),
                     child: TextFormField(
                       controller: _email,
-                      decoration: const InputDecoration(
+                      decoration:  InputDecoration(
                           border: InputBorder.none,
-                          icon: Icon(
-                            Icons.email,
-                            color: kTertiaryColour,
-                          ),
+                          icon: buildIcons(Icons.email, kTertiaryColour),
                           labelText: 'Enter your email address'),
                       validator: (value) =>
                           !isEmail(_email.text) ? "Invalid Email" : null,
                       textInputAction: TextInputAction.next,
                     ),
                   ),
-                  SizedBox(height: 35),
-                  Container(
+                  const SizedBox(height: 35),
+                  SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () {
@@ -106,7 +104,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                         backgroundColor:
                             MaterialStateProperty.all(kTertiaryColour),
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(10.0)),
+                            const EdgeInsets.all(10.0)),
                         textStyle: MaterialStateProperty.all(Theme.of(context)
                             .textTheme
                             .headline6
@@ -115,8 +113,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  Container(
+                  const SizedBox(height: 10),
+                  SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
                       onPressed: () => context.goNamed("login"),
@@ -127,7 +125,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       style: ButtonStyle(
                         side: MaterialStateProperty.all(kBorderSideTertiaryColour),
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(10.0)),
+                            const EdgeInsets.all(10.0)),
                         textStyle: MaterialStateProperty.all(Theme.of(context)
                             .textTheme
                             .headline6

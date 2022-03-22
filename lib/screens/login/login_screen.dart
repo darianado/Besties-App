@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/textStyles.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:google_fonts/google_fonts.dart';
-
 import '../../constants/borders.dart';
-import '../../constants/constant.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -76,8 +74,8 @@ class _LogInScreenState extends State<LogInScreen> {
                 kPrimaryColour,
                 kLoginBlue,
                 kActiveCardColor,
-              ],
-            )),
+              ],)
+            ),
             child: Scaffold(
                 backgroundColor: Colors.transparent,
                 appBar: PreferredSize(
@@ -96,46 +94,40 @@ class _LogInScreenState extends State<LogInScreen> {
                       automaticallyImplyLeading: false),
                 ),
                 body: Center(
-                    child: SingleChildScrollView(
-                  child: Form(
+                 child: SingleChildScrollView(
+                   child: Form(
                     key: _formKey,
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(22, 0, 22, 30),
+                      padding: const EdgeInsets.fromLTRB(22, 0, 22, 30),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               'Log in',
                               style: kLogInScreenStyle,
                             ),
-                            SizedBox(height: 40),
+                            const SizedBox(height: 40),
                             TextFormField(
                               controller: _email,
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
                                   fillColor: kWhiteColour,
                                   focusColor: kWhiteColour,
-                                  border: UnderlineInputBorder(),
-                                  icon: Icon(
-                                    Icons.email,
-                                    color: kWhiteColour,
-                                  ),
+                                  border: const UnderlineInputBorder(),
+                                  icon: buildIcons(Icons.email, kWhiteColour),
                                   labelText: 'Email address'),
                               validator: (value) => !isEmail(_email.text)
                                   ? "Invalid Email"
                                   : null,
                               textInputAction: TextInputAction.next,
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             TextFormField(
                               controller: _password,
                               obscureText: true,
-                              decoration: const InputDecoration(
-                                border: UnderlineInputBorder(),
-                                icon: Icon(
-                                  Icons.lock,
-                                  color: kWhiteColour,
-                                ),
+                              decoration: InputDecoration(
+                                border: const UnderlineInputBorder(),
+                                icon: buildIcons(Icons.lock, kWhiteColour),
                                 labelText: 'Password',
                               ),
                               validator: (value) {
@@ -157,14 +149,14 @@ class _LogInScreenState extends State<LogInScreen> {
                                 },
                               ),
                             ),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             SizedBox(
                                 width: double.infinity,
                                 height: 0.07 * screenHeight,
                                 child: ElevatedButton(
                                   onPressed: () => submitForm(_formKey),
                                   child: (isLoading)
-                                      ? SizedBox(
+                                      ? const SizedBox(
                                           height: 30,
                                           width: 30,
                                           child: CircularProgressIndicator(
@@ -172,7 +164,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                             strokeWidth: 3,
                                           ),
                                         )
-                                      : Text(
+                                      : const Text(
                                           "Log In",
                                           style: kTertiaryColourTextStyle,
                                         ),
@@ -181,7 +173,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                         MaterialStateProperty.all(kWhiteColour),
                                     padding:
                                         MaterialStateProperty.all<EdgeInsets>(
-                                            EdgeInsets.all(10.0)),
+                                            const EdgeInsets.all(10.0)),
                                     textStyle: MaterialStateProperty.all(
                                         Theme.of(context)
                                             .textTheme
@@ -190,7 +182,7 @@ class _LogInScreenState extends State<LogInScreen> {
                                     shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                                   ),
                                 )),
-                            SizedBox(height: 30),
+                            const SizedBox(height: 30),
                             Container(
                               child: Row(
                                 children: <Widget>[
@@ -207,12 +199,12 @@ class _LogInScreenState extends State<LogInScreen> {
                                           context.pushNamed("register"),
                                       style: ButtonStyle(
                                         side: MaterialStateProperty.all(
-                                            BorderSide(
+                                            const BorderSide(
                                           color: kWhiteColour,
                                           width: 1,
                                         )),
                                         padding: MaterialStateProperty.all<
-                                            EdgeInsets>(EdgeInsets.all(10.0)),
+                                            EdgeInsets>(const EdgeInsets.all(10.0)),
                                         textStyle: MaterialStateProperty.all(
                                             Theme.of(context)
                                                 .textTheme
@@ -230,7 +222,10 @@ class _LogInScreenState extends State<LogInScreen> {
                           ]),
                     ),
                   ),
-                ))));
+                )
+                )
+            )
+        );
       }),
     );
   }

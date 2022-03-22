@@ -31,11 +31,11 @@ class _ChatScreenState extends State<ChatScreen> {
     List<Message> messages = [];
     if (chats.length == 0){
       List<Message> messages = [];
-    final newChat = {
-      "messages" :  messages,
-    };
-     _firebaseFirestore.collection("chats").add(newChat);
-    }else{
+      final newChat = {
+        "messages" :  messages,
+      };
+      _firebaseFirestore.collection("chats").add(newChat);
+      }else{
     Chat chat = chats[0];
     messages = chat.messages;
     }

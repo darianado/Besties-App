@@ -89,7 +89,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                             children: <Widget>[
                               const Text(
                                 'Change your password',
-                                style: kEditPasswordStyle,
+                                style: kPasswordStyle,
                               ),
                               const SizedBox(height: 50),
                               Container(

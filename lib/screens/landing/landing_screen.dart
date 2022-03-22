@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import '../../constants/borders.dart';
 import '../../constants/colours.dart';
-import '../components/widget/widgets.dart';
 
 class LandingScreen extends StatefulWidget {
   @override
@@ -24,7 +23,6 @@ class _LandingScreenState extends State<LandingScreen> {
         end: Alignment.bottomLeft,
         stops: [0.1, 0.2, 1],
         colors: [
-          // Color(0xFF827081),
           kActiveCardColor,
           kSecondColourLanding,
           kShadowLanding,

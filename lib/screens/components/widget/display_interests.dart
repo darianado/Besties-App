@@ -1,6 +1,5 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
@@ -10,7 +9,6 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
-import '../dialogs/edit_dialog_dropdown.dart';
 
 class DisplayInterests extends StatelessWidget {
   const DisplayInterests({
@@ -59,7 +57,7 @@ class DisplayInterests extends StatelessWidget {
       label: label,
       capitalizeLabel: true,
       mini: mini,
-      textColor: Colors.white,
+      textColor: kSimpleWhiteColour,
       onTap: getOnTap(label, context),
     );
   }
@@ -76,7 +74,6 @@ class DisplayInterests extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogChipDisplay(
-              //items: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
               values: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
               onSave: _onSave,
             );

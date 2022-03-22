@@ -40,6 +40,7 @@ RoundedRectangleBorder kRoundedRectangulareBorder50 = RoundedRectangleBorder(
 );
 
 
+BorderRadius kCircularBorderRadius1 = BorderRadius.circular(1.0);
 BorderRadius kCircularBorderRadius10 = BorderRadius.circular(10.0);
 BorderRadius kCircularBorderRadius15 = BorderRadius.circular(15.0);
 BorderRadius kCircularBorderRadius20 = BorderRadius.circular(20.0);

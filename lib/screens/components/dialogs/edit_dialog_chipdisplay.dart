@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -10,8 +9,8 @@ class EditDialogChipDisplay extends StatefulWidget {
   CategorizedInterests? values;
   final Function(CategorizedInterests?) onSave;
 
-  EditDialogChipDisplay({Key? key, /*required this.items,*/ values, required this.onSave})
-      : values = /*safelyGetValue(items, value)*/ values == null ? values : null,
+  EditDialogChipDisplay({Key? key, values, required this.onSave})
+      : values = values == null ? values : null,
         super(key: key);
 
   /*static String? safelyGetValue(List<String> items, String? proposedValue) {

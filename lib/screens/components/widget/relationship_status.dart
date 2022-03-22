@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 
-import '../../../constants/constant.dart';
 
 class RelationshipStatus extends StatefulWidget {
 

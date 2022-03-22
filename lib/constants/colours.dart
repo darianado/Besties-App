@@ -47,3 +47,7 @@ Color kRedLightShade = Colors.red.shade200;
 const Color kSimpleWhiteColour = Colors.white;
 const Color kIndigoColour = Colors.indigo;
 const Color kRedColour = Colors.red;
+const Color kGreyColour = Colors.grey;
+const Color kOrangeColour = Colors.orange;
+
+const Color kLightGreen = Color(0xFF24D876);

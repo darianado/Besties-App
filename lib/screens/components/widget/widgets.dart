@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
-
 import '../../../constants/borders.dart';
+
 
 class University extends StatefulWidget {
 
@@ -102,14 +102,6 @@ Expanded buildNameSpace(@required String spaceLabel, @required TextEditingContro
   );
 }
 
-Icon buildIcon(IconData iconInput, Color colorInput) {
-  return Icon(
-    iconInput,
-    color: colorInput,
-    size: 24.0,
-  );
-}
-
 SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
   double screenWidth = MediaQuery.of(context).size.width;
   double screenHeight = MediaQuery.of(context).size.height;
@@ -125,7 +117,7 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
           shadowColor: kButtonBackground,
           elevation: 12,
           textStyle: kLargeButtonTextStyle,
-          shape: RoundedRectangleBorder(borderRadius: kCircularBorderRadius50)
+          shape: kRoundedRectangulareBorder50
       ),
       onPressed: () {
         if (((key.currentState as FormState).validate()) == true) {
@@ -136,6 +128,8 @@ SizedBox buildNext(GlobalKey key, BuildContext context, String nextPage) {
     ),
   );
 }
+
+
 
 
 

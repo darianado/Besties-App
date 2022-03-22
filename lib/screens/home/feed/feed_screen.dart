@@ -1,9 +1,8 @@
 import 'dart:collection';
+
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +49,6 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-
     final _userState = Provider.of<UserState>(context);
     final uid = _userState.user?.user?.uid;
 
@@ -66,7 +64,7 @@ class _FeedScreenState extends State<FeedScreen> {
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  // CustomRefreshIndicator(
+
                   RefreshIndicator(
                     onRefresh: () => refreshProfileContainers(uid, 1000),
                     child: PageView(

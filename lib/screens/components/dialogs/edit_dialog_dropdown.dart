@@ -3,6 +3,9 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../../constants/borders.dart';
+import '../../../constants/textStyles.dart';
+
 class EditDialogDropdown extends StatefulWidget {
   final List<String> items;
   String? value;
@@ -43,9 +46,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                       value: str,
                       child: Text(
                         str,
-                        style: TextStyle(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w500),
+                        style: kDialogStyle,
                       ),
                     ),
                   )
@@ -60,17 +61,14 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                 Expanded(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Color(0xFF0A1128),
-                      side: BorderSide(color: Colors.grey, width: 1),
+                      primary: kSimpleWhiteColour,
+                      onPrimary: kPrimaryColour,
+                      side: BorderSide(color: kGreyColour, width: 1),
                       fixedSize: const Size(100, 30),
                      // shadowColor: Color(0xFF0083A1),
                       //elevation: 4,
-                      textStyle: const TextStyle(
-                        fontSize: 17,
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      textStyle: const TextStyle( fontSize: 17),
+                      shape: kRoundedRectangulareBorder15
                     ),
                     onPressed: () => Navigator.of(context).pop(),
                     child: Text("Cancel"),
@@ -86,9 +84,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                       fixedSize: const Size(100, 30),
                      // shadowColor: Color(0xFF0083A1),
                       //elevation: 4,
-                      textStyle: const TextStyle(
-                        fontSize: 17,
-                      ),
+                      textStyle: const TextStyle(fontSize: 17),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                     ),

@@ -193,6 +193,11 @@ const TextStyle kLogInPasswordStyle = TextStyle(
   fontSize: 12,
 );
 
+const TextStyle kDialogStyle = TextStyle(
+    fontSize: 17,
+    fontWeight: FontWeight.w500,
+);
+
 
 
 

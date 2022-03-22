@@ -62,7 +62,7 @@ void _handleSubmitted(String text){
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: kSymmetricBorderRadius3,
+              borderRadius: kSymmetricBorderRadius30,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -58,7 +58,7 @@ const kContactListStyle = TextStyle(
 const kContactListNamesStyle = TextStyle(
   color: kTertiaryColour,
   fontSize: 16,
-  fontWeight: FontWeight.w500,
+  fontWeight: FontWeight.bold,
 );
 
 const kInactiveSliderStyle = TextStyle(
@@ -82,15 +82,14 @@ const kUnreadTextStyle = TextStyle(
 );
 
 const kChatTextStyle = TextStyle(
-  color: kSecondaryColour,
+  color: kWhiteColour,
   fontSize: 16,
-  fontWeight: FontWeight.w600,
+  fontWeight: FontWeight.w500,
 );
 
 const kChatTimeStyle = TextStyle(
-  color: Color(0xFF7F7F7F),
+  color: kWhiteColour,
   fontSize: 10,
-  fontWeight: FontWeight.w600,
 );
 
 const kChatAppBarStyle = TextStyle(

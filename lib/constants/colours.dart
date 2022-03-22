@@ -8,8 +8,8 @@ const kInactiveSliderColor = Color(0xFF8D8E98);
 const kBottomContainerColor = Color(0xFFEB1555);
 
 //colours for chat
-const kChatSenderColour = Color(0xFFADD8E6);
-const kChatReceiverColour = Color(0xFF87CEFA);
+const kChatSenderColour = Color(0xFF218aff);
+const kChatReceiverColour = Color(0xFFCBCBCB);
 
 //colours for next button
 const kButtonBackground = Color(0xFF041731);

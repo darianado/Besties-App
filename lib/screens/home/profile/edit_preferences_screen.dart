@@ -2,8 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
 import '../../../constants/textStyles.dart';
+import '../../../services/user_state.dart';
+import '../../components/widget/display_interests.dart';
 
 class EditPreferencesScreen extends StatefulWidget {
   @override
@@ -22,6 +25,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
   bool isFemaleChecked = true;
   bool isOtherChecked = true;
 
+
   @override
   void dispose() {
     super.dispose();
@@ -32,6 +36,8 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -46,7 +52,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                 const Padding(
                   padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
                   child: Text('Edit your preferences',
-                      style: TextStyle(fontSize: 50.0)),
+                      style: TextStyle(fontSize: 30.0)),
                 ),
                 const SizedBox(height: 60),
                 Row(
@@ -77,31 +83,31 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                 const SizedBox(
                   height: 30.0,
                 ),
-                Row(
-                  children: const [
-                    SizedBox(width: 20),
-                    Text(
-                      "Distance",
-                      textAlign: TextAlign.left,
-                      style: kBoldStyle,
-                    ),
-                  ],
-                ),
-                RangeSlider(
-                  values: _currentDistanceRangeValues,
-                  min: 16,
-                  max: 30,
-                  divisions: 15,
-                  labels: RangeLabels(
-                    _currentDistanceRangeValues.start.round().toString(),
-                    _currentDistanceRangeValues.end.round().toString(),
-                  ),
-                  onChanged: (RangeValues values) {
-                    setState(() {
-                      _currentDistanceRangeValues = values;
-                    });
-                  },
-                ),
+                // Row(
+                //   children: const [
+                //     SizedBox(width: 20),
+                //     Text(
+                //       "Distance",
+                //       textAlign: TextAlign.left,
+                //       style: kBoldStyle,
+                //     ),
+                //   ],
+                // ),
+                // RangeSlider(
+                //   values: _currentDistanceRangeValues,
+                //   min: 16,
+                //   max: 30,
+                //   divisions: 15,
+                //   labels: RangeLabels(
+                //     _currentDistanceRangeValues.start.round().toString(),
+                //     _currentDistanceRangeValues.end.round().toString(),
+                //   ),
+                //   onChanged: (RangeValues values) {
+                //     setState(() {
+                //       _currentDistanceRangeValues = values;
+                //     });
+                //   },
+                // ),
                 const SizedBox(height: 20),
                 Row(
                   children: const [
@@ -125,8 +131,23 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     const Text("Other"),
                   ],
                 ),
-                Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-                ]),
+                SizedBox(width: 20),
+                Row(
+                  children: const [
+                    SizedBox(width: 20),
+                    Expanded(
+                      child: Text(
+                        "Select interests you would want to learn about from other people",
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(width: 20),
+                DisplayInterests(
+                  items: _userState.user?.userData?.flattenedInterests ?? [],
+                ),
+                SizedBox(width: 20),
                 ElevatedButton(
                   onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
                   child: const Text("SAVE NEW INFORMATION"),
@@ -139,6 +160,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     );
   }
 
+  //Able to select more than one gender to be interested in
   Checkbox buildCheckBox(@required Gender gender, bool isChecked) {
     return Checkbox(
       checkColor: kSimpleWhiteColour,

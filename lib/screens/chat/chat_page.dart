@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +11,8 @@ import 'package:project_seg/constants/textStyles.dart';
 
 
 class ChatScreen extends StatefulWidget {
-  //const ChatScreen({ Key? key }) : super(key: key);
-
-
-  ChatScreen({user});
+  final String receiverEmail;
+  ChatScreen(this.receiverEmail);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -26,26 +25,40 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textController = TextEditingController();
   List<Message> _messages = [];
 
-  Future<List<Message>> getMessages() async{
-    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("messages").where("sender", isEqualTo: currentUser.toString()).get();
-    final messages = querySnapshot.docs.map((doc) => Message.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+  Future<List<Message>> getMessages(String receiverID) async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("Chats").where(FieldPath.documentId, isEqualTo: receiverID).get();
+    final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+    List<Message> messages = [];
+    if (chats.length == 0){
+      List<Message> messages = [];
+    final newChat = {
+      "messages" :  messages,
+    };
+     _firebaseFirestore.collection("chats").add(newChat);
+    }else{
+    Chat chat = chats[0];
+    messages = chat.messages;
+    }
     return messages;
   }
 
-  void convertMessage() async{
-    _messages =  await getMessages();
+  void convertList(String receiverID) async {
+    Future<List<Message>> messages = getMessages(receiverID);
+    _messages = await messages;
   }
 
+
+
+
+  //create a message with sender and time and save it to firestore
   void _handleSubmitted(String text){
     DateTime now = DateTime.now();
     String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
     _textController.clear();
-    Message message = Message(currentUser.toString(), time, text, true, false);
+    Message message = Message(time, text, true);
     final newMessage = {
-        "sender": message.senderEmail,
         "time" : message.time,
         "text" : message.text,
-        "unread" : message.unread,
         "mine" : message.mine,
       };
       _firebaseFirestore.collection("messages").add(newMessage);
@@ -147,9 +160,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context){
-    final _userState = Provider.of<UserState>(context);
-    currentUser = _userState.user?.user?.email;
-    convertMessage();
+    convertList(widget.receiverEmail);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -188,7 +199,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       itemCount: _messages.length,
                       itemBuilder: (BuildContext context, int index) {
                         final Message message = _messages[index];
-                         _messages[index].setRead();
+                         //_messages[index].setRead();
                         return _messagebuilder(message);
                       }),
                 ),

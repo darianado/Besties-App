@@ -1,11 +1,14 @@
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
+import 'package:project_seg/models/User/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 class GStyle {
     // 消息红点
@@ -19,8 +22,34 @@ class GStyle {
 }
 
 class RecentChats extends StatelessWidget {
+
+  final List<Chat> chatList;
+
+  RecentChats(this.chatList);
+
+  
+
   @override
   Widget build(BuildContext context) {
+
+  final _userState = Provider.of<UserState>(context);
+  final currentUser = _userState.user?.user?.email;
+
+  List<Chat> chatlist =[];
+
+  Future<List<Chat>> getChats() async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection(currentUser.toString()).get();
+    final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+    return chats;
+  }
+
+  void convertList() async {
+    Future<List<Chat>> chat = getChats();
+    chatlist = await chat;
+  }
+
+  convertList();
+
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
@@ -30,13 +59,15 @@ class RecentChats extends StatelessWidget {
           child: ListView.builder(
               itemCount: chats.length,
               itemBuilder: (BuildContext context, int index) {
-                final Message chat = chats[index];
+                final Chat chat = chatlist[index];
+                String receiverEmail = chat.chatID;
                 return GestureDetector(
                   onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => ChatScreen(user: chat.senderEmail))
+                          builder: (_) => ChatScreen(receiverEmail)
                           ),
+                  ),
                   child: Container(
                     margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -56,13 +87,13 @@ class RecentChats extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                chat.senderEmail,
+                                chat.chatID,
                                 style: kInactiveSliderStyle,
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: Text(
-                                  chat.text,
+                                  chat.messages[0].text,
                                   style: kInactiveSliderStyle,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -73,9 +104,9 @@ class RecentChats extends StatelessWidget {
                       ),
                       Column(
                         children: <Widget>[
-                          if (chat.unread) GStyle.badge(),
+                          //if (message.unread) GStyle.badge(),
                           Text(
-                            chat.time,
+                            chat.messages[0].time,
                             style: kUnreadTextStyle,
                           ),
                           const SizedBox(

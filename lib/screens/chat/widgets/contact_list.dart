@@ -1,13 +1,30 @@
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class Contacts extends StatelessWidget {
 
 
+  List<Chat> chatList = [];
+
+  Future<List<Chat>> getChats() async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection(currentUser.toString()).get();
+    final _contacts= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+    return _contacts;
+  }
+
+  void convertChat() async {
+    Future<List<Chat>> _contacts = getChats();
+    chatList = await _contacts;
+  }
+
   @override
   Widget build(BuildContext context) {
+    convertChat();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -30,12 +47,14 @@ class Contacts extends StatelessWidget {
               padding: const EdgeInsets.only(left: 10),
               scrollDirection: Axis.horizontal,
               itemCount: contacts.length,
+              //itemCount: chatList.length,
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (_) => ChatScreen(user: contacts[index])
+                      //builder: (_) => ChatScreen(chatList[index].chatID)
+                      builder: (_) => ChatScreen(contacts[index].email)
                     )
                   ),
                   child: Padding(

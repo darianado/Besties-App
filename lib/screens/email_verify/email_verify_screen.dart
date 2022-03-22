@@ -1,6 +1,8 @@
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -8,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 import '../../constants/textStyles.dart';
 import '../components/widget/icon_content.dart';
+import 'package:go_router/go_router.dart';
 
 class EmailVerifyScreen extends StatefulWidget {
   const EmailVerifyScreen({Key? key}) : super(key: key);
@@ -42,6 +45,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -58,12 +62,12 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   SizedBox(
                     height: 300,
                     width: 300,
-                    child:
-                        Lottie.asset('assets/lotties/mail-verification.json'),
+                    child: Lottie.asset('assets/lotties/mail-verification.json'),
                   ),
                   const Text(
                     "You've got mail!",
                     style: kWhiteBoldStyle,
+                    textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 30),
                   Text(
@@ -74,27 +78,25 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   const SizedBox(height: 100)
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: OutlinedButton(
-                  onPressed: () => _authService.sendVerificationEmail(),
-                  child: Text(
-                    "Resend email",
-                    style: kResendEmailStyle,
+              Column(
+                children: [
+                  Text(
+                    "We have sent the email to '${_userState.user?.user?.email}'. Didn't receive it yet?",
+                    style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12),
+                    textAlign: TextAlign.center,
                   ),
-                  style: ButtonStyle(
-                    side: MaterialStateProperty.all(BorderSide(
-                      color: kWhiteColour.withOpacity(0.8),
-                      width: 1,
-                    )),
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0)),
-                    textStyle: MaterialStateProperty.all(
-                        Theme.of(context).textTheme.bodyMedium),
-                    shape: MaterialStateProperty.all(kRoundedRectangulareBorder40)
-                    ),
+                  SizedBox(
+                    height: 20,
                   ),
-                ),
+                  PillButtonOutlined(
+                    text: "Resend email",
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                    textStyle: Theme.of(context).textTheme.labelLarge?.apply(color: Colors.white),
+                    onPressed: () => _authService.sendVerificationEmail(),
+                  ),
+                ],
+              ),
             ],
           ),
         ),

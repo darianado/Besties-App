@@ -27,7 +27,6 @@ const kWhiteColourTextStyle = TextStyle(
   color: kWhiteColour,
 );
 
-
 const kTitleTextStyle = TextStyle(
   fontSize: 50.0,
   fontWeight: FontWeight.bold,
@@ -176,10 +175,9 @@ TextStyle kResendEmailStyle = TextStyle(
   color: kWhiteColour.withOpacity(0.7),
 );
 
-TextStyle kEmailCheckStyle = TextStyle(
+const TextStyle kEmailCheckStyle = TextStyle(
   color: kWhiteColour,
   fontSize: 18,
-
 );
 
 //login screen
@@ -208,9 +206,7 @@ const kBoldStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
-const kSimpleWhiteColourTextStyle = TextStyle(
-    color: Colors.white
-);
+const kSimpleWhiteColourTextStyle = TextStyle(color: Colors.white);
 
 TextStyle kProfileDetailsNameStyleOpacity = TextStyle(
   color: kTertiaryColour.withOpacity(0.2),

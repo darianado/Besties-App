@@ -3,11 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/alerts.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_seg/utility/form_validators.dart';
 import '../../constants/borders.dart';
 import '../../constants/textStyles.dart';
 
@@ -19,7 +23,7 @@ class RecoverPasswordScreen extends StatefulWidget {
 }
 
 class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
-  final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
   final AuthService _authService = AuthService.instance;
 
@@ -28,12 +32,16 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   _sendEmailVerification(String email) async {
     try {
       await _authService.resetPassword(email);
-      showEmailAlert(
-          context, 'Please check your email for a password reset link');
+      showEmailAlert(context, 'Please check your email for a password reset link');
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showEmailAlert(context, errorMsg);
+    }
+  }
+
+  void submitForm(GlobalKey<FormState> key) {
+    if (_formKey.currentState!.validate()) {
+      _sendEmailVerification(_email.text);
     }
   }
 
@@ -53,8 +61,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
       )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
+        body: Center(
+          child: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Padding(
@@ -63,6 +71,9 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
+                    SizedBox(
+                      height: 20,
+                    ),
                     const Text(
                       'Forgot Password?',
                       style: kPasswordStyle,
@@ -81,58 +92,32 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       ),
                       child: TextFormField(
                         controller: _email,
-                        decoration:  InputDecoration(
+                        decoration: InputDecoration(
                             border: InputBorder.none,
                             icon: buildIcons(Icons.email, kTertiaryColour),
                             labelText: 'Enter your email address'),
-                        validator: (value) =>
-                        !isEmail(_email.text) ? "Invalid Email" : null,
+                        validator: validateEmail,
                         textInputAction: TextInputAction.next,
                       ),
                     ),
                     const SizedBox(height: 35),
-                    SizedBox(
+                    Container(
                       width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (((_formKey.currentState as FormState).validate()) ==
-                              true) {
-                            _sendEmailVerification(_email.text);
-                          }
-                        },
-                        child: const Text("Send recovery email"),
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all(kTertiaryColour),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.all(10.0)),
-                          textStyle: MaterialStateProperty.all(Theme.of(context)
-                              .textTheme
-                              .headline6
-                              ?.apply(fontWeightDelta: 1)),
-                          shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                        ),
+                      child: PillButtonFilled(
+                        text: "Send recovery email",
+                        backgroundColor: kTertiaryColour,
+                        textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+                        onPressed: () => submitForm(_formKey),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    SizedBox(
+                    Container(
                       width: double.infinity,
-                      child: OutlinedButton(
-                        onPressed: () => context.goNamed("login"),
-                        child: const Text(
-                          "Return to log in",
-                          style: TextStyle(color: kTertiaryColour),
-                        ),
-                        style: ButtonStyle(
-                          side: MaterialStateProperty.all(kBorderSideTertiaryColour),
-                          padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.all(10.0)),
-                          textStyle: MaterialStateProperty.all(Theme.of(context)
-                              .textTheme
-                              .headline6
-                              ?.apply(fontWeightDelta: 1)),
-                          shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                        ),
+                      child: PillButtonOutlined(
+                        text: "Return to log in",
+                        color: kTertiaryColour,
+                        textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: kTertiaryColour),
+                        onPressed: () => context.goNamed(loginScreenName),
                       ),
                     ),
                   ],
@@ -140,7 +125,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
               ),
             ),
           ),
-        )
+        ),
       ),
     );
   }

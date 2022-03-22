@@ -3,11 +3,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/widget/relationship_status.dart';
@@ -20,8 +23,7 @@ class RegisterBasicInfoScreen extends StatefulWidget {
   UserData userData;
 
   @override
-  _RegisterBasicInfoScreenState createState() =>
-      _RegisterBasicInfoScreenState();
+  _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
 
 class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
@@ -141,10 +143,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          validator: (content) {
-                            if (content == null || content.isEmpty)
-                              return "First name is required";
-                          },
+                          validator: (value) => validateNotEmpty(value, "First name"),
                         ),
                       ),
                       SizedBox(height: 10),
@@ -156,17 +155,15 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(
-                            controller: _lastName,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              labelText: 'Last name',
-                            ),
-                            keyboardType: TextInputType.text,
-                            textCapitalization: TextCapitalization.words,
-                            validator: (content) {
-                              if (content == null || content.isEmpty)
-                                return "Last name is required";
-                            }),
+                          controller: _lastName,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            labelText: 'Last name',
+                          ),
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.words,
+                          validator: (value) => validateNotEmpty(value, "Last name"),
+                        ),
                       ),
                       SizedBox(height: 40),
                       Row(
@@ -184,9 +181,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         editable: true,
                         shouldExpand: true,
                         color: kSecondaryColour,
-                        label: (widget.userData.dob != null)
-                            ? "${widget.userData.humanReadableDateOfBirth}"
-                            : "Select a date",
+                        label: (widget.userData.dob != null) ? "${widget.userData.humanReadableDateOfBirth}" : "Select a date",
                         onSave: (dateTime) => setState(() {
                           widget.userData.dob = dateTime;
                         }),
@@ -220,19 +215,12 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       ),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: _contextState.context?.genders
-                                  ?.map((gender) {
+                          children: _contextState.context?.genders?.map((gender) {
                                 return ChipWidget(
                                   color: kIndigoColour,
-                                  bordered: widget.userData.gender == gender
-                                      ? false
-                                      : true,
-                                  textColor: (widget.userData.gender == gender)
-                                      ? kSimpleWhiteColour
-                                      : null,
-                                  iconColor: (widget.userData.gender == gender)
-                                      ? kSimpleWhiteColour
-                                      : null,
+                                  bordered: widget.userData.gender == gender ? false : true,
+                                  textColor: (widget.userData.gender == gender) ? kSimpleWhiteColour : null,
+                                  iconColor: (widget.userData.gender == gender) ? kSimpleWhiteColour : null,
                                   icon: getIconForGender(gender),
                                   label: gender,
                                   mini: true,
@@ -272,12 +260,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       RelationshipStatusButton(
                         editable: true,
                         shouldExpand: true,
-                        label: (widget.userData.relationshipStatus != null)
-                            ? widget.userData.relationshipStatus!
-                            : "Click to select",
+                        label: (widget.userData.relationshipStatus != null) ? widget.userData.relationshipStatus! : "Click to select",
                         onSave: (relationshipStatus) => setState(() {
-                          widget.userData.relationshipStatus =
-                              relationshipStatus;
+                          widget.userData.relationshipStatus = relationshipStatus;
                         }),
                       ),
                       (couldNotValidateRelationshipStatus)
@@ -296,7 +281,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       SizedBox(height: 30),
                       Container(
                         width: double.infinity,
-                        child: ElevatedButton(
+                        child: PillButtonFilled(
+                          text: "Next",
+                          backgroundColor: kTertiaryColour,
+                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 
@@ -325,27 +313,12 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             couldNotValidateRelationshipStatus = false;
 
                             setState(() {
-                              widget.userData.firstName =
-                                  _firstName.text.trim();
+                              widget.userData.firstName = _firstName.text.trim();
                               widget.userData.lastName = _lastName.text.trim();
                             });
 
-                            context.goNamed("register_photo",
-                                extra: widget.userData);
+                            context.goNamed(registerPhotoScreenName, extra: widget.userData);
                           },
-                          child: Text("Next"),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(kTertiaryColour),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(10.0)),
-                            textStyle: MaterialStateProperty.all(
-                                Theme.of(context)
-                                    .textTheme
-                                    .headline5
-                                    ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                          ),
                         ),
                       ),
                     ],

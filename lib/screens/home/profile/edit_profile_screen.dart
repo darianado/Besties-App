@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
@@ -29,7 +30,6 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final FirestoreService _firestoreService = FirestoreService.instance;
-  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _uniController = TextEditingController();
 
@@ -91,7 +91,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context.pushNamed("home", params: {'page': 'profile'}),
+                      onPressed: () => context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
                       icon: buildIcons(Icons.check, kWhiteColour),
                     ),
                   ),

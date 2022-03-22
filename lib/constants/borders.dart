@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'colours.dart';
 
+const kDefaultButtonBorderRadius = 100.0;
 
 const kBorderRadiusAll = BorderRadius.all(kRadius10);
 
@@ -16,15 +17,14 @@ const kRadius100 = Radius.circular(100.0);
 
 const kAllDirectionalCircularBorder = BorderRadiusDirectional.all(kRadius100);
 
-
-const kRoundedRectangulareBorder =RoundedRectangleBorder(
+const kRoundedRectangulareBorder = RoundedRectangleBorder(
   borderRadius: BorderRadius.vertical(
     top: kRadius20,
   ),
 );
 
 RoundedRectangleBorder kRoundedRectangulareBorder13 = RoundedRectangleBorder(
-    borderRadius: kSymmetricBorderRadius13,
+  borderRadius: kSymmetricBorderRadius13,
 );
 
 RoundedRectangleBorder kRoundedRectangulareBorder15 = RoundedRectangleBorder(
@@ -36,9 +36,8 @@ RoundedRectangleBorder kRoundedRectangulareBorder40 = RoundedRectangleBorder(
 );
 
 RoundedRectangleBorder kRoundedRectangulareBorder50 = RoundedRectangleBorder(
-    borderRadius:kCircularBorderRadius50,
+  borderRadius: kCircularBorderRadius50,
 );
-
 
 BorderRadius kCircularBorderRadius1 = BorderRadius.circular(1.0);
 BorderRadius kCircularBorderRadius10 = BorderRadius.circular(10.0);
@@ -57,8 +56,8 @@ const BorderRadius kSymmetricBorderRadius20 = BorderRadius.all(kRadius20);
 const BorderRadius kSymmetricBorderRadius30 = BorderRadius.all(kRadius30);
 
 const BorderRadius kBorderRadiusTLeftTRight = BorderRadius.only(
-    topLeft: kRadius30,
-    topRight: kRadius30,
+  topLeft: kRadius30,
+  topRight: kRadius30,
 );
 
 const BorderSide kBorderSideTertiaryColour = BorderSide(
@@ -70,6 +69,4 @@ const BorderSide kBorderSideTertiaryColour2 = BorderSide(
   width: 1,
 );
 
-const OutlineInputBorder kOutlineBorder = OutlineInputBorder(
-    borderRadius: kBorderRadiusAll,
-    borderSide: BorderSide.none);
+const OutlineInputBorder kOutlineBorder = OutlineInputBorder(borderRadius: kBorderRadiusAll, borderSide: BorderSide.none);

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/User/UserData.dart';
@@ -18,8 +20,7 @@ class RegisterInterestsScreen extends StatefulWidget {
   UserData userData;
 
   @override
-  State<RegisterInterestsScreen> createState() =>
-      _RegisterInterestsScreenState();
+  State<RegisterInterestsScreen> createState() => _RegisterInterestsScreenState();
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
@@ -46,8 +47,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed("register_description",
-                  extra: widget.userData),
+              onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: kPrimaryColour,
@@ -97,8 +97,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                         widget.userData.categorizedInterests = newCategories;
                       });
                     },
-                    selected: widget.userData.categorizedInterests ??
-                        CategorizedInterests(categories: []),
+                    selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
                   ),
                   (couldNotValidateInterests)
                       ? Row(
@@ -118,13 +117,14 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                   const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child: PillButtonFilled(
+                      text: "Done",
+                      backgroundColor: kTertiaryColour,
+                      textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
                       onPressed: () {
                         final _interests = widget.userData.flattenedInterests;
 
-                        if (_interests == null ||
-                            _interests.length < 1 ||
-                            _interests.length > 10) {
+                        if (_interests == null || _interests.length < 1 || _interests.length > 10) {
                           setState(() {
                             couldNotValidateInterests = true;
                           });
@@ -137,20 +137,9 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
 
                         saveToFirestore();
                       },
-                      child: Text("Done"),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(kTertiaryColour),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(10.0)),
-                        textStyle: MaterialStateProperty.all(Theme.of(context)
-                            .textTheme
-                            .headline5
-                            ?.apply(fontWeightDelta: 2)),
-                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                      ),
                     ),
                   ),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),

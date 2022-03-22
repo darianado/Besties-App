@@ -27,7 +27,8 @@ class MenuData {
 
   List<MenuItemData> get items => entries.whereType<MenuItemData>().toList();
 
-  int indexOfItemWithRoute(String routeName) => items.indexWhere((element) => element.routeName == routeName);
+  int indexOfItemWithRoute(String routeName) =>
+      items.indexWhere((element) => element.routeName == routeName);
 }
 
 MenuData menuData = MenuData(

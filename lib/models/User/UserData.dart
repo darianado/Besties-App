@@ -97,7 +97,7 @@ class UserData {
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
-      likes: List<String>.from(data?['likes']),
+      // likes: List<String>.from(data?['likes']),
       university: data?['university'],
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],

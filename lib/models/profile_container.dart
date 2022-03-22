@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
 import '../constants/constant.dart';
@@ -16,6 +17,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //  Currently filled with random names and locations.
 class ProfileContainer extends StatelessWidget {
   final UserData profile;
+
 
   ProfileContainer({Key? key, required this.profile}) : super(key: key);
 
@@ -128,19 +130,29 @@ class LikeProfileButton extends StatelessWidget {
 
     showDialog(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("You liked " + (profile.firstName ?? " ") + "!"),
-          actions: [
-            TextButton(
-              child: const Text("Dismiss"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
+      builder: 
+      (BuildContext context) => CustomDialog(
+        otherName: profile.firstName,
+        myImage: userState.user!.userData!.profileImageUrl,
+        otherImage: profile.profileImageUrl,
+      ),
+
+
+
+
+      // (BuildContext context) {
+      //   return AlertDialog(
+      //     title: Text("You liked " + (profile.firstName ?? " ") + "!"),
+      //     actions: [
+      //       TextButton(
+      //         child: const Text("Dismiss"),
+      //         onPressed: () {
+      //           Navigator.of(context).pop();
+      //         },
+      //       ),
+      //     ],
+      //   );
+      // },
     );
 
   }

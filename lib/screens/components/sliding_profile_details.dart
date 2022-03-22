@@ -10,6 +10,12 @@ import 'buttons/gender_button.dart';
 import 'buttons/relationship_status_button.dart';
 import 'buttons/university_button.dart';
 
+/// The Widget that shows the displayed profile's complete details.
+///
+/// The Widget is built upon tapping the [ProfileContainer]'s [PartialProfileDetails]
+/// as a modal bottom sheet.
+/// It is composed of the profile's full name, university, age, gender,
+/// relationship status and bio.
 class SlidingProfileDetails extends StatefulWidget {
   final UserData profile;
   final String? commonInterests;
@@ -22,6 +28,7 @@ class SlidingProfileDetails extends StatefulWidget {
   State<SlidingProfileDetails> createState() => _SlidingProfileDetailsState();
 }
 
+/// The State for the [SlidingProfileDetails] widget.
 class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
   late AutoScrollController controller;
 
@@ -34,6 +41,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
         axis: Axis.vertical);
   }
 
+  /// Scrolls the information back to the top of the modal bottom sheet.
   Future<dynamic> _scrollBackToTop(details) async {
     await controller.scrollToIndex(0,
         duration: const Duration(milliseconds: 500),

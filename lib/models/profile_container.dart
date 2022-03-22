@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
 import '../constants/constant.dart';
@@ -12,12 +13,16 @@ import 'Interests/category.dart';
 import 'Interests/interest.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-//  Widget to display a profile in the main feed.
-//  Currently filled with random names and locations.
+/// The Widget that displays a profile's information.
+///
+/// This Widget is placed within the [FeedScreen]'s [PageView].
+/// It is composed of a [NetworkImage], [PartialProfileDetails],
+/// a modal bottom sheet that contains [SlidingProfileDetails]
+/// and a [LikeProfileButton].
 class ProfileContainer extends StatelessWidget {
   final UserData profile;
 
-  ProfileContainer({Key? key, required this.profile}) : super(key: key);
+  const ProfileContainer({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +91,13 @@ class ProfileContainer extends StatelessWidget {
     );
   }
 
+  /// Returns a [Set] intersection between the user's interests
+  /// and the displayed profile's interests
   String getCommonInterests(UserState _userState) {
     Set<String> userInterests = <String>{};
     Set<String> profileInterests = <String>{};
 
+    ///
     for (Category category
         in _userState.user!.userData!.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
@@ -112,7 +120,9 @@ class ProfileContainer extends StatelessWidget {
   }
 }
 
-// FloatingActionButton to like the displayed profile.
+/// The [FloatingActionButton] to like the displayed profile.
+///
+/// The [likeProfile] method is called on-tap
 class LikeProfileButton extends StatelessWidget {
   final UserData profile;
   final UserState userState;
@@ -121,7 +131,10 @@ class LikeProfileButton extends StatelessWidget {
       {Key? key, required this.profile, required this.userState})
       : super(key: key);
 
-  // Method that generates an AlertDialog
+  /// Likes the displayed profile.
+  ///
+  /// Updates the database with a [FirestoreService] instance
+  /// and generates an [AlertDialog].
   void likeProfile(BuildContext context) {
     final FirestoreService _firestoreService = FirestoreService.instance;
     _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
@@ -159,7 +172,10 @@ class LikeProfileButton extends StatelessWidget {
   }
 }
 
-// Widget that displays the profile's full name and location arranged in a column.
+/// The Widget that shows the displayed profile's partial details.
+///
+/// This Widget is composed of the profile's first name and university
+/// arranged in a [Column].
 class PartialProfileDetails extends StatelessWidget {
   final UserData profile;
 
@@ -181,11 +197,9 @@ class PartialProfileDetails extends StatelessWidget {
         Row(children: [
           const Padding(
             padding: EdgeInsets.only(right: 7.5),
-            child: Expanded(
-              child: Icon(
-                FontAwesomeIcons.university,
-                color: kSecondaryColour,
-              ),
+            child: Icon(
+              FontAwesomeIcons.university,
+              color: kSecondaryColour,
             ),
           ),
           Expanded(
@@ -196,42 +210,6 @@ class PartialProfileDetails extends StatelessWidget {
           ),
         ]),
       ],
-    );
-  }
-}
-
-// Widget that displays all of the profile's details as a sliding bottom sheet.
-class CompleteProfileDetails extends StatelessWidget {
-  final UserData profile;
-
-  const CompleteProfileDetails({Key? key, required this.profile})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.70,
-      width: MediaQuery.of(context).size.width,
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Icons.school_outlined,
-                color: kSecondaryColour,
-              ),
-            ),
-            Text(
-              profile.university ?? " ",
-              style: kProfileContainerUniversityStyle,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

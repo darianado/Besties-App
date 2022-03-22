@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../constants/colours.dart';
+import '../../../constants/textStyles.dart';
+
 class EditPreferencesScreen extends StatefulWidget {
   @override
   _EditPreferencesScreenState createState() => _EditPreferencesScreenState();
@@ -42,21 +45,17 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
               child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
                 const Padding(
                   padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                  child: Text('Edit your preferences', style: TextStyle(fontSize: 50.0)),
+                  child: Text('Edit your preferences',
+                      style: TextStyle(fontSize: 50.0)),
                 ),
-                const SizedBox(height: 30),
-                SizedBox(
-                  height: 30.0,
-                ),
+                const SizedBox(height: 60),
                 Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
+                  children: const [
+                    SizedBox(width: 20),
                     Text(
                       "Age",
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: kBoldStyle,
                     ),
                   ],
                 ),
@@ -75,18 +74,16 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     });
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
                 Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
+                  children: const [
+                    SizedBox(width: 20),
                     Text(
                       "Distance",
                       textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: kBoldStyle,
                     ),
                   ],
                 ),
@@ -105,45 +102,30 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     });
                   },
                 ),
-                SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 Row(
-                  children: [
-                    SizedBox(
-                      width: 20,
-                    ),
+                  children: const [
+                    SizedBox(width: 20),
                     Text(
                       "Select the gender you are interested in",
                       textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 15,
-                      ),
+                      style: TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
                 Row(
                   children: <Widget>[
                     buildCheckBox(Gender.male, isMaleChecked),
-                    Text("Male"),
-                    SizedBox(
-                      width: 20,
-                    ),
+                    const Text("Male"),
+                    const SizedBox(width: 20),
                     buildCheckBox(Gender.female, isFemaleChecked),
-                    Text("Female"),
-                    SizedBox(
-                      width: 20,
-                    ),
+                    const Text("Female"),
+                    const SizedBox(width: 20),
                     buildCheckBox(Gender.other, isOtherChecked),
-                    Text("Other"),
+                    const Text("Other"),
                   ],
                 ),
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-                  /*
-                  Expanded(
-                    child: University(),
-                  ),
-                  */
                 ]),
                 ElevatedButton(
                   onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
@@ -159,7 +141,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
 
   Checkbox buildCheckBox(@required Gender gender, bool isChecked) {
     return Checkbox(
-      checkColor: Colors.white,
+      checkColor: kSimpleWhiteColour,
       //fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
       onChanged: (bool? value) {

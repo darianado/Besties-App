@@ -203,6 +203,11 @@ const TextStyle kEditPasswordStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 
+const kBoldStyle = TextStyle(
+  fontSize: 20,
+  fontWeight: FontWeight.bold,
+);
+
 
 
 

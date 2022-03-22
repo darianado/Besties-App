@@ -51,3 +51,4 @@ const Color kGreyColour = Colors.grey;
 const Color kOrangeColour = Colors.orange;
 
 const Color kLightGreen = Color(0xFF24D876);
+Color kOpacBlack = Colors.black.withOpacity(0.5);

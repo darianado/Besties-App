@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
@@ -13,12 +14,14 @@ import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
-  RegisterDescriptionScreen({Key? key, required this.userData}) : super(key: key);
+  RegisterDescriptionScreen({Key? key, required this.userData})
+      : super(key: key);
 
   UserData userData;
 
   @override
-  _RegisterDescriptionScreenState createState() => _RegisterDescriptionScreenState();
+  _RegisterDescriptionScreenState createState() =>
+      _RegisterDescriptionScreenState();
 }
 
 class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
@@ -68,7 +71,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(
-                onPressed: () => context.goNamed(registerPhotoScreenName, extra: widget.userData),
+                onPressed: () => context.goNamed(registerPhotoScreenName,
+                    extra: widget.userData),
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: kPrimaryColour,
@@ -79,10 +83,14 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                 height: double.infinity,
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                  padding: const EdgeInsets.fromLTRB(
+                      leftRightPadding, 5, leftRightPadding, 5),
                   child: Text(
                     '... and a bit more about ${widget.userData.firstName}',
-                    style: kRegisterUserPagesStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
                   ),
                 ),
               ),
@@ -92,28 +100,28 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               child: Form(
                 key: _key,
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(leftRightPadding),
                   child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
+                    children: [
+                      SizedBox(height: 20),
                       Row(
                         children: <Widget>[
                           Text(
                             'UNIVERSITY',
-                            style: kRegisterUserComponentsStyle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       UniversityButton(
                         editable: true,
                         shouldExpand: true,
                         color: kSecondaryColour,
-                        label: widget.userData.university ?? "Select your university",
+                        label: widget.userData.university ??
+                            "Select your university",
                         onSave: (university) => setState(() {
                           widget.userData.university = university;
                         }),
@@ -122,33 +130,31 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           ? Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(3.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: kRedTextStyle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
                             )
                           : Container(),
-                      SizedBox(
-                        height: 40,
-                      ),
+                      SizedBox(height: 40),
                       Row(
-                        children: <Widget>[
+                        children: [
                           Text(
                             'BIO / SHORT DESCRIPTION',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       TextFormField(
                           controller: _bio,
                           minLines: 6,
@@ -162,11 +168,13 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             filled: true,
                             fillColor: kLightTertiaryColour,
                           ),
-                          onChanged: (value) => widget.userData.bio = value.trim(),
+                          onChanged: (value) =>
+                              widget.userData.bio = value.trim(),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                           validator: (content) {
-                            if (content == null || content.isEmpty) return "A bio is required";
+                            if (content == null || content.isEmpty)
+                              return "A bio is required";
                           }),
                       SizedBox(height: 35),
                       Container(
@@ -174,7 +182,10 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         child: PillButtonFilled(
                           text: "Next",
                           backgroundColor: kTertiaryColour,
-                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
+                          textStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 
@@ -186,7 +197,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             }
                             couldNotValidateUniversity = false;
 
-                            context.goNamed(registerInterestsScreenName, extra: widget.userData);
+                            context.goNamed(registerInterestsScreenName,
+                                extra: widget.userData);
                           },
                         ),
                       ),

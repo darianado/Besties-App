@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
@@ -101,7 +100,7 @@ class ProfileContainer extends StatelessWidget {
 
     ///
     for (Category category
-    in _userState.user!.userData!.categorizedInterests!.categories) {
+        in _userState.user!.userData!.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         userInterests.add(interest.title);
       }
@@ -190,7 +189,10 @@ class PartialProfileDetails extends StatelessWidget {
         Text(
           profile.firstName ?? " ",
           maxLines: 2,
-          style: kProfileContainerStyle,
+          style: Theme.of(context)
+              .textTheme
+              .headline4
+              ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -204,7 +206,10 @@ class PartialProfileDetails extends StatelessWidget {
           Expanded(
             child: Text(
               profile.university ?? "null",
-              style: kProfileContainerUniversityStyle,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.apply(color: kSecondaryColour),
             ),
           ),
         ]),
@@ -212,4 +217,3 @@ class PartialProfileDetails extends StatelessWidget {
     );
   }
 }
-

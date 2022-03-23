@@ -114,7 +114,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       Expanded(
                         child: Text(
                           'Let\'s start with the basics...',
-                          style: kRegisterUserPagesStyle,
+                          style: Theme.of(context).textTheme.headline4?.apply(
+                              color: kSecondaryColour, fontWeightDelta: 2),
                         ),
                       ),
                     ],
@@ -175,7 +176,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'BIRTHDAY',
-                            style: kRegisterUserComponentsStyle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
@@ -198,7 +202,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: kRedTextStyle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
@@ -209,13 +216,14 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'GENDER',
-                            style: kRegisterUserComponentsStyle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: _contextState.context?.genders
@@ -247,7 +255,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: kRedTextStyle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
@@ -260,13 +271,14 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: <Widget>[
                           Text(
                             'RELATIONSHIP STATUS',
-                            style: kRegisterUserComponentsStyle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       RelationshipStatusButton(
                         editable: true,
                         shouldExpand: true,
@@ -285,7 +297,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: kRedTextStyle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],

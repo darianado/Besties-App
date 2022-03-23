@@ -113,7 +113,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
                     ),
                     SizedBox(height: 40),
                     TextFormField(

@@ -132,30 +132,30 @@ const kRegisterPageStyle = TextStyle(
 );
 
 //register interests page
-const kRegisterUserPagesStyle = TextStyle(
-  color: kSecondaryColour,
-  fontSize: 30.0,
-  fontWeight: FontWeight.bold,
-);
+// const kRegisterUserPagesStyle = TextStyle(
+//   color: kSecondaryColour,
+//   fontSize: 30.0,
+//   fontWeight: FontWeight.bold,
+// );
 
-TextStyle kRegisterUserComponentsStyle = TextStyle(
-  color: kPrimaryColour.withOpacity(0.5),
-  fontSize: 13.0,
-  fontWeight: FontWeight.bold,
-);
+// TextStyle kRegisterUserComponentsStyle = TextStyle(
+//   color: kPrimaryColour.withOpacity(0.5),
+//   fontSize: 13.0,
+//   fontWeight: FontWeight.bold,
+// );
 
 //profile constainer
-const kProfileContainerStyle = TextStyle(
-  color: kSecondaryColour,
-  fontSize: kProfileNameFontSize,
-  fontWeight: FontWeight.bold,
-);
+// const kProfileContainerStyle = TextStyle(
+//   color: kSecondaryColour,
+//   fontSize: kProfileNameFontSize,
+//   fontWeight: FontWeight.bold,
+// );
 
-const kProfileContainerUniversityStyle = TextStyle(
-  color: kSecondaryColour,
-  fontSize: kProfileLocationFontSize,
-  fontWeight: FontWeight.w300,
-);
+// const kProfileContainerUniversityStyle = TextStyle(
+//   color: kSecondaryColour,
+//   fontSize: kProfileLocationFontSize,
+//   fontWeight: FontWeight.w300,
+// );
 
 //profile sliding details
 const kProfileDetailsNameStyle = TextStyle(

@@ -5,14 +5,14 @@ class IconContent extends StatelessWidget {
   final String label;
   final Icon icon;
 
-  IconContent({required this.label, required this.icon});
+  const IconContent({required this.label, required this.icon});
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         icon,
-        SizedBox(
+        const SizedBox(
           height: 15.0,
         ),
         Text(
@@ -24,4 +24,18 @@ class IconContent extends StatelessWidget {
   }
 }
 
+//create simple icons by a giving icon and a colour
+ Icon buildIcons(IconData iconInput, Color colourInput) {
+  return Icon(
+    iconInput,
+    color: colourInput,
+  );
+}
+Icon buildIconWithSize(IconData iconInput, Color colourInput, double size) {
+  return Icon(
+    iconInput,
+    color: colourInput,
+    size: size,
+  );
+}
 

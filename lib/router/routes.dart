@@ -1,8 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
@@ -16,7 +15,6 @@ import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
 import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
-import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 
 class AppRouter {
@@ -30,112 +28,100 @@ class AppRouter {
     urlPathStrategy: UrlPathStrategy.path,
     routes: [
       GoRoute(
-        name: "splash",
-        path: "/splash",
+        name: splashScreenName,
+        path: splashScreenPath,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const SplashScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
           ),
         ),
       ),
       GoRoute(
-        name: "login",
-        path: "/login",
+        name: loginScreenName,
+        path: loginScreenPath,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const LogInScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
           ),
         ),
       ),
       GoRoute(
-        name: "verify_email",
-        path: "/verify-email",
+        name: verifyEmailScreenName,
+        path: verifyEmailScreenPath,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: const EmailVerifyScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
           ),
         ),
       ),
       GoRoute(
-        name: "register",
-        path: "/register",
-        pageBuilder: (context, state) => MaterialPage<void>(
+        name: registerScreenName,
+        path: registerScreenPath,
+        pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
           child: RegisterScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
         ),
         routes: [
           GoRoute(
-            name: "register_basic_info",
-            path: "basic-info",
+            name: registerBasicInfoScreenName,
+            path: registerBasicInfoScreenPath,
             //builder: (context, state) => RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: RegisterBasicInfoScreen(
-                  userData: (state.extra != null)
-                      ? state.extra as UserData
-                      : UserData()),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(
+              child: RegisterBasicInfoScreen(userData: (state.extra != null) ? state.extra as UserData : UserData()),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
               ),
             ),
           ),
           GoRoute(
-            name: "register_photo",
-            path: "photo",
+            name: registerPhotoScreenName,
+            path: registerPhotoScreenPath,
             //builder: (context, state) => RegisterDescriptionScreen(userData: state.extra! as UserData),
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: RegisterPhotoScreen(userData: state.extra! as UserData),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
               ),
             ),
           ),
           GoRoute(
-            name: "register_description",
-            path: "description",
+            name: registerDescriptionScreenName,
+            path: registerDescriptionScreenPath,
             //builder: (context, state) => RegisterDescriptionScreen(userData: state.extra! as UserData),
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child:
-                  RegisterDescriptionScreen(userData: state.extra! as UserData),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(
+              child: RegisterDescriptionScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
               ),
             ),
           ),
           GoRoute(
-            name: "register_interests",
-            path: "interests",
+            name: registerInterestsScreenName,
+            path: registerInterestsScreenPath,
             //builder: (context, state) => RegisterInterestsScreen(userData: state.extra! as UserData),
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child:
-                  RegisterInterestsScreen(userData: state.extra! as UserData),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(
+              child: RegisterInterestsScreen(userData: state.extra! as UserData),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
               ),
@@ -144,57 +130,52 @@ class AppRouter {
         ],
       ),
       GoRoute(
-        name: "recover_password",
-        path: "/recover_password",
+        name: recoverPasswordScreenName,
+        path: recoverPasswordScreenPath,
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: RecoverPasswordScreen(),
         ),
       ),
       GoRoute(
-        name: "home",
-        path: "/:page(profile|feed|chat)",
+        name: homeScreenName,
+        path: homeScreenPath,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
-          child: HomeScreen(page: state.params['page']!),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              FadeTransition(
+          child: HomeScreen(page: state.params[pageParameterKey]!),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
           ),
         ),
         routes: [
           GoRoute(
-            name: "edit_profile",
-            path: "edit-profile",
+            name: editProfileScreenName,
+            path: editProfileScreenPath,
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: EditProfileScreen(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
               ),
             ),
           ),
           GoRoute(
-            name: "edit_preferences",
-            path: "edit-preferences",
+            name: editPreferencesScreenName,
+            path: editPreferencesScreenPath,
             pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
               child: EditPreferencesScreen(),
             ),
           ),
           GoRoute(
-            name: "edit_password",
-            path: "edit-password",
+            name: editPasswordScreenName,
+            path: editPasswordScreenPath,
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: EditPasswordScreen(),
-              transitionsBuilder:
-                  (context, animation, secondaryAnimation, child) =>
-                      FadeTransition(
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
               ),
@@ -215,17 +196,16 @@ class AppRouter {
       final emailVerified = userState.user?.user?.emailVerified ?? false;
       final fetchedUser = userState.user?.userData != null;
 
-      final splashLoc = state.namedLocation("splash");
-      final loginLoc = state.namedLocation("login");
-      final emailVerifyLoc = state.namedLocation("verify_email");
-      final feedLoc = state.namedLocation("home", params: {'page': 'feed'});
-      final recoverPasswordLoc = state.namedLocation("recover_password");
-      final registerLoc = state.namedLocation("register");
-      final registerBasicInfoLoc = state.namedLocation("register_basic_info");
-      final registerPhotoLoc = state.namedLocation("register_photo");
-      final registerDescriptionLoc =
-          state.namedLocation("register_description");
-      final registerInterestsLoc = state.namedLocation("register_interests");
+      final splashLoc = state.namedLocation(splashScreenName);
+      final loginLoc = state.namedLocation(loginScreenName);
+      final emailVerifyLoc = state.namedLocation(verifyEmailScreenName);
+      final feedLoc = state.namedLocation(homeScreenName, params: {pageParameterKey: feedScreenName});
+      final recoverPasswordLoc = state.namedLocation(recoverPasswordScreenName);
+      final registerLoc = state.namedLocation(registerScreenName);
+      final registerBasicInfoLoc = state.namedLocation(registerBasicInfoScreenName);
+      final registerPhotoLoc = state.namedLocation(registerPhotoScreenName);
+      final registerDescriptionLoc = state.namedLocation(registerDescriptionScreenName);
+      final registerInterestsLoc = state.namedLocation(registerInterestsScreenName);
 
       final goingToFeed = state.subloc == feedLoc;
       final goingToSplash = state.subloc == splashLoc;
@@ -265,9 +245,7 @@ class AppRouter {
         return emailVerifyLoc;
       }
 
-      if (initialized &&
-          !loggedIn &&
-          !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
+      if (initialized && !loggedIn && !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
         return loginLoc;
       }
 
@@ -275,10 +253,7 @@ class AppRouter {
           loggedIn &&
           !fetchedUser &&
           emailVerified &&
-          !(goingToRegisterBasicInfo ||
-              goingToRegisterPhoto ||
-              goingToRegisterDescription ||
-              goingToRegisterInterests)) {
+          !(goingToRegisterBasicInfo || goingToRegisterPhoto || goingToRegisterDescription || goingToRegisterInterests)) {
         return registerBasicInfoLoc;
       }
 

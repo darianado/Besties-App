@@ -1,28 +1,28 @@
 import 'dart:io';
-import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:animated_widgets/animated_widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_cropper/image_cropper.dart';
+
+import '../../../constants/textStyles.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -33,48 +33,38 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final FirestoreService _firestoreService = FirestoreService.instance;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _uniController = TextEditingController();
 
-  final ImagePicker _picker = ImagePicker();
-
   bool loadingPicture = false;
+
+  final PickAndCropImage _pickAndCrop = PickAndCropImage();
+
+  void _pickImage(String uid) async {
+    setState(() {
+      loadingPicture = true;
+    });
+
+    String? url = await _pickAndCrop.pickImage(uid);
+
+    if (url != null) {
+      FirestoreService.instance.setProfileImageUrl(url);
+    }
+
+    setState(() {
+      loadingPicture = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     final _userState = Provider.of<UserState>(context);
 
-    const double profileImageRadius = 100;
     const double profileHeaderExtendedHeight = 430;
     const double profileHeaderCollapsedHeight = 220;
 
     _uniController.text = _userState.user?.userData?.university ?? "";
     _bioController.text = _userState.user?.userData?.bio ?? "-";
-
-    void pickImage() async {
-      XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
-      if (file == null) return;
-
-      setState(() {
-        loadingPicture = true;
-      });
-
-      File? f = File(file.path);
-      f = await ImageCropper().cropImage(
-        sourcePath: file.path,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1.5),
-        aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
-      );
-      String? url = await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
-
-      if (url != null) FirestoreService.instance.setProfileImageUrl(url);
-
-      setState(() {
-        loadingPicture = false;
-      });
-    }
 
     return Scaffold(
       backgroundColor: kWhiteColour,
@@ -88,18 +78,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             excludeHeaderSemantics: false,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 13.0),
+                padding: const EdgeInsets.only(right: leftRightPadding),
                 child: Material(
-                  shape: CircleBorder(),
+                  shape: const CircleBorder(),
                   clipBehavior: Clip.antiAlias,
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context.pushNamed("home", params: {'page': 'profile'}),
-                      icon: Icon(
-                        Icons.check,
-                        color: kWhiteColour,
-                      ),
+                      onPressed: () => context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+                      icon: buildIcons(Icons.check, kWhiteColour),
                     ),
                   ),
                 ),
@@ -107,14 +94,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ],
             flexibleSpace: Material(
               child: (loadingPicture)
-                  ? Center(
+                  ? const Center(
                       child: Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: EdgeInsets.all(5.0),
                         child: CircularProgressIndicator(),
                       ),
                     )
                   : InkWell(
-                      onTap: () => pickImage(),
+                      onTap: () => _pickImage(_userState.user!.user!.uid),
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
@@ -125,12 +112,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: Container(),
                               ),
                               Container(
-                                color: Colors.black.withOpacity(0.5),
+                                color: kOpacBlack,
                                 height: 30,
                                 alignment: Alignment.center,
                                 child: Text(
                                   "EDIT",
-                                  style: TextStyle(color: Colors.white),
+                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: kWhiteColour),
                                 ),
                               ),
                             ],
@@ -143,29 +130,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: TextStyle(
-                      color: kTertiaryColour.withOpacity(0.2),
-                      fontSize: 40.0,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
+                  const SizedBox(height: 15),
                   UniversityButton(
                     editable: true,
                     wiggling: true,
                     label: _userState.user?.userData?.university ?? "",
                     onSave: (university) => saveUniversity(_userState.user?.user?.uid, university),
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Wrap(
                     spacing: 6.0,
                     runSpacing: 6.0,
@@ -173,8 +153,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     runAlignment: WrapAlignment.center,
                     children: [
                       DateOfBirthButton(
-                        editable: true,
-                        wiggling: true,
+                        editable: false,
+                        wiggling: false,
                         label: "${_userState.user?.userData?.age}",
                         onSave: (dateOfBirth) => saveDateOfBirth(_userState.user?.user?.uid, dateOfBirth),
                       ),
@@ -191,44 +171,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           onSave: (relationshipStatus) => saveRelationshipStatus(_userState.user?.user?.uid, relationshipStatus)),
                     ],
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  const SizedBox(height: 20),
                   BioField(
                     label: _userState.user?.userData?.bio ?? " ",
                     editable: true,
                   ),
-                  SizedBox(
-                    height: 25,
-                  ),
+                  const SizedBox(height: 25),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "INTERESTS",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12,
-                          color: kPrimaryColour.withOpacity(0.3),
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   DisplayInterests(
                     wiggling: true,
                     editable: true,
                     onSave: (categorizedInterests) {
-                      print("Got new interests: ");
-                      print(categorizedInterests?.toList());
                       saveInterests(_userState.user?.user?.uid, categorizedInterests);
                     },
                     items: _userState.user?.userData?.flattenedInterests ?? [],
-                  ),
-                  SizedBox(
-                    height: 50,
                   ),
                 ],
               ),

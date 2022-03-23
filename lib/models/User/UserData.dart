@@ -39,23 +39,6 @@ class Preferences {
   }
 }
 
-class GeoLocation {
-  final double lat, lon;
-
-  GeoLocation({required this.lat, required this.lon});
-
-  factory GeoLocation.fromMap(Map<String, dynamic> map) {
-    return GeoLocation(lat: map['lat'], lon: map['lon']);
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      "lat": lat,
-      "lon": lon,
-    };
-  }
-}
-
 class UserData {
   String? uid;
   DateTime? dob;
@@ -66,7 +49,6 @@ class UserData {
   String? relationshipStatus;
   String? profileImageUrl;
   CategorizedInterests? categorizedInterests;
-  GeoLocation? location;
   Preferences? preferences;
   List<String>? likes;
 
@@ -145,7 +127,6 @@ class UserData {
       "bio": bio,
       "profileImageUrl": profileImageUrl,
       "categorizedInterests": categorizedInterests?.toList(),
-      "location": location?.toMap(),
       "preferences": preferences?.toMap(),
       "likes": likes,
     };

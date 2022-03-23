@@ -62,7 +62,7 @@ void _handleSubmitted(String text){
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: kSymmetricBorderRadius3,
+              borderRadius: kSymmetricBorderRadius30,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -118,7 +118,7 @@ void _handleSubmitted(String text){
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8),
       height: 100,
-      color: Colors.white,
+      color: kSimpleWhiteColour,
       child: Row(
         children: <Widget>[
           //if users are able to send messages
@@ -168,7 +168,7 @@ void _handleSubmitted(String text){
           IconButton(
             icon: const Icon(Icons.more_horiz),
             iconSize: 30.0,
-            color: Colors.white,
+            color: kSimpleWhiteColour,
             onPressed: () {},
           )
         ],

@@ -54,7 +54,7 @@ class ProfileContainer extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(leftRightPadding),
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(

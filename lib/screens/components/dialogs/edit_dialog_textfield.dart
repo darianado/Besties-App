@@ -13,7 +13,8 @@ class EditDialogTextField extends StatefulWidget {
   String value;
   final Function(String?, String) onSave;
 
-  EditDialogTextField({Key? key, required this.value, required this.onSave}) : super(key: key);
+  EditDialogTextField({Key? key, required this.value, required this.onSave})
+      : super(key: key);
 
   @override
   State<EditDialogTextField> createState() => _EditDialogTextFieldState();
@@ -36,7 +37,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
         maxLength: _contextState.context?.maxBioLength ?? 200,
         maxLines: 10,
         decoration: InputDecoration(border: InputBorder.none),
-        style: kTertiaryStyle,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
       onSave: () {
         Navigator.of(context).pop();

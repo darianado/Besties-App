@@ -90,9 +90,12 @@ class _LogInScreenState extends State<LogInScreen> {
                   systemOverlayStyle: const SystemUiOverlayStyle(
                     statusBarColor: Colors.transparent,
                   ),
-                  title: const Text(
+                  title: Text(
                     'BESTIES',
-                    style: kWhiteBoldStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.apply(color: kWhiteColour),
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),
@@ -103,7 +106,7 @@ class _LogInScreenState extends State<LogInScreen> {
                   key: _formKey,
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(
-                        leftPadding, 0, rightPadding, 30),
+                        leftRightPadding, 0, leftRightPadding, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,9 +146,12 @@ class _LogInScreenState extends State<LogInScreen> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: TextButton(
-                            child: const Text(
+                            child: Text(
                               'Forget password?',
-                              style: kLogInPasswordStyle,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.apply(color: kWhiteColour),
                             ),
                             onPressed: () =>
                                 context.pushNamed(recoverPasswordScreenName),
@@ -174,7 +180,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               ),
                               PillButtonOutlined(
                                 text: "Sign up",
-                                color: Colors.white,
+                                color: kWhiteColour,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 30, vertical: 7),
                                 textStyle:

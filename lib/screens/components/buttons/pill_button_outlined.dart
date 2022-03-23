@@ -37,6 +37,7 @@ class PillButtonOutlined extends StatelessWidget {
             )
           : Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 (icon != null) ? icon! : Container(),
                 (icon != null) ? SizedBox(width: 5) : Container(),
@@ -48,7 +49,8 @@ class PillButtonOutlined extends StatelessWidget {
             ),
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(padding),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
         side: MaterialStateProperty.all(BorderSide(color: color, width: 1)),
       ),
     );

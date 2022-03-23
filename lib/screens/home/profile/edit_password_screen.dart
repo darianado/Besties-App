@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
@@ -37,7 +38,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
     try {
       await _authService.changePassword(currentPassword, newPassword);
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
     }
   }
@@ -74,7 +76,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                   statusBarColor: Colors.transparent,
                 ),
                 leading: IconButton(
-                  onPressed: () => context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+                  onPressed: () => context.pushNamed(homeScreenName,
+                      params: {pageParameterKey: profileScreenName}),
                   icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
                 ),
               ),
@@ -83,13 +86,17 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 child: Form(
                   key: _formKey,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(22, 0, 22, 30),
+                    padding: const EdgeInsets.fromLTRB(
+                        leftRightPadding, 0, leftRightPadding, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
+                        Text(
                           'Change your password',
-                          style: kPasswordStyle,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.apply(fontWeightDelta: 2),
                         ),
                         const SizedBox(height: 50),
                         Container(
@@ -103,7 +110,9 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                             controller: _oldPassword,
                             obscureText: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, icon: buildIcons(Icons.lock, kSecondaryColour), labelText: 'Current password'),
+                                border: InputBorder.none,
+                                icon: buildIcons(Icons.lock, kSecondaryColour),
+                                labelText: 'Current password'),
                             validator: validatePassword,
                             textInputAction: TextInputAction.next,
                           ),
@@ -120,8 +129,12 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                             controller: _newPassword,
                             obscureText: true,
                             decoration: InputDecoration(
-                                border: InputBorder.none, icon: buildIcons(Icons.lock, kSecondaryColour), labelText: 'New password'),
-                            validator: (value) => validateExistsAndDifferentFrom(value, _oldPassword.text),
+                                border: InputBorder.none,
+                                icon: buildIcons(Icons.lock, kSecondaryColour),
+                                labelText: 'New password'),
+                            validator: (value) =>
+                                validateExistsAndDifferentFrom(
+                                    value, _oldPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
                         ),
@@ -140,7 +153,9 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                 border: InputBorder.none,
                                 icon: buildIcons(Icons.lock, kSecondaryColour),
                                 labelText: 'Confirm new password'),
-                            validator: (value) => validateExistsAndDifferentFrom(value, _newPassword.text),
+                            validator: (value) =>
+                                validateExistsAndDifferentFrom(
+                                    value, _newPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
                         ),
@@ -150,11 +165,19 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           child: PillButtonFilled(
                             text: "Update",
                             backgroundColor: kTertiaryColour,
-                            textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
+                            textStyle: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: kWhiteColour),
                             onPressed: () {
-                              if (((_formKey.currentState as FormState).validate()) == true) {
-                                _changePassword(_oldPassword.text, _newPassword.text);
-                                context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName});
+                              if (((_formKey.currentState as FormState)
+                                      .validate()) ==
+                                  true) {
+                                _changePassword(
+                                    _oldPassword.text, _newPassword.text);
+                                context.pushNamed(homeScreenName, params: {
+                                  pageParameterKey: profileScreenName
+                                });
                               }
                             },
                           ),

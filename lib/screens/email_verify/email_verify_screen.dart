@@ -62,37 +62,46 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   SizedBox(
                     height: 300,
                     width: 300,
-                    child: Lottie.asset('assets/lotties/mail-verification.json'),
+                    child:
+                        Lottie.asset('assets/lotties/mail-verification.json'),
                   ),
-                  const Text(
+                  Text(
                     "You've got mail!",
-                    style: kWhiteBoldStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.apply(color: kWhiteColour),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 30),
                   Text(
                     "Before you can proceed, head over to your inbox to activate your account.",
-                    style: kEmailCheckStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        ?.apply(color: kWhiteColour),
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 100)
+                  const SizedBox(height: 80)
                 ],
               ),
               Column(
                 children: [
                   Text(
                     "We have sent the email to '${_userState.user?.user?.email}'. Didn't receive it yet?",
-                    style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 12),
+                    style: TextStyle(
+                        color: kWhiteColour.withOpacity(0.7), fontSize: 15),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
+                  SizedBox(height: 25),
                   PillButtonOutlined(
                     text: "Resend email",
-                    color: Colors.white,
+                    color: kWhiteColour,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                    textStyle: Theme.of(context).textTheme.labelLarge?.apply(color: Colors.white),
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .labelLarge
+                        ?.apply(color: kWhiteColour),
                     onPressed: () => _authService.sendVerificationEmail(),
                   ),
                 ],

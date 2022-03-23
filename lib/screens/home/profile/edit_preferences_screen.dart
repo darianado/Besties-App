@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:go_router/go_router.dart';
 import '../../../constants/colours.dart';
@@ -42,96 +42,109 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
           child: SingleChildScrollView(
             child: Form(
               key: _key,
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                  child: Text('Edit your preferences',
-                      style: TextStyle(fontSize: 50.0)),
-                ),
-                const SizedBox(height: 60),
-                Row(
-                  children: const [
-                    SizedBox(width: 20),
-                    Text(
-                      "Age",
-                      textAlign: TextAlign.left,
-                      style: kBoldStyle,
-                    ),
-                  ],
-                ),
-                RangeSlider(
-                  values: _currentAgeRangeValues,
-                  min: 16,
-                  max: 30,
-                  divisions: 15,
-                  labels: RangeLabels(
-                    _currentAgeRangeValues.start.round().toString(),
-                    _currentAgeRangeValues.end.round().toString(),
-                  ),
-                  onChanged: (RangeValues values) {
-                    setState(() {
-                      _currentAgeRangeValues = values;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 30.0,
-                ),
-                Row(
-                  children: const [
-                    SizedBox(width: 20),
-                    Text(
-                      "Distance",
-                      textAlign: TextAlign.left,
-                      style: kBoldStyle,
-                    ),
-                  ],
-                ),
-                RangeSlider(
-                  values: _currentDistanceRangeValues,
-                  min: 16,
-                  max: 30,
-                  divisions: 15,
-                  labels: RangeLabels(
-                    _currentDistanceRangeValues.start.round().toString(),
-                    _currentDistanceRangeValues.end.round().toString(),
-                  ),
-                  onChanged: (RangeValues values) {
-                    setState(() {
-                      _currentDistanceRangeValues = values;
-                    });
-                  },
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  children: const [
-                    SizedBox(width: 20),
-                    Text(
-                      "Select the gender you are interested in",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
-                ),
-                Row(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    buildCheckBox(Gender.male, isMaleChecked),
-                    const Text("Male"),
-                    const SizedBox(width: 20),
-                    buildCheckBox(Gender.female, isFemaleChecked),
-                    const Text("Female"),
-                    const SizedBox(width: 20),
-                    buildCheckBox(Gender.other, isOtherChecked),
-                    const Text("Other"),
-                  ],
-                ),
-                Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
-                ]),
-                ElevatedButton(
-                  onPressed: () => context.goNamed("home", params: {'page': 'profile'}),
-                  child: const Text("SAVE NEW INFORMATION"),
-                ),
-              ]),
+                    const Padding(
+                      padding: EdgeInsets.only(
+                          bottom: 15,
+                          left: leftRightPadding,
+                          right: leftRightPadding),
+                      child: Text('Edit your preferences',
+                          style: TextStyle(fontSize: 50)),
+                    ),
+                    const SizedBox(height: 60),
+                    Row(
+                      children: [
+                        SizedBox(width: 20),
+                        Text(
+                          "Age",
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              ?.apply(fontWeightDelta: 2),
+                        ),
+                      ],
+                    ),
+                    RangeSlider(
+                      values: _currentAgeRangeValues,
+                      min: 16,
+                      max: 30,
+                      divisions: 15,
+                      labels: RangeLabels(
+                        _currentAgeRangeValues.start.round().toString(),
+                        _currentAgeRangeValues.end.round().toString(),
+                      ),
+                      onChanged: (RangeValues values) {
+                        setState(() {
+                          _currentAgeRangeValues = values;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    Row(
+                      children: [
+                        SizedBox(width: 20),
+                        Text(
+                          "Distance",
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              ?.apply(fontWeightDelta: 2),
+                        ),
+                      ],
+                    ),
+                    RangeSlider(
+                      values: _currentDistanceRangeValues,
+                      min: 16,
+                      max: 30,
+                      divisions: 15,
+                      labels: RangeLabels(
+                        _currentDistanceRangeValues.start.round().toString(),
+                        _currentDistanceRangeValues.end.round().toString(),
+                      ),
+                      onChanged: (RangeValues values) {
+                        setState(() {
+                          _currentDistanceRangeValues = values;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      children: const [
+                        SizedBox(width: 20),
+                        Text(
+                          "Select the gender you are interested in",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: <Widget>[
+                        buildCheckBox(Gender.male, isMaleChecked),
+                        const Text("Male"),
+                        const SizedBox(width: 20),
+                        buildCheckBox(Gender.female, isFemaleChecked),
+                        const Text("Female"),
+                        const SizedBox(width: 20),
+                        buildCheckBox(Gender.other, isOtherChecked),
+                        const Text("Other"),
+                      ],
+                    ),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[]),
+                    ElevatedButton(
+                      onPressed: () =>
+                          context.goNamed("home", params: {'page': 'profile'}),
+                      child: const Text("SAVE NEW INFORMATION"),
+                    ),
+                  ]),
             ),
           ),
         ),

@@ -80,7 +80,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .headline3
-                        ?.apply(color: kTertiaryColour, fontWeightDelta: 2),
+                        ?.apply(fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 15),

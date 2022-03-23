@@ -14,12 +14,14 @@ class EditDialogDropdown extends StatefulWidget {
   String? value;
   final Function(String?) onSave;
 
-  EditDialogDropdown({Key? key, required this.items, value, required this.onSave})
+  EditDialogDropdown(
+      {Key? key, required this.items, value, required this.onSave})
       : value = safelyGetValue(items, value),
         super(key: key);
 
   static String? safelyGetValue(List<String> items, String? proposedValue) {
-    if (proposedValue != null && items.contains(proposedValue)) return proposedValue;
+    if (proposedValue != null && items.contains(proposedValue))
+      return proposedValue;
     if (items.isNotEmpty) return items.first;
     return null;
   }
@@ -48,7 +50,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
                 value: str,
                 child: Text(
                   str,
-                  style: kDialogStyle,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             )

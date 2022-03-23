@@ -9,19 +9,19 @@ const kLabelTextStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const kNumberTextStyle = TextStyle(
-  fontSize: 50.0,
-  fontWeight: FontWeight.w900,
-);
+// const kNumberTextStyle = TextStyle(
+//   fontSize: 50.0,
+//   fontWeight: FontWeight.w900,
+// );
 
-const kLargeButtonTextStyle = TextStyle(
-  fontSize: 25.0,
-  fontWeight: FontWeight.bold,
-);
+// const kLargeButtonTextStyle = TextStyle(
+//   fontSize: 25.0,
+//   fontWeight: FontWeight.bold,
+// );
 
-const kTertiaryColourTextStyle = TextStyle(
-  color: kTertiaryColour,
-);
+// const kTertiaryColourTextStyle = TextStyle(
+//   color: kTertiaryColour,
+// );
 
 // const kWhiteColourTextStyle = TextStyle(
 //   color: kWhiteColour,
@@ -32,20 +32,20 @@ const kTertiaryColourTextStyle = TextStyle(
 //   fontWeight: FontWeight.bold,
 // );
 
-const kResultTextStyle = TextStyle(
-  color: kLightGreen,
-  fontSize: 22.0,
-  fontWeight: FontWeight.bold,
-);
+// const kResultTextStyle = TextStyle(
+//   color: kLightGreen,
+//   fontSize: 22.0,
+//   fontWeight: FontWeight.bold,
+// );
 
-const kBMITextStyle = TextStyle(
-  fontSize: 100.0,
-  fontWeight: FontWeight.bold,
-);
+// const kBMITextStyle = TextStyle(
+//   fontSize: 100.0,
+//   fontWeight: FontWeight.bold,
+// );
 
-const kBodyTextStyle = TextStyle(
-  fontSize: 22.0,
-);
+// const kBodyTextStyle = TextStyle(
+//   fontSize: 22.0,
+// );
 
 //chat styling
 const kContactListStyle = TextStyle(
@@ -95,23 +95,23 @@ const kChatAppBarStyle = TextStyle(
 );
 
 //text style for bio field
-const kTertiaryStyle = TextStyle(
-  fontSize: 18,
-  color: kTertiaryColour,
-);
+// const kTertiaryStyle = TextStyle(
+//   fontSize: 18,
+//   color: kTertiaryColour,
+// );
 
 //text style for profile details
-TextStyle kInterestMatchedStyle = TextStyle(
-  color: kPrimaryColour.withOpacity(0.3),
-  fontSize: 12,
-  fontWeight: FontWeight.bold,
-);
+// TextStyle kInterestMatchedStyle = TextStyle(
+//   color: kPrimaryColour.withOpacity(0.3),
+//   fontSize: 12,
+//   fontWeight: FontWeight.bold,
+// );
 
-const kNoInterestStyle = TextStyle(
-  color: kTertiaryColour,
-  fontSize: 12,
-  fontWeight: FontWeight.bold,
-);
+// const kNoInterestStyle = TextStyle(
+//   color: kTertiaryColour,
+//   fontSize: 12,
+//   fontWeight: FontWeight.bold,
+// );
 
 //landing page
 const kLandingPageButtonsStyle = TextStyle(
@@ -125,11 +125,11 @@ const kLandingPageTitleStyle = TextStyle(
 );
 
 //register_screen page
-const kRegisterPageStyle = TextStyle(
-  color: kTertiaryColour,
-  fontSize: 35,
-  fontWeight: FontWeight.bold,
-);
+// const kRegisterPageStyle = TextStyle(
+//   color: kTertiaryColour,
+//   fontSize: 35,
+//   fontWeight: FontWeight.bold,
+// );
 
 //register interests page
 // const kRegisterUserPagesStyle = TextStyle(
@@ -158,11 +158,11 @@ const kRegisterPageStyle = TextStyle(
 // );
 
 //profile sliding details
-const kProfileDetailsNameStyle = TextStyle(
-  color: kTertiaryColour,
-  fontSize: 40.0,
-  fontWeight: FontWeight.bold,
-);
+// const kProfileDetailsNameStyle = TextStyle(
+//   color: kTertiaryColour,
+//   fontSize: 40.0,
+//   fontWeight: FontWeight.bold,
+// );
 
 // email verify
 // const TextStyle kWhiteBoldStyle = TextStyle(
@@ -191,10 +191,10 @@ const kProfileDetailsNameStyle = TextStyle(
 //   fontSize: 12,
 // );
 
-const TextStyle kDialogStyle = TextStyle(
-  fontSize: 17,
-  fontWeight: FontWeight.w500,
-);
+// const TextStyle kDialogStyle = TextStyle(
+//   fontSize: 17,
+//   fontWeight: FontWeight.w500,
+// );
 
 // const TextStyle kPasswordStyle = TextStyle(
 //   fontSize: 30,

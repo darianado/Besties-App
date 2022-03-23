@@ -1,5 +1,8 @@
 // Widget that displays all of the profile's details as a sliding bottom sheet.
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../models/User/UserData.dart';
@@ -63,23 +66,22 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
               index: 0,
               controller: controller,
               child: Padding(
-                padding: const EdgeInsets.all(25.0),
+                padding: const EdgeInsets.all(leftRightPadding),
                 child: Column(
                   children: [
                     Text(
                       widget.profile.fullName ?? " ",
                       textAlign: TextAlign.center,
-                      style: kProfileDetailsNameStyle,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          ?.apply(color: kTertiaryColour, fontWeightDelta: 2),
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                    const SizedBox(height: 15),
                     UniversityButton(
                       label: widget.profile.university ?? " ",
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                    const SizedBox(height: 10),
                     Wrap(
                       spacing: 6.0,
                       runSpacing: 6.0,
@@ -93,35 +95,48 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                             label: widget.profile.relationshipStatus ?? " "),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    const SizedBox(height: 20),
                     BioField(
                       label: widget.profile.bio ?? " ",
                       editable: false,
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
+                    const SizedBox(height: 25),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
                           "YOU HAVE ",
-                          style: kInterestMatchedStyle,
+                          style: Theme.of(context).textTheme.bodyMedium?.apply(
+                              color: kSecondaryColour.withOpacity(0.3),
+                              fontWeightDelta: 2),
                         ),
                         Text(
                           widget.commonInterests ?? "NO",
-                          style: kNoInterestStyle,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.apply(fontWeightDelta: 5),
                         ),
                         widget.commonInterests == "1"
                             ? Text(
                                 " INTEREST IN COMMON!",
-                                style: kInterestMatchedStyle,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.apply(
+                                        color:
+                                            kSecondaryColour.withOpacity(0.3),
+                                        fontWeightDelta: 2),
                               )
                             : Text(
                                 " INTERESTS IN COMMON!",
-                                style: kInterestMatchedStyle,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.apply(
+                                        color:
+                                            kSecondaryColour.withOpacity(0.3),
+                                        fontWeightDelta: 2),
                               ),
                       ],
                     ),

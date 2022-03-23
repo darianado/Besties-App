@@ -5,7 +5,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/feed_content.dart';
+import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,9 +45,9 @@ class MyApp extends StatelessWidget {
           lazy: false,
           create: (BuildContext context) => contextState,
         ),
-        ChangeNotifierProvider<FeedContent>(
+        ChangeNotifierProvider<FeedContentController>(
           lazy: false,
-          create: (context) => FeedContent.instance,
+          create: (context) => FeedContentController.instance,
         ),
       ],
       child: Builder(

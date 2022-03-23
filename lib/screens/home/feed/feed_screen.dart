@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/services/feed_content.dart';
+import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +41,7 @@ class _FeedScreenState extends State<FeedScreen> {
   void initState() {
     super.initState();
 
-    final _feedContent = Provider.of<FeedContent>(context, listen: false);
+    final _feedContent = Provider.of<FeedContentController>(context, listen: false);
     _feedContent.onFeedInitialized();
     _feedContent.assignController(controller);
     /*
@@ -62,9 +62,9 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _feedContent = Provider.of<FeedContent>(context);
+    final _feedContentController = Provider.of<FeedContentController>(context);
 
-    print("Rebuilding. There are ${_feedContent.content.length} elements in feed");
+    //print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
 
     return Container(
       color: kTertiaryColour,
@@ -74,7 +74,7 @@ class _FeedScreenState extends State<FeedScreen> {
           PageView(
             controller: controller,
             scrollDirection: Axis.vertical,
-            children: List<Widget>.of(_feedContent.content),
+            children: List<Widget>.of(_feedContentController.content),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 50, right: leftRightPadding),

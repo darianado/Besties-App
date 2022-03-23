@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/services/feed_content.dart';
+import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -26,76 +29,37 @@ class EditDialogDropdown extends StatefulWidget {
 }
 
 class _EditDialogDropdownState extends State<EditDialogDropdown> {
+  void _save() async {
+    Navigator.of(context).pop();
+    await widget.onSave(widget.value);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            DropdownButton(
-              isExpanded: true,
-              items: widget.items
-                  .map(
-                    (str) => DropdownMenuItem(
-                      value: str,
-                      child: Text(
-                        str,
-                        style: kDialogStyle,
-                      ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (String? value) => changeSelection(value),
-              value: widget.value,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      onPrimary: Color(0xFF0A1128),
-                      side: BorderSide(color: Colors.grey, width: 1),
-                      textStyle: const TextStyle(
-                        fontSize: 17,
-                      ),
-                      shape: kRoundedRectangulareBorder15,
-                    ),
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text("Cancel"),
-                  ),
+    return EditDialog(
+      content: DropdownButton(
+        isExpanded: true,
+        underline: Container(),
+        items: widget.items
+            .map(
+              (str) => DropdownMenuItem(
+                value: str,
+                child: Text(
+                  str,
+                  style: kDialogStyle,
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: kTertiaryColour,
-                      // shadowColor: Color(0xFF0083A1),
-                      //elevation: 4,
-                      textStyle: const TextStyle(fontSize: 17),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
-                    ),
-                    onPressed: () async {
-                      Navigator.of(context).pop();
-                      await widget.onSave(widget.value);
-                    },
-                    child: Text("Save"),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            )
+            .toList(),
+        onChanged: (String? value) => changeSelection(value),
+        value: widget.value,
       ),
+      onSave: () {
+        Navigator.of(context).pop();
+        widget.onSave(widget.value);
+      },
     );
   }
 

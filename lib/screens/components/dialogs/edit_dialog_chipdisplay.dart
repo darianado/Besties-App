@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -24,54 +28,28 @@ class EditDialogChipDisplay extends StatefulWidget {
 }
 
 class _EditDialogChipDisplayState extends State<EditDialogChipDisplay> {
+  void _save() async {
+    Navigator.of(context).pop();
+    await widget.onSave(widget.values);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    return Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 10),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SelectInterests(
-                onChange: (newCategories) {
-                  setState(() {
-                    widget.values = newCategories;
-                  });
-                },
-                selected: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () => Navigator.of(context).pop(),
-                      child: Text("Cancel"),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-                        await widget.onSave(widget.values);
-                      },
-                      child: Text("Save"),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+    return EditDialog(
+      content: SelectInterests(
+        onChange: (newCategories) {
+          setState(() {
+            widget.values = newCategories;
+          });
+        },
+        selected: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
       ),
+      onSave: () {
+        Navigator.of(context).pop();
+        widget.onSave(widget.values);
+      },
     );
   }
 

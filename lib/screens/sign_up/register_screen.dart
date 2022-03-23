@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -86,9 +87,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
           systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,
           ),
-          title: const Text(
+          title: Text(
             'BESTIES',
-            style: kRegisterPageStyle,
+            style: Theme.of(context).textTheme.headline3,
           ),
           centerTitle: true,
           automaticallyImplyLeading: false,
@@ -98,7 +99,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(22, 0, 22, 30),
+                padding: EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
                 //  autovalidate: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +107,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.headline4?.apply(color: kTertiaryColour),
+                      style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
                     ),
                     SizedBox(height: 40),
                     TextFormField(
@@ -149,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         text: "Register",
                         isLoading: isLoading,
                         backgroundColor: kTertiaryColour,
-                        textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: Colors.white),
+                        textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
@@ -165,7 +166,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             text: "Log in",
                             color: kTertiaryColour,
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                            textStyle: Theme.of(context).textTheme.labelLarge?.apply(color: kTertiaryColour),
+                            textStyle: Theme.of(context).textTheme.labelLarge,
                             onPressed: () => context.goNamed(loginScreenName),
                           ),
                         ],

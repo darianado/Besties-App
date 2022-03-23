@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +65,6 @@ class _FeedScreenState extends State<FeedScreen> {
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
-
                   RefreshIndicator(
                     onRefresh: () => refreshProfileContainers(uid, 1000),
                     child: PageView(
@@ -95,7 +95,8 @@ class _FeedScreenState extends State<FeedScreen> {
                     // }),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 50, 25, 0),
+                    padding:
+                        const EdgeInsets.only(top: 50, right: leftRightPadding),
                     child: GestureDetector(
                       onTap: () => {},
                       child: const Icon(

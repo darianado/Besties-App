@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
@@ -77,7 +78,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             excludeHeaderSemantics: false,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 13.0),
+                padding: const EdgeInsets.only(right: leftRightPadding),
                 child: Material(
                   shape: const CircleBorder(),
                   clipBehavior: Clip.antiAlias,
@@ -114,9 +115,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 color: kOpacBlack,
                                 height: 30,
                                 alignment: Alignment.center,
-                                child: const Text(
+                                child: Text(
                                   "EDIT",
-                                  style: kSimpleWhiteColourTextStyle,
+                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: kWhiteColour),
                                 ),
                               ),
                             ],
@@ -129,14 +130,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.only(top: 10, left: 15, right: 15),
+              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: kProfileDetailsNameStyleOpacity,
+                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
+                    textAlign: TextAlign.center,
                   ),
-                  const SizedBox(height: 25),
+                  const SizedBox(height: 15),
                   UniversityButton(
                     editable: true,
                     wiggling: true,
@@ -180,7 +182,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: kInterestMatchedStyle,
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -193,7 +195,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     },
                     items: _userState.user?.userData?.flattenedInterests ?? [],
                   ),
-                  const SizedBox(height: 50),
                 ],
               ),
             ),

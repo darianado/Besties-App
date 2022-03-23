@@ -39,7 +39,8 @@ class _LogInScreenState extends State<LogInScreen> {
     try {
       await userState.signIn(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
 
       setState(() {
@@ -62,7 +63,8 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Theme(
       data: ThemeData(
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: kSimpleWhiteColour),
+        textTheme:
+            Theme.of(context).textTheme.apply(bodyColor: kSimpleWhiteColour),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -88,9 +90,12 @@ class _LogInScreenState extends State<LogInScreen> {
                   systemOverlayStyle: const SystemUiOverlayStyle(
                     statusBarColor: Colors.transparent,
                   ),
-                  title: const Text(
+                  title: Text(
                     'BESTIES',
-                    style: kWhiteBoldStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.apply(color: kWhiteColour),
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),
@@ -100,14 +105,18 @@ class _LogInScreenState extends State<LogInScreen> {
                 child: Form(
                   key: _formKey,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(leftPadding, 0, rightPadding, 30),
+                    padding: const EdgeInsets.fromLTRB(
+                        leftRightPadding, 0, leftRightPadding, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           'Log in',
-                          style: Theme.of(context).textTheme.headline4?.apply(color: kWhiteColour),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.apply(color: kWhiteColour),
                         ),
                         const SizedBox(height: 40),
                         TextFormField(
@@ -137,11 +146,15 @@ class _LogInScreenState extends State<LogInScreen> {
                         Align(
                           alignment: Alignment.bottomRight,
                           child: TextButton(
-                            child: const Text(
+                            child: Text(
                               'Forget password?',
-                              style: kLogInPasswordStyle,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyMedium
+                                  ?.apply(color: kWhiteColour),
                             ),
-                            onPressed: () => context.pushNamed(recoverPasswordScreenName),
+                            onPressed: () =>
+                                context.pushNamed(recoverPasswordScreenName),
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -150,7 +163,10 @@ class _LogInScreenState extends State<LogInScreen> {
                           child: PillButtonFilled(
                             text: "Log in",
                             isLoading: isLoading,
-                            textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kSecondaryColour),
+                            textStyle: TextStyle(
+                                fontSize: 25,
+                                fontWeight: FontWeight.w600,
+                                color: kSecondaryColour),
                             onPressed: () => submitForm(_formKey),
                           ),
                         ),
@@ -164,10 +180,13 @@ class _LogInScreenState extends State<LogInScreen> {
                               ),
                               PillButtonOutlined(
                                 text: "Sign up",
-                                color: Colors.white,
-                                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                                textStyle: Theme.of(context).textTheme.labelLarge,
-                                onPressed: () => context.pushNamed(registerScreenName),
+                                color: kWhiteColour,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 30, vertical: 7),
+                                textStyle:
+                                    Theme.of(context).textTheme.labelLarge,
+                                onPressed: () =>
+                                    context.pushNamed(registerScreenName),
                               ),
                             ],
                           ),

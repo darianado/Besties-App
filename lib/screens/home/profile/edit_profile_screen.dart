@@ -79,15 +79,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: leftRightPadding),
-                child: Material(
-                  shape: const CircleBorder(),
-                  clipBehavior: Clip.antiAlias,
-                  color: kTertiaryColour,
-                  child: InkWell(
-                    child: IconButton(
-                      onPressed: () => context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
-                      icon: buildIcons(Icons.check, kWhiteColour),
-                    ),
+                child: FloatingActionButton(
+                  heroTag: null,
+                  onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+                  backgroundColor: kTertiaryColour,
+                  elevation: 0,
+                  child: Icon(
+                    Icons.done,
+                    color: kWhiteColour,
+                    size: 30,
                   ),
                 ),
               ),

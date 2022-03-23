@@ -32,26 +32,6 @@ class FirestoreService {
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
 
-  void signUpUser(String uid) {
-    final demo = {
-      "dob": DateTime.utc(2000, 07, 20),
-      "firstName": "Amy",
-      "lastName": "Garcia",
-      "university": "King's College London",
-      "gender": "non-binary",
-      "relationshipStatus": "single",
-      "bio": "Hello! This is my bio. This text is rather long, so we can check everything's working.",
-      "interests": ["volunteering", "christian"],
-      "preferences": {
-        "interests": ["buddhism", "christian", "islam"],
-        "maxAge": 30,
-        "minAge": 18
-      }
-    };
-
-    _firebaseFirestore.collection("users").doc(uid).set(demo);
-  }
-
   /// Returns a List of recommended profile ids.
   static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
@@ -125,7 +105,7 @@ class FirestoreService {
 
   Future<bool> setLike(String? profileId, String userId) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('likeUser');
-        final resp = await callable.call(<String, String>{
+    final resp = await callable.call(<String, String>{
       'profileUserID': profileId.toString(),
     });
 
@@ -135,8 +115,6 @@ class FirestoreService {
 
     return isMatch;
   }
-
-
 
   Future<void> setBio(String userId, String bio) async {
     return await _firebaseFirestore.collection("users").doc(userId).set({"bio": bio}, firestore.SetOptions(merge: true));

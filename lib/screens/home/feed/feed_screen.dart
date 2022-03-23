@@ -82,9 +82,11 @@ class _FeedScreenState extends State<FeedScreen> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
-                    child: GestureDetector(
-                      onTap: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
-                      child: const Icon(
+                    child: FloatingActionButton(
+                      heroTag: null,
+                      onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
+                      backgroundColor: kTertiaryColour,
+                      child: Icon(
                         Icons.menu,
                         color: kWhiteColour,
                         size: 30,

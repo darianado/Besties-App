@@ -66,11 +66,9 @@ class FirestoreService {
   /// Returns a List of [UserData] from a List of profile ids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
     //List<String> uids = await getRecommendedProfiles(uid, recs);
-<<<<<<< HEAD
+
     List<String> uids = [];
-=======
-    List<String>uids= [];
->>>>>>> 93b696ebdd72bfbc978778d2c27474b49086a150
+
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;
 

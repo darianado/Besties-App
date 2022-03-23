@@ -9,6 +9,7 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
@@ -24,8 +25,7 @@ class RegisterBasicInfoScreen extends StatefulWidget {
   UserData userData;
 
   @override
-  _RegisterBasicInfoScreenState createState() =>
-      _RegisterBasicInfoScreenState();
+  _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
 
 class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
@@ -42,17 +42,6 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
     super.dispose();
     _firstName.dispose();
     _lastName.dispose();
-  }
-
-  IconData getIconForGender(String? gender) {
-    switch (gender?.toLowerCase()) {
-      case "male":
-        return FontAwesomeIcons.mars;
-      case "female":
-        return FontAwesomeIcons.venus;
-      default:
-        return FontAwesomeIcons.venusMars;
-    }
   }
 
   @override
@@ -107,15 +96,13 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                 height: double.infinity,
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      leftRightPadding, 5, leftRightPadding, 5),
+                  padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
                   child: Row(
                     children: [
                       Expanded(
                         child: Text(
                           'Let\'s start with the basics...',
-                          style: Theme.of(context).textTheme.headline4?.apply(
-                              color: kSecondaryColour, fontWeightDelta: 2),
+                          style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
                         ),
                       ),
                     ],
@@ -147,8 +134,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          validator: (value) =>
-                              validateNotEmpty(value, "First name"),
+                          validator: (value) => validateNotEmpty(value, "First name"),
                         ),
                       ),
                       SizedBox(height: 10),
@@ -167,8 +153,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          validator: (value) =>
-                              validateNotEmpty(value, "Last name"),
+                          validator: (value) => validateNotEmpty(value, "Last name"),
                         ),
                       ),
                       SizedBox(height: 40),
@@ -176,10 +161,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'BIRTHDAY',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.apply(fontWeightDelta: 1),
+                            style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
@@ -188,9 +170,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         editable: true,
                         shouldExpand: true,
                         color: kSecondaryColour,
-                        label: (widget.userData.dob != null)
-                            ? "${widget.userData.humanReadableDateOfBirth}"
-                            : "Select a date",
+                        label: (widget.userData.dob != null) ? "${widget.userData.humanReadableDateOfBirth}" : "Select a date",
                         onSave: (dateTime) => setState(() {
                           widget.userData.dob = dateTime;
                         }),
@@ -202,10 +182,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.apply(color: Colors.red),
+                                    style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
@@ -216,29 +193,19 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'GENDER',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.apply(fontWeightDelta: 1),
+                            style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
                       SizedBox(height: 10),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: _contextState.context?.genders
-                                  ?.map((gender) {
+                          children: _contextState.context?.genders?.map((gender) {
                                 return ChipWidget(
                                   color: kIndigoColour,
-                                  bordered: widget.userData.gender == gender
-                                      ? false
-                                      : true,
-                                  textColor: (widget.userData.gender == gender)
-                                      ? kSimpleWhiteColour
-                                      : null,
-                                  iconColor: (widget.userData.gender == gender)
-                                      ? kSimpleWhiteColour
-                                      : null,
+                                  bordered: widget.userData.gender == gender ? false : true,
+                                  textColor: (widget.userData.gender == gender) ? kSimpleWhiteColour : null,
+                                  iconColor: (widget.userData.gender == gender) ? kSimpleWhiteColour : null,
                                   icon: getIconForGender(gender),
                                   label: gender,
                                   mini: true,
@@ -255,10 +222,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.apply(color: Colors.red),
+                                    style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
@@ -271,10 +235,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: <Widget>[
                           Text(
                             'RELATIONSHIP STATUS',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.apply(fontWeightDelta: 1),
+                            style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
@@ -282,12 +243,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       RelationshipStatusButton(
                         editable: true,
                         shouldExpand: true,
-                        label: (widget.userData.relationshipStatus != null)
-                            ? widget.userData.relationshipStatus!
-                            : "Click to select",
+                        label: (widget.userData.relationshipStatus != null) ? widget.userData.relationshipStatus! : "Click to select",
                         onSave: (relationshipStatus) => setState(() {
-                          widget.userData.relationshipStatus =
-                              relationshipStatus;
+                          widget.userData.relationshipStatus = relationshipStatus;
                         }),
                       ),
                       (couldNotValidateRelationshipStatus)
@@ -297,10 +255,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                   padding: const EdgeInsets.all(3.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.apply(color: Colors.red),
+                                    style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
@@ -312,10 +267,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         child: PillButtonFilled(
                           text: "Next",
                           backgroundColor: kTertiaryColour,
-                          textStyle: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                              color: kWhiteColour),
+                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 
@@ -344,13 +296,11 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             couldNotValidateRelationshipStatus = false;
 
                             setState(() {
-                              widget.userData.firstName =
-                                  _firstName.text.trim();
+                              widget.userData.firstName = _firstName.text.trim();
                               widget.userData.lastName = _lastName.text.trim();
                             });
 
-                            context.goNamed(registerPhotoScreenName,
-                                extra: widget.userData);
+                            context.goNamed(registerPhotoScreenName, extra: widget.userData);
                           },
                         ),
                       ),

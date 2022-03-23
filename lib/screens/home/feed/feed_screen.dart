@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -21,12 +22,10 @@ import 'package:project_seg/constants/colours.dart';
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
 
-  static PageController controller =
-      PageController(viewportFraction: 1, keepPage: true);
+  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
   static void animateToTop() {
-    controller.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   @override
@@ -37,7 +36,7 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   Queue<ProfileContainer>? displayedContainers = Queue();
   Future<Queue<ProfileContainer>>? _future;
-  final int recs = 100;
+  final int recs = 10;
   double? currentPageValue = 0.0;
 
   @override
@@ -82,10 +81,9 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 50, right: leftRightPadding),
+                    padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
                     child: GestureDetector(
-                      onTap: () => context.pushNamed("edit_preferences", params: {'page': "feed"}),
+                      onTap: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
                       child: const Icon(
                         Icons.menu,
                         color: kWhiteColour,

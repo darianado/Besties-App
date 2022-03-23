@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/textStyles.dart';
 
 class IconContent extends StatelessWidget {
@@ -25,12 +26,13 @@ class IconContent extends StatelessWidget {
 }
 
 //create simple icons by a giving icon and a colour
- Icon buildIcons(IconData iconInput, Color colourInput) {
+Icon buildIcons(IconData iconInput, Color colourInput) {
   return Icon(
     iconInput,
     color: colourInput,
   );
 }
+
 Icon buildIconWithSize(IconData iconInput, Color colourInput, double size) {
   return Icon(
     iconInput,
@@ -39,3 +41,13 @@ Icon buildIconWithSize(IconData iconInput, Color colourInput, double size) {
   );
 }
 
+IconData getIconForGender(String? gender) {
+  switch (gender?.toLowerCase()) {
+    case "male":
+      return FontAwesomeIcons.mars;
+    case "female":
+      return FontAwesomeIcons.venus;
+    default:
+      return FontAwesomeIcons.venusMars;
+  }
+}

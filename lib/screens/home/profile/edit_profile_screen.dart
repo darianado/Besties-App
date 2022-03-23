@@ -193,7 +193,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     onSave: (categorizedInterests) {
                       saveInterests(_userState.user?.user?.uid, categorizedInterests);
                     },
-                    items: _userState.user?.userData?.flattenedInterests ?? [],
+                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
                   ),
                 ],
               ),

@@ -52,7 +52,7 @@ class FirestoreService {
     _firebaseFirestore.collection("users").doc(uid).set(demo);
   }
 
-  /// Returns a List of recommended profile ids. 
+  /// Returns a List of recommended profile ids.
   static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{
@@ -65,7 +65,8 @@ class FirestoreService {
 
   /// Returns a List of [UserData] from a List of profile ids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
-    List<String> uids = await getRecommendedProfiles(uid, recs);
+    //List<String> uids = await getRecommendedProfiles(uid, recs);
+    List<String> uids = [];
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;
 
@@ -157,6 +158,13 @@ class FirestoreService {
         .set({"categorizedInterests": interests.toList()}, firestore.SetOptions(merge: true));
   }
 
+  Future<void> setPreferences(String userId, Preferences preferences) async {
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(userId)
+        .set({"preferences": preferences.toMap()}, firestore.SetOptions(merge: true));
+  }
+
   void saveUserData(UserData data) {
     UserState _userState = UserState.instance;
 
@@ -164,7 +172,12 @@ class FirestoreService {
 
     if (uid != null) {
       // The following two lines should probably be done differently, but this way we at least populate something.
-      data.preferences = Preferences(interests: data.categorizedInterests ?? CategorizedInterests(categories: []), maxAge: 50, minAge: 20);
+      data.preferences = Preferences(
+        interests: data.categorizedInterests ?? CategorizedInterests(categories: []),
+        genders: [data.gender],
+        maxAge: 50,
+        minAge: 20,
+      );
 
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }

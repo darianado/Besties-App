@@ -109,7 +109,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   SizedBox(height: 10),
                   DisplayInterests(
-                    items: _userState.user?.userData?.flattenedInterests ?? [],
+                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
                   ),
                   SizedBox(height: 25),
                   PillButtonFilled(

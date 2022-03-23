@@ -16,23 +16,39 @@ class CategorizedInterests {
   List<Map<String, dynamic>> toList() {
     return categories.map((e) => e.toMap()).toList();
   }
+
+  List<Interest>? get flattenedInterests {
+    return categories.map((category) => category.interests).expand((i) => i).toList();
+  }
 }
 
 class Preferences {
-  final CategorizedInterests interests;
-  final int maxAge;
-  final int minAge;
+  CategorizedInterests? interests;
+  List<String?>? genders;
+  int? maxAge;
+  int? minAge;
 
-  Preferences({required this.interests, required this.maxAge, required this.minAge});
+  Preferences({
+    this.interests,
+    this.maxAge,
+    this.minAge,
+    this.genders,
+  });
 
   factory Preferences.fromMap(Map<String, dynamic> map) {
-    final _interests = CategorizedInterests.fromList(map['categorizedInterests']);
-    return Preferences(interests: _interests, maxAge: map['maxAge'], minAge: map['minAge']);
+    final _interests = CategorizedInterests.fromList(map['categorizedInterests'] ?? []);
+    return Preferences(
+      interests: _interests,
+      genders: List<String?>.from(map['genders'] ?? []),
+      maxAge: map['maxAge'],
+      minAge: map['minAge'],
+    );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "categorizedInterests": interests.toList(),
+      "categorizedInterests": interests?.toList(),
+      "genders": genders,
       "maxAge": maxAge,
       "minAge": minAge,
     };
@@ -111,10 +127,6 @@ class UserData {
     }
 
     return null;
-  }
-
-  List<Interest>? get flattenedInterests {
-    return categorizedInterests?.categories.map((category) => category.interests).expand((i) => i).toList();
   }
 
   Map<String, dynamic> toMap() {

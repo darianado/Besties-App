@@ -161,11 +161,18 @@ class AppRouter {
               ),
             ),
           ),
-
-            //     MaterialPage<void>(
-            //   key: state.pageKey,
-            //   child: EditPreferencesScreen(),
-            // ),
+          GoRoute(
+            name: editPreferencesScreenName,
+            path: editPreferencesScreenPath,
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: EditPreferencesScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+          ),
           GoRoute(
             name: editPasswordScreenName,
             path: editPasswordScreenPath,

@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/gender_implementation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -62,7 +62,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     Text(
                       "Age",
                       textAlign: TextAlign.left,
-                      style: kBoldStyle,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
@@ -156,6 +156,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   child: const Text("SAVE NEW INFORMATION"),
                 ),
               ]),
+
             ),
           ),
         ),

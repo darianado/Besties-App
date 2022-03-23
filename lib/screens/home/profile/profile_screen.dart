@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
@@ -25,8 +29,6 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    //double screenWidth = MediaQuery.of(context).size.width;
-    //double screenHeight = MediaQuery.of(context).size.height;
     final _userState = Provider.of<UserState>(context);
 
     //const double profileImageRadius = 100;
@@ -46,14 +48,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             backgroundColor: Colors.transparent,
             actions: [
               Padding(
-                padding: const EdgeInsets.only(right: 13.0),
+                padding: const EdgeInsets.only(right: leftRightPadding),
                 child: Material(
                   shape: CircleBorder(),
                   clipBehavior: Clip.antiAlias,
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context.pushNamed("edit_profile", params: {'page': 'profile'}),
+                      onPressed: () => context.pushNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
                       icon: buildIconWithSize(FontAwesomeIcons.pen, kWhiteColour, 17.0),
                     ),
                   ),
@@ -65,17 +67,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 15, 15, 15),
+              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   SizedBox(height: 15),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: kProfileDetailsNameStyle,
+                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour, fontWeightDelta: 2),
+                    textAlign: TextAlign.center,
                   ),
-                  SizedBox(
-                    height: 15,
-                  ),
+                  SizedBox(height: 15),
                   UniversityButton(
                     label: _userState.user?.userData?.university ?? "",
                   ),
@@ -102,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: kInterestMatchedStyle,
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -110,46 +111,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   DisplayInterests(
                     items: _userState.user?.userData?.flattenedInterests ?? [],
                   ),
-                  SizedBox(height: 30),
-                  ElevatedButton(
-                    onPressed: () => context.pushNamed("edit_password", params: {'page': 'profile'}),
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
-                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
-                      backgroundColor: MaterialStateProperty.all(
-                        kTertiaryColour.withOpacity(0.9),
-                      ),
-                      elevation: MaterialStateProperty.all(0),
+                  SizedBox(height: 25),
+                  PillButtonFilled(
+                    text: "Change password",
+                    expandsWidth: true,
+                    backgroundColor: kTertiaryColour,
+                    icon: Icon(
+                      FontAwesomeIcons.lock,
+                      size: 18.0,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildIconWithSize(FontAwesomeIcons.lock, kWhiteColour, 18.0),
-                        SizedBox(width: 5),
-                        Text("Change password"),
-                      ],
+                    onPressed: () => context.pushNamed(
+                      editPasswordScreenName,
+                      params: {pageParameterKey: profileScreenName},
                     ),
                   ),
-                  OutlinedButton(
+                  PillButtonOutlined(
+                    text: "Sign out",
+                    expandsWidth: true,
+                    color: Colors.red,
+                    textStyle: TextStyle(color: Colors.red),
+                    icon: Icon(
+                      FontAwesomeIcons.signOutAlt,
+                      color: Colors.red,
+                      size: 18.0,
+                    ),
                     onPressed: () => _userState.signOut(),
-                    style: ButtonStyle(
-                      side: MaterialStateProperty.all(BorderSide(
-                        color: kRedLightShade,
-                        width: 1,
-                      )),
-                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(10.0)),
-                      textStyle: MaterialStateProperty.all(Theme.of(context).textTheme.bodyMedium),
-                      foregroundColor: MaterialStateProperty.all(kRedColour),
-                      elevation: MaterialStateProperty.all(0),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildIconWithSize(FontAwesomeIcons.signOutAlt, kRedColour, 18.0),
-                        SizedBox(width: 5),
-                        Text("Sign out"),
-                      ],
-                    ),
                   ),
                 ],
               ),

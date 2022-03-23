@@ -5,6 +5,7 @@ import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
 import 'package:project_seg/constants/colours.dart';
+import '../constants/constant.dart';
 import '../screens/components/sliding_profile_details.dart';
 import '../screens/components/widget/icon_content.dart';
 import '../services/firestore_service.dart';

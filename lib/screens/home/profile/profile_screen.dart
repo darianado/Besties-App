@@ -55,25 +55,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   color: kTertiaryColour,
                   child: InkWell(
                     child: IconButton(
-                      onPressed: () => context.pushNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
-                      icon: buildIconWithSize(FontAwesomeIcons.pen, kWhiteColour, 17.0),
+                      onPressed: () => context.pushNamed(editProfileScreenName,
+                          params: {pageParameterKey: profileScreenName}),
+                      icon: buildIconWithSize(
+                          FontAwesomeIcons.pen, kWhiteColour, 17.0),
                     ),
                   ),
                 ),
               ),
             ],
-            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
+            flexibleSpace:
+                CachedImage(url: _userState.user?.userData?.profileImageUrl),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
+              padding: const EdgeInsets.fromLTRB(
+                  leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   SizedBox(height: 15),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour, fontWeightDelta: 2),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.apply(fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 15),
@@ -87,9 +94,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
-                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
-                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
+                      DateOfBirthButton(
+                          label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(
+                          label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(
+                          label:
+                              _userState.user?.userData?.relationshipStatus ??
+                                  ""),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -103,7 +115,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(
+                            color: kSecondaryColour.withOpacity(0.3),
+                            fontWeightDelta: 3),
                       ),
                     ],
                   ),

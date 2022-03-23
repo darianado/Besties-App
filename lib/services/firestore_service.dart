@@ -66,7 +66,11 @@ class FirestoreService {
   /// Returns a List of [UserData] from a List of profile ids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
     //List<String> uids = await getRecommendedProfiles(uid, recs);
+<<<<<<< HEAD
     List<String> uids = [];
+=======
+    List<String>uids= [];
+>>>>>>> 93b696ebdd72bfbc978778d2c27474b49086a150
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;
 
@@ -121,24 +125,20 @@ class FirestoreService {
     return await _firebaseFirestore.collection("users").doc(userId).set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
-  Future<void> setLike(String? profileId, String userId) async {
-    await _firebaseFirestore.collection("users").doc(userId).set({
-      'likes': firestore.FieldValue.arrayUnion([profileId])
-    }, firestore.SetOptions(merge: true));
+  Future<bool> setLike(String? profileId, String userId) async {
+    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('likeUser');
+        final resp = await callable.call(<String, String>{
+      'profileUserID': profileId.toString(),
+    });
 
-    //query database if profile document contains admirer ID already
-    //then call set match
+    HashMap raw = HashMap.from(resp.data);
+
+    bool isMatch = raw['data']['matched'];
+
+    return isMatch;
   }
 
-  Future<void> setMatch(String? profileId, String userId) async {
-    await _firebaseFirestore.collection("users").doc(profileId).set({
-      'matches': firestore.FieldValue.arrayUnion([userId])
-    }, firestore.SetOptions(merge: true));
 
-    await _firebaseFirestore.collection("users").doc(userId).set({
-      'matches': firestore.FieldValue.arrayUnion([profileId])
-    }, firestore.SetOptions(merge: true));
-  }
 
   Future<void> setBio(String userId, String bio) async {
     return await _firebaseFirestore.collection("users").doc(userId).set({"bio": bio}, firestore.SetOptions(merge: true));

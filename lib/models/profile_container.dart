@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
-import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../constants/textStyles.dart';
+import '../constants/constant.dart';
 import '../screens/components/sliding_profile_details.dart';
 import '../screens/components/widget/icon_content.dart';
 import '../services/firestore_service.dart';
@@ -55,7 +55,7 @@ class ProfileContainer extends StatelessWidget {
               ),
             ),
             child: Padding(
-              padding: EdgeInsets.all(25.0),
+              padding: EdgeInsets.all(leftRightPadding),
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
@@ -135,27 +135,39 @@ class LikeProfileButton extends StatelessWidget {
   /// Likes the displayed profile.
   ///
   /// Updates the database with a [FirestoreService] instance
-  /// and generates an [AlertDialog].
-  void likeProfile(BuildContext context) {
+  /// and generates an [AlertDialog] or a [MatchDialog] if there is a match
+  void likeProfile(BuildContext context) async {
     final FirestoreService _firestoreService = FirestoreService.instance;
-    _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
+    //store 'boolean ' from firestore service set like
+    bool isMatch = await _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
 
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("You liked " + (profile.firstName ?? " ") + "!"),
-          actions: [
-            TextButton(
-              child: const Text("Dismiss"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
+    if (isMatch) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => MatchDialog(
+          otherName: profile.firstName,
+          myImage: userState.user!.userData!.profileImageUrl,
+          otherImage: profile.profileImageUrl,
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("You liked " + (profile.firstName ?? " ") + "!"),
+            actions: [
+              TextButton(
+                child: const Text("Dismiss"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

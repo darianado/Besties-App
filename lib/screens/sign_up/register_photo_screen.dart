@@ -118,7 +118,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(0.6),
-                                    borderRadius: kCircularBorderRadius10,
+                                    borderRadius: circularBorderRadius10,
                                   ),
                                   height: 60,
                                   width: 100,

@@ -103,7 +103,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: kCircularBorderRadius10,
+                            borderRadius: circularBorderRadius10,
                             color: kTertiaryColour.withOpacity(0.1),
                           ),
                           child: TextFormField(
@@ -122,7 +122,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: kCircularBorderRadius10,
+                            borderRadius: circularBorderRadius10,
                             color: kTertiaryColour.withOpacity(0.1),
                           ),
                           child: TextFormField(
@@ -143,7 +143,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 12.0),
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            borderRadius: kCircularBorderRadius10,
+                            borderRadius: circularBorderRadius10,
                             color: kTertiaryColour.withOpacity(0.1),
                           ),
                           child: TextFormField(

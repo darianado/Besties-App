@@ -59,7 +59,11 @@ class ProfileContainer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                    shape: kRoundedRectangulareBorder,
+                    shape:  RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: radius20,
+                        ),
+                    ),
                     context: context,
                     builder: (context) => SlidingProfileDetails(
                       profile: profile,

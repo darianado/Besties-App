@@ -123,7 +123,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: kCircularBorderRadius10,
+                          borderRadius: circularBorderRadius10,
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(
@@ -142,7 +142,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: kCircularBorderRadius10,
+                          borderRadius: circularBorderRadius10,
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(

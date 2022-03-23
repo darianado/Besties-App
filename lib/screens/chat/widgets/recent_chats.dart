@@ -14,7 +14,7 @@ class GStyle {
             alignment: Alignment.center, height: !isdot ? height : height/2, width: !isdot ? width : width/2,
             decoration: BoxDecoration(
                 color: color,
-                borderRadius: kCircularBorderRadius100,
+                borderRadius: circularBorderRadius100,
             ),
             //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
         );
@@ -49,7 +49,7 @@ class RecentChats extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                     decoration: const BoxDecoration(
                         color: kSimpleWhiteColour,
-                        borderRadius: kSymmetricBorderRadius20,
+                        borderRadius: symmetricBorderRadius20,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

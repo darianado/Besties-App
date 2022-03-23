@@ -62,7 +62,7 @@ void _handleSubmitted(String text){
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
               color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: kSymmetricBorderRadius30,
+              borderRadius: symmetricBorderRadius30,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -181,10 +181,16 @@ void _handleSubmitted(String text){
               child: Container(
                 decoration: const BoxDecoration(
                     color: kSimpleWhiteColour,
-                    borderRadius: kBorderRadiusTLeftTRight,
+                    borderRadius: BorderRadius.only(
+                      topLeft: radius30,
+                      topRight: radius30,
+                    ),
                 ),
                 child: ClipRRect(
-                  borderRadius: kBorderRadiusTLeftTRight,
+                  borderRadius: BorderRadius.only(
+                    topLeft: radius30,
+                    topRight: radius30,
+                  ),
                   child: ListView.builder(
                       reverse: true,
                       padding: const EdgeInsets.only(top: 15),

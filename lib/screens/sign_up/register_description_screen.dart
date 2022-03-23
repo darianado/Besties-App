@@ -161,8 +161,11 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           maxLength: _contextState.context?.maxBioLength ?? 200,
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
-                          decoration: const InputDecoration(
-                            border: kOutlineBorder,
+                          decoration:  InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(radius10),
+                                borderSide: BorderSide.none
+                            ),
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,

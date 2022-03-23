@@ -36,7 +36,7 @@ class FeedScreen extends StatefulWidget {
 class _FeedScreenState extends State<FeedScreen> {
   Queue<ProfileContainer>? displayedContainers = Queue();
   Future<Queue<ProfileContainer>>? _future;
-  final int recs = 100;
+  final int recs = 10;
   double? currentPageValue = 0.0;
 
   @override

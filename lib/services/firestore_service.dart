@@ -65,7 +65,8 @@ class FirestoreService {
 
   /// Returns a List of [UserData] from a List of profile ids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
-    List<String> uids = await getRecommendedProfiles(uid, recs);
+    //List<String> uids = await getRecommendedProfiles(uid, recs);
+    List<String>uids= [];
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;
 
@@ -123,7 +124,7 @@ class FirestoreService {
   Future<bool> setLike(String? profileId, String userId) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('likeUser');
         final resp = await callable.call(<String, String>{
-      'otherUserID': profileId.toString(),
+      'profileUserID': profileId.toString(),
     });
 
     HashMap raw = HashMap.from(resp.data);

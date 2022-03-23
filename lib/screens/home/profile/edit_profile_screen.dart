@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
@@ -14,6 +15,7 @@ import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,44 +35,35 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _uniController = TextEditingController();
 
-  final ImagePicker _picker = ImagePicker();
-
   bool loadingPicture = false;
+
+  final PickAndCropImage _pickAndCrop = PickAndCropImage();
+
+  void _pickImage(String uid) async {
+    setState(() {
+      loadingPicture = true;
+    });
+
+    String? url = await _pickAndCrop.pickImage(uid);
+
+    if (url != null) {
+      FirestoreService.instance.setProfileImageUrl(url);
+    }
+
+    setState(() {
+      loadingPicture = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    //  double screenWidth = MediaQuery.of(context).size.width;
     final _userState = Provider.of<UserState>(context);
 
-    // const double profileImageRadius = 100;
     const double profileHeaderExtendedHeight = 430;
     const double profileHeaderCollapsedHeight = 220;
 
     _uniController.text = _userState.user?.userData?.university ?? "";
     _bioController.text = _userState.user?.userData?.bio ?? "-";
-
-    void pickImage() async {
-      XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
-      if (file == null) return;
-
-      setState(() {
-        loadingPicture = true;
-      });
-
-      File? f = File(file.path);
-      f = await ImageCropper().cropImage(
-        sourcePath: file.path,
-        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1.5),
-        aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
-      );
-      String? url = await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
-
-      if (url != null) FirestoreService.instance.setProfileImageUrl(url);
-
-      setState(() {
-        loadingPicture = false;
-      });
-    }
 
     return Scaffold(
       backgroundColor: kWhiteColour,
@@ -107,7 +100,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                     )
                   : InkWell(
-                      onTap: () => pickImage(),
+                      onTap: () => _pickImage(_userState.user!.user!.uid),
                       child: Stack(
                         fit: StackFit.expand,
                         children: [

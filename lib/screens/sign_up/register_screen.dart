@@ -58,8 +58,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-
     final _userState = Provider.of<UserState>(context);
 
     void submitForm(GlobalKey<FormState> key) {
@@ -82,20 +80,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(0.1 * screenHeight),
-          child: AppBar(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-              systemOverlayStyle: const SystemUiOverlayStyle(
-                statusBarColor: Colors.transparent,
-              ),
-              title: const Text(
-                'BESTIES',
-                style: kRegisterPageStyle,
-              ),
-              centerTitle: true,
-              automaticallyImplyLeading: false),
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+          ),
+          title: const Text(
+            'BESTIES',
+            style: kRegisterPageStyle,
+          ),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
         ),
         body: Center(
           child: SingleChildScrollView(

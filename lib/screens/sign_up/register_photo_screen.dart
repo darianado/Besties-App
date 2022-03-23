@@ -9,8 +9,10 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
@@ -25,35 +27,27 @@ class RegisterPhotoScreen extends StatefulWidget {
 }
 
 class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
-  final ImagePicker _picker = ImagePicker();
+  final PickAndCropImage _pickAndCrop = PickAndCropImage();
   bool loadingPicture = false;
   bool couldNotValidatePhotoSelection = false;
+
+  void _pickImage(String uid) async {
+    setState(() {
+      loadingPicture = true;
+    });
+
+    String? url = await _pickAndCrop.pickImage(uid);
+
+    widget.userData.profileImageUrl = url;
+
+    setState(() {
+      loadingPicture = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-
-    void pickImage() async {
-      XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
-      if (file == null) return;
-
-      setState(() {
-        loadingPicture = true;
-      });
-
-      File? f = File(file.path);
-      f = await ImageCropper().cropImage(
-        sourcePath: file.path,
-        aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1.5),
-        aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
-      );
-      String? url = await StorageService.instance.changeUserPhoto(_userState.user!.user!.uid, f);
-
-      setState(() {
-        widget.userData.profileImageUrl = url;
-        loadingPicture = false;
-      });
-    }
 
     return Scaffold(
       body: CustomScrollView(
@@ -108,7 +102,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               ),
                             )
                           : InkWell(
-                              onTap: () => pickImage(),
+                              onTap: () => _pickImage(_userState.user!.user!.uid),
                               child: Stack(
                                 alignment: Alignment.center,
                                 children: [

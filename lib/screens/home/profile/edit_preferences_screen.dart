@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/gender_implementation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -23,8 +22,6 @@ class EditPreferencesScreen extends StatefulWidget {
 }
 
 class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
-  Gender selectedGender = Gender.other;
-
   RangeValues _currentAgeRangeValues = const RangeValues(16, 30);
 
   Preferences? newPreferences;

@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -51,26 +52,20 @@ class FirestoreService {
     _firebaseFirestore.collection("users").doc(uid).set(demo);
   }
 
-  // Requests a List of recommended uids from Firebase.
-  static Future<List<String>> getRecommendedUsers(String uid, int recs) async {
+  /// Returns a List of recommended profile ids. 
+  static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
-
     final resp = await callable.call(<String, dynamic>{
-      'userId': uid,
+      'uid': uid,
       'recs': recs,
     });
 
-    HashMap raw = HashMap.from(resp.data);
-
-    List<String> uids = List<String>.from(raw['data']);
-    return uids;
+    return List<String>.from(resp.data['data']);
   }
 
-  // Filters all  users based on recommended users' uids.
+  /// Returns a List of [UserData] from a List of profile ids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
-    //List<String> uids = await getRecommendedUsers(uid, recs);
-    List<String> uids = [];
-
+    List<String> uids = await getRecommendedProfiles(uid, recs);
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
     QuerySnapshot querySnapshot;
 
@@ -80,14 +75,14 @@ class FirestoreService {
       querySnapshot = await _collectionRef.where(FieldPath.documentId, whereIn: uids).get();
     }
 
-    final users = querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).toList();
-    return users;
+    return querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).toList();
   }
 
-  // Creates Profile Containers from a List of User Data.
+  /// Returns a Queue of [ProfileContainer]s from a List of [UserData].
   static Future<Queue<ProfileContainer>> getProfileContainers(String uid, int recs) async {
     List<UserData> data = await getProfileData(uid, recs);
     Queue<ProfileContainer> containerQueue = Queue();
+
     for (UserData userData in data) {
       containerQueue.add(ProfileContainer(profile: userData));
     }

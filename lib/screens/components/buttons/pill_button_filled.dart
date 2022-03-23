@@ -5,7 +5,7 @@ import 'package:project_seg/constants/colours.dart';
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;
   final String text;
-  final TextStyle textStyle;
+  final TextStyle? textStyle;
   final EdgeInsets padding;
   final Color backgroundColor;
   final Icon? icon;
@@ -28,7 +28,7 @@ class PillButtonFilled extends StatelessWidget {
       onPressed: () => onPressed(),
       child: (isLoading)
           ? CircularProgressIndicator(
-              color: textStyle.color,
+              color: textStyle?.color,
               strokeWidth: 3,
             )
           : Row(

@@ -110,7 +110,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: kRegisterPageStyle,
+                      style: Theme.of(context).textTheme.headline4?.apply(color: kTertiaryColour),
                     ),
                     SizedBox(height: 40),
                     TextFormField(
@@ -129,10 +129,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: true,
                       decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: Icon(
-                          Icons.lock,
-                          color: kTertiaryColour,
-                        ),
+                        icon: Icon(Icons.lock, color: kTertiaryColour),
                         labelText: 'Password',
                       ),
                       validator: validatePassword,
@@ -143,12 +140,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: _confirmPassword,
                       obscureText: true,
                       decoration: const InputDecoration(
-                          border: UnderlineInputBorder(),
-                          icon: Icon(
-                            Icons.lock,
-                            color: kTertiaryColour,
-                          ),
-                          labelText: 'Confirm password'),
+                        border: UnderlineInputBorder(),
+                        icon: Icon(Icons.lock, color: kTertiaryColour),
+                        labelText: 'Confirm password',
+                      ),
                       validator: (value) => validateRepeatedPassword(value, _password.text),
                     ),
                     SizedBox(height: 40),

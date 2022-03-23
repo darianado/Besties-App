@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
@@ -51,29 +52,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              textTheme:
-                  GoogleFonts.nunitoTextTheme((Theme.of(context).textTheme)),
-              /*
-              primaryTextTheme: const TextTheme(
-                bodyText1: TextStyle(),
-                bodyText2: TextStyle(),
-              ).apply(
-                bodyColor: Colors.orange,
-                displayColor: Colors.red,
+              textTheme: GoogleFonts.nunitoTextTheme(
+                (Theme.of(context).textTheme).apply(
+                  bodyColor: kTertiaryColour,
+                  displayColor: kTertiaryColour,
+                ),
               ),
-              */
-              /*
-              // Define the default brightness and colors.
-              brightness: Brightness.light,
-              scaffoldBackgroundColor: kWhiteColour,
-              primaryColor: kSecondaryColour,
-              fontFamily: 'Georgia',
-              textTheme: const TextTheme(
-                headline1: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
-                headline6: TextStyle(fontSize: 25.0, fontStyle: FontStyle.italic),
-                bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
-              ),
-              */
             ),
             routeInformationParser: router.routeInformationParser,
             routerDelegate: router.routerDelegate,

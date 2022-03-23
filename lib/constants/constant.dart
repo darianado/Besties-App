@@ -10,12 +10,17 @@ const int kChatIconIndex = 2;
 const double kProfileNameFontSize = 30;
 const double kProfileLocationFontSize = 18;
 
+// Constants for left and right padding
+const double leftPadding = 20.0;
+const double rightPadding = 20.0;
+
 class GStyle {
-  // notificatio
+  // notification
   static badge(bool unread, {Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
     //final _num = count > 99 ? '···' : count;
     return Container(
-      alignment: Alignment.center, height: !isdot ? height : height / 2, width: !isdot ? width : width / 2,
+      alignment: Alignment.center, height: !isdot ? height : height / 2,
+      width: !isdot ? width : width / 2,
       decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(100.0)),
       //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
     );

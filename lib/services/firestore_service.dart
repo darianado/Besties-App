@@ -42,7 +42,6 @@ class FirestoreService {
       "relationshipStatus": "single",
       "bio": "Hello! This is my bio. This text is rather long, so we can check everything's working.",
       "interests": ["volunteering", "christian"],
-      "location": {"lat": 51.48, "lon": 0.086},
       "preferences": {
         "interests": ["buddhism", "christian", "islam"],
         "maxAge": 30,
@@ -166,7 +165,6 @@ class FirestoreService {
     if (uid != null) {
       // The following two lines should probably be done differently, but this way we at least populate something.
       data.preferences = Preferences(interests: data.categorizedInterests ?? CategorizedInterests(categories: []), maxAge: 50, minAge: 20);
-      data.location = GeoLocation(lat: 50, lon: 0);
 
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }

@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:project_seg/constants/textStyles.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:project_seg/constants/colours.dart';
 import '../../models/User/UserData.dart';
 import 'buttons/bio_field.dart';
 import 'buttons/edit_dob_button.dart';

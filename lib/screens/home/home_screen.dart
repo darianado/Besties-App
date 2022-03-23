@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
-import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -65,8 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
     context.go("/" + pathOfIndex(index));
   }
 
-  List<Widget> get itemWidgets =>
-      menuData.items.map((e) => e.destinationWidget).toList();
+  List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();
 
   @override
   Widget build(BuildContext context) {

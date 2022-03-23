@@ -7,6 +7,7 @@ import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../constants/textStyles.dart';
 import '../screens/components/sliding_profile_details.dart';
+import '../screens/components/widget/icon_content.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';
 import 'Interests/category.dart';
@@ -164,10 +165,7 @@ class LikeProfileButton extends StatelessWidget {
         likeProfile(context);
       },
       backgroundColor: kSecondaryColour,
-      child: const Icon(
-        Icons.thumb_up_off_alt_rounded,
-        color: kWhiteColour,
-      ),
+      child: buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
     );
   }
 }
@@ -191,7 +189,10 @@ class PartialProfileDetails extends StatelessWidget {
         Text(
           profile.firstName ?? " ",
           maxLines: 2,
-          style: kProfileContainerStyle,
+          style: Theme.of(context)
+              .textTheme
+              .headline4
+              ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -205,7 +206,10 @@ class PartialProfileDetails extends StatelessWidget {
           Expanded(
             child: Text(
               profile.university ?? "null",
-              style: kProfileContainerUniversityStyle,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.apply(color: kSecondaryColour),
             ),
           ),
         ]),

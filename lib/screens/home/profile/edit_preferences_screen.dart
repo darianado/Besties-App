@@ -53,11 +53,11 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
                     child: Text(
                       'Edit your preferences',
-                      style: kTitlePreferencesStyle,
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                   ),
                   const SizedBox(height: 40),

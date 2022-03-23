@@ -7,7 +7,6 @@ import 'constant.dart';
 const kLabelTextStyle = TextStyle(
   color: kInactiveSliderColor,
   fontSize: 18.0,
-  color: Color(0xFF8D8E98),
 );
 
 const kNumberTextStyle = TextStyle(
@@ -106,21 +105,13 @@ const kTertiaryStyle = TextStyle(
 
 //text style for profile details
 TextStyle kInterestMatchedStyle = TextStyle(
-<<<<<<< HEAD
-=======
   fontWeight: FontWeight.bold,
   fontSize: 12,
->>>>>>> chat_page_styling
   color: kPrimaryColour.withOpacity(0.3),
-  fontSize: 12,
-  fontWeight: FontWeight.bold,
 );
 
 const kNoInterestStyle = TextStyle(
   color: kTertiaryColour,
-<<<<<<< HEAD
-  fontSize: 12,
-=======
 );
 
 //landing page
@@ -137,15 +128,9 @@ const kLandingPageTitleStyle = TextStyle(
 //register_screen page
 const kRegisterPageStyle = TextStyle(
   fontSize: 35,
->>>>>>> chat_page_styling
   fontWeight: FontWeight.bold,
 );
 
-<<<<<<< HEAD
-const kTitlePreferencesStyle = TextStyle(
-  color: kTertiaryColour,
-  fontSize: 35.0,
-=======
 //register interests page
 const kRegisterUserPagesStyle = TextStyle(
   fontSize: 30.0,
@@ -155,29 +140,22 @@ const kRegisterUserPagesStyle = TextStyle(
 
 TextStyle kRegisterUserComponentsStyle = TextStyle(
   fontSize: 13.0,
->>>>>>> chat_page_styling
   fontWeight: FontWeight.bold,
 );
 
-<<<<<<< HEAD
-//landing page
-const kLandingPageButtonsStyle = TextStyle(
-  fontSize: 20,
-=======
 //profile constainer
 const kProfileContainerStyle = TextStyle(
   fontSize: kProfileNameFontSize,
   color: kSecondaryColour,
->>>>>>> chat_page_styling
   fontWeight: FontWeight.bold,
 );
 
+/*
 const kLandingPageTitleStyle = TextStyle(
   fontSize: 35,
   fontWeight: FontWeight.bold,
 );
-<<<<<<< HEAD
-=======
+*/
 
 // email verify
 const TextStyle kWhiteBoldStyle = TextStyle(
@@ -205,4 +183,3 @@ const TextStyle kLogInPasswordStyle = TextStyle(
   fontSize: 12,
   color: kWhiteColour,
 );
->>>>>>> chat_page_styling

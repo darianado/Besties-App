@@ -8,11 +8,7 @@ import '../../../constants/borders.dart';
 
 class GStyle {
   // 消息红点
-  static badge(
-      {Color color = Colors.red,
-      bool isdot = false,
-      double height = 10.0,
-      double width = 10.0}) {
+  static badge({Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
     return Container(
       alignment: Alignment.center, height: !isdot ? height : height / 2,
       width: !isdot ? width : width / 2,
@@ -36,48 +32,6 @@ class RecentChats extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Colors.transparent,
         ),
-<<<<<<< HEAD
-        child: ClipRRect(
-          child: ListView.builder(
-              itemCount: chats.length,
-              itemBuilder: (BuildContext context, int index) {
-                final Message chat = chats[index];
-                return GestureDetector(
-                  onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => ChatScreen(user: chat.senderEmail))
-                          ),
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: const BoxDecoration(
-                        color: kSimpleWhiteColour,
-                        borderRadius: kSymmetricBorderRadius20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                chat.senderEmail,
-                                style: kInactiveSliderStyle,
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.45,
-                                child: Text(
-                                  chat.text,
-                                  style: kInactiveSliderStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-=======
         child: ListView.builder(
           padding: const EdgeInsets.only(left: 15, right: 15),
           itemCount: chats.length,
@@ -116,7 +70,6 @@ class RecentChats extends StatelessWidget {
                                 chat.text,
                                 style: kMessageStyle,
                                 overflow: TextOverflow.ellipsis,
->>>>>>> chat_page_styling
                               ),
                             ),
                           ],

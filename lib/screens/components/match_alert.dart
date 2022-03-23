@@ -28,7 +28,7 @@ class MatchDialog extends StatelessWidget {
   }
 }
 
-dialogContent(BuildContext context, String? otherName, String? myImage, String? otherImage) {
+dialogContent(BuildContext context, String? matchName, String? myImage, String? otherImage) {
   return Stack(
     children: <Widget>[
       //...bottom card part,
@@ -74,7 +74,7 @@ dialogContent(BuildContext context, String? otherName, String? myImage, String? 
                   primary: kSecondaryColour,
                 ),
                 child: Text(
-                  "Text " + otherName.toString() +" now!" ,
+                  "Text " + matchName.toString() +" now!" ,
                   style: const TextStyle(
                     fontSize: 20,
                   ),

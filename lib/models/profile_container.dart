@@ -126,8 +126,9 @@ class LikeProfileButton extends StatelessWidget {
   // Method that generates an AlertDialog
   void likeProfile(BuildContext context) {
     final FirestoreService _firestoreService = FirestoreService.instance;
+    //store 'boolean ' from firestore service set like
     _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
-
+//boolean :  if true then show dialog
     showDialog(
       context: context,
       builder: 
@@ -138,6 +139,24 @@ class LikeProfileButton extends StatelessWidget {
       ),
 
     );
+//else show the original dialog
+
+    //  showDialog(
+    //   context: context,
+    //   builder: (BuildContext context) {
+    //     return AlertDialog(
+    //       title: Text("You liked " + (profile.firstName ?? " ") + "!"),
+    //       actions: [
+    //         TextButton(
+    //           child: const Text("Dismiss"),
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );        
 
   }
 

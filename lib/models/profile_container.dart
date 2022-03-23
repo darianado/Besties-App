@@ -134,41 +134,39 @@ class LikeProfileButton extends StatelessWidget {
   /// Likes the displayed profile.
   ///
   /// Updates the database with a [FirestoreService] instance
-  /// and generates an [AlertDialog].
-  void likeProfile(BuildContext context) {
+  /// and generates an [AlertDialog] or a [MatchDialog] if there is a match
+  void likeProfile(BuildContext context) async {
     final FirestoreService _firestoreService = FirestoreService.instance;
     //store 'boolean ' from firestore service set like
-    _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
-//boolean :  if true then show dialog
-    showDialog(
-      context: context,
-      builder: 
-      (BuildContext context) => MatchDialog(
-        otherName: profile.firstName,
-        myImage: userState.user!.userData!.profileImageUrl,
-        otherImage: profile.profileImageUrl,
-      ),
+    bool isMatch = await _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
 
-    );
-//else show the original dialog
-
-    //  showDialog(
-    //   context: context,
-    //   builder: (BuildContext context) {
-    //     return AlertDialog(
-    //       title: Text("You liked " + (profile.firstName ?? " ") + "!"),
-    //       actions: [
-    //         TextButton(
-    //           child: const Text("Dismiss"),
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );        
-
+    if (isMatch) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => MatchDialog(
+          otherName: profile.firstName,
+          myImage: userState.user!.userData!.profileImageUrl,
+          otherImage: profile.profileImageUrl,
+        ),
+      );
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("You liked " + (profile.firstName ?? " ") + "!"),
+            actions: [
+              TextButton(
+                child: const Text("Dismiss"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   @override

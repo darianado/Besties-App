@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -34,12 +35,19 @@ class FeedScreen extends StatefulWidget {
 /// The State for the [FeedScreen] widget.
 class _FeedScreenState extends State<FeedScreen> {
   Queue<ProfileContainer>? displayedContainers = Queue();
-
+  Future<Queue<ProfileContainer>>? _future;
+  final int recs = 100;
   double? currentPageValue = 0.0;
 
   @override
   void initState() {
     super.initState();
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final String uid = auth.currentUser!.uid;
+
+    _future = FirestoreService.getProfileContainers(uid, recs);
+
     FeedScreen.controller.addListener(() {
       setState(() {
         currentPageValue = FeedScreen.controller.page;
@@ -49,14 +57,12 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-
     final _userState = Provider.of<UserState>(context);
     final uid = _userState.user?.user?.uid;
 
     if (uid != null) {
       return FutureBuilder(
-        future: FirestoreService.getProfileContainers(uid, 1000),
+        future: _future,
         builder: (context, AsyncSnapshot<Queue<ProfileContainer>> snapshot) {
           displayedContainers = snapshot.data;
 
@@ -66,35 +72,13 @@ class _FeedScreenState extends State<FeedScreen> {
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
-                  // CustomRefreshIndicator(
                   RefreshIndicator(
-                    onRefresh: () => refreshProfileContainers(uid, 1000),
+                    onRefresh: () => refreshProfileContainers(uid, recs),
                     child: PageView(
                       controller: FeedScreen.controller,
                       scrollDirection: Axis.vertical,
                       children: displayedContainers!.toList(),
                     ),
-                    // TODO: Custom Refresh Indicator not setup
-                    // builder: (
-                    //   BuildContext context,
-                    //   Widget child,
-                    //   IndicatorController controller,
-                    // ) {
-                    //   // TODO: Implement your own refresh indicator
-                    //   return Stack(
-                    //     alignment: Alignment.topCenter,
-                    //     children: <Widget>[
-                    //       AnimatedBuilder(
-                    //         animation: controller,
-                    //         builder: (BuildContext context, _) {
-                    //           /// This part will be rebuild on every controller change
-                    //           return CircularProgressIndicator();
-                    //         },
-                    //       ),
-                    //       child,
-                    //     ],
-                    //   );
-                    // }),
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 50, 25, 0),
@@ -125,16 +109,13 @@ class _FeedScreenState extends State<FeedScreen> {
     }
   }
 
-  /// Refreshes the list of displayed profiles. TODO: NOT WORKING AS OF YET
-  Future<void> refreshProfileContainers(uid, recs) async {
-    Queue<ProfileContainer>? newContainers =
-        await FirestoreService.getProfileContainers(uid, 3);
-
-    await Future.delayed(const Duration(seconds: 1));
+  /// Refreshes the profiles by updating the [FutureBuilder]'s future.
+  Future<void> refreshProfileContainers(String uid, int recs) async {
+    await Future.delayed(const Duration(milliseconds: 400));
 
     setState(() {
-      displayedContainers = newContainers;
-      print(displayedContainers!.length);
+      _future = FirestoreService.getProfileContainers(uid, recs);
     });
+    await Future.delayed(const Duration(milliseconds: 400));
   }
 }

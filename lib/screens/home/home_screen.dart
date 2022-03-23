@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
+import 'package:project_seg/services/feed_content.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -47,8 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    selectedIndex = widget.index;
     super.initState();
+
+    selectedIndex = widget.index;
   }
 
   @override
@@ -58,9 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeSelection(int index) {
+    /*
     if (index == 1 && _selectedIndex == 1) {
       FeedScreen.animateToTop();
     }
+    */
     context.go("/" + pathOfIndex(index));
   }
 
@@ -68,9 +72,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    final _userState = Provider.of<UserState>(context);
-
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,

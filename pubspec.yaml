@@ -97,6 +97,7 @@ flutter:
     - assets/lotties/mail-verification.json
     - assets/lotties/loading-dots.json
     - assets/lotties/forgot-password.json
+    - assets/lotties/searching.json
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/services/feed_content.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -22,11 +23,11 @@ import 'package:project_seg/constants/colours.dart';
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
 
-  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
-
+  /*
   static void animateToTop() {
     controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
+  */
 
   @override
   _FeedScreenState createState() => _FeedScreenState();
@@ -34,29 +35,65 @@ class FeedScreen extends StatefulWidget {
 
 /// The State for the [FeedScreen] widget.
 class _FeedScreenState extends State<FeedScreen> {
-  Queue<ProfileContainer>? displayedContainers = Queue();
-  Future<Queue<ProfileContainer>>? _future;
-  final int recs = 10;
-  double? currentPageValue = 0.0;
+  PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
   @override
   void initState() {
     super.initState();
 
+    final _feedContent = Provider.of<FeedContent>(context, listen: false);
+    _feedContent.onFeedInitialized();
+    _feedContent.assignController(controller);
+    /*
     final FirebaseAuth auth = FirebaseAuth.instance;
     final String uid = auth.currentUser!.uid;
 
     _future = FirestoreService.getProfileContainers(uid, recs);
 
-    FeedScreen.controller.addListener(() {
+    
+
+    controller.addListener(() {
       setState(() {
-        currentPageValue = FeedScreen.controller.page;
+        print("We are now on: ${controller.page}");
       });
     });
+    */
   }
 
   @override
   Widget build(BuildContext context) {
+    final _feedContent = Provider.of<FeedContent>(context);
+
+    print("Rebuilding. There are ${_feedContent.content.length} elements in feed");
+
+    return Container(
+      color: kTertiaryColour,
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          PageView(
+            controller: controller,
+            scrollDirection: Axis.vertical,
+            children: List<Widget>.of(_feedContent.content),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
+            child: FloatingActionButton(
+              heroTag: null,
+              onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
+              backgroundColor: kTertiaryColour,
+              child: Icon(
+                Icons.menu,
+                color: kWhiteColour,
+                size: 30,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    /*
     final _userState = Provider.of<UserState>(context);
     final uid = _userState.user?.user?.uid;
 
@@ -109,8 +146,10 @@ class _FeedScreenState extends State<FeedScreen> {
         color: kTertiaryColour,
       );
     }
+    */
   }
 
+/*
   /// Refreshes the profiles by updating the [FutureBuilder]'s future.
   Future<void> refreshProfileContainers(String uid, int recs) async {
     await Future.delayed(const Duration(milliseconds: 400));
@@ -120,4 +159,5 @@ class _FeedScreenState extends State<FeedScreen> {
     });
     await Future.delayed(const Duration(milliseconds: 400));
   }
+  */
 }

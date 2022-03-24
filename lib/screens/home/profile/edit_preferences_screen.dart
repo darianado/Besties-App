@@ -38,46 +38,68 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     final _contextState = Provider.of<ContextState>(context);
     final _userState = Provider.of<UserState>(context);
 
-    newPreferences ??= Preferences.fromMap(_userState.user?.userData?.preferences?.toMap() ?? {});
+    const spaceBetween = 40.0;
+    const spaceBetweenWidgetAndTitle = 10.0;
+
+    newPreferences ??= Preferences.fromMap(
+        _userState.user?.userData?.preferences?.toMap() ?? {});
 
     return Container(
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        stops: [0.4, 0.8, 1],
+        colors: [
+          kWhiteColour,
+          kWhiteColourShade2,
+          kWhiteColourShade3,
+        ],
+      )),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          title: const Text('Edit your preferences'),
-        ),
+        backgroundColor: Colors.transparent,
         body: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: leftRightPadding),
+              padding: const EdgeInsets.all(leftRightPadding),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 15, left: 10, right: 10),
-                    child: Text(
-                      'Edit your preferences',
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
+                  Text(
+                    'Edit preferences',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.apply(fontWeightDelta: 2),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Who are you looking for?',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: spaceBetween),
                   Row(
-                    children: const [
-                      SizedBox(width: 20),
+                    children: [
                       Text(
                         "Age",
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.apply(fontWeightDelta: 2),
                       ),
                     ],
                   ),
                   RangeSlider(
-                    values: RangeValues(newPreferences?.minAge?.toDouble() ?? 16, newPreferences?.maxAge?.toDouble() ?? 100),
+                    values: RangeValues(
+                        newPreferences?.minAge?.toDouble() ?? 16,
+                        newPreferences?.maxAge?.toDouble() ?? 100),
                     activeColor: kTertiaryColour,
                     inactiveColor: kGreyColour,
                     min: (_contextState.context?.minAge?.toDouble() ?? 16),
                     max: (_contextState.context?.maxAge?.toDouble() ?? 100),
-                    divisions: difference(_contextState.context?.minAge, _contextState.context?.maxAge),
+                    divisions: difference(_contextState.context?.minAge,
+                        _contextState.context?.maxAge),
                     labels: RangeLabels(
                       newPreferences?.minAge?.toString() ?? "16",
                       newPreferences?.maxAge?.toString() ?? "100",
@@ -89,9 +111,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       });
                     },
                   ),
-                  const SizedBox(
-                    height: 30.0,
-                  ),
+                  const SizedBox(height: spaceBetween),
                   // Row(
                   //   children: const [
                   //     SizedBox(width: 20),
@@ -117,14 +137,15 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   //     });
                   //   },
                   // ),
-                  const SizedBox(height: 20),
                   Row(
-                    children: const [
-                      SizedBox(width: 20),
+                    children: [
                       Text(
-                        "Select the gender you are interested in",
+                        "Sexual orientation",
                         textAlign: TextAlign.left,
-                        style: TextStyle(fontSize: 15),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.apply(fontWeightDelta: 2),
                       ),
                     ],
                   ),
@@ -142,21 +163,31 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       ],
                     ),
                     */
+                  SizedBox(height: spaceBetweenWidgetAndTitle),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _contextState.context?.genders?.map((gender) {
                           return ChipWidget(
                             color: kIndigoColour,
                             bordered: ((newPreferences?.genders != null) &&
-                                    (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
+                                    (newPreferences?.genders?.indexWhere((e) =>
+                                            e?.toLowerCase() ==
+                                            gender.toLowerCase()) !=
+                                        -1))
                                 ? false
                                 : true,
                             textColor: ((newPreferences?.genders != null) &&
-                                    (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
+                                    (newPreferences?.genders?.indexWhere((e) =>
+                                            e?.toLowerCase() ==
+                                            gender.toLowerCase()) !=
+                                        -1))
                                 ? kSimpleWhiteColour
                                 : null,
                             iconColor: ((newPreferences?.genders != null) &&
-                                    (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
+                                    (newPreferences?.genders?.indexWhere((e) =>
+                                            e?.toLowerCase() ==
+                                            gender.toLowerCase()) !=
+                                        -1))
                                 ? kSimpleWhiteColour
                                 : null,
                             icon: getIconForGender(gender),
@@ -164,8 +195,12 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                             mini: true,
                             onTap: () => setState(() {
                               if ((newPreferences?.genders != null) &&
-                                  (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1)) {
-                                newPreferences?.genders?.removeWhere((e) => e?.toLowerCase() == gender.toLowerCase());
+                                  (newPreferences?.genders?.indexWhere((e) =>
+                                          e?.toLowerCase() ==
+                                          gender.toLowerCase()) !=
+                                      -1)) {
+                                newPreferences?.genders?.removeWhere((e) =>
+                                    e?.toLowerCase() == gender.toLowerCase());
                               } else {
                                 newPreferences?.genders?.add(gender);
                               }
@@ -174,19 +209,22 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                         }).toList() ??
                         [],
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(height: spaceBetween),
                   Row(
-                    children: const [
-                      SizedBox(width: 20),
+                    children: [
                       Expanded(
                         child: Text(
-                          "Select interests you would want to learn about from other people",
+                          "Interests",
                           textAlign: TextAlign.left,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.apply(fontWeightDelta: 2),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 40),
+                  SizedBox(height: spaceBetweenWidgetAndTitle),
                   DisplayInterests(
                     editable: true,
                     items: newPreferences?.interests?.flattenedInterests ?? [],
@@ -196,14 +234,18 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       });
                     },
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: spaceBetween),
                   PillButtonFilled(
                     text: "Save information",
                     backgroundColor: kSecondaryColour,
                     expandsWidth: true,
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: kWhiteColour),
+                    textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: kWhiteColour),
                     onPressed: () {
-                      FirestoreService.instance.setPreferences(_userState.user!.user!.uid, newPreferences!);
+                      FirestoreService.instance.setPreferences(
+                          _userState.user!.user!.uid, newPreferences!);
 
                       context.goNamed(
                         homeScreenName,
@@ -211,21 +253,19 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       );
                     },
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   PillButtonOutlined(
                     text: "Cancel",
                     color: kSecondaryColour,
                     expandsWidth: true,
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: kSecondaryColour),
+                    textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: kSecondaryColour),
                     onPressed: () => context.goNamed(
                       homeScreenName,
                       params: {pageParameterKey: feedScreenName},
                     ),
-                  ),
-                  SizedBox(
-                    height: 40,
                   ),
                 ],
               ),

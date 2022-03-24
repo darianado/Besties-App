@@ -90,11 +90,9 @@ class _FeedScreenState extends State<FeedScreen> {
                         BoxShadow(color: kSecondaryColour, blurRadius: 60.0),
                       ]),
                       child: IconButton(
-                        // heroTag: null,
                         onPressed: () => context.pushNamed(
                             editPreferencesScreenName,
                             params: {pageParameterKey: feedScreenName}),
-                        // backgroundColor: kTertiaryColour,
                         icon: const Icon(
                           Icons.menu,
                           color: kWhiteColour,

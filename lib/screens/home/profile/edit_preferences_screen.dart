@@ -70,10 +70,10 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                         .headline4
                         ?.apply(fontWeightDelta: 2),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Text(
                     'Who are you looking for?',
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: spaceBetween),
                   Row(
@@ -109,32 +109,11 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       });
                     },
                   ),
+                  Text(
+                    'Age: ${newPreferences?.minAge} - ${newPreferences?.maxAge}',
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
                   const SizedBox(height: spaceBetween),
-                  // Row(
-                  //   children: const [
-                  //     SizedBox(width: 20),
-                  //     Text(
-                  //       "Distance",
-                  //       textAlign: TextAlign.left,
-                  //       style: kBoldStyle,
-                  //     ),
-                  //   ],
-                  // ),
-                  // RangeSlider(
-                  //   values: _currentDistanceRangeValues,
-                  //   min: 16,
-                  //   max: 30,
-                  //   divisions: 15,
-                  //   labels: RangeLabels(
-                  //     _currentDistanceRangeValues.start.round().toString(),
-                  //     _currentDistanceRangeValues.end.round().toString(),
-                  //   ),
-                  //   onChanged: (RangeValues values) {
-                  //     setState(() {
-                  //       _currentDistanceRangeValues = values;
-                  //     });
-                  //   },
-                  // ),
                   Row(
                     children: [
                       Text(
@@ -147,20 +126,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       ),
                     ],
                   ),
-                  /*
-                    Row(
-                      children: <Widget>[
-                        buildCheckBox(Gender.male, isMaleChecked),
-                        const Text("Male"),
-                        const SizedBox(width: 20),
-                        buildCheckBox(Gender.female, isFemaleChecked),
-                        const Text("Female"),
-                        const SizedBox(width: 20),
-                        buildCheckBox(Gender.other, isOtherChecked),
-                        const Text("Other"),
-                      ],
-                    ),
-                    */
                   SizedBox(height: spaceBetweenWidgetAndTitle),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -234,7 +199,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   ),
                   const SizedBox(height: spaceBetween),
                   PillButtonFilled(
-                    text: "Save information",
+                    text: "Save changes",
                     backgroundColor: kSecondaryColour,
                     expandsWidth: true,
                     textStyle: TextStyle(

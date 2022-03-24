@@ -1,8 +1,5 @@
 import 'dart:collection';
-
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
@@ -22,10 +19,12 @@ import 'package:project_seg/constants/colours.dart';
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
 
-  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
+  static PageController controller =
+      PageController(viewportFraction: 1, keepPage: true);
 
   static void animateToTop() {
-    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    controller.animateToPage(0,
+        duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
 
   @override
@@ -68,7 +67,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
           if (displayedContainers != null) {
             return Container(
-              color: kTertiaryColour,
+              color: tertiaryColour,
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
@@ -81,15 +80,21 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
-                      backgroundColor: kTertiaryColour,
-                      child: Icon(
-                        Icons.menu,
-                        color: kWhiteColour,
-                        size: 30,
+                    padding:
+                        const EdgeInsets.only(top: 48, right: leftRightPadding),
+                    child: Container(
+                      decoration: const BoxDecoration(boxShadow: [
+                        BoxShadow(color: secondaryColour, blurRadius: 60.0),
+                      ]),
+                      child: IconButton(
+                        onPressed: () => context.pushNamed(
+                            editPreferencesScreenName,
+                            params: {pageParameterKey: feedScreenName}),
+                        icon: const Icon(
+                          Icons.menu,
+                          color: whiteColour,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -99,14 +104,14 @@ class _FeedScreenState extends State<FeedScreen> {
           } else {
             return const Center(
                 child: CircularProgressIndicator(
-              color: kTertiaryColour,
+              color: tertiaryColour,
             ));
           }
         },
       );
     } else {
       return const CircularProgressIndicator(
-        color: kTertiaryColour,
+        color: tertiaryColour,
       );
     }
   }

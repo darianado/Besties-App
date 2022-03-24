@@ -32,7 +32,7 @@ class ChipWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       borderRadius: BorderRadius.all(radius100),
-      color: kSimpleWhiteColour,
+      color: simpleWhiteColour,
       child: InkWell(
         onTap: (onTap != null) ? (() => onTap!()) : (null),
         borderRadius: BorderRadius.all(radius100),

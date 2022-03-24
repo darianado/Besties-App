@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/colours.dart';
@@ -15,20 +14,14 @@ import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_cropper/image_cropper.dart';
-
-import '../../../constants/textStyles.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -77,7 +70,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _bioController.text = _userState.user?.userData?.bio ?? "-";
 
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -91,13 +84,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: const EdgeInsets.only(right: leftRightPadding),
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () => context.goNamed(homeScreenName,
-                      params: {pageParameterKey: profileScreenName}),
-                  backgroundColor: kTertiaryColour,
+                  onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+                  backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
                     Icons.done,
-                    color: kWhiteColour,
+                    color: whiteColour,
                     size: 30,
                   ),
                 ),
@@ -124,15 +116,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: Container(),
                               ),
                               Container(
-                                color: kOpacBlack,
+                                color: opacBlack,
                                 height: 30,
                                 alignment: Alignment.center,
                                 child: Text(
                                   "EDIT",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.apply(color: kWhiteColour),
+                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
                                 ),
                               ),
                             ],
@@ -151,9 +140,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(
-                        color: kTertiaryColour.withOpacity(0.2),
-                        fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline3?.apply(color: tertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 15),
@@ -207,9 +194,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(
-                            color: kSecondaryColour.withOpacity(0.3),
-                            fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -275,7 +260,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       border: UnderlineInputBorder(),
                       icon: Icon(
                         Icons.lock,
-                        color: kPrimaryColour,
+                        color: primaryColour,
                       ),
                       labelText: 'Password',
                     ),

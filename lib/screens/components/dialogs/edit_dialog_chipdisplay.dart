@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -17,11 +14,7 @@ class EditDialogChipDisplay extends StatefulWidget {
       : values = values == null ? values : null,
         super(key: key);
 
-  /*static String? safelyGetValue(List<String> items, String? proposedValue) {
-    if (proposedValue != null && items.contains(proposedValue)) return proposedValue;
-    if (items.isNotEmpty) return items.first;
-    return null;
-  }*/
+
 
   @override
   State<EditDialogChipDisplay> createState() => _EditDialogChipDisplayState();

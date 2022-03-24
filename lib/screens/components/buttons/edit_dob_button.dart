@@ -2,9 +2,10 @@ import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+
+import '../alerts.dart';
 
 class DateOfBirthButton extends StatelessWidget {
   final bool editable;
@@ -14,15 +15,26 @@ class DateOfBirthButton extends StatelessWidget {
   final Color color;
   final Function(DateTime?)? onSave;
 
-  DateOfBirthButton(
-      {Key? key,
-      this.wiggling = false,
-      this.editable = false,
-      this.shouldExpand = false,
-      required this.label,
-      this.onSave,
-      this.color = Colors.green})
+  DateOfBirthButton({Key? key,
+    this.wiggling = false,
+    this.editable = false,
+    this.shouldExpand = false,
+    required this.label,
+    this.onSave,
+    this.color = Colors.green})
       : super(key: key);
+
+
+  bool validAge(DateTime selectedDate) {
+    return (DateTime.now().difference(selectedDate) > Duration(days: 5844));
+  }
+
+
+  DateTime validDate() {
+    DateTime dateNow =  DateTime.now();
+    DateTime limitDate = dateNow.subtract(Duration(days: 5844));
+    return limitDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +50,6 @@ class DateOfBirthButton extends StatelessWidget {
   }
 
   Widget chip(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
-
     return ChipWidget(
       color: color,
       icon: FontAwesomeIcons.birthdayCake,
@@ -52,7 +61,6 @@ class DateOfBirthButton extends StatelessWidget {
 
   Function? getOnTap(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
 
     if (!editable) return null;
 
@@ -65,11 +73,25 @@ class DateOfBirthButton extends StatelessWidget {
   void _selectDate(BuildContext context, String? uid, DateTime? dob) async {
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: dob ?? DateTime.now(),
+      initialDate: validDate(),
       firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      lastDate: validDate(),
+      //validDate(DateTime.now()),
     );
 
-    if (onSave != null) onSave!(picked);
-  }
-}
+   if (picked != null) onSave!(picked);
+
+
+        // if (picked != null && picked != dob)
+        // {
+        //   if(validAge(picked))
+        //   {
+        //     onSave!(picked);
+        //   }
+        //   else{
+        //     showCalendarAlertDialog(context);
+        //   }
+        // }
+      }
+    }
+

@@ -1,17 +1,15 @@
 import 'dart:io';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/storage_service.dart';
+
+import 'package:project_seg/screens/components/widget/icon_content.dart';
+
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
@@ -56,16 +54,13 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
           SliverAppBar(
             pinned: true,
             automaticallyImplyLeading: false,
-            foregroundColor: kTertiaryColour,
-            backgroundColor: kWhiteColour,
+            foregroundColor: tertiaryColour,
+            backgroundColor: whiteColour,
             expandedHeight: 120,
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerBasicInfoScreenName, extra: widget.userData),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: kPrimaryColour,
-              ),
+              icon: buildIcons(Icons.arrow_back_ios, primaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -78,7 +73,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
-                        style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -126,16 +121,13 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.photo,
-                                        color: kWhiteColour,
-                                      ),
+                                      buildIcons(Icons.photo, whiteColour),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       Text(
                                         "EDIT",
-                                        style: TextStyle(color: kWhiteColour),
+                                        style: TextStyle(color: whiteColour),
                                       ),
                                     ],
                                   ),
@@ -166,8 +158,12 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                   width: double.infinity,
                   child: PillButtonFilled(
                     text: "Next",
-                    backgroundColor: kTertiaryColour,
-                    textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
+                    backgroundColor: tertiaryColour,
+                    textStyle: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        color: whiteColour
+                    ),
                     onPressed: () {
                       if (widget.userData.profileImageUrl == null) {
                         setState(() {

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import '../../models/User/UserData.dart';
 import 'buttons/bio_field.dart';
@@ -75,7 +74,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                       style: Theme.of(context)
                           .textTheme
                           .headline3
-                          ?.apply(color: kTertiaryColour, fontWeightDelta: 2),
+                          ?.apply(color: tertiaryColour, fontWeightDelta: 2),
                     ),
                     const SizedBox(height: 15),
                     UniversityButton(
@@ -107,7 +106,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                         Text(
                           "YOU HAVE ",
                           style: Theme.of(context).textTheme.bodyMedium?.apply(
-                              color: kSecondaryColour.withOpacity(0.3),
+                              color: secondaryColour.withOpacity(0.3),
                               fontWeightDelta: 2),
                         ),
                         Text(
@@ -125,7 +124,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                                     .bodyMedium
                                     ?.apply(
                                         color:
-                                            kSecondaryColour.withOpacity(0.3),
+                                            secondaryColour.withOpacity(0.3),
                                         fontWeightDelta: 2),
                               )
                             : Text(
@@ -135,7 +134,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                                     .bodyMedium
                                     ?.apply(
                                         color:
-                                            kSecondaryColour.withOpacity(0.3),
+                                            secondaryColour.withOpacity(0.3),
                                         fontWeightDelta: 2),
                               ),
                       ],

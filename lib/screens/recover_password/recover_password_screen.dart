@@ -14,7 +14,6 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import '../../constants/borders.dart';
-import '../../constants/textStyles.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
@@ -57,9 +56,9 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          kWhiteColour,
-          kWhiteColourShade2,
-          kWhiteColourShade3,
+          whiteColour,
+          whiteColourShade2,
+          whiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -96,13 +95,13 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: circularBorderRadius10,
-                        color: kTertiaryColour.withOpacity(0.1),
+                        color: tertiaryColour.withOpacity(0.1),
                       ),
                       child: TextFormField(
                         controller: _email,
                         decoration: InputDecoration(
                             border: InputBorder.none,
-                            icon: buildIcons(Icons.email, kTertiaryColour),
+                            icon: buildIcons(Icons.email, tertiaryColour),
                             labelText: 'Enter your email address'),
                         validator: validateEmail,
                         textInputAction: TextInputAction.next,
@@ -113,11 +112,11 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Send recovery email",
-                        backgroundColor: kTertiaryColour,
+                        backgroundColor: tertiaryColour,
                         textStyle: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            color: kWhiteColour),
+                            color: whiteColour),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
@@ -126,11 +125,11 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       child: PillButtonOutlined(
                         text: "Return to log in",
-                        color: kTertiaryColour,
+                        color: tertiaryColour,
                         textStyle: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,
-                            color: kTertiaryColour),
+                            color: tertiaryColour),
                         onPressed: () => context.goNamed(loginScreenName),
                       ),
                     ),

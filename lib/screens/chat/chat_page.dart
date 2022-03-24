@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
+import '../../constants/borders.dart';
+import 'package:project_seg/services/firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../constants/borders.dart';
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {
-  //const ChatScreen({ Key? key }) : super(key: key);
-
-  ChatScreen({user});
-
+  //final String chatID;
+  //ChatScreen(this.chatID);
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
@@ -36,13 +38,42 @@ class _ChatScreenState extends State<ChatScreen> {
     Message("firstUser", '1:00pm', 'Message 1', false, true),
   ];
 
-  void _handleSubmitted(String text) {
+      //getMessages
+  //final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  
+
+  /* Future<List<Message>> getMessages() async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").where(FieldPath.documentId, isEqualTo: widget.chatID).get();
+    final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+    if (chats.isEmpty){
+      List<Message> messages = [];
+      final newChat = {"messages" :  messages};
+      FirebaseFirestore.instance.collection("chats").add(newChat);
+    }else{
+      Chat chat = chats[0];
+      _messages = chat.messages;
+    }
+        return _messages;
+  }
+
+  void convertList() async {
+    Future<List<Message>> messages = getMessages();
+    _messages = await messages;
+  } */
+
+  
+
+
+  //create a message with sender and time and save it to firestore
+  void _handleSubmitted(String text, String currentUser){
+    //convertList();
     DateTime now = DateTime.now();
     String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
     _textController.clear();
-    Message message = new Message("current user", time, text, true, false);
+    Message message = Message(time, currentUser, text, true, false);
+    _messages.add(message);
+    //FirestoreService.instance.updateMessageList(widget.chatID, _messages);
     setState(() {
-      //getMessages
       _messages.insert(0, message);
     });
   }
@@ -55,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: message.mine ? kChatSenderColour : kChatReceiverColour,
+          color: message.mine ? chatSenderColour : chatReceiverColour,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(
@@ -66,7 +97,11 @@ class _ChatScreenState extends State<ChatScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 message.text,
-                style: kChatTextStyle,
+                style: TextStyle(
+                  color: whiteColour,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             const SizedBox(height: 3),
@@ -74,7 +109,10 @@ class _ChatScreenState extends State<ChatScreen> {
               alignment: Alignment.bottomRight,
               child: Text(
                 message.time,
-                style: kChatTimeStyle,
+                style:  TextStyle(
+                  color: whiteColour,
+                  fontSize: 10,
+                ),
               ),
             ),
           ],
@@ -89,6 +127,7 @@ class _ChatScreenState extends State<ChatScreen> {
       //         : BorderRadius.only(
       //             topRight: Radius.circular(15),
       //             bottomRight: Radius.circular(15))),
+
     );
     if (message.mine) {
       return msg;
@@ -107,7 +146,7 @@ class _ChatScreenState extends State<ChatScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
           borderRadius: circularBorderRadius10,
-          border: Border.all(color: kTertiaryColour),
+          border: Border.all(color: tertiaryColour),
         ),
         child: Row(
           children: [
@@ -121,9 +160,9 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             TextButton(
               onPressed: () {
-                _handleSubmitted(_textController.text);
+                _handleSubmitted(_textController.text, currentUser.toString());
               },
-              child: Text('Send', style: TextStyle(color: kTertiaryColour, fontSize: 18)),
+              child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
             )
           ],
         ),
@@ -132,26 +171,31 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     final _userState = Provider.of<UserState>(context);
     final currentUser = _userState.user?.user?.email;
+    //convertList(widget.receiverEmail);
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       appBar: AppBar(
-        backgroundColor: kTertiaryColour,
+        backgroundColor: tertiaryColour,
         title: Text(
           currentUser.toString(),
-          style: kChatAppBarStyle,
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0.0,
-        actions: [
+        actions: []
+        /*  actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.more_horiz),
             iconSize: 30.0,
             color: kSimpleWhiteColour,
             onPressed: () {},
           )
-        ],
+        ], */
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -160,7 +204,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                  color: kSimpleWhiteColour,
+                  color: simpleWhiteColour,
                 ),
                 child: ListView.builder(
                   reverse: true,
@@ -168,9 +212,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: _messages.length,
                   itemBuilder: (BuildContext context, int index) {
                     final Message message = _messages[index];
-                    _messages[index].setRead();
                     return _messagebuilder(message);
                   },
+
                 ),
               ),
             ),

@@ -1,10 +1,9 @@
-import 'package:email_validator/email_validator.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
@@ -15,7 +14,6 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../../constants/borders.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -64,7 +62,7 @@ class _LogInScreenState extends State<LogInScreen> {
     return Theme(
       data: ThemeData(
         textTheme:
-            Theme.of(context).textTheme.apply(bodyColor: kSimpleWhiteColour),
+            Theme.of(context).textTheme.apply(bodyColor: simpleWhiteColour),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -75,9 +73,9 @@ class _LogInScreenState extends State<LogInScreen> {
             end: Alignment.bottomLeft,
             stops: [0.4, 0.8, 1],
             colors: [
-              kPrimaryColour,
-              kLoginBlue,
-              kActiveCardColor,
+              primaryColour,
+              loginBlue,
+              activeCardColor,
             ],
           )),
           child: Scaffold(
@@ -95,7 +93,7 @@ class _LogInScreenState extends State<LogInScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .headline3
-                        ?.apply(color: kWhiteColour),
+                        ?.apply(color: whiteColour),
                   ),
                   centerTitle: true,
                   automaticallyImplyLeading: false),
@@ -116,16 +114,16 @@ class _LogInScreenState extends State<LogInScreen> {
                           style: Theme.of(context)
                               .textTheme
                               .headline4
-                              ?.apply(color: kWhiteColour),
+                              ?.apply(color: whiteColour),
                         ),
                         const SizedBox(height: 40),
                         TextFormField(
                           controller: _email,
                           decoration: InputDecoration(
-                            fillColor: kWhiteColour,
-                            focusColor: kWhiteColour,
+                            fillColor: whiteColour,
+                            focusColor: whiteColour,
                             border: const UnderlineInputBorder(),
-                            icon: buildIcons(Icons.email, kWhiteColour),
+                            icon: buildIcons(Icons.email, whiteColour),
                             labelText: 'Email address',
                           ),
                           validator: validateEmail,
@@ -137,7 +135,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           obscureText: true,
                           decoration: InputDecoration(
                             border: const UnderlineInputBorder(),
-                            icon: buildIcons(Icons.lock, kWhiteColour),
+                            icon: buildIcons(Icons.lock, whiteColour),
                             labelText: 'Password',
                           ),
                           validator: validatePassword,
@@ -151,7 +149,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               style: Theme.of(context)
                                   .textTheme
                                   .bodyMedium
-                                  ?.apply(color: kWhiteColour),
+                                  ?.apply(color: whiteColour),
                             ),
                             onPressed: () =>
                                 context.pushNamed(recoverPasswordScreenName),
@@ -166,7 +164,7 @@ class _LogInScreenState extends State<LogInScreen> {
                             textStyle: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w600,
-                                color: kSecondaryColour),
+                                color: secondaryColour),
                             onPressed: () => submitForm(_formKey),
                           ),
                         ),
@@ -180,7 +178,7 @@ class _LogInScreenState extends State<LogInScreen> {
                               ),
                               PillButtonOutlined(
                                 text: "Sign up",
-                                color: kWhiteColour,
+                                color: whiteColour,
                                 padding: EdgeInsets.symmetric(
                                     horizontal: 30, vertical: 7),
                                 textStyle:

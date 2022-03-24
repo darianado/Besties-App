@@ -13,7 +13,8 @@ class FeedContentController extends ChangeNotifier {
   ];
 
   FeedContentController._privateConstructor();
-  static final FeedContentController _instance = FeedContentController._privateConstructor();
+  static final FeedContentController _instance =
+      FeedContentController._privateConstructor();
   static FeedContentController get instance => _instance;
 
   FeedContentGatherer _gatherer = FeedContentGatherer.instance;
@@ -41,26 +42,38 @@ class FeedContentController extends ChangeNotifier {
     }
   }
 
+  void removeAll() {
+    content.removeWhere((element) => element.runtimeType != FeedLoadingSheet);
+  }
+
   Future<void> insertAtEnd() async {
     if (_desiredFeedContentLength > (content.length - 1)) {
       final entries = await _gatherer.gather(_desiredFeedContentLength);
-      final beforeLength = content.length;
       content.addAll(entries);
-      print("Content: ${beforeLength} + ${entries.length} = ${content.length}");
       moveLoadingScreenLast();
     }
   }
 
   void moveLoadingScreenLast() {
-    final index = content.indexWhere((Widget element) => element.runtimeType == FeedLoadingSheet);
+    final index = content.indexWhere(
+        (Widget element) => element.runtimeType == FeedLoadingSheet);
     final loadingScreen = content.removeAt(index);
     content.add(loadingScreen);
   }
 
   // Ensure notifyListeners() is not called immediately.
   void onFeedInitialized() async {
+    removeAll();
+
     await insertAtEnd();
     notifyListeners();
+  }
+
+  Future<void> refreshContent() async {
+    
+    await insertAtEnd();
+    notifyListeners();
+    await Future.delayed(const Duration(milliseconds: 400));
   }
 }
 
@@ -79,7 +92,8 @@ class FeedLoadingSheet extends StatelessWidget {
               aspectRatio: 1.2,
               child: Container(
                 width: double.infinity,
-                child: Lottie.asset('assets/lotties/searching.json', fit: BoxFit.cover),
+                child: Lottie.asset('assets/lotties/searching.json',
+                    fit: BoxFit.cover),
               ),
             ),
             Text(

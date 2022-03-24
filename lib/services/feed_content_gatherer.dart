@@ -14,12 +14,14 @@ class FeedContentGatherer {
   final AuthService _authService = AuthService.instance;
 
   FeedContentGatherer._privateConstructor();
-  static final FeedContentGatherer _instance = FeedContentGatherer._privateConstructor();
+  static final FeedContentGatherer _instance =
+      FeedContentGatherer._privateConstructor();
   static FeedContentGatherer get instance => _instance;
 
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
-    print("Calling 'requestRecommendations' to get ${amount}.");
-    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west2')
+            .httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{
       'uid': userID,
       'recs': amount,
@@ -49,7 +51,10 @@ class FeedContentGatherer {
     for (int si = 0; si < splitUserIDs.length; si++) {
       List<String> slice = splitUserIDs[si];
 
-      final snapshot = await FirebaseFirestore.instance.collection("users").where(FieldPath.documentId, whereIn: slice).get();
+      final snapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .where(FieldPath.documentId, whereIn: slice)
+          .get();
       results.addAll(
         snapshot.docs.map((doc) => UserData.fromSnapshot(doc)).toList(),
       );
@@ -59,7 +64,9 @@ class FeedContentGatherer {
   }
 
   List<Widget> constructWidgetsFromUserData(List<UserData> userDataLst) {
-    return userDataLst.map((e) => ProfileContainer(key: UniqueKey(), profile: e)).toList();
+    return userDataLst
+        .map((e) => ProfileContainer(key: UniqueKey(), profile: e))
+        .toList();
   }
 
   List<Widget> queue = [];
@@ -67,7 +74,6 @@ class FeedContentGatherer {
 
   List<Widget> popAmountFromQueue(int amount) {
     int actualAmount = min(amount, queue.length);
-    print("Popping: min(${amount},${queue.length}) = ${actualAmount}");
 
     List<Widget> result = [];
     for (int i = 0; i < actualAmount; i++) {
@@ -79,7 +85,8 @@ class FeedContentGatherer {
 
   Future<void> _gatherForQueue(int amount) async {
     gathering = true;
-    final userIDs = await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
+    final userIDs =
+        await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users);
     queue.addAll(widgets);
@@ -88,14 +95,11 @@ class FeedContentGatherer {
 
   Future<List<Widget>> gather(int amount) async {
     if (queue.length <= queueSize && !gathering) {
-      print("Begin gathering new content from Firestore.");
       await _gatherForQueue(queueSize);
       //print("Done filling queue");
     }
 
-    final beforeLength = queue.length;
     final result = popAmountFromQueue(amount);
-    print("Queue: ${beforeLength} - ${result.length} = ${queue.length}");
 
     //print("Done gathering");
     return result;

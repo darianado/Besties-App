@@ -291,10 +291,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     onPressed: () {
                       if (((_formKey.currentState as FormState).validate()) == true) {
                         _deleteUser(_password.text);
-                        context.pushNamed(homeScreenName,
-                            params: {pageParameterKey: profileScreenName});
-                      };
-                      // Navigator.of(context).pop();
+                        }
                     },
                   ),
                 TextButton(

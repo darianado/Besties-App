@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
@@ -13,9 +14,11 @@ import 'package:project_seg/screens/components/buttons/relationship_status_butto
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
+import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
@@ -32,9 +35,13 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final GlobalKey _formKey = GlobalKey<FormState>();
   final FirestoreService _firestoreService = FirestoreService.instance;
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _uniController = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  final AuthService _authService = AuthService.instance;
 
   bool loadingPicture = false;
 
@@ -81,7 +88,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: const EdgeInsets.only(right: leftRightPadding),
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+                  onPressed: () => context.goNamed(homeScreenName,
+                      params: {pageParameterKey: profileScreenName}),
                   backgroundColor: kTertiaryColour,
                   elevation: 0,
                   child: Icon(
@@ -105,7 +113,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          CachedImage(url: _userState.user?.userData?.profileImageUrl),
+                          CachedImage(
+                              url: _userState.user?.userData?.profileImageUrl),
                           Column(
                             children: [
                               Expanded(
@@ -117,7 +126,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 alignment: Alignment.center,
                                 child: Text(
                                   "EDIT",
-                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: kWhiteColour),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.apply(color: kWhiteColour),
                                 ),
                               ),
                             ],
@@ -130,12 +142,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
+              padding: const EdgeInsets.fromLTRB(
+                  leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline3?.apply(
+                        color: kTertiaryColour.withOpacity(0.2),
+                        fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 15),
@@ -143,7 +158,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     editable: true,
                     wiggling: true,
                     label: _userState.user?.userData?.university ?? "",
-                    onSave: (university) => saveUniversity(_userState.user?.user?.uid, university),
+                    onSave: (university) =>
+                        saveUniversity(_userState.user?.user?.uid, university),
                   ),
                   const SizedBox(height: 10),
                   Wrap(
@@ -156,19 +172,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         editable: false,
                         wiggling: false,
                         label: "${_userState.user?.userData?.age}",
-                        onSave: (dateOfBirth) => saveDateOfBirth(_userState.user?.user?.uid, dateOfBirth),
+                        onSave: (dateOfBirth) => saveDateOfBirth(
+                            _userState.user?.user?.uid, dateOfBirth),
                       ),
                       GenderButtton(
                         editable: true,
                         wiggling: true,
                         label: _userState.user?.userData?.gender ?? "",
-                        onSave: (gender) => saveGender(_userState.user?.user?.uid, gender),
+                        onSave: (gender) =>
+                            saveGender(_userState.user?.user?.uid, gender),
                       ),
                       RelationshipStatusButton(
                           editable: true,
                           wiggling: true,
-                          label: _userState.user?.userData?.relationshipStatus ?? "",
-                          onSave: (relationshipStatus) => saveRelationshipStatus(_userState.user?.user?.uid, relationshipStatus)),
+                          label:
+                              _userState.user?.userData?.relationshipStatus ??
+                                  "",
+                          onSave: (relationshipStatus) =>
+                              saveRelationshipStatus(_userState.user?.user?.uid,
+                                  relationshipStatus)),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -182,7 +204,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(
+                            color: kSecondaryColour.withOpacity(0.3),
+                            fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -191,9 +215,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     wiggling: true,
                     editable: true,
                     onSave: (categorizedInterests) {
-                      saveInterests(_userState.user?.user?.uid, categorizedInterests);
+                      saveInterests(
+                          _userState.user?.user?.uid, categorizedInterests);
                     },
-                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
+                    items: _userState.user?.userData?.categorizedInterests
+                            ?.flattenedInterests ??
+                        [],
+                  ),
+                  OutlinedButton(
+                    onPressed: () => {_showDialog()},
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.red.shade100),
+                      primary: Colors.red,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          FontAwesomeIcons.ban,
+                          size: 18,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text("Delete account"),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -204,13 +251,81 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  //delete account confirmation dialog
+  Future<void> _showDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete account'),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  Text('Confirm Password:'),
+                  TextFormField(
+                    controller: _password,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      border: UnderlineInputBorder(),
+                      icon: Icon(
+                        Icons.lock,
+                        color: kWhiteColour,
+                      ),
+                      labelText: 'Password',
+                    ),
+                    validator: validatePassword,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  Text('Are you sure you want to leave us?'),
+                  Text('All your details will be delated!'),
+                ],
+              ),
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Confirm'),
+              onPressed: () {
+                if (((_formKey.currentState as FormState).validate()) == true) {
+                  deleteUser(_password.text);
+                  context.pushNamed(homeScreenName,
+                      params: {pageParameterKey: profileScreenName});
+                };
+                // Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future deleteUser(String p) async {
+    await _authService.deleteAccount(p);
+  }
+
+  _checkPassword(String p) async {
+    bool isCorrect = await _authService.validatePassword(p);
+    return isCorrect;
+  }
+
   Future<void> saveDateOfBirth(String? userId, DateTime? dateOfBirth) async {
     if (userId != null && dateOfBirth != null) {
       await _firestoreService.setDateOfBirth(userId, dateOfBirth);
     }
   }
 
-  Future<void> saveRelationshipStatus(String? userId, String? relationshipStatus) async {
+  Future<void> saveRelationshipStatus(
+      String? userId, String? relationshipStatus) async {
     if (userId != null && relationshipStatus != null) {
       await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
     }
@@ -228,7 +343,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
+  Future<void> saveInterests(
+      String? userId, CategorizedInterests? interests) async {
     if (userId != null && interests != null) {
       await _firestoreService.setInterests(userId, interests);
     }
@@ -250,7 +366,8 @@ class ShakeWidget extends StatelessWidget {
   }) : super(key: key);
 
   /// convert 0-1 to 0-1-0
-  double shake(double animation) => 2 * (0.5 - (0.5 - curve.transform(animation)).abs());
+  double shake(double animation) =>
+      2 * (0.5 - (0.5 - curve.transform(animation)).abs());
 
   @override
   Widget build(BuildContext context) {

@@ -177,7 +177,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                     _oldPassword.text, _newPassword.text);
                                 context.pushNamed(homeScreenName, params: {
                                   pageParameterKey: profileScreenName
-                                });
+                                }
+                                );
                               }
                             },
                           ),

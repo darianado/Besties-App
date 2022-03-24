@@ -4,6 +4,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
@@ -72,6 +73,7 @@ class _FeedScreenState extends State<FeedScreen> {
         alignment: Alignment.topRight,
         children: [
           PageView(
+            physics: const CustomPageViewScrollPhysics(),
             controller: controller,
             scrollDirection: Axis.vertical,
             children: List<Widget>.of(_feedContentController.content),
@@ -161,3 +163,21 @@ class _FeedScreenState extends State<FeedScreen> {
   }
   */
 }
+
+class CustomPageViewScrollPhysics extends ScrollPhysics {
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
+      : super(parent: parent);
+
+  @override
+  CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return CustomPageViewScrollPhysics(parent: buildParent(ancestor));
+  }
+
+  @override
+  SpringDescription get spring => const SpringDescription(
+        mass: 80,
+        stiffness: 100,
+        damping: 1,
+      );
+}
+

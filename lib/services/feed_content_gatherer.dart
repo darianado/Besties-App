@@ -25,7 +25,7 @@ class FeedContentGatherer {
       'recs': amount,
     });
 
-    await Future.delayed(Duration(seconds: 12));
+    //await Future.delayed(Duration(seconds: 12));
 
     return List<String>.from(resp.data['data']);
   }
@@ -88,7 +88,8 @@ class FeedContentGatherer {
 
   Future<List<Widget>> gather(int amount) async {
     if (queue.length <= queueSize && !gathering) {
-      _gatherForQueue(queueSize);
+      print("Begin gathering new content from Firestore.");
+      await _gatherForQueue(queueSize);
       //print("Done filling queue");
     }
 

@@ -42,13 +42,13 @@ class FeedContentController extends ChangeNotifier {
   }
 
   Future<void> insertAtEnd() async {
-    final amount = _desiredFeedContentLength - (content.length - 1);
-    print("Requesting: ${_desiredFeedContentLength} - ${(content.length - 1)} = ${amount} new widgets");
-    final entries = await _gatherer.gather(amount);
-    final beforeLength = content.length;
-    content.addAll(entries);
-    print("Content: ${beforeLength} + ${entries.length} = ${content.length}");
-    moveLoadingScreenLast();
+    if (_desiredFeedContentLength > (content.length - 1)) {
+      final entries = await _gatherer.gather(_desiredFeedContentLength);
+      final beforeLength = content.length;
+      content.addAll(entries);
+      print("Content: ${beforeLength} + ${entries.length} = ${content.length}");
+      moveLoadingScreenLast();
+    }
   }
 
   void moveLoadingScreenLast() {

@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/widget/relationship_status.dart';
 
+import '../../constants/borders.dart';
+
 class RegisterBasicInfoScreen extends StatefulWidget {
   RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
 
@@ -128,7 +130,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: kCircularBorderRadius10,
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(
@@ -150,7 +152,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: kCircularBorderRadius10,
                           color: kLightTertiaryColour,
                         ),
                         child: TextFormField(
@@ -342,11 +344,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                                     .textTheme
                                     .headline5
                                     ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
+                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                           ),
                         ),
                       ),

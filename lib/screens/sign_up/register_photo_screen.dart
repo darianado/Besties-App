@@ -11,6 +11,8 @@ import 'package:project_seg/services/storage_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/borders.dart';
+
 class RegisterPhotoScreen extends StatefulWidget {
   RegisterPhotoScreen({Key? key, required this.userData}) : super(key: key);
 
@@ -129,7 +131,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   Container(
                                     decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(0.6),
-                                      borderRadius: BorderRadius.circular(10),
+                                      borderRadius: kCircularBorderRadius10,
                                     ),
                                     height: 60,
                                     width: 100,
@@ -208,11 +210,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                     .textTheme
                                     .headline5
                                     ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
-                            ),
+                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                           ),
                         ),
                       ),

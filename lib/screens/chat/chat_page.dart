@@ -10,6 +10,7 @@ import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/borders.dart';
 
 class ChatScreen extends StatefulWidget {
   final String chatID;
@@ -37,7 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
       Chat chat = chats[0];
       _messages = chat.messages;
     }
-    return _messages;
+        return _messages;
   }
 
   void convertList() async {
@@ -65,47 +66,46 @@ class _ChatScreenState extends State<ChatScreen> {
   _messagebuilder(Message message) {
     Container msg = Container(
       margin: message.mine
-          ? const EdgeInsets.only (top: 8, bottom: 8, left: 80)
-          : const EdgeInsets.only (top: 8, bottom: 8),
+          ? const EdgeInsets.only(top: 8, bottom: 8, left: 80)
+          : const EdgeInsets.only(top: 8, bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
       width: MediaQuery.of(context).size.width * 0.75,
       child: Flexible(
-          child: Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: const BorderRadius.all(Radius.circular(30)),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(
-                  height: 3,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    message.text,
-                    style: kChatTextStyle,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    message.time,
-                    style: kChatTimeStyle,
-                  ),
-                ),
-
-              ],
-            ),
+        child: Container(
+          padding: const EdgeInsets.all(14),
+          decoration: BoxDecoration(
+            color: message.mine ? kChatSenderColour : kChatReceiverColour,
+            borderRadius: kSymmetricBorderRadius3,
           ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              const SizedBox(
+                height: 3,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  message.text,
+                  style: kChatTextStyle,
+                ),
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  message.time,
+                  style: kChatTimeStyle,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
-     if (message.mine) {
+    if (message.mine) {
       return msg;
     }
     return Row(
@@ -115,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
- _builMessageComposer(String currentUser) {
+  _builMessageComposer() {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8),
       height: 100,
@@ -135,9 +135,7 @@ class _ChatScreenState extends State<ChatScreen> {
               keyboardType: TextInputType.multiline,
               controller: _textController,
               decoration: InputDecoration(
-                hintText: "Send a message...",
-                isCollapsed: true
-              ),
+                  hintText: "Send a message...", isCollapsed: true),
             ),
           ),
           IconButton(
@@ -145,7 +143,7 @@ class _ChatScreenState extends State<ChatScreen> {
             iconSize: 25.0,
             color: kSecondaryColour,
             onPressed: () {
-              _handleSubmitted(_textController.text, currentUser);
+              _handleSubmitted(_textController.text, currentUser.toString());
             },
           )
         ],
@@ -156,7 +154,8 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context){
     final _userState = Provider.of<UserState>(context);
-  final currentUser = _userState.user?.user?.email;
+    final currentUser = _userState.user?.user?.email;
+    //convertList(widget.receiverEmail);
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -165,7 +164,7 @@ class _ChatScreenState extends State<ChatScreen> {
           style: kChatAppBarStyle,
         ),
         elevation: 0.0,
-       /*  actions: <Widget>[
+        /*  actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.more_horiz),
             iconSize: 30.0,
@@ -181,27 +180,24 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(30),
-                        topRight: Radius.circular(30))),
+                  color: kSimpleWhiteColour,
+                  borderRadius: kBorderRadiusTLeftTRight,
+                ),
                 child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
+                  borderRadius: kBorderRadiusTLeftTRight,
                   child: ListView.builder(
                       reverse: true,
                       padding: const EdgeInsets.only(top: 15),
                       itemCount: _messages.length,
                       itemBuilder: (BuildContext context, int index) {
                         final Message message = _messages[index];
-                         //_messages[index].setRead();
+                        //_messages[index].setRead();
                         return _messagebuilder(message);
                       }),
                 ),
               ),
             ),
-            _builMessageComposer(currentUser.toString())
+            _builMessageComposer()
           ],
         ),
       ),

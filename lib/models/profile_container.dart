@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:provider/provider.dart';
+import '../constants/borders.dart';
 import '../constants/constant.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../constants/textStyles.dart';
@@ -52,11 +53,7 @@ class ProfileContainer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20.0),
-                      ),
-                    ),
+                    shape: kRoundedRectangulareBorder,
                     context: context,
                     builder: (context) => SlidingProfileDetails(
                       profile: profile,
@@ -195,8 +192,8 @@ class PartialProfileDetails extends StatelessWidget {
             child: Text(
               profile.university ?? "null",
               style: kProfileContainerUniversityStyle,
-              ),
             ),
+          ),
         ]),
       ],
     );
@@ -213,27 +210,28 @@ class CompleteProfileDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.70,
-        width: MediaQuery.of(context).size.width,
-        child: Padding(
-          padding: const EdgeInsets.all(25.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(
-                  Icons.school_outlined,
-                  color: kSecondaryColour,
-                ),
+      height: MediaQuery.of(context).size.height * 0.70,
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.all(25.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Icons.school_outlined,
+                color: kSecondaryColour,
               ),
-              Text(
-                profile.university ?? " ",
-                style: kProfileContainerUniversityStyle,
-              ),
-            ],
-          ),
-        ));
+            ),
+            Text(
+              profile.university ?? " ",
+              style: kProfileContainerUniversityStyle,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

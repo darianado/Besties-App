@@ -8,6 +8,8 @@ import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:provider/provider.dart';
 
+import '../../constants/borders.dart';
+
 class RegisterDescriptionScreen extends StatefulWidget {
   RegisterDescriptionScreen({Key? key, required this.userData})
       : super(key: key);
@@ -156,11 +158,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
                           decoration: const InputDecoration(
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(10),
-                                ),
-                                borderSide: BorderSide.none),
+                            border: kOutlineBorder,
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
@@ -202,14 +200,10 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                                     .textTheme
                                     .headline5
                                     ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(40),
-                              ),
+                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                             ),
                           ),
                         ),
-                      ),
                     ],
                   ),
                 ),

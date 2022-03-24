@@ -8,6 +8,8 @@ import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 
+import '../../constants/borders.dart';
+
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
 
@@ -72,7 +74,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 12.0),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: kCircularBorderRadius10,
                       color: kTertiaryColour.withOpacity(0.1),
                     ),
                     child: TextFormField(
@@ -109,11 +111,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                             .textTheme
                             .headline6
                             ?.apply(fontWeightDelta: 1)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
+                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                       ),
                     ),
                   ),
@@ -127,21 +125,14 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                         style: TextStyle(color: kTertiaryColour),
                       ),
                       style: ButtonStyle(
-                        side: MaterialStateProperty.all(BorderSide(
-                          color: kTertiaryColour,
-                          width: 1.5,
-                        )),
+                        side: MaterialStateProperty.all(kBorderSideTertiaryColour),
                         padding: MaterialStateProperty.all<EdgeInsets>(
                             EdgeInsets.all(10.0)),
                         textStyle: MaterialStateProperty.all(Theme.of(context)
                             .textTheme
                             .headline6
                             ?.apply(fontWeightDelta: 1)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                        ),
+                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
                       ),
                     ),
                   ),

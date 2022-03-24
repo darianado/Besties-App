@@ -8,6 +8,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
+import '../../../constants/borders.dart';
+
 class SelectInterests extends StatefulWidget {
   SelectInterests({Key? key, required this.selected, required this.onChange}) : super(key: key);
 
@@ -93,10 +95,11 @@ class _SelectInterestsState extends State<SelectInterests> {
     CategorizedInterests _localCategories = categories;
 
     _localCategories.categories.forEach((category) {
-      int? _filterCategoryIndex = filter.categories.indexWhere((e) => e.title == category.title);
+      int? _filterCategoryIndex = filter.categories.indexWhere((e) => e.title.toLowerCase() == category.title.toLowerCase());
 
       if (_filterCategoryIndex == -1) {
-        _localCategories.categories.remove(category);
+        //_localCategories.categories.remove(category);
+        // Concurrency error
       } else {
         category.interests.forEach((interest) {
           int _filterInterestIndex =
@@ -151,9 +154,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                 children: [
                   Text(
                     widget.category.title,
-                    style: TextStyle(
-                        fontSize: 25
-                    ),
+                    style: TextStyle(fontSize: 25),
                   ),
                 ],
               ),
@@ -177,7 +178,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                               mini: true,
                               onTap: () {
                                 setState(() {
-                                  widget.selected.interests.remove(interest);
+                                  widget.selected.interests.removeWhere((element) => element.title == interest.title);
                                 });
                               },
                             );
@@ -249,7 +250,7 @@ class CategoryView extends StatelessWidget {
         width: double.infinity,
         child: Material(
           clipBehavior: Clip.hardEdge,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: kCircularBorderRadius15,
           color: kLightTertiaryColour,
           child: InkWell(
             onTap: () => onTap(),
@@ -263,9 +264,7 @@ class CategoryView extends StatelessWidget {
                       children: [
                         Text(
                           category.title,
-                          style: TextStyle(
-                              fontSize: 20
-                          ),
+                          style: TextStyle(fontSize: 20),
                         ),
                         Icon(Icons.arrow_downward),
                       ],

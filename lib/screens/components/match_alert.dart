@@ -71,7 +71,7 @@ dialogContent(BuildContext context, String? matchName, String? myImage, String? 
                   Navigator.of(context).pop(); // To close the dialog
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: kSecondaryColour,
+                  primary: secondaryColour,
                 ),
                 child: Text(
                   "Text " + matchName.toString() +" now!" ,

@@ -35,7 +35,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
     final UserState _userState = Provider.of<UserState>(context);
 
     return Scaffold(
-      backgroundColor: kLightBlue,
+      backgroundColor: lightBlue,
       body: SafeArea(
         child: Container(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -48,7 +48,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                 children: [
                   IconButton(
                     onPressed: () => _userState.signOut(),
-                    icon: buildIcons(FontAwesomeIcons.signOutAlt, kWhiteColour),
+                    icon: buildIcons(FontAwesomeIcons.signOutAlt, whiteColour),
                   ),
                 ],
               ),
@@ -66,7 +66,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .headline4
-                        ?.apply(color: kWhiteColour),
+                        ?.apply(color: whiteColour),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 30),
@@ -75,7 +75,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .headline6
-                        ?.apply(color: kWhiteColour),
+                        ?.apply(color: whiteColour),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 80)
@@ -86,18 +86,18 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                   Text(
                     "We have sent the email to '${_userState.user?.user?.email}'. Didn't receive it yet?",
                     style: TextStyle(
-                        color: kWhiteColour.withOpacity(0.7), fontSize: 15),
+                        color: whiteColour.withOpacity(0.7), fontSize: 15),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 25),
                   PillButtonOutlined(
                     text: "Resend email",
-                    color: kWhiteColour,
+                    color: whiteColour,
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                     textStyle: Theme.of(context)
                         .textTheme
                         .labelLarge
-                        ?.apply(color: kWhiteColour),
+                        ?.apply(color: whiteColour),
                     onPressed: () => _authService.sendVerificationEmail(),
                   ),
                 ],

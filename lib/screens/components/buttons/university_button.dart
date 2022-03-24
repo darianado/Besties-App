@@ -21,7 +21,7 @@ class UniversityButton extends StatelessWidget {
     this.wiggling = false,
     this.shouldExpand = false,
     required this.label,
-    this.color = kTertiaryColour,
+    this.color = tertiaryColour,
     this.onSave,
   }) : super(key: key);
 

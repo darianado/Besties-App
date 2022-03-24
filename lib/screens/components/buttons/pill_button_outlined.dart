@@ -18,7 +18,7 @@ class PillButtonOutlined extends StatelessWidget {
     this.expandsWidth = false,
     this.textStyle = const TextStyle(color: Colors.white),
     required this.onPressed,
-    this.color = kSecondaryColour,
+    this.color = secondaryColour,
     this.icon,
     this.padding = const EdgeInsets.all(10.0),
   }) : super(key: key);

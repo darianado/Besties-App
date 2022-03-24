@@ -32,9 +32,9 @@ class _Contact_PageState extends State<Contact_Page> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          kWhiteColour,
-          kWhiteColourShade2,
-          kWhiteColourShade3,
+          whiteColour,
+          whiteColourShade2,
+          whiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -51,7 +51,7 @@ class _Contact_PageState extends State<Contact_Page> {
                         alignment: Alignment.centerLeft,
                         child: Text('Matches',
                             style: TextStyle(
-                          color: kSecondaryColour,
+                          color: secondaryColour,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,
@@ -64,7 +64,7 @@ class _Contact_PageState extends State<Contact_Page> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Chats', style: TextStyle(
-                          color: kSecondaryColour,
+                          color: secondaryColour,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,

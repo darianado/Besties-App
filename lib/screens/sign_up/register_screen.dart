@@ -73,9 +73,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          kWhiteColour,
-          kWhiteColourShade2,
-          kWhiteColourShade3,
+          whiteColour,
+          whiteColourShade2,
+          whiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -106,14 +106,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                      style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                     ),
                     SizedBox(height: 40),
                     TextFormField(
                       controller: _email,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: buildIcons(Icons.email, kTertiaryColour),
+                        icon: buildIcons(Icons.email, tertiaryColour),
                         labelText: 'Email address',
                       ),
                       validator: validateEmail,
@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: buildIcons(Icons.lock, kTertiaryColour),
+                        icon: buildIcons(Icons.lock, tertiaryColour),
                         labelText: 'Password',
                       ),
                       validator: validatePassword,
@@ -137,7 +137,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: true,
                       decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: buildIcons(Icons.lock, kTertiaryColour),
+                        icon: buildIcons(Icons.lock, tertiaryColour),
                         labelText: 'Confirm password',
                       ),
                       validator: (value) => validateRepeatedPassword(value, _password.text),
@@ -148,11 +148,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: PillButtonFilled(
                         text: "Register",
                         isLoading: isLoading,
-                        backgroundColor: kTertiaryColour,
+                        backgroundColor: tertiaryColour,
                         textStyle: TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w600,
-                            color: kWhiteColour
+                            color: whiteColour
                         ),
                         onPressed: () => submitForm(_formKey),
                       ),
@@ -167,7 +167,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           PillButtonOutlined(
                             text: "Log in",
-                            color: kTertiaryColour,
+                            color: tertiaryColour,
                             padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                             textStyle: Theme.of(context).textTheme.labelLarge,
                             onPressed: () => context.goNamed(loginScreenName),

@@ -71,8 +71,8 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   ),
                   RangeSlider(
                     values: RangeValues(newPreferences?.minAge?.toDouble() ?? 16, newPreferences?.maxAge?.toDouble() ?? 100),
-                    activeColor: kTertiaryColour,
-                    inactiveColor: kGreyColour,
+                    activeColor: tertiaryColour,
+                    inactiveColor: greyColour,
                     min: (_contextState.context?.minAge?.toDouble() ?? 16),
                     max: (_contextState.context?.maxAge?.toDouble() ?? 100),
                     divisions: difference(_contextState.context?.minAge, _contextState.context?.maxAge),
@@ -144,18 +144,18 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _contextState.context?.genders?.map((gender) {
                           return ChipWidget(
-                            color: kIndigoColour,
+                            color: indigoColour,
                             bordered: ((newPreferences?.genders != null) &&
                                     (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
                                 ? false
                                 : true,
                             textColor: ((newPreferences?.genders != null) &&
                                     (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
-                                ? kSimpleWhiteColour
+                                ? simpleWhiteColour
                                 : null,
                             iconColor: ((newPreferences?.genders != null) &&
                                     (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
-                                ? kSimpleWhiteColour
+                                ? simpleWhiteColour
                                 : null,
                             icon: getIconForGender(gender),
                             label: gender,
@@ -197,9 +197,9 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   SizedBox(height: 40),
                   PillButtonFilled(
                     text: "Save information",
-                    backgroundColor: kSecondaryColour,
+                    backgroundColor: secondaryColour,
                     expandsWidth: true,
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: kWhiteColour),
+                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: whiteColour),
                     onPressed: () {
                       FirestoreService.instance.setPreferences(_userState.user!.user!.uid, newPreferences!);
 
@@ -214,9 +214,9 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   ),
                   PillButtonOutlined(
                     text: "Cancel",
-                    color: kSecondaryColour,
+                    color: secondaryColour,
                     expandsWidth: true,
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: kSecondaryColour),
+                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: secondaryColour),
                     onPressed: () => context.goNamed(
                       homeScreenName,
                       params: {pageParameterKey: feedScreenName},

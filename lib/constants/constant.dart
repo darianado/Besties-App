@@ -5,6 +5,7 @@ import 'colours.dart';
 const int kProfileIconIndex = 0;
 const int kFeedIconIndex = 1;
 const int kChatIconIndex = 2;
+const bottomContainerHeight = 80.0;
 
 // Constants for the font scaling of the profile containers.
 const double kProfileNameFontSize = 30;

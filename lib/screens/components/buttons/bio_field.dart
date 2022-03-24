@@ -43,7 +43,7 @@ class BioField extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: kTertiaryColour.withOpacity(0.1),
+            color: tertiaryColour.withOpacity(0.1),
           ),
           child: Text(
             label,

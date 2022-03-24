@@ -16,7 +16,7 @@ class CachedImage extends StatelessWidget {
     return Icon(
       FontAwesomeIcons.exclamationCircle,
       size: 16,
-      color: kOrangeColour,
+      color: orangeColour,
     );
   }
 

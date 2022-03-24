@@ -49,12 +49,12 @@ class DisplayInterestsPreferences extends StatelessWidget {
 
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
-      color: kTertiaryColour,
+      color: tertiaryColour,
       bordered: false,
       label: label,
       capitalizeLabel: true,
       mini: mini,
-      textColor: kSimpleWhiteColour,
+      textColor: simpleWhiteColour,
       onTap: getOnTap(label, context),
     );
   }

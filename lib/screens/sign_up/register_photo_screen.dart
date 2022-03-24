@@ -54,13 +54,13 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
           SliverAppBar(
             pinned: true,
             automaticallyImplyLeading: false,
-            foregroundColor: kTertiaryColour,
-            backgroundColor: kWhiteColour,
+            foregroundColor: tertiaryColour,
+            backgroundColor: whiteColour,
             expandedHeight: 120,
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerBasicInfoScreenName, extra: widget.userData),
-              icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
+              icon: buildIcons(Icons.arrow_back_ios, primaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -73,7 +73,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
-                        style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -121,13 +121,13 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      buildIcons(Icons.photo, kWhiteColour),
+                                      buildIcons(Icons.photo, whiteColour),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       Text(
                                         "EDIT",
-                                        style: TextStyle(color: kWhiteColour),
+                                        style: TextStyle(color: whiteColour),
                                       ),
                                     ],
                                   ),
@@ -158,11 +158,11 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                   width: double.infinity,
                   child: PillButtonFilled(
                     text: "Next",
-                    backgroundColor: kTertiaryColour,
+                    backgroundColor: tertiaryColour,
                     textStyle: TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.w600,
-                        color: kWhiteColour
+                        color: whiteColour
                     ),
                     onPressed: () {
                       if (widget.userData.profileImageUrl == null) {

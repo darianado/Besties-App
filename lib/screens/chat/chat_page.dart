@@ -86,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: message.mine ? kChatSenderColour : kChatReceiverColour,
+          color: message.mine ? chatSenderColour : chatReceiverColour,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(
@@ -98,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Text(
                 message.text,
                 style: TextStyle(
-                  color: kWhiteColour,
+                  color: whiteColour,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),
@@ -110,7 +110,7 @@ class _ChatScreenState extends State<ChatScreen> {
               child: Text(
                 message.time,
                 style:  TextStyle(
-                  color: kWhiteColour,
+                  color: whiteColour,
                   fontSize: 10,
                 ),
               ),
@@ -146,7 +146,7 @@ class _ChatScreenState extends State<ChatScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
           borderRadius: circularBorderRadius10,
-          border: Border.all(color: kTertiaryColour),
+          border: Border.all(color: tertiaryColour),
         ),
         child: Row(
           children: [
@@ -162,7 +162,7 @@ class _ChatScreenState extends State<ChatScreen> {
               onPressed: () {
                 _handleSubmitted(_textController.text, currentUser.toString());
               },
-              child: Text('Send', style: TextStyle(color: kTertiaryColour, fontSize: 18)),
+              child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
             )
           ],
         ),
@@ -176,9 +176,9 @@ class _ChatScreenState extends State<ChatScreen> {
     final currentUser = _userState.user?.user?.email;
     //convertList(widget.receiverEmail);
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       appBar: AppBar(
-        backgroundColor: kTertiaryColour,
+        backgroundColor: tertiaryColour,
         title: Text(
           currentUser.toString(),
           style: TextStyle(
@@ -204,7 +204,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                  color: kSimpleWhiteColour,
+                  color: simpleWhiteColour,
                 ),
                 child: ListView.builder(
                   reverse: true,

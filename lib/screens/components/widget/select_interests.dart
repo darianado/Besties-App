@@ -242,7 +242,7 @@ class CategoryView extends StatelessWidget {
         width: double.infinity,
         child: Material(
           clipBehavior: Clip.hardEdge,
-          borderRadius: kCircularBorderRadius15,
+          borderRadius: circularBorderRadius15,
           color: kLightTertiaryColour,
           child: InkWell(
             onTap: () => onTap(),

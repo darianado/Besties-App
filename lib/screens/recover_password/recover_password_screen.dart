@@ -95,7 +95,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        borderRadius: kCircularBorderRadius10,
+                        borderRadius: circularBorderRadius10,
                         color: kTertiaryColour.withOpacity(0.1),
                       ),
                       child: TextFormField(

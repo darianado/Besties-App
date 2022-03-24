@@ -106,7 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         decoration: BoxDecoration(
-          borderRadius: kCircularBorderRadius10,
+          borderRadius: circularBorderRadius10,
           border: Border.all(color: kTertiaryColour),
         ),
         child: Row(

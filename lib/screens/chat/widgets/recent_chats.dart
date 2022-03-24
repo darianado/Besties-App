@@ -46,10 +46,7 @@ class RecentChats extends StatelessWidget {
                   child: Container(
                     margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: const BoxDecoration(
-                        color: kSimpleWhiteColour,
-                        borderRadius: symmetricBorderRadius20,
-                  ),
+                    
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[

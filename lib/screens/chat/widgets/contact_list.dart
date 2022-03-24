@@ -23,7 +23,7 @@ class Contacts extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ChatScreen(user: contacts[index]))),
+                        builder: (_) => ChatScreen())),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(

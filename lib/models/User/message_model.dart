@@ -16,18 +16,20 @@ class Message {
   String senderEmail;
   String text;
   bool mine;
+  bool unread;
 
   Message (
     this.time, 
     this.senderEmail,
     this.text, 
     this.mine,
+    this.unread,
     );
 
   factory Message.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
     return Message(
-      data?['time'], data?['senderEmail'], data?['text'], data?['mine'],
+      data?['time'], data?['senderEmail'], data?['text'], data?['mine'], data?['unread']
     );
   }
 }

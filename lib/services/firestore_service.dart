@@ -10,7 +10,6 @@ import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/services/user_state.dart';
-
 import '../models/profile_container.dart';
 
 class FirestoreService {
@@ -166,4 +165,11 @@ class FirestoreService {
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
+
+
+  void updateMessageList(String chatID, List<Message> messages) {
+    _firebaseFirestore.collection("chats").doc(chatID).set({"messages": messages});
+  }
+
+ 
 }

@@ -12,13 +12,14 @@ class User {
 }
 
 class Message {
-
   String time; 
+  String senderEmail;
   String text;
   bool mine;
 
   Message (
     this.time, 
+    this.senderEmail,
     this.text, 
     this.mine,
     );
@@ -26,10 +27,15 @@ class Message {
   factory Message.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
     return Message(
-      data?['time'], data?['text'], data?['mine'],
+      data?['time'], data?['senderEmail'], data?['text'], data?['mine'],
     );
   }
 }
+
+
+
+
+
 
 
 

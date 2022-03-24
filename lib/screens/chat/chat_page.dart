@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
+import 'package:project_seg/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/textStyles.dart';
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 
 class ChatScreen extends StatefulWidget {
-  final String receiverEmail;
-  ChatScreen(this.receiverEmail);
+  final String chatID;
+  ChatScreen(this.chatID);
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -20,48 +21,42 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
 
-  final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
-  String? currentUser = "";
+  //final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  
   TextEditingController _textController = TextEditingController();
   List<Message> _messages = [];
 
-  Future<List<Message>> getMessages(String receiverID) async{
-    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("Chats").where(FieldPath.documentId, isEqualTo: receiverID).get();
+  Future<List<Message>> getMessages() async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").where(FieldPath.documentId, isEqualTo: widget.chatID).get();
     final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
-    List<Message> messages = [];
-    if (chats.length == 0){
+    if (chats.isEmpty){
       List<Message> messages = [];
-      final newChat = {
-        "messages" :  messages,
-      };
-      _firebaseFirestore.collection("chats").add(newChat);
-      }else{
-    Chat chat = chats[0];
-    messages = chat.messages;
+      final newChat = {"messages" :  messages};
+      FirebaseFirestore.instance.collection("chats").add(newChat);
+    }else{
+      Chat chat = chats[0];
+      _messages = chat.messages;
     }
-    return messages;
+    return _messages;
   }
 
-  void convertList(String receiverID) async {
-    Future<List<Message>> messages = getMessages(receiverID);
+  void convertList() async {
+    Future<List<Message>> messages = getMessages();
     _messages = await messages;
   }
 
-
+  
 
 
   //create a message with sender and time and save it to firestore
-  void _handleSubmitted(String text){
+  void _handleSubmitted(String text, String currentUser){
+    convertList();
     DateTime now = DateTime.now();
     String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
     _textController.clear();
-    Message message = Message(time, text, true);
-    final newMessage = {
-        "time" : message.time,
-        "text" : message.text,
-        "mine" : message.mine,
-      };
-      _firebaseFirestore.collection("messages").add(newMessage);
+    Message message = Message(time, currentUser, text, true);
+    _messages.add(message);
+    FirestoreService.instance.updateMessageList(widget.chatID, _messages);
     setState(() {
       _messages.insert(0, message);
     });
@@ -120,7 +115,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
- _builMessageComposer() {
+ _builMessageComposer(String currentUser) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8),
       height: 100,
@@ -150,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
             iconSize: 25.0,
             color: kSecondaryColour,
             onPressed: () {
-              _handleSubmitted(_textController.text);
+              _handleSubmitted(_textController.text, currentUser);
             },
           )
         ],
@@ -160,7 +155,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context){
-    convertList(widget.receiverEmail);
+    final _userState = Provider.of<UserState>(context);
+  final currentUser = _userState.user?.user?.email;
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
@@ -205,7 +201,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
             ),
-            _builMessageComposer()
+            _builMessageComposer(currentUser.toString())
           ],
         ),
       ),

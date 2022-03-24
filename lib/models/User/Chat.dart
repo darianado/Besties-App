@@ -9,14 +9,23 @@ class Chat{
   final String chatID;
 
   Chat(this.chatID, this.messages);
-  final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  //final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
 
   factory Chat.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
     return Chat(
-      data?['id'], data?['messages']
+      doc.id, data?['messages'].cast<Message>()
     );
   }
+
+  List<String> getUsers(){
+    List<String> _users =[];
+    for (Message message in messages){
+      _users.add(message.senderEmail);
+    }
+    return _users;
+  }
+
 }
   /* List<Chat> chatlist = [];
 

@@ -28,6 +28,20 @@ class _Contact_PageState extends State<Contact_Page> {
     final _userState = Provider.of<UserState>(context);
     final currentUser = _userState.user?.user?.email;
 
+    List<Chat> _chats = [];
+
+    Future<void> getChats() async{
+      QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").get();
+      final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+      for ( Chat chat in chats) {
+        if(chat.getUsers().contains(currentUser.toString())){
+          _chats.add(chat);
+        }
+      }
+    }
+
+  getChats();
+
     return Scaffold(
       backgroundColor: kContactList,
       appBar: AppBar(
@@ -43,7 +57,7 @@ class _Contact_PageState extends State<Contact_Page> {
               child: Column(
                 children: <Widget>[
                   Contacts(),
-                  RecentChats(chatslist)
+                  RecentChats(_chats)
                 ],
               ),
             ),

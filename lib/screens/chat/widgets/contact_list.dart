@@ -12,7 +12,7 @@ class Contacts extends StatelessWidget {
   List<Chat> chatList = [];
 
   Future<List<Chat>> getChats() async{
-    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection(currentUser.toString()).get();
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").get();
     final _contacts= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
     return _contacts;
   }

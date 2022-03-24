@@ -1,6 +1,5 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';

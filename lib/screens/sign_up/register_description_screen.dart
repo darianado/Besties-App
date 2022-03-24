@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -183,7 +182,11 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         child: PillButtonFilled(
                           text: "Next",
                           backgroundColor: kTertiaryColour,
-                          textStyle: pillButtonFilledTextStyle,
+                          textStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                              color: kWhiteColour
+                          ),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 

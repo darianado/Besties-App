@@ -2,7 +2,6 @@ import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
 
 import '../../../constants/borders.dart';
 
@@ -64,13 +63,21 @@ class RecentChats extends StatelessWidget {
                             children: <Widget>[
                               Text(
                                 chat.senderEmail,
-                                style: kInactiveSliderStyle,
+                                style: TextStyle(
+                                  color: kSecondaryColour,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: Text(
                                   chat.text,
-                                  style: kInactiveSliderStyle,
+                                  style: TextStyle(
+                                    color: kSecondaryColour,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
@@ -83,7 +90,11 @@ class RecentChats extends StatelessWidget {
                           if (chat.unread) GStyle.badge(),
                           Text(
                             chat.time,
-                            style: kUnreadTextStyle,
+                            style: TextStyle(
+                              color: kGreyColour,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                           const SizedBox(
                             height: 5,

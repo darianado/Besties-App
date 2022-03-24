@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants/textStyles.dart';
+import '../../../constants/colours.dart';
 
 class IconContent extends StatelessWidget {
   final String label;
@@ -18,8 +18,10 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           this.label,
-          style: kLabelTextStyle,
-        )
+          style: TextStyle(
+            color: kInactiveSliderColor,
+            fontSize: 18.0,
+        )),
       ],
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/services/firestore_service.dart';
@@ -44,10 +45,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: kPrimaryColour,
-              ),
+              icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -116,7 +114,11 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     child: PillButtonFilled(
                       text: "Done",
                       backgroundColor: kTertiaryColour,
-                      textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
+                      textStyle: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: kWhiteColour
+                      ),
                       onPressed: () {
                         final _interests = widget.userData.categorizedInterests?.flattenedInterests;
 

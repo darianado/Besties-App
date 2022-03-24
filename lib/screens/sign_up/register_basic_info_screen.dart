@@ -83,10 +83,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
               actions: [
                 IconButton(
                   onPressed: () => _userState.signOut(),
-                  icon: Icon(
-                    FontAwesomeIcons.signOutAlt,
-                    color: kPrimaryColour,
-                  ),
+                  icon: buildIcons(FontAwesomeIcons.signOutAlt, kPrimaryColour),
                 ),
               ],
               flexibleSpace: Container(

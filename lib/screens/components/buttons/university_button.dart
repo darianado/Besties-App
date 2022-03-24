@@ -44,9 +44,6 @@ class UniversityButton extends StatelessWidget {
   }
 
   Widget chip(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
-
     return ChipWidget(
       color: color,
       shouldExpand: shouldExpand,
@@ -57,7 +54,6 @@ class UniversityButton extends StatelessWidget {
   }
 
   Function? getOnTap(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
     final _onSave = onSave;

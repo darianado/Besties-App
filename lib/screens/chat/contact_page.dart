@@ -4,6 +4,14 @@ import 'package:project_seg/screens/chat/widgets/recent_chats.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
+//import 'package:project_seg/models/User/Chat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+
+
+
 
 class Contact_Page extends StatefulWidget {
   const Contact_Page({Key? key}) : super(key: key);
@@ -13,11 +21,10 @@ class Contact_Page extends StatefulWidget {
 }
 
 class _Contact_PageState extends State<Contact_Page> {
+
+
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final currentUser = _userState.user?.user;
-
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(

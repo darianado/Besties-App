@@ -11,6 +11,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 
+
+
 class Contact_Page extends StatefulWidget {
   const Contact_Page({Key? key}) : super(key: key);
 
@@ -19,13 +21,10 @@ class Contact_Page extends StatefulWidget {
 }
 
 class _Contact_PageState extends State<Contact_Page> {
-  //List<Chat> chatslist = [];
 
 
   @override
   Widget build(BuildContext context) {
-
-
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(

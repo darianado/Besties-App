@@ -24,12 +24,14 @@ class FeedContentController extends ChangeNotifier {
     double? page = controller.page;
 
     if (page != null && page.floor() >= 2) {
+      print("==============================");
       removeAtFront(1);
       notifyListeners();
       controller.jumpToPage(1);
 
       await insertAtEnd(1);
       notifyListeners();
+      print("==============================");
     }
   }
 

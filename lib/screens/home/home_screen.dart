@@ -60,11 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeSelection(int index) {
-    /*
     if (index == 1 && _selectedIndex == 1) {
       FeedScreen.animateToTop();
     }
-    */
+
     context.go("/" + pathOfIndex(index));
   }
 

@@ -17,6 +17,8 @@ class FeedContentGatherer {
   static final FeedContentGatherer _instance = FeedContentGatherer._privateConstructor();
   static FeedContentGatherer get instance => _instance;
 
+  bool gotten = false;
+
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
     print("Calling 'requestRecommendations' to get ${amount}.");
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
@@ -24,6 +26,12 @@ class FeedContentGatherer {
       'uid': userID,
       'recs': amount,
     });
+
+    if (!gotten) {
+      //await Future.delayed(Duration(seconds: 10));
+    } else {
+      gotten = true;
+    }
 
     return List<String>.from(resp.data['data']);
   }
@@ -74,11 +82,9 @@ class FeedContentGatherer {
   }
 
   Future<void> _gatherForQueue(int amount) async {
-    print("Gathering up to ${amount} profiles from backend.");
     final userIDs = await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users);
-    print("Successfully inserted ${widgets.length} widgets in queue.");
 
     queue.addAll(widgets);
   }
@@ -88,9 +94,9 @@ class FeedContentGatherer {
       await _gatherForQueue(queueSize);
     }
 
+    final beforeLength = queue.length;
     final result = popAmountFromQueue(amount);
-
-    print("Returning ${result.length} new entries for content");
+    print("Queue: ${beforeLength} - ${result.length} = ${queue.length}");
 
     return result;
   }

@@ -24,11 +24,11 @@ import 'package:project_seg/constants/colours.dart';
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
 
-  /*
+  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
+
   static void animateToTop() {
     controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
   }
-  */
 
   @override
   _FeedScreenState createState() => _FeedScreenState();
@@ -36,29 +36,13 @@ class FeedScreen extends StatefulWidget {
 
 /// The State for the [FeedScreen] widget.
 class _FeedScreenState extends State<FeedScreen> {
-  PageController controller = PageController(viewportFraction: 1, keepPage: true);
-
   @override
   void initState() {
     super.initState();
 
     final _feedContent = Provider.of<FeedContentController>(context, listen: false);
     _feedContent.onFeedInitialized();
-    _feedContent.assignController(controller);
-    /*
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final String uid = auth.currentUser!.uid;
-
-    _future = FirestoreService.getProfileContainers(uid, recs);
-
-    
-
-    controller.addListener(() {
-      setState(() {
-        print("We are now on: ${controller.page}");
-      });
-    });
-    */
+    _feedContent.assignController(FeedScreen.controller);
   }
 
   @override
@@ -72,11 +56,14 @@ class _FeedScreenState extends State<FeedScreen> {
       child: Stack(
         alignment: Alignment.topRight,
         children: [
-          PageView(
-            physics: const CustomPageViewScrollPhysics(),
-            controller: controller,
-            scrollDirection: Axis.vertical,
-            children: List<Widget>.of(_feedContentController.content),
+          RefreshIndicator(
+            onRefresh: () => refreshProfileContainers(),
+            child: PageView(
+              physics: const CustomPageViewScrollPhysics(),
+              controller: FeedScreen.controller,
+              scrollDirection: Axis.vertical,
+              children: List<Widget>.of(_feedContentController.content),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
@@ -151,22 +138,16 @@ class _FeedScreenState extends State<FeedScreen> {
     */
   }
 
-/*
   /// Refreshes the profiles by updating the [FutureBuilder]'s future.
-  Future<void> refreshProfileContainers(String uid, int recs) async {
+  Future<void> refreshProfileContainers() async {
     await Future.delayed(const Duration(milliseconds: 400));
 
-    setState(() {
-      _future = FirestoreService.getProfileContainers(uid, recs);
-    });
     await Future.delayed(const Duration(milliseconds: 400));
   }
-  */
 }
 
 class CustomPageViewScrollPhysics extends ScrollPhysics {
-  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
-      : super(parent: parent);
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
 
   @override
   CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
@@ -176,8 +157,7 @@ class CustomPageViewScrollPhysics extends ScrollPhysics {
   @override
   SpringDescription get spring => const SpringDescription(
         mass: 80,
-        stiffness: 100,
-        damping: 1,
+        stiffness: 50,
+        damping: 0.7,
       );
 }
-

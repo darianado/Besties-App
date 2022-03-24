@@ -18,12 +18,34 @@ class Chat{
     );
   }
 
+  bool findChat(String recevierID, String currentUserID){
+    for (Message message in messages){
+      if (message.senderID != currentUserID){
+        if (message.senderID != recevierID){
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  
+
+
   List<String> getUsers(){
     List<String> _users =[];
     for (Message message in messages){
-      _users.add(message.senderEmail);
+      _users.add(message.senderID);
     }
     return _users;
+  }
+
+  String getReceiver(String currentUserID){
+    for (Message message in messages){
+      message.senderID != currentUserID;
+      return message.senderID;
+    }
+    return "";
   }
 
 }

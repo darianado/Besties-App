@@ -9,10 +9,7 @@ import '../../constants/borders.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
+
 
 class ChatScreen extends StatefulWidget {
   final String chatID;
@@ -25,7 +22,7 @@ class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textController = new TextEditingController();
 
   List<Message> _messages = [
-    Message("currentUser", '1:00pm', 'Message 1', false, true),
+/*     Message("currentUser", '1:00pm', 'Message 1', false, true),
     Message("firstUser", '1:00pm', 'Message 1', false, true),
     Message("currentUser", '1:00pm', 'Message 1', false, true),
     Message("firstUser", '1:00pm', 'Message 1', false, true),
@@ -36,50 +33,23 @@ class _ChatScreenState extends State<ChatScreen> {
     Message("currentUser", '1:00pm', 'Message 1', true, true),
     Message("firstUser", '1:00pm', 'Message 1', false, true),
     Message("currentUser", '1:00pm', 'Message 1', false, true),
-    Message("firstUser", '1:00pm', 'Message 1', false, true),
+    Message("firstUser", '1:00pm', 'Message 1', false, true), */
   ];
 
-  void _handleSubmitted(String text) {
-    DateTime now = DateTime.now();
-    String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
-    _textController.clear();
-    Message message = new Message("current user", time, text, true, false);
-    setState(() {})
-             }
-      //getMessages
-  //final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
-  
-  List<Message> _messages = [];
-
-  Future<List<Message>> getMessages() async{
+  Future<void> getMessages() async{
     QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").where(FieldPath.documentId, isEqualTo: widget.chatID).get();
     final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
-    if (chats.isEmpty){
-      List<Message> messages = [];
-      final newChat = {"messages" :  messages};
-      FirebaseFirestore.instance.collection("chats").add(newChat);
-    }else{
       Chat chat = chats[0];
-      _messages = chat.messages;
-    }
-        return _messages;
+      List<Message> messageList = chat.messages;
+      _messages = await messageList;
   }
-
-  void convertList() async {
-    Future<List<Message>> messages = getMessages();
-    _messages = await messages;
-  }
-
-  
-
 
   //create a message with sender and time and save it to firestore
   void _handleSubmitted(String text, String currentUser){
-    convertList();
     DateTime now = DateTime.now();
     String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
     _textController.clear();
-    Message message = Message(time, currentUser, text, true);
+    Message message = Message(time, currentUser, text, true, false);
     _messages.add(message);
     FirestoreService.instance.updateMessageList(widget.chatID, _messages);
     setState(() {
@@ -127,16 +97,6 @@ class _ChatScreenState extends State<ChatScreen> {
           ],
         ),
       ),
-
-      // decoration: BoxDecoration(
-      //     color: mine ? kChatSenderColour : kTertiaryColour,
-      //     borderRadius: mine
-      //         ? BorderRadius.only(
-      //             topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))
-      //         : BorderRadius.only(
-      //             topRight: Radius.circular(15),
-      //             bottomRight: Radius.circular(15))),
-
     );
     if (message.mine) {
       return msg;
@@ -148,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  _buildMessageComposer() {
+  _buildMessageComposer(String currentUser) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -169,7 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             TextButton(
               onPressed: () {
-                _handleSubmitted(_textController.text);
+                _handleSubmitted(_textController.text, currentUser);
               },
               child: Text('Send', style: TextStyle(color: kTertiaryColour, fontSize: 18)),
             )
@@ -182,8 +142,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context){
     final _userState = Provider.of<UserState>(context);
-    final currentUser = _userState.user?.user?.email;
-    //convertList(widget.receiverEmail);
+    final currentUser = _userState.user?.user?.uid;
     return Scaffold(
       backgroundColor: kWhiteColour,
       appBar: AppBar(
@@ -196,7 +155,7 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
         ),
         elevation: 0.0,
-        actions: [
+        actions: [],
         /*  actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.more_horiz),
@@ -221,14 +180,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: _messages.length,
                   itemBuilder: (BuildContext context, int index) {
                     final Message message = _messages[index];
-                    _messages[index].setRead();
                     return _messagebuilder(message);
                   },
-
                 ),
               ),
             ),
-            _buildMessageComposer(),
+            _buildMessageComposer(currentUser.toString()),
           ],
         ),
       ),

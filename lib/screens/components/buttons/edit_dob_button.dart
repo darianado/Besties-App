@@ -30,8 +30,8 @@ class DateOfBirthButton extends StatelessWidget {
   }
 
 
-  DateTime validDate(DateTime dateNow) {
-    dateNow =  DateTime.now();
+  DateTime validDate() {
+    DateTime dateNow =  DateTime.now();
     DateTime limitDate = dateNow.subtract(Duration(days: 5844));
     return limitDate;
   }
@@ -73,24 +73,25 @@ class DateOfBirthButton extends StatelessWidget {
   void _selectDate(BuildContext context, String? uid, DateTime? dob) async {
     DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: dob ?? DateTime.now(),
+      initialDate: validDate(),
       firstDate: DateTime(1900),
-      lastDate: DateTime.now()
+      lastDate: validDate(),
       //validDate(DateTime.now()),
     );
 
-   // if (picked != null) onSave!(picked);
+   if (picked != null) onSave!(picked);
 
-        if (picked != null && picked != dob)
-        {
-          if(validAge(picked))
-          {
-            onSave!(picked);
-          }
-          else{
-            showCalendarAlertDialog(context);
-          }
-        }
+
+        // if (picked != null && picked != dob)
+        // {
+        //   if(validAge(picked))
+        //   {
+        //     onSave!(picked);
+        //   }
+        //   else{
+        //     showCalendarAlertDialog(context);
+        //   }
+        // }
       }
     }
 

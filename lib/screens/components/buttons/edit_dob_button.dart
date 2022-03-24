@@ -2,7 +2,6 @@ import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -38,9 +37,6 @@ class DateOfBirthButton extends StatelessWidget {
   }
 
   Widget chip(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
-
     return ChipWidget(
       color: color,
       icon: FontAwesomeIcons.birthdayCake,
@@ -52,7 +48,6 @@ class DateOfBirthButton extends StatelessWidget {
 
   Function? getOnTap(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
 
     if (!editable) return null;
 

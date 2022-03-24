@@ -28,7 +28,6 @@ class BioField extends StatelessWidget {
   }
 
   Widget bio(BuildContext context, Function? onTap) {
-    final _userState = Provider.of<UserState>(context);
 
     return Material(
       borderRadius: BorderRadius.all(

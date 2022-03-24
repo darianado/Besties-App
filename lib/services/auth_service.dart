@@ -41,7 +41,7 @@ class AuthService {
   }
 
   Future<void> deleteAccount(String password) async {
-    validatePassword(password);
+    await validatePassword(password);
     return await _firebaseAuth.currentUser!.delete();
   }
 

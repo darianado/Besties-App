@@ -154,7 +154,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                 icon: buildIcons(Icons.lock, kSecondaryColour),
                                 labelText: 'Confirm new password'),
                             validator: (value) =>
-                                validateExistsAndDifferentFrom(
+                                validateRepeatedPassword(
                                     value, _newPassword.text),
                             textInputAction: TextInputAction.next,
                           ),

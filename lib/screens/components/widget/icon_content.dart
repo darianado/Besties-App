@@ -19,7 +19,7 @@ class IconContent extends StatelessWidget {
         Text(
           this.label,
           style: TextStyle(
-            color: kInactiveSliderColor,
+            color: inactiveSliderColor,
             fontSize: 18.0,
         )),
       ],
@@ -53,3 +53,20 @@ IconData getIconForGender(String? gender) {
       return FontAwesomeIcons.venusMars;
   }
 }
+
+// class IconWidget extends StatelessWidget {
+//   final IconData icon;
+//   final Color colour;
+//
+//   const IconWidget({required this.icon, required this.colour});
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Icon(
+//       icon,
+//       color: colour,
+//     );
+//   }
+// }
+

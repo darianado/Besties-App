@@ -46,8 +46,8 @@ class ProfileContainer extends StatelessWidget {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: <Color>[
-                  kWhiteColour,
-                  kGradientColour,
+                  whiteColour,
+                  gradientColour,
                 ],
                 begin: Alignment.bottomCenter,
                 end: Alignment.topCenter,
@@ -180,8 +180,8 @@ class LikeProfileButton extends StatelessWidget {
       onPressed: () {
         likeProfile(context);
       },
-      backgroundColor: kSecondaryColour,
-      child: buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
+      backgroundColor: secondaryColour,
+      child: buildIcons(Icons.thumb_up_off_alt_rounded, whiteColour),
     );
   }
 }
@@ -208,7 +208,7 @@ class PartialProfileDetails extends StatelessWidget {
           style: Theme.of(context)
               .textTheme
               .headline4
-              ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+              ?.apply(color: secondaryColour, fontWeightDelta: 2),
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -216,7 +216,7 @@ class PartialProfileDetails extends StatelessWidget {
             padding: EdgeInsets.only(right: 7.5),
             child: Icon(
               FontAwesomeIcons.university,
-              color: kSecondaryColour,
+              color: secondaryColour,
             ),
           ),
           Expanded(
@@ -225,7 +225,7 @@ class PartialProfileDetails extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .headline6
-                  ?.apply(color: kSecondaryColour),
+                  ?.apply(color: secondaryColour),
             ),
           ),
         ]),

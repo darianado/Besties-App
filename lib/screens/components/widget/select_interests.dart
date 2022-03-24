@@ -163,10 +163,10 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                         children: widget.category.interests.map((interest) {
                           if (isInBoth(interest, widget.category.interests, widget.selected.interests)) {
                             return ChipWidget(
-                              color: kTertiaryColour,
+                              color: tertiaryColour,
                               label: interest.title,
                               bordered: false,
-                              textColor: kSimpleWhiteColour,
+                              textColor: simpleWhiteColour,
                               mini: true,
                               onTap: () {
                                 setState(() {
@@ -176,7 +176,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                             );
                           } else {
                             return ChipWidget(
-                              color: kTertiaryColour,
+                              color: tertiaryColour,
                               label: interest.title,
                               bordered: true,
                               mini: true,
@@ -243,7 +243,7 @@ class CategoryView extends StatelessWidget {
         child: Material(
           clipBehavior: Clip.hardEdge,
           borderRadius: circularBorderRadius15,
-          color: kLightTertiaryColour,
+          color: lightTertiaryColour,
           child: InkWell(
             onTap: () => onTap(),
             child: Padding(
@@ -275,10 +275,10 @@ class CategoryView extends StatelessWidget {
                             runSpacing: 6.0,
                             children: selected.interests
                                 .map((e) => ChipWidget(
-                                      color: kTertiaryColour,
+                                      color: tertiaryColour,
                                       label: e.title,
                                       bordered: false,
-                                      textColor: kSimpleWhiteColour,
+                                      textColor: simpleWhiteColour,
                                       mini: true,
                                     ))
                                 .toList(),

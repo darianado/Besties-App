@@ -1,8 +1,5 @@
 import 'dart:collection';
-
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
@@ -68,7 +65,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
           if (displayedContainers != null) {
             return Container(
-              color: kTertiaryColour,
+              color: tertiaryColour,
               child: Stack(
                 alignment: Alignment.topRight,
                 children: [
@@ -85,10 +82,10 @@ class _FeedScreenState extends State<FeedScreen> {
                     child: FloatingActionButton(
                       heroTag: null,
                       onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
-                      backgroundColor: kTertiaryColour,
+                      backgroundColor: tertiaryColour,
                       child: Icon(
                         Icons.menu,
-                        color: kWhiteColour,
+                        color: whiteColour,
                         size: 30,
                       ),
                     ),
@@ -99,14 +96,14 @@ class _FeedScreenState extends State<FeedScreen> {
           } else {
             return const Center(
                 child: CircularProgressIndicator(
-              color: kTertiaryColour,
+              color: tertiaryColour,
             ));
           }
         },
       );
     } else {
       return const CircularProgressIndicator(
-        color: kTertiaryColour,
+        color: tertiaryColour,
       );
     }
   }

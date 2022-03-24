@@ -28,8 +28,6 @@ class DisplayInterests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
 
     return Wrap(
       spacing: 6.0,
@@ -52,19 +50,18 @@ class DisplayInterests extends StatelessWidget {
 
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
-      color: kTertiaryColour,
+      color: tertiaryColour,
       bordered: false,
       label: label,
       capitalizeLabel: true,
       mini: mini,
-      textColor: kSimpleWhiteColour,
+      textColor: simpleWhiteColour,
       onTap: getOnTap(label, context),
     );
   }
 
   Function? getOnTap(String label, BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
 
     final _onSave = onSave;
 

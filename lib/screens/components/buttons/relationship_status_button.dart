@@ -1,17 +1,13 @@
 import 'package:animated_widgets/animated_widgets.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:go_router/go_router.dart';
 
 class RelationshipStatusButton extends StatelessWidget {
-  final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
   final bool wiggling;
   final bool shouldExpand;

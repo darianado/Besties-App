@@ -29,7 +29,7 @@ class EditDialog extends StatelessWidget {
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: kTertiaryColour.withOpacity(0.1),
+                  color: tertiaryColour.withOpacity(0.1),
                 ),
                 child: content,
               ),
@@ -43,7 +43,7 @@ class EditDialog extends StatelessWidget {
                   Expanded(
                     child: PillButtonOutlined(
                       text: "Cancel",
-                      color: kTertiaryColour,
+                      color: tertiaryColour,
                       padding: EdgeInsets.symmetric(vertical: 7),
                       textStyle: Theme.of(context).textTheme.titleLarge,
                       onPressed: () => Navigator.of(context).pop(),
@@ -56,8 +56,8 @@ class EditDialog extends StatelessWidget {
                     child: PillButtonFilled(
                       text: "Save",
                       padding: EdgeInsets.symmetric(vertical: 7),
-                      backgroundColor: kTertiaryColour,
-                      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: kWhiteColour),
+                      backgroundColor: tertiaryColour,
+                      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
                       onPressed: onSave,
                     ),
                   ),

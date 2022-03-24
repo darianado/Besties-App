@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/borders.dart';
-import 'package:project_seg/constants/colours.dart';
 
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;

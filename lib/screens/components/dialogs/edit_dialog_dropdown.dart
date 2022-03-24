@@ -33,7 +33,6 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
 
     return EditDialog(
       content: DropdownButton(

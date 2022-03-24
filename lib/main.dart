@@ -54,8 +54,8 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               textTheme: GoogleFonts.nunitoTextTheme(
                 (Theme.of(context).textTheme).apply(
-                  bodyColor: kTertiaryColour,
-                  displayColor: kTertiaryColour,
+                  bodyColor: tertiaryColour,
+                  displayColor: tertiaryColour,
                 ),
               ),
             ),

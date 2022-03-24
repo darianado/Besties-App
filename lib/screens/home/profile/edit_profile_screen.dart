@@ -59,7 +59,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     _bioController.text = _userState.user?.userData?.bio ?? "-";
 
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -74,11 +74,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
-                  backgroundColor: kTertiaryColour,
+                  backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
                     Icons.done,
-                    color: kWhiteColour,
+                    color: whiteColour,
                     size: 30,
                   ),
                 ),
@@ -104,12 +104,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 child: Container(),
                               ),
                               Container(
-                                color: kOpacBlack,
+                                color: opacBlack,
                                 height: 30,
                                 alignment: Alignment.center,
                                 child: Text(
                                   "EDIT",
-                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: kWhiteColour),
+                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
                                 ),
                               ),
                             ],
@@ -127,7 +127,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline3?.apply(color: tertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 15),
@@ -174,7 +174,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                       ),
                     ],
                   ),

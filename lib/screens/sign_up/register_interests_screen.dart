@@ -39,13 +39,13 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
           SliverAppBar(
             pinned: true,
             automaticallyImplyLeading: false,
-            foregroundColor: kTertiaryColour,
-            backgroundColor: kWhiteColour,
+            foregroundColor: tertiaryColour,
+            backgroundColor: whiteColour,
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
-              icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
+              icon: buildIcons(Icons.arrow_back_ios, primaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -58,7 +58,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
-                        style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -113,11 +113,11 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     width: double.infinity,
                     child: PillButtonFilled(
                       text: "Done",
-                      backgroundColor: kTertiaryColour,
+                      backgroundColor: tertiaryColour,
                       textStyle: TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
-                          color: kWhiteColour
+                          color: whiteColour
                       ),
                       onPressed: () {
                         final _interests = widget.userData.categorizedInterests?.flattenedInterests;

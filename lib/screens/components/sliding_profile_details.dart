@@ -74,7 +74,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                       style: Theme.of(context)
                           .textTheme
                           .headline3
-                          ?.apply(color: kTertiaryColour, fontWeightDelta: 2),
+                          ?.apply(color: tertiaryColour, fontWeightDelta: 2),
                     ),
                     const SizedBox(height: 15),
                     UniversityButton(
@@ -106,7 +106,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                         Text(
                           "YOU HAVE ",
                           style: Theme.of(context).textTheme.bodyMedium?.apply(
-                              color: kSecondaryColour.withOpacity(0.3),
+                              color: secondaryColour.withOpacity(0.3),
                               fontWeightDelta: 2),
                         ),
                         Text(
@@ -124,7 +124,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                                     .bodyMedium
                                     ?.apply(
                                         color:
-                                            kSecondaryColour.withOpacity(0.3),
+                                            secondaryColour.withOpacity(0.3),
                                         fontWeightDelta: 2),
                               )
                             : Text(
@@ -134,7 +134,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                                     .bodyMedium
                                     ?.apply(
                                         color:
-                                            kSecondaryColour.withOpacity(0.3),
+                                            secondaryColour.withOpacity(0.3),
                                         fontWeightDelta: 2),
                               ),
                       ],

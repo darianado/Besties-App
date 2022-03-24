@@ -16,6 +16,10 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
+
+///The screen displays the profile of the current user
+///
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -33,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -49,11 +53,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: FloatingActionButton(
                   heroTag: null,
                   onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
-                  backgroundColor: kTertiaryColour,
+                  backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
                     Icons.edit,
-                    color: kWhiteColour,
+                    color: whiteColour,
                     size: 30,
                   ),
                 ),
@@ -100,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -112,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   PillButtonFilled(
                     text: "Change password",
                     expandsWidth: true,
-                    backgroundColor: kTertiaryColour,
+                    backgroundColor: tertiaryColour,
                     icon: Icon(
                       FontAwesomeIcons.lock,
                       size: 18.0,

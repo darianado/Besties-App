@@ -7,12 +7,16 @@ class AppContext {
   List<String>? genders;
   List<String>? relationshipStatuses;
   int? maxBioLength;
+  int? minAge;
+  int? maxAge;
 
   AppContext({
     this.universities,
     this.genders,
     this.relationshipStatuses,
     this.maxBioLength,
+    this.minAge,
+    this.maxAge,
   });
 
   factory AppContext.fromSnapshot(DocumentSnapshot<Map> doc) {
@@ -28,6 +32,8 @@ class AppContext {
       genders: List<String>.from(data?['genders']),
       relationshipStatuses: List<String>.from(data?['relationshipStatuses']),
       maxBioLength: data?['maxBioLength'],
+      maxAge: data?['maxAge'],
+      minAge: data?['minAge'],
     );
   }
 }

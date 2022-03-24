@@ -6,14 +6,7 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/dalu_auth/mock.dart';
 
-Widget createFeedScreen() => const MediaQuery(
-      data: MediaQueryData(),
-      child: MaterialApp(
-          // home: FeedScreen(
-          //     //key: Key("Key"),
-          // ),
-          ),
-    );
+
 
 void main() {
   // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()

@@ -16,42 +16,41 @@ class CategorizedInterests {
   List<Map<String, dynamic>> toList() {
     return categories.map((e) => e.toMap()).toList();
   }
+
+  List<Interest>? get flattenedInterests {
+    return categories.map((category) => category.interests).expand((i) => i).toList();
+  }
 }
 
 class Preferences {
-  final CategorizedInterests interests;
-  final int maxAge;
-  final int minAge;
+  CategorizedInterests? interests;
+  List<String?>? genders;
+  int? maxAge;
+  int? minAge;
 
-  Preferences({required this.interests, required this.maxAge, required this.minAge});
+  Preferences({
+    this.interests,
+    this.maxAge,
+    this.minAge,
+    this.genders,
+  });
 
   factory Preferences.fromMap(Map<String, dynamic> map) {
-    final _interests = CategorizedInterests.fromList(map['categorizedInterests']);
-    return Preferences(interests: _interests, maxAge: map['maxAge'], minAge: map['minAge']);
+    final _interests = CategorizedInterests.fromList(map['categorizedInterests'] ?? []);
+    return Preferences(
+      interests: _interests,
+      genders: List<String?>.from(map['genders'] ?? []),
+      maxAge: map['maxAge'],
+      minAge: map['minAge'],
+    );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      "categorizedInterests": interests.toList(),
+      "categorizedInterests": interests?.toList(),
+      "genders": genders,
       "maxAge": maxAge,
       "minAge": minAge,
-    };
-  }
-}
-
-class GeoLocation {
-  final double lat, lon;
-
-  GeoLocation({required this.lat, required this.lon});
-
-  factory GeoLocation.fromMap(Map<String, dynamic> map) {
-    return GeoLocation(lat: map['lat'], lon: map['lon']);
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      "lat": lat,
-      "lon": lon,
     };
   }
 }
@@ -66,10 +65,8 @@ class UserData {
   String? relationshipStatus;
   String? profileImageUrl;
   CategorizedInterests? categorizedInterests;
-  GeoLocation? location;
   Preferences? preferences;
   List<String>? likes;
-  List<String>? matches;
 
   UserData(
       {this.uid,
@@ -83,8 +80,7 @@ class UserData {
       this.preferences,
       this.firstName,
       this.lastName,
-      this.likes,
-      this.matches});
+      this.likes});
 
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
@@ -97,6 +93,7 @@ class UserData {
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
+      //likes: List<String>.from(data?['likes']),
       university: data?['university'],
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],
@@ -131,10 +128,6 @@ class UserData {
     return null;
   }
 
-  List<Interest>? get flattenedInterests {
-    return categorizedInterests?.categories.map((category) => category.interests).expand((i) => i).toList();
-  }
-
   Map<String, dynamic> toMap() {
     return {
       "dob": dob,
@@ -146,10 +139,8 @@ class UserData {
       "bio": bio,
       "profileImageUrl": profileImageUrl,
       "categorizedInterests": categorizedInterests?.toList(),
-      "location": location?.toMap(),
       "preferences": preferences?.toMap(),
       "likes": likes,
-      "matches": matches,
     };
   }
 }

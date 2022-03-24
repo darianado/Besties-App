@@ -1,6 +1,5 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -12,7 +11,8 @@ class BioField extends StatelessWidget {
   final bool editable;
   final String label;
 
-  BioField({Key? key, required this.label, this.editable = false}) : super(key: key);
+  BioField({Key? key, required this.label, this.editable = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class BioField extends StatelessWidget {
           ),
           child: Text(
             label,
-            style: kTertiaryStyle,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
       ),
@@ -63,7 +63,8 @@ class BioField extends StatelessWidget {
     return () => showDialog(
         context: context,
         builder: (BuildContext context) {
-          return EditDialogTextField(value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
+          return EditDialogTextField(
+              value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
         });
   }
 

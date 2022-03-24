@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -9,17 +11,13 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
-import '../../constants/borders.dart';
-import '../../constants/textStyles.dart';
-
 class RegisterInterestsScreen extends StatefulWidget {
   RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
 
   UserData userData;
 
   @override
-  State<RegisterInterestsScreen> createState() =>
-      _RegisterInterestsScreenState();
+  State<RegisterInterestsScreen> createState() => _RegisterInterestsScreenState();
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
@@ -42,29 +40,25 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             pinned: true,
             automaticallyImplyLeading: false,
             foregroundColor: kTertiaryColour,
-            backgroundColor: kSimpleWhiteColour,
+            backgroundColor: kWhiteColour,
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed("register_description",
-                  extra: widget.userData),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: kPrimaryColour,
-              ),
+              onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
+              icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
-                        style: kRegisterUserPagesStyle,
+                        style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -75,7 +69,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(leftRightPadding),
               child: Column(
                 children: [
                   Text(
@@ -97,8 +91,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                         widget.userData.categorizedInterests = newCategories;
                       });
                     },
-                    selected: widget.userData.categorizedInterests ??
-                        CategorizedInterests(categories: []),
+                    selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
                   ),
                   (couldNotValidateInterests)
                       ? Row(
@@ -108,7 +101,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                                 padding: const EdgeInsets.all(3.0),
                                 child: Text(
                                   "Ensure you have selected at least 1 interest",
-                                  style: kRedTextStyle,
+                                  style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
                                 ),
                               ),
                             ),
@@ -118,13 +111,18 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                   const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
-                    child: ElevatedButton(
+                    child: PillButtonFilled(
+                      text: "Done",
+                      backgroundColor: kTertiaryColour,
+                      textStyle: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: kWhiteColour
+                      ),
                       onPressed: () {
-                        final _interests = widget.userData.flattenedInterests;
+                        final _interests = widget.userData.categorizedInterests?.flattenedInterests;
 
-                        if (_interests == null ||
-                            _interests.length < 1 ||
-                            _interests.length > 10) {
+                        if (_interests == null || _interests.length < 1 || _interests.length > 10) {
                           setState(() {
                             couldNotValidateInterests = true;
                           });
@@ -137,18 +135,6 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
 
                         saveToFirestore();
                       },
-                      child: Text("Done"),
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(kTertiaryColour),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(10.0)),
-                        textStyle: MaterialStateProperty.all(Theme.of(context)
-                            .textTheme
-                            .headline5
-                            ?.apply(fontWeightDelta: 2)),
-                        shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                      ),
                     ),
                   ),
                 ],

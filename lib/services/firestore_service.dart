@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
@@ -31,46 +32,22 @@ class FirestoreService {
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
 
-  void signUpUser(String uid) {
-    final demo = {
-      "dob": DateTime.utc(2000, 07, 20),
-      "firstName": "Amy",
-      "lastName": "Garcia",
-      "university": "King's College London",
-      "gender": "non-binary",
-      "relationshipStatus": "single",
-      "bio": "Hello! This is my bio. This text is rather long, so we can check everything's working.",
-      "interests": ["volunteering", "christian"],
-      "location": {"lat": 51.48, "lon": 0.086},
-      "preferences": {
-        "interests": ["buddhism", "christian", "islam"],
-        "maxAge": 30,
-        "minAge": 18
-      }
-    };
 
-    _firebaseFirestore.collection("users").doc(uid).set(demo);
-  }
-
-
-  // Requests a List of recommended uids from Firebase.
-  static Future<List<String>> getRecommendedUsers(String uid, int recs) async {
+  /// Returns a List of recommended profile ids.
+  static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
-
     final resp = await callable.call(<String, dynamic>{
-      'userId': uid,
+      'uid': uid,
       'recs': recs,
     });
 
-    HashMap raw = HashMap.from(resp.data);
-
-    List<String> uids = List<String>.from(raw['data']);
-    return uids;
+    return List<String>.from(resp.data['data']);
   }
 
-  // Filters all  users based on recommended users' uids.
+  /// Returns a List of [UserData] from a List of profile ids.
   static Future<List<UserData>> getProfileData(String uid, int recs) async {
-    //List<String> uids = await getRecommendedUsers(uid, recs);
+    //List<String> uids = await getRecommendedProfiles(uid, recs);
+
     List<String> uids = [];
 
     CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
@@ -82,14 +59,14 @@ class FirestoreService {
       querySnapshot = await _collectionRef.where(FieldPath.documentId, whereIn: uids).get();
     }
 
-    final users = querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).toList();
-    return users;
+    return querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).toList();
   }
 
-  // Creates Profile Containers from a List of User Data.
+  /// Returns a Queue of [ProfileContainer]s from a List of [UserData].
   static Future<Queue<ProfileContainer>> getProfileContainers(String uid, int recs) async {
     List<UserData> data = await getProfileData(uid, recs);
     Queue<ProfileContainer> containerQueue = Queue();
+
     for (UserData userData in data) {
       containerQueue.add(ProfileContainer(profile: userData));
     }
@@ -127,23 +104,17 @@ class FirestoreService {
     return await _firebaseFirestore.collection("users").doc(userId).set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
-  Future<void> setLike(String? profileId, String userId) async {
-    await _firebaseFirestore.collection("users").doc(userId).set({
-      'likes': firestore.FieldValue.arrayUnion([profileId])
-    }, firestore.SetOptions(merge: true));
+  Future<bool> setLike(String? profileId, String userId) async {
+    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('likeUser');
+    final resp = await callable.call(<String, String>{
+      'profileUserID': profileId.toString(),
+    });
 
-    //query database if profile document contains admirer ID already
-    //then call set match
-  }
+    HashMap raw = HashMap.from(resp.data);
 
-  Future<void> setMatch(String? profileId, String userId) async {
-    await _firebaseFirestore.collection("users").doc(profileId).set({
-      'matches': firestore.FieldValue.arrayUnion([userId])
-    }, firestore.SetOptions(merge: true));
+    bool isMatch = raw['data']['matched'];
 
-    await _firebaseFirestore.collection("users").doc(userId).set({
-      'matches': firestore.FieldValue.arrayUnion([profileId])
-    }, firestore.SetOptions(merge: true));
+    return isMatch;
   }
 
   Future<void> setBio(String userId, String bio) async {
@@ -164,6 +135,13 @@ class FirestoreService {
         .set({"categorizedInterests": interests.toList()}, firestore.SetOptions(merge: true));
   }
 
+  Future<void> setPreferences(String userId, Preferences preferences) async {
+    return await _firebaseFirestore
+        .collection("users")
+        .doc(userId)
+        .set({"preferences": preferences.toMap()}, firestore.SetOptions(merge: true));
+  }
+
   void saveUserData(UserData data) {
     UserState _userState = UserState.instance;
 
@@ -171,8 +149,12 @@ class FirestoreService {
 
     if (uid != null) {
       // The following two lines should probably be done differently, but this way we at least populate something.
-      data.preferences = Preferences(interests: data.categorizedInterests ?? CategorizedInterests(categories: []), maxAge: 50, minAge: 20);
-      data.location = GeoLocation(lat: 50, lon: 0);
+      data.preferences = Preferences(
+        interests: data.categorizedInterests ?? CategorizedInterests(categories: []),
+        genders: [data.gender],
+        maxAge: 50,
+        minAge: 20,
+      );
 
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }

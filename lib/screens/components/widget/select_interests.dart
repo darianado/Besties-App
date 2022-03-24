@@ -4,10 +4,7 @@ import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
-
 import '../../../constants/borders.dart';
 
 class SelectInterests extends StatefulWidget {
@@ -46,10 +43,6 @@ class _SelectInterestsState extends State<SelectInterests> {
             ),
           );
         }
-
-        //categories.first.interests.first.selected = true;
-
-        //widget.initialCategories = syncCategories(widget.initialCategories, possibleCategories);
 
         widget.selected = retainPossible(widget.selected, possible);
         widget.selected = addMissingCategories(widget.selected, possible);
@@ -98,7 +91,6 @@ class _SelectInterestsState extends State<SelectInterests> {
       int? _filterCategoryIndex = filter.categories.indexWhere((e) => e.title.toLowerCase() == category.title.toLowerCase());
 
       if (_filterCategoryIndex == -1) {
-        //_localCategories.categories.remove(category);
         // Concurrency error
       } else {
         category.interests.forEach((interest) {
@@ -174,7 +166,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                               color: kTertiaryColour,
                               label: interest.title,
                               bordered: false,
-                              textColor: Colors.white,
+                              textColor: kSimpleWhiteColour,
                               mini: true,
                               onTap: () {
                                 setState(() {
@@ -250,7 +242,7 @@ class CategoryView extends StatelessWidget {
         width: double.infinity,
         child: Material(
           clipBehavior: Clip.hardEdge,
-          borderRadius: kCircularBorderRadius15,
+          borderRadius: circularBorderRadius15,
           color: kLightTertiaryColour,
           child: InkWell(
             onTap: () => onTap(),
@@ -260,11 +252,12 @@ class CategoryView extends StatelessWidget {
                 child: Column(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          category.title,
-                          style: TextStyle(fontSize: 20),
+                        Expanded(
+                          child: Text(
+                            category.title,
+                            style: TextStyle(fontSize: 20),
+                          ),
                         ),
                         Icon(Icons.arrow_downward),
                       ],
@@ -285,14 +278,14 @@ class CategoryView extends StatelessWidget {
                                       color: kTertiaryColour,
                                       label: e.title,
                                       bordered: false,
-                                      textColor: Colors.white,
+                                      textColor: kSimpleWhiteColour,
                                       mini: true,
                                     ))
                                 .toList(),
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),

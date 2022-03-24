@@ -3,31 +3,21 @@ import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
+
 
 import '../../../constants/borders.dart';
 
 class GStyle {
-  // 消息红点
-  static badge(
-      {Color color = Colors.red,
-      bool isdot = false,
-      double height = 10.0,
-      double width = 10.0}) {
-    return Container(
-      alignment: Alignment.center, height: !isdot ? height : height / 2,
-      width: !isdot ? width : width / 2,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: kCircularBorderRadius100,
-      ),
-      //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
-    );
-  }
+    static badge({Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
+        return Container(
+            alignment: Alignment.center, height: !isdot ? height : height/2, width: !isdot ? width : width/2,
+            decoration: BoxDecoration(
+                color: color,
+                borderRadius: circularBorderRadius100,
+            ),
+            //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
+        );
+    }
 }
 
 class RecentChats extends StatelessWidget {
@@ -63,7 +53,7 @@ class RecentChats extends StatelessWidget {
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
-          color: kChatList,
+            color: Colors.transparent,
         ),
         child: ClipRRect(
           child: ListView.builder(
@@ -78,54 +68,64 @@ class RecentChats extends StatelessWidget {
                         builder: (_) => ChatScreen(receiverEmail)),
                   ),
                   child: Container(
-                    margin: EdgeInsets.only(top: 5, bottom: 5, right: 5),
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: kSymmetricBorderRadius2,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  chat.chatID,
-                                  style: kInactiveSliderStyle,
+                    margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    decoration: const BoxDecoration(
+                        color: kSimpleWhiteColour,
+                        borderRadius: symmetricBorderRadius20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                chat.senderEmail,
+                                style: TextStyle(
+                                  color: kSecondaryColour,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                                Container(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.45,
-                                  child: Text(
-                                    chat.messages[0].text,
-                                    style: kInactiveSliderStyle,
-                                    overflow: TextOverflow.ellipsis,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                child: Text(
+                                  chat.text,
+                                  style: TextStyle(
+                                    color: kSecondaryColour,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                              ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        children: <Widget>[
+                          if (chat.unread) GStyle.badge(),
+                          Text(
+                            chat.time,
+                            style: TextStyle(
+                              color: kGreyColour,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
                             ),
-                          ],
-                        ),
-                        Column(
-                          children: <Widget>[
-                            //if (message.unread) GStyle.badge(),
-                            Text(
-                              chat.messages[0].time,
-                              style: kUnreadTextStyle,
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                        ],
+                      )
+                    ],
                   ),
                 );
               }),

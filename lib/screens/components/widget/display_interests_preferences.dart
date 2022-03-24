@@ -9,9 +9,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
-
-class DisplayInterests extends StatelessWidget {
-  const DisplayInterests({
+class DisplayInterestsPreferences extends StatelessWidget {
+  const DisplayInterestsPreferences({
     Key? key,
     required this.items,
     this.editable = false,

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/constants/textStyles.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
+import '../components/widget/icon_content.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
   RegisterDescriptionScreen({Key? key, required this.userData})
@@ -68,22 +71,23 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(
-                onPressed: () =>
-                    context.goNamed("register_photo", extra: widget.userData),
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: kPrimaryColour,
-                ),
+                onPressed: () => context.goNamed(registerPhotoScreenName,
+                    extra: widget.userData),
+                icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
               ),
               flexibleSpace: Container(
                 width: double.infinity,
                 height: double.infinity,
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(15, 5, 15, 5),
+                  padding: const EdgeInsets.fromLTRB(
+                      leftRightPadding, 5, leftRightPadding, 5),
                   child: Text(
                     '... and a bit more about ${widget.userData.firstName}',
-                    style: kRegisterUserPagesStyle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
                   ),
                 ),
               ),
@@ -93,23 +97,22 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               child: Form(
                 key: _key,
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(leftRightPadding),
                   child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
-                      ),
+                    children: [
+                      SizedBox(height: 20),
                       Row(
                         children: <Widget>[
                           Text(
                             'UNIVERSITY',
-                            style: kRegisterUserComponentsStyle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       UniversityButton(
                         editable: true,
                         shouldExpand: true,
@@ -124,47 +127,49 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           ? Row(
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.all(3.0),
+                                  padding: const EdgeInsets.all(5.0),
                                   child: Text(
                                     "You must fill in this field",
-                                    style: kRedTextStyle,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.apply(color: Colors.red),
                                   ),
                                 ),
                               ],
                             )
                           : Container(),
-                      SizedBox(
-                        height: 40,
-                      ),
+                      SizedBox(height: 40),
                       Row(
-                        children: <Widget>[
+                        children: [
                           Text(
                             'BIO / SHORT DESCRIPTION',
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColour.withOpacity(0.5),
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyLarge
+                                ?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
+                      SizedBox(height: 10),
                       TextFormField(
                           controller: _bio,
                           minLines: 6,
                           maxLength: _contextState.context?.maxBioLength ?? 200,
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
-                          decoration: const InputDecoration(
-                            border: kOutlineBorder,
+                          decoration:  InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(radius10),
+                                borderSide: BorderSide.none
+                            ),
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
                             fillColor: kLightTertiaryColour,
                           ),
-                          onChanged: (value) => widget.userData.bio = value.trim(),
+                          onChanged: (value) =>
+                              widget.userData.bio = value.trim(),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences,
                           validator: (content) {
@@ -174,7 +179,14 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                       SizedBox(height: 35),
                       Container(
                         width: double.infinity,
-                        child: ElevatedButton(
+                        child: PillButtonFilled(
+                          text: "Next",
+                          backgroundColor: kTertiaryColour,
+                          textStyle: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                              color: kWhiteColour
+                          ),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 
@@ -186,24 +198,11 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                             }
                             couldNotValidateUniversity = false;
 
-                            context.goNamed("register_interests",
+                            context.goNamed(registerInterestsScreenName,
                                 extra: widget.userData);
                           },
-                          child: Text("Next"),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(kTertiaryColour),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                                EdgeInsets.all(10.0)),
-                            textStyle: MaterialStateProperty.all(
-                                Theme.of(context)
-                                    .textTheme
-                                    .headline5
-                                    ?.apply(fontWeightDelta: 2)),
-                            shape: MaterialStateProperty.all(kRoundedRectangulareBorder40),
-                            ),
-                          ),
                         ),
+                      ),
                     ],
                   ),
                 ),

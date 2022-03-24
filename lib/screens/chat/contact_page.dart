@@ -5,6 +5,8 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
+
+
 class Contact_Page extends StatefulWidget {
   const Contact_Page({Key? key}) : super(key: key);
 
@@ -13,10 +15,27 @@ class Contact_Page extends StatefulWidget {
 }
 
 class _Contact_PageState extends State<Contact_Page> {
+  List<Chat> chatslist = [];
+
+
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    final currentUser = _userState.user?.user;
+    final currentUser = _userState.user?.user?.email;
+
+    List<Chat> _chats = [];
+
+    Future<void> getChats() async{
+      QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").get();
+      final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+      for ( Chat chat in chats) {
+        if(chat.getUsers().contains(currentUser.toString())){
+          _chats.add(chat);
+        }
+      }
+    }
+
+  getChats();
 
     return Container(
       decoration: const BoxDecoration(

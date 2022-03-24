@@ -1,8 +1,12 @@
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 import '../../../constants/colours.dart';
+
 
 class Contacts extends StatelessWidget {
   @override

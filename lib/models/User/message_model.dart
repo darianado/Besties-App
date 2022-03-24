@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 
 class User {
@@ -9,70 +9,64 @@ class User {
 
   User(this.email, this.name, this.imageUrl);
 
-  String getName(){
-    return name.toString();
-  }
 }
 
 class Message {
-  final _firestore = FirebaseFirestore.instance;
-  void getMessages() async {
-    final messages = await _firestore.collection('messages').get();
-    for (var message in messages.docs){
-      print(message.data());
-    }
-  }
-
-  String senderEmail;
-  //String receiverEmail;
   String time; 
+  String senderEmail;
   String text;
-  bool unread;
   bool mine;
 
   Message (
-    this.senderEmail, 
-    //this.receiverEmail,
     this.time, 
+    this.senderEmail,
     this.text, 
     this.mine,
-    this.unread,
     );
 
-  String getMessageText(){
-    return text;
+  factory Message.fromSnapshot(DocumentSnapshot<Map> doc) {
+    Map? data = doc.data();
+    return Message(
+      data?['time'], data?['senderEmail'], data?['text'], data?['mine'],
+    );
   }
-
-  String getMessageUser(){
-    return senderEmail;
-  }
-
-  String getMessageTime(){
-    return time;
-  }
-
-  void setRead(){
-    unread = false; 
-  }
-
 }
 
-final User currentUser = User ("","Current User", "assets/images/empty_profile_picture.jpg");
-final User firstUser = User ("", "second friend", "assets/images/empty_profile_picture.jpg");
-final User secondUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User thirdUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User fourthUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User fifthUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User sixthUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
+
+
+
+
+
+
+
+final User currentUser = User ("0a4510a940ab4e7da7e2cfd415f79a97", "currentUser user", "assets/images/empty_profile_picture.jpg");
+final User firstUser = User ("011658af179b413fa23239a5bd2ae30c", "first user", "assets/images/empty_profile_picture.jpg");
+final User secondUser = User ("19a3285df1f24110bce7e02127964260", "second friend", "assets/images/empty_profile_picture.jpg");
+final User thirdUser = User ("33e8d598e5fd4685bd2a82fb4b631e77", "third friend", "assets/images/empty_profile_picture.jpg");
+final User fourthUser = User ("37cf8c6851434cd380c7160ff157f689", "fourth friend", "assets/images/empty_profile_picture.jpg");
+final User fifthUser = User ("4aabb3e342ca4498986246d750a14f70", "fifth friend", "assets/images/empty_profile_picture.jpg");
+final User sixthUser = User ("4c1c20e0a02d4f30aa2c0deba02b4b34", "sixth friend", "assets/images/empty_profile_picture.jpg");
 
 List<User> contacts = [firstUser, secondUser, thirdUser, fourthUser, fifthUser, sixthUser];
+List<Message> chats = [];
 
-List<Message> chats = [
-  Message ("secondUser", '1:00pm', "Message 1", true, true),
-  Message ("firstUser", '1:00pm', "Message 1",  false, true),
-  Message ("firstUser", '1:00pm', "Message 1", false, true),
-  Message ("firstUser", '1:00pm', "Message 1", false, true),
-  Message ("firstUser", '1:00pm', "Message 1", true, true),
-  Message ("firstUser", '1:00pm', "Message 1", false, true),
-];
+/*   Future<List<Message>> getChats() async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("messages").get();
+    final chats = querySnapshot.docs.map((doc) => Message.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+    return chats;
+  }
+  void convertMessage() async{
+    chats =  await getChats();
+  }
+
+  Future<List<Message>> getContacts() async{
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("messages").get();
+    final chats = querySnapshot.docs.map((doc) => Message.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
+    return chats;
+  }
+  void convertContacts() async{
+    chats =  await getContacts();
+  }
+ */
+
 

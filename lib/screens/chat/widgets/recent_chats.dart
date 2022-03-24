@@ -1,13 +1,13 @@
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
+
 import '../../../constants/borders.dart';
 
-
 class GStyle {
-    // 消息红点
     static badge({Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
         return Container(
             alignment: Alignment.center, height: !isdot ? height : height/2, width: !isdot ? width : width/2,
@@ -21,12 +21,35 @@ class GStyle {
 }
 
 class RecentChats extends StatelessWidget {
+  final List<Chat> chatList;
+
+  RecentChats(this.chatList);
 
   @override
   Widget build(BuildContext context) {
-    //final _userState = Provider.of<UserState>(context);
-    //final userUrl = _userState.user?.user?.photoURL;
-    
+    final _userState = Provider.of<UserState>(context);
+    final currentUser = _userState.user?.user?.email;
+
+    List<Chat> chatlist = [];
+
+    Future<List<Chat>> getChats() async {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+          .collection(currentUser.toString())
+          .get();
+      final chats = querySnapshot.docs
+          .map((doc) =>
+              Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>))
+          .toList();
+      return chats;
+    }
+
+    void convertList() async {
+      Future<List<Chat>> chat = getChats();
+      chatlist = await chat;
+    }
+
+    convertList();
+
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
@@ -36,13 +59,14 @@ class RecentChats extends StatelessWidget {
           child: ListView.builder(
               itemCount: chats.length,
               itemBuilder: (BuildContext context, int index) {
-                final Message chat = chats[index];
+                final Chat chat = chatlist[index];
+                String receiverEmail = chat.chatID;
                 return GestureDetector(
                   onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => ChatScreen(user: chat.senderEmail))
-                          ),
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => ChatScreen(receiverEmail)),
+                  ),
                   child: Container(
                     margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -103,10 +127,8 @@ class RecentChats extends StatelessWidget {
                       )
                     ],
                   ),
-                ),
-              );
-            }
-          ),
+                );
+              }),
         ),
       ),
     );

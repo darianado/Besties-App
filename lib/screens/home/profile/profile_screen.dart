@@ -16,7 +16,6 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
-
 ///The screen displays the profile of the current user
 ///
 
@@ -52,7 +51,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.only(right: leftRightPadding),
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
+                  onPressed: () => context.goNamed(editProfileScreenName,
+                      params: {pageParameterKey: profileScreenName}),
                   backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
@@ -63,18 +63,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
               ),
             ],
-            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
+            flexibleSpace:
+                CachedImage(url: _userState.user?.userData?.profileImageUrl),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
+              padding: const EdgeInsets.fromLTRB(
+                  leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   SizedBox(height: 15),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(fontWeightDelta: 2),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.apply(fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 15),
@@ -88,9 +93,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
-                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
-                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
+                      DateOfBirthButton(
+                          label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(
+                          label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(
+                          label:
+                              _userState.user?.userData?.relationshipStatus ??
+                                  ""),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -104,13 +114,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(
+                            color: secondaryColour.withOpacity(0.3),
+                            fontWeightDelta: 3),
                       ),
                     ],
                   ),
                   SizedBox(height: 10),
                   DisplayInterests(
-                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
+                    items: _userState.user?.userData?.categorizedInterests
+                            ?.flattenedInterests ??
+                        [],
                   ),
                   SizedBox(height: 25),
                   PillButtonFilled(

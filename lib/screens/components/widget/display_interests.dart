@@ -9,7 +9,6 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
-
 class DisplayInterests extends StatelessWidget {
   const DisplayInterests({
     Key? key,
@@ -28,7 +27,6 @@ class DisplayInterests extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Wrap(
       spacing: 6.0,
       runSpacing: 6.0,
@@ -55,7 +53,7 @@ class DisplayInterests extends StatelessWidget {
       label: label,
       capitalizeLabel: true,
       mini: mini,
-      textColor: simpleWhiteColour,
+      textColor: whiteColour,
       onTap: getOnTap(label, context),
     );
   }
@@ -71,7 +69,8 @@ class DisplayInterests extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogChipDisplay(
-              values: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
+              values: _userState.user?.userData?.categorizedInterests ??
+                  CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

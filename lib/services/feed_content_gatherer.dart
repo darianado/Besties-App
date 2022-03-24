@@ -14,14 +14,11 @@ class FeedContentGatherer {
   final AuthService _authService = AuthService.instance;
 
   FeedContentGatherer._privateConstructor();
-  static final FeedContentGatherer _instance =
-      FeedContentGatherer._privateConstructor();
+  static final FeedContentGatherer _instance = FeedContentGatherer._privateConstructor();
   static FeedContentGatherer get instance => _instance;
 
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
-    HttpsCallable callable =
-        FirebaseFunctions.instanceFor(region: 'europe-west2')
-            .httpsCallable('requestRecommendations');
+    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{
       'uid': userID,
       'recs': amount,
@@ -51,10 +48,7 @@ class FeedContentGatherer {
     for (int si = 0; si < splitUserIDs.length; si++) {
       List<String> slice = splitUserIDs[si];
 
-      final snapshot = await FirebaseFirestore.instance
-          .collection("users")
-          .where(FieldPath.documentId, whereIn: slice)
-          .get();
+      final snapshot = await FirebaseFirestore.instance.collection("users").where(FieldPath.documentId, whereIn: slice).get();
       results.addAll(
         snapshot.docs.map((doc) => UserData.fromSnapshot(doc)).toList(),
       );
@@ -64,9 +58,7 @@ class FeedContentGatherer {
   }
 
   List<Widget> constructWidgetsFromUserData(List<UserData> userDataLst) {
-    return userDataLst
-        .map((e) => ProfileContainer(key: UniqueKey(), profile: e))
-        .toList();
+    return userDataLst.map((e) => ProfileContainer(key: UniqueKey(), profile: e)).toList();
   }
 
   List<Widget> queue = [];
@@ -85,8 +77,7 @@ class FeedContentGatherer {
 
   Future<void> _gatherForQueue(int amount) async {
     gathering = true;
-    final userIDs =
-        await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
+    final userIDs = await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users);
     queue.addAll(widgets);

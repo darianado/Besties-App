@@ -13,8 +13,7 @@ class FeedContentController extends ChangeNotifier {
   ];
 
   FeedContentController._privateConstructor();
-  static final FeedContentController _instance =
-      FeedContentController._privateConstructor();
+  static final FeedContentController _instance = FeedContentController._privateConstructor();
   static FeedContentController get instance => _instance;
 
   FeedContentGatherer _gatherer = FeedContentGatherer.instance;
@@ -23,13 +22,23 @@ class FeedContentController extends ChangeNotifier {
     controller.addListener(() => pageChangeListener(controller));
   }
 
+  bool removalTriggered = false;
+
   void pageChangeListener(PageController controller) async {
     double? page = controller.page;
 
-    if (page != null && page.floor() >= 2) {
+    print("Page number: ${page}");
+
+    if (page != null && page >= 1.65) {
+      print("Triggered removal");
+      removalTriggered = true;
+    }
+
+    if (page != null && (page == 1 || page >= 2) && removalTriggered) {
       removeAtFront(1);
+      removalTriggered = false;
       notifyListeners();
-      controller.jumpToPage(1);
+      controller.jumpToPage(page.toInt() - 1);
 
       await insertAtEnd();
       notifyListeners();
@@ -55,22 +64,19 @@ class FeedContentController extends ChangeNotifier {
   }
 
   void moveLoadingScreenLast() {
-    final index = content.indexWhere(
-        (Widget element) => element.runtimeType == FeedLoadingSheet);
+    final index = content.indexWhere((Widget element) => element.runtimeType == FeedLoadingSheet);
     final loadingScreen = content.removeAt(index);
     content.add(loadingScreen);
   }
 
   // Ensure notifyListeners() is not called immediately.
   void onFeedInitialized() async {
-    removeAll();
-
     await insertAtEnd();
     notifyListeners();
   }
 
   Future<void> refreshContent() async {
-    
+    removeAll();
     await insertAtEnd();
     notifyListeners();
     await Future.delayed(const Duration(milliseconds: 400));
@@ -92,8 +98,7 @@ class FeedLoadingSheet extends StatelessWidget {
               aspectRatio: 1.2,
               child: Container(
                 width: double.infinity,
-                child: Lottie.asset('assets/lotties/searching.json',
-                    fit: BoxFit.cover),
+                child: Lottie.asset('assets/lotties/searching.json', fit: BoxFit.cover),
               ),
             ),
             Text(

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:colorful_safe_area/colorful_safe_area.dart';
@@ -43,9 +44,12 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
     final _feedContentController = Provider.of<FeedContentController>(context);
 
-    //print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
+    //_feedContentController.onFeedInitialized();
+
+    print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
 
     return Container(
       color: kTertiaryColour,
@@ -88,66 +92,12 @@ class _FeedScreenState extends State<FeedScreen> {
         ],
       ),
     );
-
-    /*
-    final _userState = Provider.of<UserState>(context);
-    final uid = _userState.user?.user?.uid;
-
-    if (uid != null) {
-      return FutureBuilder(
-        future: _future,
-        builder: (context, AsyncSnapshot<Queue<ProfileContainer>> snapshot) {
-          displayedContainers = snapshot.data;
-
-          if (displayedContainers != null) {
-            return Container(
-              color: kTertiaryColour,
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  RefreshIndicator(
-                    onRefresh: () => refreshProfileContainers(uid, recs),
-                    child: PageView(
-                      controller: FeedScreen.controller,
-                      scrollDirection: Axis.vertical,
-                      children: displayedContainers!.toList(),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
-                    child: FloatingActionButton(
-                      heroTag: null,
-                      onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
-                      backgroundColor: kTertiaryColour,
-                      child: Icon(
-                        Icons.menu,
-                        color: kWhiteColour,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-                child: CircularProgressIndicator(
-              color: kTertiaryColour,
-            ));
-          }
-        },
-      );
-    } else {
-      return const CircularProgressIndicator(
-        color: kTertiaryColour,
-      );
-    }
-    */
   }
 
   /// Refreshes the profiles by updating the [FutureBuilder]'s future.
   Future<void> refreshProfileContainers(FeedContentController _feedContentController) async {
     await Future.delayed(const Duration(milliseconds: 400));
+    FeedScreen.controller.jumpToPage(0);
     await _feedContentController.refreshContent();
   }
 }

@@ -7,6 +7,7 @@ import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:go_router/go_router.dart';
@@ -112,9 +113,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(height: 40),
                     TextFormField(
                       controller: _email,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: Icon(Icons.email, color: kTertiaryColour),
+                        icon: buildIcons(Icons.email, kTertiaryColour),
                         labelText: 'Email address',
                       ),
                       validator: validateEmail,
@@ -124,9 +125,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _password,
                       obscureText: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: Icon(Icons.lock, color: kTertiaryColour),
+                        icon: buildIcons(Icons.lock, kTertiaryColour),
                         labelText: 'Password',
                       ),
                       validator: validatePassword,
@@ -136,9 +137,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextFormField(
                       controller: _confirmPassword,
                       obscureText: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: Icon(Icons.lock, color: kTertiaryColour),
+                        icon: buildIcons(Icons.lock, kTertiaryColour),
                         labelText: 'Confirm password',
                       ),
                       validator: (value) => validateRepeatedPassword(value, _password.text),
@@ -150,7 +151,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         text: "Register",
                         isLoading: isLoading,
                         backgroundColor: kTertiaryColour,
-                        textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
+                        textStyle: pillButtonFilledTextStyle,
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),

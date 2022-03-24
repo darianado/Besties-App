@@ -15,7 +15,6 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/screens/components/widget/relationship_status.dart';
 
 import '../../constants/borders.dart';
 

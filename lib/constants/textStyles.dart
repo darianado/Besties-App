@@ -183,3 +183,9 @@ const TextStyle kLogInPasswordStyle = TextStyle(
   fontSize: 12,
   color: kWhiteColour,
 );
+
+const TextStyle pillButtonFilledTextStyle = TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w600,
+    color: kWhiteColour
+);

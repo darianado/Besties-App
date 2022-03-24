@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:project_seg/constants/colours.dart';
-import '../../../constants/borders.dart';
-import '../../../constants/textStyles.dart';
 
 class EditDialogTextField extends StatefulWidget {
   String value;

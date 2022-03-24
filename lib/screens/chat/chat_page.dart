@@ -3,10 +3,7 @@ import 'package:project_seg/models/User/message_model.dart';
 import 'package:intl/intl.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../constants/borders.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -66,7 +63,11 @@ class _ChatScreenState extends State<ChatScreen> {
               alignment: Alignment.centerLeft,
               child: Text(
                 message.text,
-                style: kChatTextStyle,
+                style: TextStyle(
+                  color: kWhiteColour,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
             const SizedBox(height: 3),
@@ -74,7 +75,10 @@ class _ChatScreenState extends State<ChatScreen> {
               alignment: Alignment.bottomRight,
               child: Text(
                 message.time,
-                style: kChatTimeStyle,
+                style:  TextStyle(
+                  color: kWhiteColour,
+                  fontSize: 10,
+                ),
               ),
             ),
           ],
@@ -141,7 +145,10 @@ class _ChatScreenState extends State<ChatScreen> {
         backgroundColor: kTertiaryColour,
         title: Text(
           currentUser.toString(),
-          style: kChatAppBarStyle,
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0.0,
         actions: [

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -15,7 +14,6 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/screens/components/widget/relationship_status.dart';
 
 import '../../constants/borders.dart';
 

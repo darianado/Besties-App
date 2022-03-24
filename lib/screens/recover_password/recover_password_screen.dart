@@ -14,7 +14,6 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import '../../constants/borders.dart';
-import '../../constants/textStyles.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);

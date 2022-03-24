@@ -11,7 +11,6 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import '../../../constants/borders.dart';
-import '../../../constants/textStyles.dart';
 import '../../components/widget/icon_content.dart';
 
 class EditPasswordScreen extends StatefulWidget {

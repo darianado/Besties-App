@@ -1,16 +1,12 @@
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import '../../constants/borders.dart';
-import '../../constants/textStyles.dart';
 import '../components/widget/icon_content.dart';
-import 'package:go_router/go_router.dart';
 
 class EmailVerifyScreen extends StatefulWidget {
   const EmailVerifyScreen({Key? key}) : super(key: key);

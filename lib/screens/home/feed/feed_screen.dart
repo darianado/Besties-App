@@ -1,7 +1,5 @@
-import 'dart:collection';
-
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
@@ -9,11 +7,9 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import '../../../models/profile_container.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 
 /// The screen that displays profiles to the user.
 ///
@@ -57,6 +53,7 @@ class _FeedScreenState extends State<FeedScreen> {
         alignment: Alignment.topRight,
         children: [
           RefreshIndicator(
+            displacement: MediaQuery.of(context).padding.top,
             onRefresh: () => refreshProfileContainers(),
             child: PageView(
               physics: const CustomPageViewScrollPhysics(),
@@ -65,16 +62,26 @@ class _FeedScreenState extends State<FeedScreen> {
               children: List<Widget>.of(_feedContentController.content),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 50, right: leftRightPadding),
-            child: FloatingActionButton(
-              heroTag: null,
-              onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
-              backgroundColor: kTertiaryColour,
-              child: Icon(
-                Icons.menu,
-                color: kWhiteColour,
-                size: 30,
+          (Platform.isIOS)
+              ? ColorfulSafeArea(
+                  overflowRules: OverflowRules.all(true),
+                  color: Colors.white.withOpacity(0.5),
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(),
+                )
+              : Container(),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10, right: leftRightPadding),
+              child: FloatingActionButton(
+                heroTag: null,
+                onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
+                backgroundColor: kTertiaryColour,
+                child: Icon(
+                  Icons.menu,
+                  color: kWhiteColour,
+                  size: 30,
+                ),
               ),
             ),
           ),

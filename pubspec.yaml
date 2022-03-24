@@ -68,6 +68,7 @@ dependencies:
   quiver: ^3.0.1+1
   scrollable_positioned_list: ^0.2.3
   custom_refresh_indicator: ^1.0.0
+  colorful_safe_area: ^0.3.0
 
 dev_dependencies:
   flutter_test:
@@ -98,6 +99,7 @@ flutter:
     - assets/lotties/loading-dots.json
     - assets/lotties/forgot-password.json
     - assets/lotties/searching.json
+    - assets/lotties/like.json
     
 
   # An image asset can refer to one or more resolution-specific "variants", see

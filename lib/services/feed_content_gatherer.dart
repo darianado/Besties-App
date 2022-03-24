@@ -18,6 +18,7 @@ class FeedContentGatherer {
   static FeedContentGatherer get instance => _instance;
 
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
+    print("Calling 'requestRecommendations' to get ${amount}.");
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{
       'uid': userID,
@@ -73,12 +74,11 @@ class FeedContentGatherer {
   }
 
   Future<void> _gatherForQueue(int amount) async {
-    print("Beginning to gather...");
+    print("Gathering up to ${amount} profiles from backend.");
     final userIDs = await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
-    print("Got ${userIDs.length} userIDs for users.");
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users);
-    print("Successfully created ${widgets.length} widgets for queue.");
+    print("Successfully inserted ${widgets.length} widgets in queue.");
 
     queue.addAll(widgets);
   }
@@ -88,6 +88,10 @@ class FeedContentGatherer {
       await _gatherForQueue(queueSize);
     }
 
-    return popAmountFromQueue(amount);
+    final result = popAmountFromQueue(amount);
+
+    print("Returning ${result.length} new entries for content");
+
+    return result;
   }
 }

@@ -32,6 +32,10 @@ class FirestoreService {
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
 
+  Stream<firestore.DocumentSnapshot> recommendationsStream(String? userID) {
+    return _firebaseFirestore.collection("users").doc(userID).collection("derived").doc("recommendations").snapshots();
+  }
+
   /// Returns a List of recommended profile ids.
   static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');

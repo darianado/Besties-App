@@ -7,7 +7,7 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
 
-class FeedContentGatherer {
+class FeedContentGatherer extends ChangeNotifier {
   final int queueSize = 10;
   final int batchSize = 10;
 

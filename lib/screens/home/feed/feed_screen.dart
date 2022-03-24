@@ -37,6 +37,7 @@ class _FeedScreenState extends State<FeedScreen> {
   void initState() {
     super.initState();
 
+    final _userState = Provider.of<UserState>(context, listen: false);
     final _feedContent = Provider.of<FeedContentController>(context, listen: false);
     _feedContent.onFeedInitialized();
     _feedContent.assignController(FeedScreen.controller);
@@ -44,10 +45,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
     final _feedContentController = Provider.of<FeedContentController>(context);
-
-    //_feedContentController.onFeedInitialized();
 
     print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
 

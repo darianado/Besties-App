@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:lottie/lottie.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
@@ -32,8 +34,7 @@ class ProfileContainer extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(profile.profileImageUrl ??
-              "assets/images/empty_profile_picture.jpg"),
+          image: NetworkImage(profile.profileImageUrl ?? "assets/images/empty_profile_picture.jpg"),
         ),
       ),
       height: MediaQuery.of(context).size.height,
@@ -79,8 +80,7 @@ class ProfileContainer extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: LikeProfileButton(
-                          profile: profile, userState: _userState),
+                      child: LikeProfileButton(profile: profile, userState: _userState),
                     ),
                   ],
                 ),
@@ -99,8 +99,7 @@ class ProfileContainer extends StatelessWidget {
     Set<String> profileInterests = <String>{};
 
     ///
-    for (Category category
-        in _userState.user!.userData!.categorizedInterests!.categories) {
+    for (Category category in _userState.user!.userData!.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         userInterests.add(interest.title);
       }
@@ -111,8 +110,7 @@ class ProfileContainer extends StatelessWidget {
       }
     }
 
-    dynamic commonInterests =
-        userInterests.intersection(profileInterests).length;
+    dynamic commonInterests = userInterests.intersection(profileInterests).length;
     if (commonInterests == 0) {
       return "NO";
     } else {
@@ -124,14 +122,17 @@ class ProfileContainer extends StatelessWidget {
 /// The [FloatingActionButton] to like the displayed profile.
 ///
 /// The [likeProfile] method is called on-tap
-class LikeProfileButton extends StatelessWidget {
+class LikeProfileButton extends StatefulWidget {
   final UserData profile;
   final UserState userState;
 
-  const LikeProfileButton(
-      {Key? key, required this.profile, required this.userState})
-      : super(key: key);
+  const LikeProfileButton({Key? key, required this.profile, required this.userState}) : super(key: key);
 
+  @override
+  State<LikeProfileButton> createState() => _LikeProfileButtonState();
+}
+
+class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
   /// Likes the displayed profile.
   ///
   /// Updates the database with a [FirestoreService] instance
@@ -139,15 +140,15 @@ class LikeProfileButton extends StatelessWidget {
   void likeProfile(BuildContext context) async {
     final FirestoreService _firestoreService = FirestoreService.instance;
     //store 'boolean ' from firestore service set like
-    bool isMatch = await _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
+    bool isMatch = await _firestoreService.setLike(widget.profile.uid, widget.userState.user!.user!.uid);
 
     if (isMatch) {
       showDialog(
         context: context,
         builder: (BuildContext context) => MatchDialog(
-          otherName: profile.firstName,
-          myImage: userState.user!.userData!.profileImageUrl,
-          otherImage: profile.profileImageUrl,
+          otherName: widget.profile.firstName,
+          myImage: widget.userState.user!.userData!.profileImageUrl,
+          otherImage: widget.profile.profileImageUrl,
         ),
       );
     } else {
@@ -155,7 +156,7 @@ class LikeProfileButton extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("You liked " + (profile.firstName ?? " ") + "!"),
+            title: Text("You liked " + (widget.profile.firstName ?? " ") + "!"),
             actions: [
               TextButton(
                 child: const Text("Dismiss"),
@@ -176,8 +177,12 @@ class LikeProfileButton extends StatelessWidget {
       onPressed: () {
         likeProfile(context);
       },
+      //clipBehavior: Clip.hardEdge,
       backgroundColor: kSecondaryColour,
-      child: buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
+      child: Transform.scale(
+        scale: 1.35,
+        child: Lottie.asset("assets/lotties/like.json", controller: AnimationController(vsync: this, value: 0)),
+      ), //buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
     );
   }
 }
@@ -189,8 +194,7 @@ class LikeProfileButton extends StatelessWidget {
 class PartialProfileDetails extends StatelessWidget {
   final UserData profile;
 
-  const PartialProfileDetails({Key? key, required this.profile})
-      : super(key: key);
+  const PartialProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -201,10 +205,7 @@ class PartialProfileDetails extends StatelessWidget {
         Text(
           profile.firstName ?? " ",
           maxLines: 2,
-          style: Theme.of(context)
-              .textTheme
-              .headline4
-              ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+          style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -218,10 +219,7 @@ class PartialProfileDetails extends StatelessWidget {
           Expanded(
             child: Text(
               profile.university ?? "null",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.apply(color: kSecondaryColour),
+              style: Theme.of(context).textTheme.headline6?.apply(color: kSecondaryColour),
             ),
           ),
         ]),

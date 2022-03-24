@@ -1,17 +1,15 @@
 import 'dart:io';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/storage_service.dart';
+
+import 'package:project_seg/screens/components/widget/icon_content.dart';
+
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
@@ -62,10 +60,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerBasicInfoScreenName, extra: widget.userData),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: kPrimaryColour,
-              ),
+              icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -126,10 +121,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.photo,
-                                        color: kWhiteColour,
-                                      ),
+                                      buildIcons(Icons.photo, kWhiteColour),
                                       SizedBox(
                                         width: 10,
                                       ),
@@ -167,7 +159,11 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                   child: PillButtonFilled(
                     text: "Next",
                     backgroundColor: kTertiaryColour,
-                    textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
+                    textStyle: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        color: kWhiteColour
+                    ),
                     onPressed: () {
                       if (widget.userData.profileImageUrl == null) {
                         setState(() {

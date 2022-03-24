@@ -11,8 +11,8 @@ import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/services/user_state.dart';
-
 import '../models/profile_container.dart';
 
 class FirestoreService {
@@ -31,6 +31,7 @@ class FirestoreService {
         .snapshots()
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
+
 
   /// Returns a List of recommended profile ids.
   static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
@@ -158,4 +159,11 @@ class FirestoreService {
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
+
+
+  void updateMessageList(String chatID, List<Message> messages) {
+    _firebaseFirestore.collection("chats").doc(chatID).set({"messages": messages});
+  }
+
+ 
 }

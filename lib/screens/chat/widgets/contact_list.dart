@@ -1,7 +1,12 @@
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+
+import '../../../constants/colours.dart';
+
 
 class Contacts extends StatelessWidget {
   @override
@@ -18,7 +23,7 @@ class Contacts extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ChatScreen(user: contacts[index]))),
+                        builder: (_) => ChatScreen())),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(
@@ -30,7 +35,11 @@ class Contacts extends StatelessWidget {
                       const SizedBox(height: 6),
                       Text(
                         contacts[index].name,
-                        style: kContactListNamesStyle,
+                        style: TextStyle(
+                          color: kTertiaryColour,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ],
                   ),

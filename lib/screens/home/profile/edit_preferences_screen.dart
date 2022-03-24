@@ -7,13 +7,11 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/screens/components/widget/display_interests_preferences.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
-import '../../../constants/textStyles.dart';
 import '../../../services/user_state.dart';
 import '../../components/widget/display_interests.dart';
 

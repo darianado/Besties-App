@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -12,6 +11,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
+import '../components/widget/icon_content.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
   RegisterDescriptionScreen({Key? key, required this.userData})
@@ -73,10 +73,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               leading: IconButton(
                 onPressed: () => context.goNamed(registerPhotoScreenName,
                     extra: widget.userData),
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: kPrimaryColour,
-                ),
+                icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
               ),
               flexibleSpace: Container(
                 width: double.infinity,
@@ -188,7 +185,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           textStyle: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              color: kWhiteColour
+                          ),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 

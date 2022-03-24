@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:project_seg/screens/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/chat/widgets/recent_chats.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
+//import 'package:project_seg/models/User/Chat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+
+
+
 
 class Contact_Page extends StatefulWidget {
   const Contact_Page({Key? key}) : super(key: key);
@@ -15,11 +21,10 @@ class Contact_Page extends StatefulWidget {
 }
 
 class _Contact_PageState extends State<Contact_Page> {
+
+
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final currentUser = _userState.user?.user;
-
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -44,7 +49,13 @@ class _Contact_PageState extends State<Contact_Page> {
                       padding: EdgeInsets.only(left: 15, bottom: 5),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('Matches', style: kContactListStyle),
+                        child: Text('Matches',
+                            style: TextStyle(
+                          color: kSecondaryColour,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        )),
                       ),
                     ),
                     Contacts(),
@@ -52,7 +63,12 @@ class _Contact_PageState extends State<Contact_Page> {
                       padding: EdgeInsets.only(left: 15, bottom: 5),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('Chats', style: kContactListStyle),
+                        child: Text('Chats', style: TextStyle(
+                          color: kSecondaryColour,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                        )),
                       ),
                     ),
                     RecentChats()

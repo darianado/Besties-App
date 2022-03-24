@@ -23,7 +23,7 @@ class FeedScreen extends StatefulWidget {
   static PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
   static void animateToTop() {
-    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOutCirc);
   }
 
   @override
@@ -54,7 +54,7 @@ class _FeedScreenState extends State<FeedScreen> {
         children: [
           RefreshIndicator(
             displacement: MediaQuery.of(context).padding.top,
-            onRefresh: () => refreshProfileContainers(),
+            onRefresh: () => refreshProfileContainers(_feedContentController),
             child: PageView(
               physics: const CustomPageViewScrollPhysics(),
               controller: FeedScreen.controller,
@@ -146,10 +146,9 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   /// Refreshes the profiles by updating the [FutureBuilder]'s future.
-  Future<void> refreshProfileContainers() async {
+  Future<void> refreshProfileContainers(FeedContentController _feedContentController) async {
     await Future.delayed(const Duration(milliseconds: 400));
-
-    await Future.delayed(const Duration(milliseconds: 400));
+    await _feedContentController.refreshContent();
   }
 }
 

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+
+import '../../constants/colours.dart';
 
 //simple method to show alert
 
@@ -52,15 +56,44 @@ showCalendarAlertDialog(BuildContext context) {
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text("Age restriction"),
-    content: Text("You have to be over 16 to use this app"),
-    actions: [
-      ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        child: const Text("Go back to complete the profile"),
+    title: Text(
+      "Age restriction",
+      style:
+      TextStyle(
+        fontWeight: FontWeight.bold,
+        color: Colors.red,
       ),
+      textAlign: TextAlign.center,
+    ),
+    content: Text(
+        "You have to be over 16 in order to use this app.",
+      style: Theme.of(context).textTheme.bodyText1,
+    ),
+    actions: [
+      Center(
+        child: PillButtonOutlined(
+          text: "Go back to complete the profile",
+          textStyle: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w300,
+              color: secondaryColour,
+          ),
+          color: secondaryColour,
+          onPressed: () {
+            Navigator.of(context).pop();
+            },
+          )
+        )
+        // ElevatedButton(
+        //   onPressed: () {
+        //     Navigator.of(context).pop();
+        //   },
+        //   child: const Text(
+        //       "Go back to complete the profile",
+        //     textAlign: TextAlign.center,
+        //   ),
+        // ),
+
     ],
   );
 

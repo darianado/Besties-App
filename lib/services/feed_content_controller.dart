@@ -4,6 +4,8 @@ import 'package:lottie/lottie.dart';
 import 'package:project_seg/services/feed_content_gatherer.dart';
 
 class FeedContentController extends ChangeNotifier {
+  final _desiredFeedContentLength = 5;
+
   List<Widget> content = [
     FeedLoadingSheet(
       key: UniqueKey(),
@@ -24,14 +26,12 @@ class FeedContentController extends ChangeNotifier {
     double? page = controller.page;
 
     if (page != null && page.floor() >= 2) {
-      print("==============================");
       removeAtFront(1);
       notifyListeners();
       controller.jumpToPage(1);
 
-      await insertAtEnd(1);
+      await insertAtEnd();
       notifyListeners();
-      print("==============================");
     }
   }
 
@@ -41,15 +41,25 @@ class FeedContentController extends ChangeNotifier {
     }
   }
 
-  Future<void> insertAtEnd(int amount) async {
-    final lastElement = content.removeLast();
-    content.addAll(await _gatherer.gather(amount));
-    content.add(lastElement);
+  Future<void> insertAtEnd() async {
+    final amount = _desiredFeedContentLength - (content.length - 1);
+    print("Requesting: ${_desiredFeedContentLength} - ${(content.length - 1)} = ${amount} new widgets");
+    final entries = await _gatherer.gather(amount);
+    final beforeLength = content.length;
+    content.addAll(entries);
+    print("Content: ${beforeLength} + ${entries.length} = ${content.length}");
+    moveLoadingScreenLast();
+  }
+
+  void moveLoadingScreenLast() {
+    final index = content.indexWhere((Widget element) => element.runtimeType == FeedLoadingSheet);
+    final loadingScreen = content.removeAt(index);
+    content.add(loadingScreen);
   }
 
   // Ensure notifyListeners() is not called immediately.
   void onFeedInitialized() async {
-    await insertAtEnd(5);
+    await insertAtEnd();
     notifyListeners();
   }
 }

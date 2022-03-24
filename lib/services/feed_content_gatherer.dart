@@ -8,7 +8,7 @@ import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
 
 class FeedContentGatherer {
-  final int queueSize = 20;
+  final int queueSize = 10;
   final int batchSize = 10;
 
   final AuthService _authService = AuthService.instance;
@@ -16,8 +16,6 @@ class FeedContentGatherer {
   FeedContentGatherer._privateConstructor();
   static final FeedContentGatherer _instance = FeedContentGatherer._privateConstructor();
   static FeedContentGatherer get instance => _instance;
-
-  bool gotten = false;
 
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
     print("Calling 'requestRecommendations' to get ${amount}.");
@@ -27,11 +25,7 @@ class FeedContentGatherer {
       'recs': amount,
     });
 
-    if (!gotten) {
-      //await Future.delayed(Duration(seconds: 10));
-    } else {
-      gotten = true;
-    }
+    await Future.delayed(Duration(seconds: 12));
 
     return List<String>.from(resp.data['data']);
   }
@@ -65,13 +59,15 @@ class FeedContentGatherer {
   }
 
   List<Widget> constructWidgetsFromUserData(List<UserData> userDataLst) {
-    return userDataLst.map((e) => ProfileContainer(profile: e)).toList();
+    return userDataLst.map((e) => ProfileContainer(key: UniqueKey(), profile: e)).toList();
   }
 
   List<Widget> queue = [];
+  bool gathering = false;
 
   List<Widget> popAmountFromQueue(int amount) {
     int actualAmount = min(amount, queue.length);
+    print("Popping: min(${amount},${queue.length}) = ${actualAmount}");
 
     List<Widget> result = [];
     for (int i = 0; i < actualAmount; i++) {
@@ -82,22 +78,25 @@ class FeedContentGatherer {
   }
 
   Future<void> _gatherForQueue(int amount) async {
+    gathering = true;
     final userIDs = await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users);
-
     queue.addAll(widgets);
+    gathering = false;
   }
 
   Future<List<Widget>> gather(int amount) async {
-    if (queue.length <= queueSize) {
-      await _gatherForQueue(queueSize);
+    if (queue.length <= queueSize && !gathering) {
+      _gatherForQueue(queueSize);
+      //print("Done filling queue");
     }
 
     final beforeLength = queue.length;
     final result = popAmountFromQueue(amount);
     print("Queue: ${beforeLength} - ${result.length} = ${queue.length}");
 
+    //print("Done gathering");
     return result;
   }
 }

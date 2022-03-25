@@ -35,16 +35,12 @@ dialogContent(BuildContext context, String? matchName, String? myImage,
       //...bottom card part,
       Container(
         padding: const EdgeInsets.fromLTRB(
-          Consts.padding,
-          Consts.avatarRadius + 20,
-          Consts.padding,
-          Consts.padding,
-        ),
-        margin: const EdgeInsets.only(top: Consts.avatarRadius),
+            Consts.padding, 70, Consts.padding, Consts.padding),
+        margin: const EdgeInsets.only(top: 70),
         decoration: BoxDecoration(
           color: whiteColour,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(Consts.padding),
+          borderRadius: BorderRadius.circular(30),
           boxShadow: const [
             BoxShadow(
               color: Colors.black26,
@@ -78,26 +74,66 @@ dialogContent(BuildContext context, String? matchName, String? myImage,
           ],
         ),
       ),
-
-      //...top circlular image part,
-      Positioned(
-        left: Consts.padding,
-        right: Consts.padding - 110,
-        child: CircleAvatar(
-          backgroundImage: NetworkImage(
-              myImage ?? "assets/images/empty_profile_picture.jpg"),
-          radius: Consts.avatarRadius,
-        ),
-      ),
-
-      Positioned(
-        left: Consts.padding - 110,
-        right: Consts.padding,
-        child: CircleAvatar(
-          backgroundImage: NetworkImage(
-              otherImage ?? "assets/images/empty_profile_picture.jpg"),
-          radius: Consts.avatarRadius,
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          //...top left circlular image part
+          Positioned(
+            left: Consts.padding - 110,
+            right: Consts.padding,
+            child: Stack(
+              children: [
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: whiteColour.withOpacity(0.4),
+                  ),
+                ),
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(otherImage ??
+                          "assets/images/empty_profile_picture.jpg"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          //...top right circlular image part
+          Positioned(
+            left: Consts.padding - 110,
+            right: Consts.padding,
+            child: Stack(
+              children: [
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: whiteColour.withOpacity(0.4),
+                  ),
+                ),
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          myImage ?? "assets/images/empty_profile_picture.jpg"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     ],
   );
@@ -106,6 +142,6 @@ dialogContent(BuildContext context, String? matchName, String? myImage,
 class Consts {
   Consts._();
 
-  static const double padding = 50.0;
-  static const double avatarRadius = 75.0;
+  static const double padding = 40.0;
+  static const double avatarRadius = 125.0;
 }

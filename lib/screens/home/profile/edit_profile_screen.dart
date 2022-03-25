@@ -22,6 +22,9 @@ import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -63,7 +66,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    const double profileHeaderExtendedHeight = 430;
+    const double profileHeaderExtendedHeight = 350;
     const double profileHeaderCollapsedHeight = 220;
 
     _uniController.text = _userState.user?.userData?.university ?? "";
@@ -84,13 +87,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: const EdgeInsets.only(right: leftRightPadding),
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+                  onPressed: () => context.goNamed(homeScreenName,
+                      params: {pageParameterKey: profileScreenName}),
                   backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
-                    Icons.done,
+                    FontAwesomeIcons.check,
                     color: whiteColour,
-                    size: 30,
+                    size: 22,
                   ),
                 ),
               ),
@@ -121,7 +125,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 alignment: Alignment.center,
                                 child: Text(
                                   "EDIT",
-                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.apply(color: whiteColour),
                                 ),
                               ),
                             ],
@@ -140,7 +147,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(color: tertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline3?.apply(
+                        color: tertiaryColour.withOpacity(0.2),
+                        fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 15),
@@ -194,7 +203,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(
+                            color: secondaryColour.withOpacity(0.3),
+                            fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -210,25 +221,21 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             ?.flattenedInterests ??
                         [],
                   ),
-                  OutlinedButton(
+                  SizedBox(height: 20),
+                  PillButtonOutlined(
+                    text: "Delete account",
+                    expandsWidth: true,
+                    color: Colors.red,
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.apply(color: Colors.red),
+                    icon: const Icon(
+                      FontAwesomeIcons.ban,
+                      color: Colors.red,
+                      size: 18,
+                    ),
                     onPressed: () => {_showDialog()},
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: Colors.red.shade100),
-                      primary: Colors.red,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          FontAwesomeIcons.ban,
-                          size: 18,
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Text("Delete account"),
-                      ],
-                    ),
                   ),
                 ],
               ),
@@ -246,63 +253,96 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Delete account'),
+          title: Center(
+            child: Text(
+              'Delete account',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  ?.apply(fontWeightDelta: 2),
+            ),
+          ),
           content: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Column(
-                children: <Widget>[
-                  Text('Confirm Password:'),
-                  TextFormField(
-                    controller: _password,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: UnderlineInputBorder(),
-                      icon: Icon(
-                        Icons.lock,
-                        color: primaryColour,
-                      ),
-                      labelText: 'Password',
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Confirm Password',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: tertiaryColour.withOpacity(0.1),
                     ),
-                    validator: validatePassword,
-                    textInputAction: TextInputAction.next,
+                    child: TextFormField(
+                      controller: _password,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(
+                          Icons.lock,
+                          color: tertiaryColour,
+                        ),
+                        labelText: 'Password',
+                      ),
+                      validator: validatePassword,
+                      textInputAction: TextInputAction.next,
+                    ),
                   ),
-                  Text('Are you sure you want to leave us?'),
-                  Text('All your details will be delated!'),
-
-
-                  TextButton(
-                    child: Text('Confirm'),
-                    onPressed: () {
-                      if (((_formKey.currentState as FormState).validate()) == true) {
-                        _deleteUser(_password.text);
-                        }
-                    },
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Are you sure you want to leave us? \n All your details will be deleted!',
+                    textAlign: TextAlign.center,
                   ),
-                TextButton(
-                  child: Text('Cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-
-
-
-
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          'Cancel',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.apply(color: Colors.grey),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      PillButtonFilled(
+                        text: "Delete",
+                        backgroundColor: Colors.red,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.apply(color: whiteColour),
+                        onPressed: () {
+                          if (((_formKey.currentState as FormState)
+                                  .validate()) ==
+                              true) {
+                            _deleteUser(_password.text);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
           ),
-          // actions: <Widget>[
-            
-          // ],
         );
       },
     );
   }
 
-
-   _deleteUser(String password) async {
+  _deleteUser(String password) async {
     try {
       await _authService.deleteAccount(password);
     } on FirebaseAuthException catch (e) {

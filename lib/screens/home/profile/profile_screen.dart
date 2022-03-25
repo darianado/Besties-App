@@ -32,7 +32,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final _userState = Provider.of<UserState>(context);
 
     //const double profileImageRadius = 100;
-    const double profileHeaderExtendedHeight = 430;
+    const double profileHeaderExtendedHeight = 350;
     const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
@@ -56,9 +56,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
-                    Icons.edit,
+                    FontAwesomeIcons.pen,
                     color: whiteColour,
-                    size: 30,
+                    size: 22,
                   ),
                 ),
               ),
@@ -69,11 +69,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  leftRightPadding, 15, leftRightPadding, 15),
+              padding: const EdgeInsets.only(
+                  left: leftRightPadding, right: leftRightPadding, bottom: 15),
               child: Column(
                 children: [
-                  SizedBox(height: 15),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
                     style: Theme.of(context)
@@ -130,9 +129,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   PillButtonFilled(
                     text: "Change password",
                     expandsWidth: true,
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.apply(color: whiteColour),
                     backgroundColor: tertiaryColour,
                     icon: Icon(
                       FontAwesomeIcons.lock,
+                      color: whiteColour,
                       size: 18.0,
                     ),
                     onPressed: () => context.pushNamed(
@@ -144,7 +148,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     text: "Sign out",
                     expandsWidth: true,
                     color: Colors.red,
-                    textStyle: TextStyle(color: Colors.red),
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.apply(color: Colors.red),
                     icon: Icon(
                       FontAwesomeIcons.signOutAlt,
                       color: Colors.red,

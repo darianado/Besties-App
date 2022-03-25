@@ -8,14 +8,18 @@ class PickAndCropImage {
   final ImagePicker _picker = ImagePicker();
 
   Future<String?> pickImage(String uid) async {
-    XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
+    XFile? file = await _picker.pickImage(
+        source: ImageSource.gallery,
+        maxHeight: 800,
+        maxWidth: 800,
+        imageQuality: 90);
     if (file == null) return null;
 
     File? f = File(file.path);
     f = await ImageCropper().cropImage(
       sourcePath: file.path,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1.5),
-      aspectRatioPresets: [CropAspectRatioPreset.ratio5x4],
+      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      aspectRatioPresets: [CropAspectRatioPreset.square],
     );
 
     String? url = await StorageService.instance.changeUserPhoto(uid, f);

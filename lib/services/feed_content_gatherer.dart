@@ -109,12 +109,6 @@ class FeedContentGatherer extends ChangeNotifier {
     return popAmountFromQueue(amount);
   }
 
-  void removeContentOfUser(String? userID) {
-    //final oldLength = queue.length;
-    //queue.removeWhere((ProfileContainer element) => element.profile.userData.uid == userID);
-    //print("Removing liked user: ${userID}. There was ${oldLength} in queue, now there is ${queue.length}");
-  }
-
   void removeAll() {
     queue.clear();
   }

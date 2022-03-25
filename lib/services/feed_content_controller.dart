@@ -33,7 +33,6 @@ class FeedContentController extends ChangeNotifier {
     controller.addListener(() => pageChangeListener(controller));
     _gatherer = FeedContentGatherer(onLikeComplete: (likedUser) {
       controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
-      _gatherer?.removeContentOfUser(likedUser.uid);
     });
   }
 

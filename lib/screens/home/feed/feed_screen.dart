@@ -76,14 +76,12 @@ class _FeedScreenState extends State<FeedScreen> {
               children: List<Widget>.of(_feedContentController.content),
             ),
           ),
-          (Platform.isIOS)
-              ? ColorfulSafeArea(
-                  overflowRules: OverflowRules.all(true),
-                  color: Colors.white.withOpacity(0.5),
-                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                  child: Container(),
-                )
-              : Container(),
+          ColorfulSafeArea(
+            overflowRules: OverflowRules.all(true),
+            color: Colors.white.withOpacity(0.5),
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Container(),
+          ),
           SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(

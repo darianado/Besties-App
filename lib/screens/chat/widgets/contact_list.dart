@@ -42,14 +42,13 @@ class Contacts extends StatelessWidget {
           break;
         }
       }
-      if(chatID == ''){
+      if(chatID==''){
         DateTime now = DateTime.now();
         String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
         Message message = Message(time, currentUser, "Hello, i am your friend. We can start chat now", true, false);
-        List<Message> messages = [];
-        messages.add(message);
-      final newChat = {"messages" :  messages};
-      FirebaseFirestore.instance.collection("chats").add(newChat);
+        List<Message> _messages = [];
+        _messages.add(message);
+        FirebaseFirestore.instance.collection("chats").add({"messages": _messages});
       }
     }
 

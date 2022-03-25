@@ -162,7 +162,7 @@ class FirestoreService {
 
 
   void updateMessageList(String chatID, List<Message> messages) {
-    _firebaseFirestore.collection("chats").doc(chatID).set({"messages": messages});
+    _firebaseFirestore.collection("chats").doc(chatID).set({"messages": messages}, firestore.SetOptions(merge: true));
   }
 
  

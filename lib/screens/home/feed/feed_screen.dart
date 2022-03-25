@@ -86,7 +86,8 @@ class _FeedScreenState extends State<FeedScreen> {
               : Container(),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(right: leftRightPadding),
+              padding: const EdgeInsets.only(
+                  top: leftRightPadding, right: leftRightPadding),
               child: Container(
                 decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                   BoxShadow(

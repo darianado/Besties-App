@@ -7,13 +7,15 @@ import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
+import 'package:project_seg/services/user_state.dart';
 
 class FeedContentGatherer extends ChangeNotifier {
-  final int queueSize = 10;
-  final int batchSize = 10;
-  final Function onLikeComplete;
+  final int queueSize = 10; // Determines the threshold where the app will fetch users from the backend.
+  final int batchSize = 10; // Determines how many splits we make when fetching profiles using array of userIDs
+  final Function(UserData) onLikeComplete;
 
   final AuthService _authService = AuthService.instance;
+  final UserState _userState = UserState.instance;
 
   FeedContentGatherer({required this.onLikeComplete});
 
@@ -25,9 +27,13 @@ class FeedContentGatherer extends ChangeNotifier {
       'recs': amount,
     });
 
+    final result = List<String>.from(resp.data['data']);
+
+    result.removeWhere((element) => _userState.user?.userData?.likes?.contains(element) ?? false);
+
     //await Future.delayed(Duration(seconds: 12));
 
-    return List<String>.from(resp.data['data']);
+    return result;
   }
 
   List<List<String>> split(List<String> lst, int size) {
@@ -61,23 +67,23 @@ class FeedContentGatherer extends ChangeNotifier {
     return results;
   }
 
-  List<Widget> constructWidgetsFromUserData(List<OtherUser> userDataLst, Function onLikeComplete) {
+  List<ProfileContainer> constructWidgetsFromUserData(List<OtherUser> userDataLst, Function onLikeComplete) {
     return userDataLst
         .map((e) => ProfileContainer(
               key: UniqueKey(),
               profile: e,
-              onLikeComplete: onLikeComplete,
+              onLikeComplete: () => onLikeComplete(e.userData),
             ))
         .toList();
   }
 
-  List<Widget> queue = [];
+  List<ProfileContainer> queue = [];
   bool gathering = false;
 
-  List<Widget> popAmountFromQueue(int amount) {
+  List<ProfileContainer> popAmountFromQueue(int amount) {
     int actualAmount = min(amount, queue.length);
 
-    List<Widget> result = [];
+    List<ProfileContainer> result = [];
     for (int i = 0; i < actualAmount; i++) {
       result.add(queue.removeAt(0));
     }
@@ -91,19 +97,22 @@ class FeedContentGatherer extends ChangeNotifier {
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users, onLikeComplete);
     queue.addAll(widgets);
+    print("Queue: ${queue.length}");
     gathering = false;
   }
 
   Future<List<Widget>> gather(int amount) async {
     if (queue.length <= queueSize && !gathering) {
       await _gatherForQueue(queueSize);
-      //print("Done filling queue");
     }
 
-    final result = popAmountFromQueue(amount);
+    return popAmountFromQueue(amount);
+  }
 
-    //print("Done gathering");
-    return result;
+  void removeContentOfUser(String? userID) {
+    //final oldLength = queue.length;
+    //queue.removeWhere((ProfileContainer element) => element.profile.userData.uid == userID);
+    //print("Removing liked user: ${userID}. There was ${oldLength} in queue, now there is ${queue.length}");
   }
 
   void removeAll() {

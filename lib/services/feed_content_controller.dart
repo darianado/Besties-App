@@ -31,8 +31,9 @@ class FeedContentController extends ChangeNotifier {
 
   void assignController(PageController controller) {
     controller.addListener(() => pageChangeListener(controller));
-    _gatherer = FeedContentGatherer(onLikeComplete: () {
+    _gatherer = FeedContentGatherer(onLikeComplete: (likedUser) {
       controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+      _gatherer?.removeContentOfUser(likedUser.uid);
     });
   }
 
@@ -67,11 +68,13 @@ class FeedContentController extends ChangeNotifier {
   }
 
   Future<void> insertAtEnd() async {
-    if (_desiredFeedContentLength > (content.length - 1)) {
+    if (_desiredFeedContentLength - 2 > (content.length - 1)) {
+      print("Requesting new content");
       final entries = await _gatherer?.gather(_desiredFeedContentLength);
       if (entries != null) content.addAll(entries);
       moveLoadingScreenLast();
     }
+    print("Content: ${(content.length - 1)}");
   }
 
   void moveLoadingScreenLast() {

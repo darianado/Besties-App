@@ -1,11 +1,14 @@
 import 'dart:collection';
 import 'dart:convert';
+
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
+import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
@@ -17,6 +20,7 @@ import '../models/profile_container.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  final int batchSize = 10; // Determines how many splits we make when fetching profiles using array of userIDs
 
   FirestoreService._privateConstructor();
 
@@ -38,6 +42,53 @@ class FirestoreService {
 
   Stream<AppContext> appContext() {
     return _firebaseFirestore.collection("app").doc("context").snapshots().map((snapshot) => AppContext.fromSnapshot(snapshot));
+  }
+
+  List<List<String>> split(List<String> lst, int size) {
+    List<List<String>> results = [];
+
+    for (var i = 0; i < lst.length; i += size) {
+      final end = (i + size < lst.length) ? i + size : lst.length;
+      results.add(lst.sublist(i, end));
+    }
+
+    return results;
+  }
+
+  Future<List<OtherUser>> getUsers(List<String> userIDs) async {
+    List<List<String>> splitUserIDs = split(userIDs, batchSize);
+
+    List<OtherUser> results = [];
+
+    for (int si = 0; si < splitUserIDs.length; si++) {
+      List<String> slice = splitUserIDs[si];
+
+      final snapshot = await FirebaseFirestore.instance.collection("users").where(FieldPath.documentId, whereIn: slice).get();
+      results.addAll(
+        snapshot.docs.map((doc) {
+          final userData = UserData.fromSnapshot(doc);
+          return OtherUser(liked: false, userData: userData);
+        }).toList(),
+      );
+    }
+
+    return results;
+  }
+
+  Stream<List<String>> fetchMatches(String userID) {
+    final streamOne = _firebaseFirestore
+        .collection("matches")
+        .where("uid1", isEqualTo: userID)
+        .snapshots()
+        .map((QuerySnapshot snapshot) => snapshot.docs.map((e) => e['uid2'] as String).toList());
+    final streamTwo = _firebaseFirestore
+        .collection("matches")
+        .where("uid2", isEqualTo: userID)
+        .snapshots()
+        .map((QuerySnapshot snapshot) => snapshot.docs.map((e) => e['uid1'] as String).toList());
+
+    //return streamTwo;
+    return StreamGroup.merge([streamOne, streamTwo]).asBroadcastStream();
   }
 
   Future<CategorizedInterests> fetchInterests() async {

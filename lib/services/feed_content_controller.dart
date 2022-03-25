@@ -26,11 +26,14 @@ class FeedContentController extends ChangeNotifier {
   static final FeedContentController _instance = FeedContentController._privateConstructor();
   static FeedContentController get instance => _instance;
 
-  FeedContentGatherer _gatherer = FeedContentGatherer.instance;
+  FeedContentGatherer? _gatherer;
   final FirestoreService _firestoreService = FirestoreService.instance;
 
   void assignController(PageController controller) {
     controller.addListener(() => pageChangeListener(controller));
+    _gatherer = FeedContentGatherer(onLikeComplete: () {
+      controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+    });
   }
 
   bool removalTriggered = false;
@@ -65,8 +68,8 @@ class FeedContentController extends ChangeNotifier {
 
   Future<void> insertAtEnd() async {
     if (_desiredFeedContentLength > (content.length - 1)) {
-      final entries = await _gatherer.gather(_desiredFeedContentLength);
-      content.addAll(entries);
+      final entries = await _gatherer?.gather(_desiredFeedContentLength);
+      if (entries != null) content.addAll(entries);
       moveLoadingScreenLast();
     }
   }
@@ -82,11 +85,11 @@ class FeedContentController extends ChangeNotifier {
     final RecommendationsState _recState = RecommendationsState(_authService.currentUser!);
 
     _recState.addListener(() async {
-      print("Queue changed!");
+      //print("Queue changed!");
       print(_recState.currentQueueID);
-      _gatherer.removeAll();
       removeAll();
       if (!_recState.loadingRecommendations) {
+        _gatherer?.removeAll();
         await insertAtEnd();
       }
       notifyListeners();

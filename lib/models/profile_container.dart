@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:lottie/lottie.dart';
+import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
@@ -21,9 +24,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 /// a modal bottom sheet that contains [SlidingProfileDetails]
 /// and a [LikeProfileButton].
 class ProfileContainer extends StatelessWidget {
-  final UserData profile;
+  final OtherUser profile;
+  final Function onLikeComplete;
 
-  const ProfileContainer({Key? key, required this.profile}) : super(key: key);
+  const ProfileContainer({
+    Key? key,
+    required this.profile,
+    required this.onLikeComplete,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +40,7 @@ class ProfileContainer extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(profile.profileImageUrl ??
-              "assets/images/empty_profile_picture.jpg"),
+          image: NetworkImage(profile.userData.profileImageUrl ?? "assets/images/empty_profile_picture.jpg"),
         ),
       ),
       height: MediaQuery.of(context).size.height,
@@ -59,14 +66,14 @@ class ProfileContainer extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   showModalBottomSheet(
-                    shape:  RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                          top: radius20,
-                        ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: radius20,
+                      ),
                     ),
                     context: context,
                     builder: (context) => SlidingProfileDetails(
-                      profile: profile,
+                      profile: profile.userData,
                       commonInterests: getCommonInterests(_userState),
                     ),
                   );
@@ -78,13 +85,15 @@ class ProfileContainer extends StatelessWidget {
                     Expanded(
                       flex: 5,
                       child: PartialProfileDetails(
-                        profile: profile,
+                        profile: profile.userData,
                       ),
                     ),
                     Expanded(
                       flex: 1,
                       child: LikeProfileButton(
-                          profile: profile, userState: _userState),
+                        profile: profile,
+                        onLikeComplete: onLikeComplete,
+                      ),
                     ),
                   ],
                 ),
@@ -103,20 +112,18 @@ class ProfileContainer extends StatelessWidget {
     Set<String> profileInterests = <String>{};
 
     ///
-    for (Category category
-        in _userState.user!.userData!.categorizedInterests!.categories) {
+    for (Category category in _userState.user!.userData!.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         userInterests.add(interest.title);
       }
     }
-    for (Category category in profile.categorizedInterests!.categories) {
+    for (Category category in profile.userData.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         profileInterests.add(interest.title);
       }
     }
 
-    dynamic commonInterests =
-        userInterests.intersection(profileInterests).length;
+    dynamic commonInterests = userInterests.intersection(profileInterests).length;
     if (commonInterests == 0) {
       return "NO";
     } else {
@@ -128,60 +135,61 @@ class ProfileContainer extends StatelessWidget {
 /// The [FloatingActionButton] to like the displayed profile.
 ///
 /// The [likeProfile] method is called on-tap
-class LikeProfileButton extends StatelessWidget {
-  final UserData profile;
-  final UserState userState;
+class LikeProfileButton extends StatefulWidget {
+  final OtherUser profile;
+  final Function onLikeComplete;
 
-  const LikeProfileButton(
-      {Key? key, required this.profile, required this.userState})
-      : super(key: key);
+  const LikeProfileButton({
+    Key? key,
+    required this.profile,
+    required this.onLikeComplete,
+  }) : super(key: key);
 
-  /// Likes the displayed profile.
-  ///
-  /// Updates the database with a [FirestoreService] instance
-  /// and generates an [AlertDialog] or a [MatchDialog] if there is a match
-  void likeProfile(BuildContext context) async {
-    final FirestoreService _firestoreService = FirestoreService.instance;
-    //store 'boolean ' from firestore service set like
-    bool isMatch = await _firestoreService.setLike(profile.uid, userState.user!.user!.uid);
+  @override
+  State<LikeProfileButton> createState() => _LikeProfileButtonState();
+}
 
-    if (isMatch) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => MatchDialog(
-          otherName: profile.firstName,
-          myImage: userState.user!.userData!.profileImageUrl,
-          otherImage: profile.profileImageUrl,
-        ),
-      );
-    } else {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("You liked " + (profile.firstName ?? " ") + "!"),
-            actions: [
-              TextButton(
-                child: const Text("Dismiss"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
+class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
+  final FirestoreService _firestoreService = FirestoreService.instance;
+
+  final notLikedValue = 0.0;
+  final likedValue = 1.0;
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+
+    bool isLiked = _userState.user?.userData?.likes?.contains(widget.profile.userData.uid) ?? false;
+
+    final _animationController = AnimationController(vsync: this, value: (isLiked) ? likedValue : notLikedValue);
+
     return FloatingActionButton(
-      onPressed: () {
-        likeProfile(context);
+      onPressed: () async {
+        if (!isLiked) {
+          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 800));
+
+          widget.onLikeComplete();
+
+          bool isMatch = await _firestoreService.setLike(widget.profile.userData.uid);
+
+          if (isMatch) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) => MatchDialog(
+                otherName: widget.profile.userData.firstName,
+                myImage: _userState.user?.userData?.profileImageUrl,
+                otherImage: widget.profile.userData.profileImageUrl,
+              ),
+            );
+          }
+        }
       },
+      //clipBehavior: Clip.hardEdge,
       backgroundColor: secondaryColour,
-      child: buildIcons(Icons.thumb_up_off_alt_rounded, whiteColour),
+      child: Transform.scale(
+        scale: 1.35,
+        child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
+      ), //buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
     );
   }
 }
@@ -193,8 +201,7 @@ class LikeProfileButton extends StatelessWidget {
 class PartialProfileDetails extends StatelessWidget {
   final UserData profile;
 
-  const PartialProfileDetails({Key? key, required this.profile})
-      : super(key: key);
+  const PartialProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -205,10 +212,7 @@ class PartialProfileDetails extends StatelessWidget {
         Text(
           profile.firstName ?? " ",
           maxLines: 2,
-          style: Theme.of(context)
-              .textTheme
-              .headline4
-              ?.apply(color: secondaryColour, fontWeightDelta: 2),
+          style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -222,10 +226,7 @@ class PartialProfileDetails extends StatelessWidget {
           Expanded(
             child: Text(
               profile.university ?? "null",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.apply(color: secondaryColour),
+              style: Theme.of(context).textTheme.headline6?.apply(color: secondaryColour),
             ),
           ),
         ]),

@@ -1,14 +1,18 @@
 import 'dart:collection';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import '../../../models/profile_container.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 
 /// The screen that displays profiles to the user.
 ///
@@ -19,12 +23,10 @@ import 'package:project_seg/constants/colours.dart';
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
 
-  static PageController controller =
-      PageController(viewportFraction: 1, keepPage: true);
+  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
   static void animateToTop() {
-    controller.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.ease);
+    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOutCirc);
   }
 
   @override
@@ -33,96 +35,91 @@ class FeedScreen extends StatefulWidget {
 
 /// The State for the [FeedScreen] widget.
 class _FeedScreenState extends State<FeedScreen> {
-  Queue<ProfileContainer>? displayedContainers = Queue();
-  Future<Queue<ProfileContainer>>? _future;
-  final int recs = 10;
-  double? currentPageValue = 0.0;
-
   @override
   void initState() {
     super.initState();
 
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final String uid = auth.currentUser!.uid;
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final _feedContent = Provider.of<FeedContentController>(context, listen: false);
+    _feedContent.onFeedInitialized();
+    _feedContent.assignController(FeedScreen.controller);
+  }
 
-    _future = FirestoreService.getProfileContainers(uid, recs);
-
-    FeedScreen.controller.addListener(() {
-      setState(() {
-        currentPageValue = FeedScreen.controller.page;
-      });
-    });
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final uid = _userState.user?.user?.uid;
+    final _feedContentController = Provider.of<FeedContentController>(context);
 
-    if (uid != null) {
-      return FutureBuilder(
-        future: _future,
-        builder: (context, AsyncSnapshot<Queue<ProfileContainer>> snapshot) {
-          displayedContainers = snapshot.data;
+    print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
 
-          if (displayedContainers != null) {
-            return Container(
-              color: tertiaryColour,
-              child: Stack(
-                alignment: Alignment.topRight,
-                children: [
-                  RefreshIndicator(
-                    onRefresh: () => refreshProfileContainers(uid, recs),
-                    child: PageView(
-                      controller: FeedScreen.controller,
-                      scrollDirection: Axis.vertical,
-                      children: displayedContainers!.toList(),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 48, right: leftRightPadding),
-                    child: Container(
-                      decoration: const BoxDecoration(boxShadow: [
-                        BoxShadow(color: secondaryColour, blurRadius: 60.0),
-                      ]),
-                      child: IconButton(
-                        onPressed: () => context.pushNamed(
-                            editPreferencesScreenName,
-                            params: {pageParameterKey: feedScreenName}),
-                        icon: const Icon(
-                          Icons.menu,
-                          color: whiteColour,
-                          size: 30,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+    return Container(
+      color: tertiaryColour,
+      child: Stack(
+        alignment: Alignment.topRight,
+        children: [
+          RefreshIndicator(
+            displacement: MediaQuery.of(context).padding.top,
+            onRefresh: () => refreshProfileContainers(_feedContentController),
+            child: PageView(
+              physics: const CustomPageViewScrollPhysics(),
+              controller: FeedScreen.controller,
+              scrollDirection: Axis.vertical,
+              children: List<Widget>.of(_feedContentController.content),
+            ),
+          ),
+          (Platform.isIOS)
+              ? ColorfulSafeArea(
+                  overflowRules: OverflowRules.all(true),
+                  color: Colors.white.withOpacity(0.5),
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Container(),
+                )
+              : Container(),
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
+              child: FloatingActionButton(
+                heroTag: null,
+                onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
+                backgroundColor: tertiaryColour,
+                child: Icon(
+                  Icons.menu,
+                  color: whiteColour,
+                  size: 30,
+                ),
               ),
-            );
-          } else {
-            return const Center(
-                child: CircularProgressIndicator(
-              color: tertiaryColour,
-            ));
-          }
-        },
-      );
-    } else {
-      return const CircularProgressIndicator(
-        color: tertiaryColour,
-      );
-    }
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   /// Refreshes the profiles by updating the [FutureBuilder]'s future.
-  Future<void> refreshProfileContainers(String uid, int recs) async {
+  Future<void> refreshProfileContainers(FeedContentController _feedContentController) async {
     await Future.delayed(const Duration(milliseconds: 400));
-
-    setState(() {
-      _future = FirestoreService.getProfileContainers(uid, recs);
-    });
-    await Future.delayed(const Duration(milliseconds: 400));
+    FeedScreen.controller.jumpToPage(0);
+    await _feedContentController.refreshContent();
   }
+}
+
+class CustomPageViewScrollPhysics extends ScrollPhysics {
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
+
+  @override
+  CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {
+    return CustomPageViewScrollPhysics(parent: buildParent(ancestor));
+  }
+
+  @override
+  SpringDescription get spring => const SpringDescription(
+        mass: 80,
+        stiffness: 50,
+        damping: 0.7,
+      );
 }

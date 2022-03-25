@@ -29,9 +29,15 @@ class PillButtonFilled extends StatelessWidget {
       child: Container(
         width: (expandsWidth) ? double.infinity : null,
         child: (isLoading)
-            ? CircularProgressIndicator(
-                color: textStyle?.color,
-                strokeWidth: 3,
+            ? Center(
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: textStyle?.color,
+                    strokeWidth: 3,
+                  ),
+                ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,

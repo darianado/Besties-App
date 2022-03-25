@@ -5,6 +5,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,8 +27,7 @@ class MyApp extends StatelessWidget {
   final UserState userState;
   final ContextState contextState;
 
-  const MyApp({Key? key, required this.userState, required this.contextState})
-      : super(key: key);
+  const MyApp({Key? key, required this.userState, required this.contextState}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ContextState>(
           lazy: false,
           create: (BuildContext context) => contextState,
-        )
+        ),
+        ChangeNotifierProvider<FeedContentController>(
+          lazy: false,
+          create: (context) => FeedContentController.instance,
+        ),
       ],
       child: Builder(
         builder: (context) {
@@ -54,8 +58,8 @@ class MyApp extends StatelessWidget {
             theme: ThemeData(
               textTheme: GoogleFonts.nunitoTextTheme(
                 (Theme.of(context).textTheme).apply(
-                  bodyColor: kTertiaryColour,
-                  displayColor: kTertiaryColour,
+                  bodyColor: tertiaryColour,
+                  displayColor: tertiaryColour,
                 ),
               ),
             ),

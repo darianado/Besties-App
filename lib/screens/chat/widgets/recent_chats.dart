@@ -87,14 +87,14 @@ class RecentChats extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(
+                              /* Text(
                                 chat.getReceiver(currentUser.toString()),
                                 style: TextStyle(
                                   color: kSecondaryColour,
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
                                 ),
-                              ),
+                              ), 
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: Text(
@@ -103,15 +103,15 @@ class RecentChats extends StatelessWidget {
                                     color: kSecondaryColour,
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                  ),
+                                  ), 
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                              ),
+                              ), */
                             ],
                           ),
                         ],
                       ),
-                      Column(
+                      /* Column(
                         children: <Widget>[
                           if (chat.messages[0].unread) GStyle.badge(),
                           Text(
@@ -126,7 +126,7 @@ class RecentChats extends StatelessWidget {
                             height: 5,
                           ),
                         ],
-                      )
+                      ) */
                     ],
                   ),
                 ),

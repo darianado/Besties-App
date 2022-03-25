@@ -16,6 +16,9 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 
+///The screen displays the profile of the current user
+///
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -29,11 +32,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final _userState = Provider.of<UserState>(context);
 
     //const double profileImageRadius = 100;
-    const double profileHeaderExtendedHeight = 430;
+    const double profileHeaderExtendedHeight = 350;
     const double profileHeaderCollapsedHeight = 220;
 
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -48,29 +51,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.only(right: leftRightPadding),
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
-                  backgroundColor: kTertiaryColour,
+                  onPressed: () => context.goNamed(editProfileScreenName,
+                      params: {pageParameterKey: profileScreenName}),
+                  backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
-                    Icons.edit,
-                    color: kWhiteColour,
-                    size: 30,
+                    FontAwesomeIcons.pen,
+                    color: whiteColour,
+                    size: 22,
                   ),
                 ),
               ),
             ],
-            flexibleSpace: CachedImage(url: _userState.user?.userData?.profileImageUrl),
+            flexibleSpace:
+                CachedImage(url: _userState.user?.userData?.profileImageUrl),
           ),
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
+              padding: const EdgeInsets.only(
+                  left: leftRightPadding, right: leftRightPadding, bottom: 15),
               child: Column(
                 children: [
-                  SizedBox(height: 15),
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(fontWeightDelta: 2),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline3
+                        ?.apply(fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 15),
@@ -84,9 +92,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
-                      GenderButtton(label: _userState.user?.userData?.gender ?? ""),
-                      RelationshipStatusButton(label: _userState.user?.userData?.relationshipStatus ?? ""),
+                      DateOfBirthButton(
+                          label: "${_userState.user?.userData?.age}"),
+                      GenderButtton(
+                          label: _userState.user?.userData?.gender ?? ""),
+                      RelationshipStatusButton(
+                          label:
+                              _userState.user?.userData?.relationshipStatus ??
+                                  ""),
                     ],
                   ),
                   SizedBox(height: 20),
@@ -100,21 +113,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(
+                            color: secondaryColour.withOpacity(0.3),
+                            fontWeightDelta: 3),
                       ),
                     ],
                   ),
                   SizedBox(height: 10),
                   DisplayInterests(
-                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
+                    items: _userState.user?.userData?.categorizedInterests
+                            ?.flattenedInterests ??
+                        [],
                   ),
                   SizedBox(height: 25),
                   PillButtonFilled(
                     text: "Change password",
                     expandsWidth: true,
-                    backgroundColor: kTertiaryColour,
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.apply(color: whiteColour),
+                    backgroundColor: tertiaryColour,
                     icon: Icon(
                       FontAwesomeIcons.lock,
+                      color: whiteColour,
                       size: 18.0,
                     ),
                     onPressed: () => context.pushNamed(
@@ -126,7 +148,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     text: "Sign out",
                     expandsWidth: true,
                     color: Colors.red,
-                    textStyle: TextStyle(color: Colors.red),
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.apply(color: Colors.red),
                     icon: Icon(
                       FontAwesomeIcons.signOutAlt,
                       color: Colors.red,

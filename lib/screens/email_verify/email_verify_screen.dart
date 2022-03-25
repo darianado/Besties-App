@@ -35,77 +35,79 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
     final UserState _userState = Provider.of<UserState>(context);
 
     return Scaffold(
-      backgroundColor: kLightBlue,
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  IconButton(
-                    onPressed: () => _userState.signOut(),
-                    icon: buildIcons(FontAwesomeIcons.signOutAlt, kWhiteColour),
-                  ),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 300,
-                    width: 300,
-                    child:
-                        Lottie.asset('assets/lotties/mail-verification.json'),
-                  ),
-                  Text(
-                    "You've got mail!",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4
-                        ?.apply(color: kWhiteColour),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 30),
-                  Text(
-                    "Before you can proceed, head over to your inbox to activate your account.",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6
-                        ?.apply(color: kWhiteColour),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 80)
-                ],
-              ),
-              Column(
-                children: [
-                  Text(
-                    "We have sent the email to '${_userState.user?.user?.email}'. Didn't receive it yet?",
-                    style: TextStyle(
-                        color: kWhiteColour.withOpacity(0.7), fontSize: 15),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 25),
-                  PillButtonOutlined(
-                    text: "Resend email",
-                    color: kWhiteColour,
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.apply(color: kWhiteColour),
-                    onPressed: () => _authService.sendVerificationEmail(),
-                  ),
-                ],
-              ),
-            ],
+      backgroundColor: lightBlue,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      onPressed: () => _userState.signOut(),
+                      icon: buildIcons(FontAwesomeIcons.signOutAlt, whiteColour),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      height: 300,
+                      width: 300,
+                      child:
+                      Lottie.asset('assets/lotties/mail-verification.json'),
+                    ),
+                    Text(
+                      "You've got mail!",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.apply(color: whiteColour),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 30),
+                    Text(
+                      "Before you can proceed, head over to your inbox to activate your account.",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.apply(color: whiteColour),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 80)
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text(
+                      "We have sent the email to '${_userState.user?.user?.email}'. Didn't receive it yet?",
+                      style: TextStyle(
+                          color: whiteColour.withOpacity(0.7), fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 25),
+                    PillButtonOutlined(
+                      text: "Resend email",
+                      color: whiteColour,
+                      padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.apply(color: whiteColour),
+                      onPressed: () => _authService.sendVerificationEmail(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+      )
     );
   }
 }

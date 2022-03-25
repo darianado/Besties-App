@@ -54,9 +54,9 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          kWhiteColour,
-          kWhiteColourShade2,
-          kWhiteColourShade3,
+          whiteColour,
+          whiteColourShade2,
+          whiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -67,8 +67,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
               SliverAppBar(
                 pinned: true,
                 automaticallyImplyLeading: false,
-                foregroundColor: kTertiaryColour,
-                backgroundColor: kWhiteColour,
+                foregroundColor: tertiaryColour,
+                backgroundColor: whiteColour,
                 expandedHeight: 10,
                 collapsedHeight: 80,
                 systemOverlayStyle: const SystemUiOverlayStyle(
@@ -77,7 +77,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 leading: IconButton(
                   onPressed: () => context.pushNamed(homeScreenName,
                       params: {pageParameterKey: profileScreenName}),
-                  icon: buildIcons(Icons.arrow_back_ios, kPrimaryColour),
+                  icon: buildIcons(Icons.arrow_back_ios, primaryColour),
                 ),
               ),
               SliverFillRemaining(
@@ -103,14 +103,14 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: circularBorderRadius10,
-                            color: kTertiaryColour.withOpacity(0.1),
+                            color: tertiaryColour.withOpacity(0.1),
                           ),
                           child: TextFormField(
                             controller: _oldPassword,
                             obscureText: true,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                icon: buildIcons(Icons.lock, kSecondaryColour),
+                                icon: buildIcons(Icons.lock, secondaryColour),
                                 labelText: 'Current password'),
                             validator: validatePassword,
                             textInputAction: TextInputAction.next,
@@ -122,14 +122,14 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: circularBorderRadius10,
-                            color: kTertiaryColour.withOpacity(0.1),
+                            color: tertiaryColour.withOpacity(0.1),
                           ),
                           child: TextFormField(
                             controller: _newPassword,
                             obscureText: true,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                icon: buildIcons(Icons.lock, kSecondaryColour),
+                                icon: buildIcons(Icons.lock, secondaryColour),
                                 labelText: 'New password'),
                             validator: (value) =>
                                 validateExistsAndDifferentFrom(
@@ -143,17 +143,17 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                             borderRadius: circularBorderRadius10,
-                            color: kTertiaryColour.withOpacity(0.1),
+                            color: tertiaryColour.withOpacity(0.1),
                           ),
                           child: TextFormField(
                             controller: _confirmNewPassword,
                             obscureText: true,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                icon: buildIcons(Icons.lock, kSecondaryColour),
+                                icon: buildIcons(Icons.lock, secondaryColour),
                                 labelText: 'Confirm new password'),
                             validator: (value) =>
-                                validateExistsAndDifferentFrom(
+                                validateRepeatedPassword(
                                     value, _newPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
@@ -163,11 +163,11 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           width: double.infinity,
                           child: PillButtonFilled(
                             text: "Update",
-                            backgroundColor: kTertiaryColour,
+                            backgroundColor: tertiaryColour,
                             textStyle: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
-                                color: kWhiteColour),
+                                color: whiteColour),
                             onPressed: () {
                               if (((_formKey.currentState as FormState)
                                       .validate()) ==
@@ -176,7 +176,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                     _oldPassword.text, _newPassword.text);
                                 context.pushNamed(homeScreenName, params: {
                                   pageParameterKey: profileScreenName
-                                });
+                                }
+                                );
                               }
                             },
                           ),

@@ -17,7 +17,7 @@ class CategorizedInterests {
     return categories.map((e) => e.toMap()).toList();
   }
 
-  List<Interest>? get flattenedInterests {
+  List<Interest> get flattenedInterests {
     return categories.map((category) => category.interests).expand((i) => i).toList();
   }
 }
@@ -25,6 +25,7 @@ class CategorizedInterests {
 class Preferences {
   CategorizedInterests? interests;
   List<String?>? genders;
+  String? queueID;
   int? maxAge;
   int? minAge;
 
@@ -33,6 +34,7 @@ class Preferences {
     this.maxAge,
     this.minAge,
     this.genders,
+    this.queueID,
   });
 
   factory Preferences.fromMap(Map<String, dynamic> map) {
@@ -40,6 +42,7 @@ class Preferences {
     return Preferences(
       interests: _interests,
       genders: List<String?>.from(map['genders'] ?? []),
+      queueID: map['queueID'],
       maxAge: map['maxAge'],
       minAge: map['minAge'],
     );
@@ -49,6 +52,7 @@ class Preferences {
     return {
       "categorizedInterests": interests?.toList(),
       "genders": genders,
+      "queueID": queueID,
       "maxAge": maxAge,
       "minAge": minAge,
     };
@@ -93,7 +97,7 @@ class UserData {
       firstName: data?['firstName'],
       lastName: data?['lastName'],
       gender: data?['gender'],
-      //likes: List<String>.from(data?['likes']),
+      likes: List<String>.from(data?['likes'] ?? []),
       university: data?['university'],
       bio: data?['bio'],
       relationshipStatus: data?['relationshipStatus'],

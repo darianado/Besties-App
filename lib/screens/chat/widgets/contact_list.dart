@@ -84,7 +84,7 @@ class Contacts extends StatelessWidget {
                       Text(
                         contacts[index].name,
                         style: TextStyle(
-                          color: kTertiaryColour,
+                          color: tertiaryColour,
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),

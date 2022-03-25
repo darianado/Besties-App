@@ -28,8 +28,6 @@ class BioField extends StatelessWidget {
   }
 
   Widget bio(BuildContext context, Function? onTap) {
-    final _userState = Provider.of<UserState>(context);
-
     return Material(
       borderRadius: BorderRadius.all(
         Radius.circular(10),
@@ -44,7 +42,7 @@ class BioField extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: kTertiaryColour.withOpacity(0.1),
+            color: tertiaryColour.withOpacity(0.1),
           ),
           child: Text(
             label,

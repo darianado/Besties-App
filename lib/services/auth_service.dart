@@ -24,17 +24,25 @@ class AuthService {
   }
 
   Future<void> signIn(String email, String password) async {
-    await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
+    await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
   }
 
   Future<void> signUp(String email, String password) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((_) async {
+    await _firebaseAuth
+        .createUserWithEmailAndPassword(email: email, password: password)
+        .then((_) async {
       await sendVerificationEmail();
     });
   }
 
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
+  }
+
+  Future<void> deleteAccount(String password) async {
+    await validatePassword(password);
+    return await _firebaseAuth.currentUser!.delete();
   }
 
   Future<void> sendVerificationEmail() async {
@@ -70,7 +78,8 @@ class AuthService {
     return await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-  Future<void> changePassword(String currentPassword, String newPassword) async {
+  Future<void> changePassword(
+      String currentPassword, String newPassword) async {
     auth.User? user = currentUser;
     if (user == null) {
       return;
@@ -86,7 +95,8 @@ class AuthService {
       return false;
     }
 
-    final credentials = auth.EmailAuthProvider.credential(email: user.email!, password: password);
+    final credentials = auth.EmailAuthProvider.credential(
+        email: user.email!, password: password);
     await user.reauthenticateWithCredential(credentials);
     return true;
   }

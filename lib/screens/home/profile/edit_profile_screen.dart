@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
@@ -10,11 +14,17 @@ import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
+import 'package:project_seg/services/auth_exception_handler.dart';
+import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -24,9 +34,13 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final GlobalKey _formKey = GlobalKey<FormState>();
   final FirestoreService _firestoreService = FirestoreService.instance;
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _uniController = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+
+  final AuthService _authService = AuthService.instance;
 
   bool loadingPicture = false;
 
@@ -52,14 +66,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    const double profileHeaderExtendedHeight = 430;
+    const double profileHeaderExtendedHeight = 350;
     const double profileHeaderCollapsedHeight = 220;
 
     _uniController.text = _userState.user?.userData?.university ?? "";
     _bioController.text = _userState.user?.userData?.bio ?? "-";
 
     return Scaffold(
-      backgroundColor: kWhiteColour,
+      backgroundColor: whiteColour,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -73,13 +87,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 padding: const EdgeInsets.only(right: leftRightPadding),
                 child: FloatingActionButton(
                   heroTag: null,
-                  onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
-                  backgroundColor: kTertiaryColour,
+                  onPressed: () => context.goNamed(homeScreenName,
+                      params: {pageParameterKey: profileScreenName}),
+                  backgroundColor: tertiaryColour,
                   elevation: 0,
                   child: Icon(
-                    Icons.done,
-                    color: kWhiteColour,
-                    size: 30,
+                    FontAwesomeIcons.check,
+                    color: whiteColour,
+                    size: 22,
                   ),
                 ),
               ),
@@ -97,19 +112,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       child: Stack(
                         fit: StackFit.expand,
                         children: [
-                          CachedImage(url: _userState.user?.userData?.profileImageUrl),
+                          CachedImage(
+                              url: _userState.user?.userData?.profileImageUrl),
                           Column(
                             children: [
                               Expanded(
                                 child: Container(),
                               ),
                               Container(
-                                color: kOpacBlack,
+                                color: opacBlack,
                                 height: 30,
                                 alignment: Alignment.center,
                                 child: Text(
                                   "EDIT",
-                                  style: Theme.of(context).textTheme.bodyMedium?.apply(color: kWhiteColour),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.apply(color: whiteColour),
                                 ),
                               ),
                             ],
@@ -122,12 +141,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           SliverFillRemaining(
             hasScrollBody: false,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
+              padding: const EdgeInsets.fromLTRB(
+                  leftRightPadding, 15, leftRightPadding, 15),
               child: Column(
                 children: [
                   Text(
                     _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(color: kTertiaryColour.withOpacity(0.2), fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline3?.apply(
+                        color: tertiaryColour.withOpacity(0.2),
+                        fontWeightDelta: 2),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 15),
@@ -135,7 +157,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     editable: true,
                     wiggling: true,
                     label: _userState.user?.userData?.university ?? "",
-                    onSave: (university) => saveUniversity(_userState.user?.user?.uid, university),
+                    onSave: (university) =>
+                        saveUniversity(_userState.user?.user?.uid, university),
                   ),
                   const SizedBox(height: 10),
                   Wrap(
@@ -148,19 +171,25 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         editable: false,
                         wiggling: false,
                         label: "${_userState.user?.userData?.age}",
-                        onSave: (dateOfBirth) => saveDateOfBirth(_userState.user?.user?.uid, dateOfBirth),
+                        onSave: (dateOfBirth) => saveDateOfBirth(
+                            _userState.user?.user?.uid, dateOfBirth),
                       ),
                       GenderButtton(
                         editable: true,
                         wiggling: true,
                         label: _userState.user?.userData?.gender ?? "",
-                        onSave: (gender) => saveGender(_userState.user?.user?.uid, gender),
+                        onSave: (gender) =>
+                            saveGender(_userState.user?.user?.uid, gender),
                       ),
                       RelationshipStatusButton(
                           editable: true,
                           wiggling: true,
-                          label: _userState.user?.userData?.relationshipStatus ?? "",
-                          onSave: (relationshipStatus) => saveRelationshipStatus(_userState.user?.user?.uid, relationshipStatus)),
+                          label:
+                              _userState.user?.userData?.relationshipStatus ??
+                                  "",
+                          onSave: (relationshipStatus) =>
+                              saveRelationshipStatus(_userState.user?.user?.uid,
+                                  relationshipStatus)),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -174,7 +203,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     children: [
                       Text(
                         "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: kSecondaryColour.withOpacity(0.3), fontWeightDelta: 3),
+                        style: Theme.of(context).textTheme.bodyMedium?.apply(
+                            color: secondaryColour.withOpacity(0.3),
+                            fontWeightDelta: 3),
                       ),
                     ],
                   ),
@@ -183,9 +214,28 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     wiggling: true,
                     editable: true,
                     onSave: (categorizedInterests) {
-                      saveInterests(_userState.user?.user?.uid, categorizedInterests);
+                      saveInterests(
+                          _userState.user?.user?.uid, categorizedInterests);
                     },
-                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
+                    items: _userState.user?.userData?.categorizedInterests
+                            ?.flattenedInterests ??
+                        [],
+                  ),
+                  SizedBox(height: 20),
+                  PillButtonOutlined(
+                    text: "Delete account",
+                    expandsWidth: true,
+                    color: Colors.red,
+                    textStyle: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.apply(color: Colors.red),
+                    icon: const Icon(
+                      FontAwesomeIcons.ban,
+                      color: Colors.red,
+                      size: 18,
+                    ),
+                    onPressed: () => {_showDialog()},
                   ),
                 ],
               ),
@@ -196,13 +246,120 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
+  //delete account confirmation dialog
+  Future<void> _showDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(
+            child: Text(
+              'Delete account',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  ?.apply(fontWeightDelta: 2),
+            ),
+          ),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Confirm Password',
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
+                  const SizedBox(height: 20),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: tertiaryColour.withOpacity(0.1),
+                    ),
+                    child: TextFormField(
+                      controller: _password,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        icon: Icon(
+                          Icons.lock,
+                          color: tertiaryColour,
+                        ),
+                        labelText: 'Password',
+                      ),
+                      validator: validatePassword,
+                      textInputAction: TextInputAction.next,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  const Text(
+                    'Are you sure you want to leave us? \n All your details will be deleted!',
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          'Cancel',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.apply(color: Colors.grey),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      PillButtonFilled(
+                        text: "Delete",
+                        backgroundColor: Colors.red,
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.apply(color: whiteColour),
+                        onPressed: () {
+                          if (((_formKey.currentState as FormState)
+                                  .validate()) ==
+                              true) {
+                            _deleteUser(_password.text);
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  _deleteUser(String password) async {
+    try {
+      await _authService.deleteAccount(password);
+    } on FirebaseAuthException catch (e) {
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      showAlert(context, errorMsg);
+    }
+  }
+
   Future<void> saveDateOfBirth(String? userId, DateTime? dateOfBirth) async {
     if (userId != null && dateOfBirth != null) {
       await _firestoreService.setDateOfBirth(userId, dateOfBirth);
     }
   }
 
-  Future<void> saveRelationshipStatus(String? userId, String? relationshipStatus) async {
+  Future<void> saveRelationshipStatus(
+      String? userId, String? relationshipStatus) async {
     if (userId != null && relationshipStatus != null) {
       await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
     }
@@ -220,7 +377,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     }
   }
 
-  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
+  Future<void> saveInterests(
+      String? userId, CategorizedInterests? interests) async {
     if (userId != null && interests != null) {
       await _firestoreService.setInterests(userId, interests);
     }
@@ -242,7 +400,8 @@ class ShakeWidget extends StatelessWidget {
   }) : super(key: key);
 
   /// convert 0-1 to 0-1-0
-  double shake(double animation) => 2 * (0.5 - (0.5 - curve.transform(animation)).abs());
+  double shake(double animation) =>
+      2 * (0.5 - (0.5 - curve.transform(animation)).abs());
 
   @override
   Widget build(BuildContext context) {

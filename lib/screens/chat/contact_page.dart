@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/screens/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/chat/widgets/recent_chats.dart';
 import 'package:project_seg/constants/colours.dart';
+//import 'package:project_seg/models/User/Chat.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+
+
 
 
 class Contact_Page extends StatefulWidget {
@@ -23,9 +29,9 @@ class _Contact_PageState extends State<Contact_Page> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          kWhiteColour,
-          kWhiteColourShade2,
-          kWhiteColourShade3,
+          whiteColour,
+          whiteColourShade2,
+          whiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -42,7 +48,7 @@ class _Contact_PageState extends State<Contact_Page> {
                         alignment: Alignment.centerLeft,
                         child: Text('Matches',
                             style: TextStyle(
-                          color: kSecondaryColour,
+                          color: secondaryColour,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,
@@ -55,7 +61,7 @@ class _Contact_PageState extends State<Contact_Page> {
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text('Chats', style: TextStyle(
-                          color: kSecondaryColour,
+                          color: secondaryColour,
                           fontSize: 30,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 1,

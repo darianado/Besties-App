@@ -1,9 +1,15 @@
+import 'dart:async';
+import 'dart:math';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/feed_content_gatherer.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/services/recommendations_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -71,18 +77,25 @@ class FeedContentController extends ChangeNotifier {
     content.add(loadingScreen);
   }
 
-  // Ensure notifyListeners() is not called immediately.
   void onFeedInitialized() {
     final AuthService _authService = AuthService.instance;
+    final RecommendationsState _recState = RecommendationsState(_authService.currentUser!);
 
-    _firestoreService.loggedInUser(_authService.currentUser!).listen((event) async {
-      print("Setting up again");
-      refreshContent();
+    _recState.addListener(() async {
+      print("Queue changed!");
+      print(_recState.currentQueueID);
+      _gatherer.removeAll();
+      removeAll();
+      if (!_recState.loadingRecommendations) {
+        await insertAtEnd();
+      }
+      notifyListeners();
     });
   }
 
   Future<void> refreshContent() async {
     removeAll();
+    notifyListeners();
     await insertAtEnd();
     notifyListeners();
   }
@@ -95,25 +108,47 @@ class FeedLoadingSheet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Center(
+      child: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: [
-            AspectRatio(
-              aspectRatio: 1.2,
-              child: Container(
-                width: double.infinity,
-                child: Lottie.asset('assets/lotties/searching.json', fit: BoxFit.cover),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Padding(
+                padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
+                child: Transform.scale(
+                  scale: 4,
+                  child: SizedBox(
+                    height: 56,
+                    child: Lottie.asset("assets/lotties/signal.json"),
+                  ),
+                ),
               ),
             ),
-            Text(
-              "Searching...",
-              style: Theme.of(context).textTheme.headline4,
+            Center(
+              child: Column(
+                children: [
+                  AspectRatio(
+                    aspectRatio: 1.2,
+                    child: Container(
+                      width: double.infinity,
+                      child: Lottie.asset('assets/lotties/searching.json', fit: BoxFit.cover),
+                    ),
+                  ),
+                  Text(
+                    "Searching...",
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text("Give us a minute while we search for your next match."),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text("If this is taking too long, try editing your preferences.")
+                ],
+              ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Text("Give us a minute while we search for your next match..."),
           ],
         ),
       ),

@@ -95,4 +95,8 @@ class FeedContentGatherer extends ChangeNotifier {
     //print("Done gathering");
     return result;
   }
+
+  void removeAll() {
+    queue.clear();
+  }
 }

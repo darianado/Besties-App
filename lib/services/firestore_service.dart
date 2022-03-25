@@ -32,7 +32,7 @@ class FirestoreService {
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
 
-  Stream<firestore.DocumentSnapshot> recommendationsStream(String? userID) {
+  Stream<firestore.DocumentSnapshot<Map>> recommendationsStream(String? userID) {
     return _firebaseFirestore.collection("users").doc(userID).collection("derived").doc("recommendations").snapshots();
   }
 

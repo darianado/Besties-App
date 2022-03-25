@@ -44,6 +44,12 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final _feedContentController = Provider.of<FeedContentController>(context);
 
@@ -74,7 +80,7 @@ class _FeedScreenState extends State<FeedScreen> {
               : Container(),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10, right: leftRightPadding),
+              padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
               child: FloatingActionButton(
                 heroTag: null,
                 onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),

@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+import 'package:project_seg/constants/colours.dart';
 
 import '../alerts.dart';
 
@@ -77,6 +78,16 @@ class DateOfBirthButton extends StatelessWidget {
       firstDate: DateTime(1900),
       lastDate: validDate(),
       //validDate(DateTime.now()),
+      fieldHintText: 'mm/dd/yyyy',
+      initialEntryMode: DatePickerEntryMode.calendar,
+      builder: (context, child) {
+        return Theme(
+          data: ThemeData.light().copyWith(
+            colorScheme: ColorScheme.light(primary: secondaryColour),
+          ),
+          child: child!,
+        );
+      },
     );
 
    if (picked != null) onSave!(picked);

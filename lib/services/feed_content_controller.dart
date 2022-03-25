@@ -124,7 +124,7 @@ class FeedLoadingSheet extends StatelessWidget {
                 child: Transform.scale(
                   scale: 4,
                   child: SizedBox(
-                    height: 56,
+                    height: 48,
                     child: Lottie.asset("assets/lotties/signal.json"),
                   ),
                 ),

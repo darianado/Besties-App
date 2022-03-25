@@ -4,6 +4,7 @@ import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:project_seg/screens/home/profile/match_profile.dart';
 
 import '../../../constants/colours.dart';
 
@@ -23,7 +24,7 @@ class Contacts extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ChatScreen())),
+                        builder: (_) => MatchProfileScreen())),
                 child: Padding(
                   padding: const EdgeInsets.all(10),
                   child: Column(

@@ -14,6 +14,7 @@ const verifyEmailScreenName = "verify-email";
 const recoverPasswordScreenName = "recover-password";
 const homeScreenName = "home";
 const profileScreenName = "profile";
+const profileMatchScreenName = "profile-match";
 const feedScreenName = "feed";
 const chatScreenName = "chat";
 const editProfileScreenName = "edit-profile";

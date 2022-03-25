@@ -7,6 +7,7 @@ import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_profile_screen.dart';
+import 'package:project_seg/screens/home/profile/match_profile.dart';
 import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';

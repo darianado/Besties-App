@@ -57,9 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final bool isMine = (message.senderID == _userState.user?.userData!.uid);
 
     Container msg = Container(
-      margin: isMine
-          ? const EdgeInsets.only(top: 5, bottom: 5, left: 80)
-          : const EdgeInsets.only(top: 5, bottom: 5),
+      margin: isMine ? const EdgeInsets.only(top: 5, bottom: 5, left: 80) : const EdgeInsets.only(top: 5, bottom: 5),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       width: MediaQuery.of(context).size.width * 0.75,
       child: Container(
@@ -133,18 +131,14 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 controller: _textController,
-                decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Message...',
-                    isCollapsed: true),
+                decoration: const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true),
               ),
             ),
             TextButton(
               onPressed: () {
                 //_handleSubmitted(_textController.text, currentUser.toString());
               },
-              child: Text('Send',
-                  style: TextStyle(color: tertiaryColour, fontSize: 18)),
+              child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
             )
           ],
         ),

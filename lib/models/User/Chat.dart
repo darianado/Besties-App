@@ -17,7 +17,7 @@ class Chat {
   List<String> getUsers() {
     List<String> _users = [];
     for (Message message in messages) {
-      _users.add(message.senderEmail);
+      _users.add(message.senderID!);
     }
     return _users;
   }

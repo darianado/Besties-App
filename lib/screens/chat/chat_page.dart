@@ -10,8 +10,6 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
-
 class ChatScreen extends StatefulWidget {
   final String chatID;
   ChatScreen(this.chatID);
@@ -22,23 +20,10 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textController = new TextEditingController();
 
-  List<Message> _messages = [
-/*     Message("currentUser", '1:00pm', 'Message 1', false, true),
-    Message("firstUser", '1:00pm', 'Message 1', false, true),
-    Message("currentUser", '1:00pm', 'Message 1', false, true),
-    Message("firstUser", '1:00pm', 'Message 1', false, true),
-    Message("currentUser", '1:00pm', 'Message 1', true, true),
-    Message("firstUser", '1:00pm', 'Message 1', true, true),
-    Message("currentUser", '1:00pm', 'Message 1', true, true),
-    Message("firstUser", '1:00pm', 'Message 1', true, true),
-    Message("currentUser", '1:00pm', 'Message 1', true, true),
-    Message("firstUser", '1:00pm', 'Message 1', false, true),
-    Message("currentUser", '1:00pm', 'Message 1', false, true),
-    Message("firstUser", '1:00pm', 'Message 1', false, true), */
-  ];
+  List<Message> _messages = [];
 
   //getMessages
-  final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  final FirestoreService _firestoreService = FirestoreService.instance;
 
   /* Future<List<Message>> getMessages() async{
     QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").where(FieldPath.documentId, isEqualTo: widget.chatID).get();
@@ -54,28 +39,33 @@ class _ChatScreenState extends State<ChatScreen> {
   } */
 
   //create a message with sender and time and save it to firestore
-  void _handleSubmitted(String text, String currentUser) {
-    //convertList();
+  void _handleSubmitted(String content, String senderID, String receiverID) {
     DateTime now = DateTime.now();
-    String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
-    _textController.clear();
-    Message message = Message(time, currentUser, text, true, false);
-    _messages.add(message);
+    Message message = Message(senderID, content, now);
+
+    _firestoreService.saveMessage(message, senderID, receiverID);
     //FirestoreService.instance.updateMessageList(widget.chatID, _messages);
+    _textController.clear();
+
     setState(() {
       _messages.insert(0, message);
     });
   }
 
-  _messagebuilder(Message message) {
+  _messageBuilder(Message message, BuildContext context) {
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final bool isMine = (message.senderID == _userState.user?.userData!.uid);
+
     Container msg = Container(
-      margin: message.mine ? const EdgeInsets.only(top: 5, bottom: 5, left: 80) : const EdgeInsets.only(top: 5, bottom: 5),
+      margin: isMine
+          ? const EdgeInsets.only(top: 5, bottom: 5, left: 80)
+          : const EdgeInsets.only(top: 5, bottom: 5),
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
       width: MediaQuery.of(context).size.width * 0.75,
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: message.mine ? chatSenderColour : chatReceiverColour,
+          color: isMine ? chatSenderColour : chatReceiverColour,
           borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Column(
@@ -85,7 +75,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                message.text,
+                message.content!,
                 style: TextStyle(
                   color: whiteColour,
                   fontSize: 16,
@@ -97,7 +87,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Align(
               alignment: Alignment.bottomRight,
               child: Text(
-                message.time,
+                message.messageTimestamp!,
                 style: TextStyle(
                   color: whiteColour,
                   fontSize: 10,
@@ -117,7 +107,7 @@ class _ChatScreenState extends State<ChatScreen> {
       //             topRight: Radius.circular(15),
       //             bottomRight: Radius.circular(15))),
     );
-    if (message.mine) {
+    if (isMine) {
       return msg;
     }
     return Row(
@@ -143,14 +133,18 @@ class _ChatScreenState extends State<ChatScreen> {
               child: TextField(
                 keyboardType: TextInputType.multiline,
                 controller: _textController,
-                decoration: const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true),
+                decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Message...',
+                    isCollapsed: true),
               ),
             ),
             TextButton(
               onPressed: () {
                 //_handleSubmitted(_textController.text, currentUser.toString());
               },
-              child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
+              child: Text('Send',
+                  style: TextStyle(color: tertiaryColour, fontSize: 18)),
             )
           ],
         ),
@@ -162,28 +156,20 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
     final currentUser = _userState.user?.user?.uid;
+
     return Scaffold(
       backgroundColor: whiteColour,
       appBar: AppBar(
-          backgroundColor: tertiaryColour,
-          title: Text(
-            currentUser.toString(),
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-            ),
+        backgroundColor: tertiaryColour,
+        title: Text(
+          currentUser.toString(),
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
           ),
-          elevation: 0.0,
-          actions: []
-          /*  actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.more_horiz),
-            iconSize: 30.0,
-            color: kSimpleWhiteColour,
-            onPressed: () {},
-          )
-        ], */
-          ),
+        ),
+        elevation: 0.0,
+      ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Column(
@@ -199,7 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   itemCount: _messages.length,
                   itemBuilder: (BuildContext context, int index) {
                     final Message message = _messages[index];
-                    return _messagebuilder(message);
+                    return _messageBuilder(message, context);
                   },
                 ),
               ),

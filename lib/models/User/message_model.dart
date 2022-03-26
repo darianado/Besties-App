@@ -2,23 +2,42 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class Message {
-  String time;
-  String senderEmail;
-  String text;
-  bool mine;
-  bool unread;
+  String? content;
+  String? senderID;
+  DateTime? timestamp;
 
   Message(
-    this.time,
-    this.senderEmail,
-    this.text,
-    this.mine,
-    this.unread,
+    this.senderID,
+    this.content,
+    this.timestamp,
   );
 
   factory Message.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
-    return Message(data?['time'], data?['senderEmail'], data?['text'], data?['mine'], data?['unread']);
+    return Message(
+      data?['content'],
+      data?['senderID'],
+      (data?['timestamp'] as Timestamp).toDate(),
+    );
+  }
+
+  String? get messageTimestamp {
+    int? hour = timestamp?.hour;
+    int? minute = timestamp?.minute;
+
+    if (hour != null && minute != null) {
+      return "$hour-$minute";
+    }
+
+    return null;
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "content": content,
+      "senderID": senderID,
+      "timestamp": timestamp,
+    };
   }
 }
 

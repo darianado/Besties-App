@@ -4,6 +4,7 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/chat/widgets/recent_chats.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
@@ -31,9 +32,9 @@ class _Contact_PageState extends State<Contact_Page> {
   }
 
   void fetchMatches() async {
+    final _matchState = Provider.of<MatchState>(context, listen: false);
     final _userState = Provider.of<UserState>(context, listen: false);
-
-    _firestoreService.fetchMatches(_userState.user!.user!.uid);
+    _matchState.onStart(_userState.user!.user!.uid);
     print("Fetched the following matches: ${matches}");
   }
 

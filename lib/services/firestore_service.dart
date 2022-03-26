@@ -8,6 +8,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
+import 'package:project_seg/models/User/Match.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
@@ -72,23 +73,24 @@ class FirestoreService {
       );
     }
 
+    results.sort((a, b) {
+      final aUserID = a.userData.uid;
+      final bUserID = b.userData.uid;
+      final aPosOriginal = userIDs.indexWhere((element) => element == aUserID);
+      final bPosOriginal = userIDs.indexWhere((element) => element == bUserID);
+
+      return aPosOriginal.compareTo(bPosOriginal);
+    });
+
     return results;
   }
 
-  Stream<List<String>> fetchMatches(String userID) {
-    final streamOne = _firebaseFirestore
+  Stream<List<UserMatch>> listenForMatches(String userID) {
+    return _firebaseFirestore
         .collection("matches")
-        .where("uid1", isEqualTo: userID)
+        .where("uids", arrayContains: userID)
         .snapshots()
-        .map((QuerySnapshot snapshot) => snapshot.docs.map((e) => e['uid2'] as String).toList());
-    final streamTwo = _firebaseFirestore
-        .collection("matches")
-        .where("uid2", isEqualTo: userID)
-        .snapshots()
-        .map((QuerySnapshot snapshot) => snapshot.docs.map((e) => e['uid1'] as String).toList());
-
-    //return streamTwo;
-    return StreamGroup.merge([streamOne, streamTwo]).asBroadcastStream();
+        .map((snapshot) => snapshot.docs.map((e) => UserMatch.fromSnapshot(e, userID)).toList());
   }
 
   Future<CategorizedInterests> fetchInterests() async {

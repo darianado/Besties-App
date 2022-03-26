@@ -8,6 +8,7 @@ class PillButtonFilled extends StatelessWidget {
   final EdgeInsets padding;
   final Color backgroundColor;
   final Icon? icon;
+  final double iconPadding;
   final Function onPressed;
 
   const PillButtonFilled({
@@ -19,6 +20,7 @@ class PillButtonFilled extends StatelessWidget {
     required this.onPressed,
     this.padding = const EdgeInsets.all(10.0),
     this.icon,
+    this.iconPadding = 5,
     this.backgroundColor = Colors.white,
   }) : super(key: key);
 
@@ -44,7 +46,7 @@ class PillButtonFilled extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   (icon != null) ? icon! : Container(),
-                  (icon != null) ? SizedBox(width: 5) : Container(),
+                  (icon != null) ? SizedBox(width: iconPadding) : Container(),
                   Text(
                     text,
                     style: textStyle,

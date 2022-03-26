@@ -1,14 +1,18 @@
+import 'package:project_seg/constants/borders.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/models/User/Chat.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:project_seg/screens/home/profile/match_profile.dart';
+import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/chat/match_profile.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../constants/colours.dart';
 
@@ -18,43 +22,78 @@ class Matches extends StatelessWidget {
     final _matchState = Provider.of<MatchState>(context);
 
     print("Number of matches: ${_matchState.matches?.length}");
-    return Column(
-      children: <Widget>[
-        Container(
-          height: 120,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: _matchState.matches?.length,
-            itemBuilder: (BuildContext context, int index) {
-              return GestureDetector(
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => MatchProfileScreen())),
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
+
+    return Container(
+      width: double.infinity,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: _matchState.matches?.map((OtherUser e) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Column(
-                    children: <Widget>[
-                      /*
-                      CircleAvatar(
-                        radius: 35.0,
-                        backgroundImage: AssetImage(content![index].userData.profileImageUrl!),
-                      ),
-                      */
-                      const SizedBox(height: 6),
-                      Text(
-                        _matchState.matches?[index] ?? "NA",
-                        style: TextStyle(
-                          color: tertiaryColour,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                    children: [
+                      Material(
+                        borderRadius: BorderRadius.all(Radius.circular(1000)),
+                        child: InkWell(
+                          borderRadius: BorderRadius.all(Radius.circular(1000)),
+                          onTap: () =>
+                              context.pushNamed(matchProfileScreenName, extra: e.userData, params: {pageParameterKey: chatScreenName}),
+                          child: Container(
+                            height: 100,
+                            width: 100,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: CachedImage(url: e.userData.profileImageUrl),
+                          ),
                         ),
                       ),
+                      SizedBox(height: 6),
+                      Text(
+                        e.userData.firstName ?? "",
+                        style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),
+                      )
                     ],
                   ),
-                ),
-              );
-            },
-          ),
-        )
-      ],
+                );
+              }).toList() ??
+              [],
+        ),
+      ),
     );
+
+/*
+    return Expanded(
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: _matchState.matches?.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            height: 120,
+            child: Column(
+              children: [
+                Material(
+                  borderRadius: BorderRadius.all(Radius.circular(1000)),
+                  child: InkWell(
+                    borderRadius: BorderRadius.all(Radius.circular(1000)),
+                    onTap: () => print("Tapped!"),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                      ),
+                      clipBehavior: Clip.hardEdge,
+                      child: CachedImage(url: _matchState.matches?[index].userData.profileImageUrl),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+    */
   }
 }

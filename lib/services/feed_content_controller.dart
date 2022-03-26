@@ -69,12 +69,12 @@ class FeedContentController extends ChangeNotifier {
 
   Future<void> insertAtEnd() async {
     if (_desiredFeedContentLength - 2 > (content.length - 1)) {
-      print("Requesting new content");
+      //print("Requesting new content");
       final entries = await _gatherer?.gather(_desiredFeedContentLength);
       if (entries != null) content.addAll(entries);
       moveLoadingScreenLast();
     }
-    print("Content: ${(content.length - 1)}");
+    //print("Content: ${(content.length - 1)}");
   }
 
   void moveLoadingScreenLast() {
@@ -89,7 +89,7 @@ class FeedContentController extends ChangeNotifier {
 
     _recState.addListener(() async {
       //print("Queue changed!");
-      print(_recState.currentQueueID);
+      //print(_recState.currentQueueID);
       removeAll();
       if (!_recState.loadingRecommendations) {
         _gatherer?.removeAll();

@@ -15,12 +15,22 @@ import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 
 class ProfileInformation extends StatefulWidget {
+  final UserData userData;
   final bool editable;
   final Widget? leftAction;
   final Widget? rightAction;
+  final Widget? onImageSection;
   final Widget? bottomSection;
 
-  ProfileInformation({Key? key, required this.editable, this.leftAction, this.rightAction, this.bottomSection}) : super(key: key);
+  ProfileInformation({
+    Key? key,
+    required this.userData,
+    required this.editable,
+    this.onImageSection,
+    this.leftAction,
+    this.rightAction,
+    this.bottomSection,
+  }) : super(key: key);
 
   @override
   _ProfileInformationState createState() => _ProfileInformationState();
@@ -50,8 +60,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-
     //const double profileImageRadius = 100;
     const double profileHeaderExtendedHeight = 350;
     const double profileHeaderCollapsedHeight = 220;
@@ -65,12 +73,22 @@ class _ProfileInformationState extends State<ProfileInformation> {
             expandedHeight: profileHeaderExtendedHeight,
             collapsedHeight: profileHeaderCollapsedHeight,
             automaticallyImplyLeading: false,
-            excludeHeaderSemantics: false,
+            //excludeHeaderSemantics: false,
             backgroundColor: Colors.transparent,
-            leading: widget.leftAction,
+            //leading: widget.leftAction,
+            titleSpacing: 0,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                (widget.leftAction != null) ? widget.leftAction! : Container(),
+                (widget.rightAction != null) ? widget.rightAction! : Container(),
+              ],
+            ),
+            /*
             actions: [
               (widget.rightAction != null) ? widget.rightAction! : Container(),
             ],
+            */
             flexibleSpace: (loadingPicture)
                 ? const Center(
                     child: Padding(
@@ -79,29 +97,19 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   )
                 : InkWell(
-                    onTap: () => _pickImage(_userState.user!.user!.uid),
+                    onTap: (widget.editable) ? () => _pickImage(widget.userData.uid!) : null,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        CachedImage(url: _userState.user?.userData?.profileImageUrl),
-                        (widget.editable)
-                            ? Column(
-                                children: [
-                                  Expanded(
-                                    child: Container(),
-                                  ),
-                                  Container(
-                                    color: opacBlack,
-                                    height: 30,
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      "EDIT",
-                                      style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Container(),
+                        CachedImage(url: widget.userData.profileImageUrl),
+                        Column(
+                          children: [
+                            Expanded(
+                              child: Container(),
+                            ),
+                            (widget.onImageSection != null) ? widget.onImageSection! : Container(),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -113,7 +121,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               child: Column(
                 children: [
                   Text(
-                    _userState.user?.userData?.fullName ?? "-",
+                    widget.userData.fullName ?? "-",
                     style: Theme.of(context)
                         .textTheme
                         .headline3
@@ -124,8 +132,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   UniversityButton(
                     editable: widget.editable,
                     wiggling: widget.editable,
-                    label: _userState.user?.userData?.university ?? "",
-                    onSave: (university) => saveUniversity(_userState.user?.user?.uid, university),
+                    label: widget.userData.university ?? "",
+                    onSave: (university) => saveUniversity(widget.userData.uid, university),
                   ),
                   SizedBox(height: 10),
                   Wrap(
@@ -134,24 +142,24 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(label: "${_userState.user?.userData?.age}"),
+                      DateOfBirthButton(label: "${widget.userData.age}"),
                       GenderButtton(
                         editable: widget.editable,
                         wiggling: widget.editable,
-                        label: _userState.user?.userData?.gender ?? "",
-                        onSave: (gender) => saveGender(_userState.user?.user?.uid, gender),
+                        label: widget.userData.gender ?? "",
+                        onSave: (gender) => saveGender(widget.userData.uid, gender),
                       ),
                       RelationshipStatusButton(
                         editable: widget.editable,
                         wiggling: widget.editable,
-                        label: _userState.user?.userData?.relationshipStatus ?? "",
-                        onSave: (relationshipStatus) => saveRelationshipStatus(_userState.user?.user?.uid, relationshipStatus),
+                        label: widget.userData.relationshipStatus ?? "",
+                        onSave: (relationshipStatus) => saveRelationshipStatus(widget.userData.uid, relationshipStatus),
                       ),
                     ],
                   ),
                   SizedBox(height: 20),
                   BioField(
-                    label: _userState.user?.userData?.bio ?? " ",
+                    label: widget.userData.bio ?? " ",
                     editable: widget.editable,
                   ),
                   SizedBox(height: 25),
@@ -168,9 +176,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   DisplayInterests(
                     editable: widget.editable,
                     wiggling: widget.editable,
-                    items: _userState.user?.userData?.categorizedInterests?.flattenedInterests ?? [],
+                    items: widget.userData.categorizedInterests?.flattenedInterests ?? [],
                     onSave: (categorizedInterests) {
-                      saveInterests(_userState.user?.user?.uid, categorizedInterests);
+                      saveInterests(widget.userData.uid, categorizedInterests);
                     },
                   ),
                   SizedBox(height: 25),

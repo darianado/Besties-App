@@ -23,12 +23,10 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 class FeedScreen extends StatefulWidget {
   FeedScreen({Key? key}) : super(key: key);
 
-  static PageController controller =
-      PageController(viewportFraction: 1, keepPage: true);
+  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
   static void animateToTop() {
-    controller.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeOutCirc);
+    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOutCirc);
   }
 
   @override
@@ -42,8 +40,7 @@ class _FeedScreenState extends State<FeedScreen> {
     super.initState();
 
     final _userState = Provider.of<UserState>(context, listen: false);
-    final _feedContent =
-        Provider.of<FeedContentController>(context, listen: false);
+    final _feedContent = Provider.of<FeedContentController>(context, listen: false);
     _feedContent.onFeedInitialized();
     _feedContent.assignController(FeedScreen.controller);
   }
@@ -58,8 +55,7 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     final _feedContentController = Provider.of<FeedContentController>(context);
 
-    print(
-        "Rebuilding. There are ${_feedContentController.content.length} elements in feed");
+    //print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
 
     return Container(
       color: tertiaryColour,
@@ -86,8 +82,7 @@ class _FeedScreenState extends State<FeedScreen> {
               : Container(),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: leftRightPadding, right: leftRightPadding),
+              padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
               child: Container(
                 decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
                   BoxShadow(
@@ -101,8 +96,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     color: whiteColour,
                     size: 30,
                   ),
-                  onPressed: () => context.pushNamed(editPreferencesScreenName,
-                      params: {pageParameterKey: feedScreenName}),
+                  onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName}),
                 ),
               ),
             ),
@@ -113,8 +107,7 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   /// Refreshes the profiles by updating the [FutureBuilder]'s future.
-  Future<void> refreshProfileContainers(
-      FeedContentController _feedContentController) async {
+  Future<void> refreshProfileContainers(FeedContentController _feedContentController) async {
     await Future.delayed(const Duration(milliseconds: 400));
     FeedScreen.controller.jumpToPage(0);
     await _feedContentController.refreshContent();
@@ -122,8 +115,7 @@ class _FeedScreenState extends State<FeedScreen> {
 }
 
 class CustomPageViewScrollPhysics extends ScrollPhysics {
-  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
-      : super(parent: parent);
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
 
   @override
   CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {

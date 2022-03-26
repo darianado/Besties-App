@@ -3,21 +3,19 @@ import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/User/message_model.dart';
 
 class UserMatch {
-  final String? matchUserID;
-  final DateTime? timestamp;
+  String matchID;
+  UserData? match;
+  DateTime? timestamp;
+  List<Message>? messages;
 
-  UserMatch({
-    this.matchUserID,
-    this.timestamp,
-  });
+  UserMatch({required this.matchID, this.match, this.timestamp, this.messages});
 
-  factory UserMatch.fromSnapshot(DocumentSnapshot<Map> doc, String userID) {
+  factory UserMatch.fromMatchSnapshot(DocumentSnapshot<Map> doc, String userID) {
     Map? data = doc.data();
-
     final _matchUserID = List<String>.from(data?['uids']).firstWhere((element) => element != userID);
-
     return UserMatch(
-      matchUserID: _matchUserID,
+      matchID: doc.id,
+      match: UserData(uid: _matchUserID),
       timestamp: (data?['timestamp'] as Timestamp).toDate(),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
@@ -11,16 +12,18 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
-  final String chatID;
-  ChatScreen(this.chatID);
+  final UserMatch userMatch;
+
+  ChatScreen({
+    required this.userMatch,
+  });
+
   @override
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textController = new TextEditingController();
-
-  List<Message> _messages = [];
 
   //getMessages
   final FirestoreService _firestoreService = FirestoreService.instance;
@@ -41,14 +44,14 @@ class _ChatScreenState extends State<ChatScreen> {
   //create a message with sender and time and save it to firestore
   void _handleSubmitted(String content, String senderID, String receiverID) {
     DateTime now = DateTime.now();
-    Message message = Message(senderID, content, now);
+    Message message = Message(content: content, senderID: senderID, timestamp: now);
 
     _firestoreService.saveMessage(message, senderID, receiverID);
     //FirestoreService.instance.updateMessageList(widget.chatID, _messages);
     _textController.clear();
 
     setState(() {
-      _messages.insert(0, message);
+      //_messages.insert(0, message);
     });
   }
 
@@ -151,6 +154,8 @@ class _ChatScreenState extends State<ChatScreen> {
     final _userState = Provider.of<UserState>(context);
     final currentUser = _userState.user?.user?.uid;
 
+    print("There are ${widget.userMatch.messages?.length} messages to show for ${widget.userMatch.match?.fullName}");
+
     return Scaffold(
       backgroundColor: whiteColour,
       appBar: AppBar(
@@ -176,9 +181,9 @@ class _ChatScreenState extends State<ChatScreen> {
                 child: ListView.builder(
                   reverse: true,
                   padding: const EdgeInsets.only(top: 15),
-                  itemCount: _messages.length,
+                  itemCount: widget.userMatch.messages?.length ?? 0,
                   itemBuilder: (BuildContext context, int index) {
-                    final Message message = _messages[index];
+                    final Message message = widget.userMatch.messages![index];
                     return _messageBuilder(message, context);
                   },
                 ),

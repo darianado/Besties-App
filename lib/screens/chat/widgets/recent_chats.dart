@@ -9,24 +9,23 @@ import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-
 import '../../../constants/borders.dart';
 
 class GStyle {
-    static badge({Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
-        return Container(
-            alignment: Alignment.center, height: !isdot ? height : height/2, width: !isdot ? width : width/2,
-            decoration: BoxDecoration(
-                color: color,
-                borderRadius: circularBorderRadius100,
-            ),
-            //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
-        );
-    }
+  static badge({Color color = Colors.red, bool isdot = false, double height = 10.0, double width = 10.0}) {
+    return Container(
+      alignment: Alignment.center, height: !isdot ? height : height / 2, width: !isdot ? width : width / 2,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: circularBorderRadius100,
+      ),
+      //child: !isdot ? Text('$_num', style: TextStyle(color: Colors.white, fontSize: 12.0)) : null
+    );
+  }
 }
 
 class RecentChats extends StatelessWidget {
- /*  final List<Chat> chatList;
+  /*  final List<Chat> chatList;
 
   RecentChats(this.chatList); */
 
@@ -36,30 +35,26 @@ class RecentChats extends StatelessWidget {
     final _userState = Provider.of<UserState>(context);
     final currentUser = _userState.user?.user?.uid;
     Future<List<Chat>> getChats() async {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-          .collection('chats')
-          .get();
-      final chats = querySnapshot.docs
-          .map((doc) =>
-              Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>))
-          .toList();
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('chats').get();
+      final chats = querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
       return chats;
     }
 
     Future<void> getRecentChats() async {
       List<Chat> chats = await getChats();
-      for (Chat chat in chats){
-        if(chat.getUsers().contains(currentUser)){
+      for (Chat chat in chats) {
+        if (chat.getUsers().contains(currentUser)) {
           chatList.add(chat);
         }
       }
     }
+
     getRecentChats();
 
     return Expanded(
       child: Container(
         decoration: const BoxDecoration(
-            color: Colors.transparent,
+          color: Colors.transparent,
         ),
         child: ClipRRect(
           child: ListView.builder(
@@ -67,27 +62,29 @@ class RecentChats extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 final Chat chat = chatList[index];
                 return GestureDetector(
-                  onTap: () => Navigator.push(
+                  onTap:
+                      () {} /*=> Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (_) => ChatScreen(chat.chatID)),
-                  ),
+                      builder: (_) => ChatScreen(chat.chatID),
+                    ),
+                  )*/
+                  ,
                   child: Container(
                     margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              /* Text(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                /* Text(
                                 chat.getReceiver(currentUser.toString()),
                                 style: TextStyle(
                                   color: kSecondaryColour,
@@ -107,11 +104,11 @@ class RecentChats extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ), */
-                            ],
-                          ),
-                        ],
-                      ),
-                      /* Column(
+                              ],
+                            ),
+                          ],
+                        ),
+                        /* Column(
                         children: <Widget>[
                           if (chat.messages[0].unread) GStyle.badge(),
                           Text(
@@ -127,9 +124,9 @@ class RecentChats extends StatelessWidget {
                           ),
                         ],
                       ) */
-                    ],
+                      ],
+                    ),
                   ),
-                ),
                 );
               }),
         ),

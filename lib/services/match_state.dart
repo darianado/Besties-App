@@ -1,5 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/User/Match.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
@@ -10,10 +12,40 @@ class MatchState extends ChangeNotifier {
   static final MatchState _instance = MatchState._privateConstructor();
   static MatchState get instance => _instance;
 
-  List<OtherUser>? matches;
+  List<UserMatch>? matches;
 
   void onStart(String userID) {
     _firestoreService.listenForMatches(userID).listen((List<UserMatch> event) async {
+      event.sort((a, b) {
+        final aTimestamp = a.timestamp;
+        final bTimestamp = b.timestamp;
+
+        if (aTimestamp != null && bTimestamp != null) {
+          return bTimestamp.compareTo(aTimestamp);
+        } else {
+          return 0;
+        }
+      });
+
+      matches = await Future.wait(event.map((e) async {
+        final fetchedMatch = await _firestoreService.getUser(e.match!.uid!);
+        e.match = fetchedMatch;
+        return e;
+      }).toList());
+
+      notifyListeners();
+
+      matches?.forEach((UserMatch element) {
+        _firestoreService.listenForMessages(element.matchID).listen((event) {
+          element.messages = event;
+          if (event != null) {
+            print("Update to the messages!");
+          }
+          notifyListeners();
+        });
+      });
+
+      /*
       event.sort((a, b) {
         final aTimestamp = a.timestamp;
         final bTimestamp = b.timestamp;
@@ -32,6 +64,7 @@ class MatchState extends ChangeNotifier {
       print("Matches: ${matches?.map((e) => "UID: ${e.userData.uid}, name: ${e.userData.firstName}")}");
       print("Matches changed!");
       notifyListeners();
+      */
     });
   }
 }

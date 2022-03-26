@@ -8,7 +8,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
-import 'package:project_seg/models/User/Match.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
@@ -85,12 +85,24 @@ class FirestoreService {
     return results;
   }
 
+  Future<UserData> getUser(String userID) async {
+    final _userDoc = await _firebaseFirestore.collection("users").doc(userID).get();
+    return UserData.fromSnapshot(_userDoc);
+  }
+
   Stream<List<UserMatch>> listenForMatches(String userID) {
-    return _firebaseFirestore
-        .collection("matches")
-        .where("uids", arrayContains: userID)
-        .snapshots()
-        .map((snapshot) => snapshot.docs.map((e) => UserMatch.fromSnapshot(e, userID)).toList());
+    return _firebaseFirestore.collection("matches").where("uids", arrayContains: userID).snapshots().map((event) {
+      return event.docs.map((e) => UserMatch.fromMatchSnapshot(e, userID)).toList();
+    });
+  }
+
+  Stream<List<Message>?> listenForMessages(String matchID) {
+    return _firebaseFirestore.collection("matches").doc(matchID).collection("messages").snapshots().map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.map((e) => Message.fromSnapshot(e)).toList();
+      }
+      return null;
+    });
   }
 
   Future<CategorizedInterests> fetchInterests() async {

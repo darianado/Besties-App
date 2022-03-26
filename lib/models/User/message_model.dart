@@ -6,18 +6,18 @@ class Message {
   String? senderID;
   DateTime? timestamp;
 
-  Message(
+  Message({
     this.senderID,
     this.content,
     this.timestamp,
-  );
+  });
 
   factory Message.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
     return Message(
-      data?['content'],
-      data?['senderID'],
-      (data?['timestamp'] as Timestamp).toDate(),
+      content: data?['content'],
+      senderID: data?['senderID'],
+      timestamp: (data?['timestamp'] as Timestamp).toDate(),
     );
   }
 

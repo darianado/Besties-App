@@ -1,6 +1,7 @@
 import 'package:project_seg/constants/borders.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/models/User/Chat.dart';
 import 'package:project_seg/router/route_names.dart';
@@ -28,7 +29,7 @@ class Matches extends StatelessWidget {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
-          children: _matchState.matches?.map((OtherUser e) {
+          children: _matchState.matches?.map((UserMatch e) {
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -37,8 +38,7 @@ class Matches extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(1000)),
                         child: InkWell(
                           borderRadius: BorderRadius.all(Radius.circular(1000)),
-                          onTap: () =>
-                              context.pushNamed(matchProfileScreenName, extra: e.userData, params: {pageParameterKey: chatScreenName}),
+                          onTap: () => context.pushNamed(matchProfileScreenName, extra: e, params: {pageParameterKey: chatScreenName}),
                           child: Container(
                             height: 100,
                             width: 100,
@@ -46,13 +46,13 @@ class Matches extends StatelessWidget {
                               shape: BoxShape.circle,
                             ),
                             clipBehavior: Clip.antiAlias,
-                            child: CachedImage(url: e.userData.profileImageUrl),
+                            child: CachedImage(url: e.match!.profileImageUrl),
                           ),
                         ),
                       ),
                       SizedBox(height: 6),
                       Text(
-                        e.userData.firstName ?? "",
+                        e.match!.firstName ?? "",
                         style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),
                       )
                     ],

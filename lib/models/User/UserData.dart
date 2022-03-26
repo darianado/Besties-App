@@ -89,7 +89,7 @@ class UserData {
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
 
-    final _categorizedInterests = CategorizedInterests.fromList(data?['categorizedInterests']);
+    final _categorizedInterests = CategorizedInterests.fromList(data?['categorizedInterests'] ?? []);
 
     return UserData(
       uid: doc.id,

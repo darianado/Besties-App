@@ -14,6 +14,7 @@ import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
+import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/firestore_service.dart';
@@ -30,220 +31,54 @@ class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
 
   @override
-  _EditProfileScreenState createState() => _EditProfileScreenState();
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  final FirestoreService _firestoreService = FirestoreService.instance;
-  final TextEditingController _bioController = TextEditingController();
-  final TextEditingController _uniController = TextEditingController();
   final TextEditingController _password = TextEditingController();
-
   final AuthService _authService = AuthService.instance;
-
-  bool loadingPicture = false;
-
-  final PickAndCropImage _pickAndCrop = PickAndCropImage();
-
-  void _pickImage(String uid) async {
-    setState(() {
-      loadingPicture = true;
-    });
-
-    String? url = await _pickAndCrop.pickImage(uid);
-
-    if (url != null) {
-      FirestoreService.instance.setProfileImageUrl(url);
-    }
-
-    setState(() {
-      loadingPicture = false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-
-    const double profileHeaderExtendedHeight = 350;
-    const double profileHeaderCollapsedHeight = 220;
-
-    _uniController.text = _userState.user?.userData?.university ?? "";
-    _bioController.text = _userState.user?.userData?.bio ?? "-";
-
-    return Scaffold(
-      backgroundColor: whiteColour,
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: profileHeaderExtendedHeight,
-            collapsedHeight: profileHeaderCollapsedHeight,
-            automaticallyImplyLeading: false,
-            excludeHeaderSemantics: false,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: leftRightPadding),
-                child: FloatingActionButton(
-                  heroTag: null,
-                  onPressed: () => context.goNamed(homeScreenName,
-                      params: {pageParameterKey: profileScreenName}),
-                  backgroundColor: tertiaryColour,
-                  elevation: 0,
-                  child: Icon(
-                    FontAwesomeIcons.check,
-                    color: whiteColour,
-                    size: 22,
-                  ),
-                ),
-              ),
-            ],
-            flexibleSpace: Material(
-              child: (loadingPicture)
-                  ? const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(5.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
-                  : InkWell(
-                      onTap: () => _pickImage(_userState.user!.user!.uid),
-                      child: Stack(
-                        fit: StackFit.expand,
-                        children: [
-                          CachedImage(
-                              url: _userState.user?.userData?.profileImageUrl),
-                          Column(
-                            children: [
-                              Expanded(
-                                child: Container(),
-                              ),
-                              Container(
-                                color: opacBlack,
-                                height: 30,
-                                alignment: Alignment.center,
-                                child: Text(
-                                  "EDIT",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.apply(color: whiteColour),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-            ),
+    return ProfileInformation(
+      editable: true,
+      rightAction: Padding(
+        padding: const EdgeInsets.only(right: leftRightPadding),
+        child: FloatingActionButton(
+          heroTag: null,
+          onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+          backgroundColor: tertiaryColour,
+          elevation: 0,
+          child: Icon(
+            FontAwesomeIcons.check,
+            color: whiteColour,
+            size: 22,
           ),
-          SliverFillRemaining(
-            hasScrollBody: false,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  leftRightPadding, 15, leftRightPadding, 15),
-              child: Column(
-                children: [
-                  Text(
-                    _userState.user?.userData?.fullName ?? "-",
-                    style: Theme.of(context).textTheme.headline3?.apply(
-                        color: tertiaryColour.withOpacity(0.2),
-                        fontWeightDelta: 2),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 15),
-                  UniversityButton(
-                    editable: true,
-                    wiggling: true,
-                    label: _userState.user?.userData?.university ?? "",
-                    onSave: (university) =>
-                        saveUniversity(_userState.user?.user?.uid, university),
-                  ),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 6.0,
-                    runSpacing: 6.0,
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    children: [
-                      DateOfBirthButton(
-                        editable: false,
-                        wiggling: false,
-                        label: "${_userState.user?.userData?.age}",
-                        onSave: (dateOfBirth) => saveDateOfBirth(
-                            _userState.user?.user?.uid, dateOfBirth),
-                      ),
-                      GenderButtton(
-                        editable: true,
-                        wiggling: true,
-                        label: _userState.user?.userData?.gender ?? "",
-                        onSave: (gender) =>
-                            saveGender(_userState.user?.user?.uid, gender),
-                      ),
-                      RelationshipStatusButton(
-                          editable: true,
-                          wiggling: true,
-                          label:
-                              _userState.user?.userData?.relationshipStatus ??
-                                  "",
-                          onSave: (relationshipStatus) =>
-                              saveRelationshipStatus(_userState.user?.user?.uid,
-                                  relationshipStatus)),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  BioField(
-                    label: _userState.user?.userData?.bio ?? " ",
-                    editable: true,
-                  ),
-                  const SizedBox(height: 25),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(
-                            color: secondaryColour.withOpacity(0.3),
-                            fontWeightDelta: 3),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  DisplayInterests(
-                    wiggling: true,
-                    editable: true,
-                    onSave: (categorizedInterests) {
-                      saveInterests(
-                          _userState.user?.user?.uid, categorizedInterests);
-                    },
-                    items: _userState.user?.userData?.categorizedInterests
-                            ?.flattenedInterests ??
-                        [],
-                  ),
-                  SizedBox(height: 20),
-                  PillButtonOutlined(
-                    text: "Delete account",
-                    expandsWidth: true,
-                    color: Colors.red,
-                    textStyle: Theme.of(context)
-                        .textTheme
-                        .titleMedium
-                        ?.apply(color: Colors.red),
-                    icon: const Icon(
-                      FontAwesomeIcons.ban,
-                      color: Colors.red,
-                      size: 18,
-                    ),
-                    onPressed: () => {_showDialog()},
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+        ),
+      ),
+      bottomSection: PillButtonOutlined(
+        text: "Delete account",
+        expandsWidth: true,
+        color: Colors.red,
+        textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+        icon: const Icon(
+          FontAwesomeIcons.ban,
+          color: Colors.red,
+          size: 18,
+        ),
+        onPressed: () => {_showDialog()},
       ),
     );
+  }
+
+  _deleteUser(String password) async {
+    try {
+      await _authService.deleteAccount(password);
+    } on FirebaseAuthException catch (e) {
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      showAlert(context, errorMsg);
+    }
   }
 
   //delete account confirmation dialog
@@ -256,10 +91,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           title: Center(
             child: Text(
               'Delete account',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4
-                  ?.apply(fontWeightDelta: 2),
+              style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
             ),
           ),
           content: SingleChildScrollView(
@@ -307,10 +139,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       TextButton(
                         child: Text(
                           'Cancel',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.apply(color: Colors.grey),
+                          style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.grey),
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -319,14 +148,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       PillButtonFilled(
                         text: "Delete",
                         backgroundColor: Colors.red,
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .titleMedium
-                            ?.apply(color: whiteColour),
+                        textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: whiteColour),
                         onPressed: () {
-                          if (((_formKey.currentState as FormState)
-                                  .validate()) ==
-                              true) {
+                          if (((_formKey.currentState as FormState).validate()) == true) {
                             _deleteUser(_password.text);
                           }
                         },
@@ -339,81 +163,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           ),
         );
       },
-    );
-  }
-
-  _deleteUser(String password) async {
-    try {
-      await _authService.deleteAccount(password);
-    } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
-      showAlert(context, errorMsg);
-    }
-  }
-
-  Future<void> saveDateOfBirth(String? userId, DateTime? dateOfBirth) async {
-    if (userId != null && dateOfBirth != null) {
-      await _firestoreService.setDateOfBirth(userId, dateOfBirth);
-    }
-  }
-
-  Future<void> saveRelationshipStatus(
-      String? userId, String? relationshipStatus) async {
-    if (userId != null && relationshipStatus != null) {
-      await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
-    }
-  }
-
-  Future<void> saveGender(String? userId, String? gender) async {
-    if (userId != null && gender != null) {
-      await _firestoreService.setGender(userId, gender);
-    }
-  }
-
-  Future<void> saveUniversity(String? userId, String? university) async {
-    if (userId != null && university != null) {
-      await _firestoreService.setUniversity(userId, university);
-    }
-  }
-
-  Future<void> saveInterests(
-      String? userId, CategorizedInterests? interests) async {
-    if (userId != null && interests != null) {
-      await _firestoreService.setInterests(userId, interests);
-    }
-  }
-}
-
-class ShakeWidget extends StatelessWidget {
-  final Duration duration;
-  final double deltaX;
-  final Widget child;
-  final Curve curve;
-
-  const ShakeWidget({
-    Key? key,
-    this.duration = const Duration(milliseconds: 500),
-    this.deltaX = 20,
-    this.curve = Curves.bounceOut,
-    required this.child,
-  }) : super(key: key);
-
-  /// convert 0-1 to 0-1-0
-  double shake(double animation) =>
-      2 * (0.5 - (0.5 - curve.transform(animation)).abs());
-
-  @override
-  Widget build(BuildContext context) {
-    return TweenAnimationBuilder<double>(
-      key: key,
-      tween: Tween(begin: 0.0, end: 1.0),
-      duration: duration,
-      builder: (context, animation, child) => Transform.translate(
-        offset: Offset(deltaX * shake(animation), 0),
-        child: child,
-      ),
-      child: child,
     );
   }
 }

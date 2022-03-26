@@ -2,9 +2,7 @@ import 'package:project_seg/models/User/message_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
-
-class Chat{
-  
+class Chat {
   final List<Message> messages;
   final String chatID;
 
@@ -13,43 +11,19 @@ class Chat{
 
   factory Chat.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
-    return Chat(
-      doc.id, data?['messages'].cast<Message>()
-    );
+    return Chat(doc.id, data?['messages'].cast<Message>());
   }
 
-  bool findChat(String recevierID, String currentUserID){
-    for (Message message in messages){
-      if (message.senderID != currentUserID){
-        if (message.senderID != recevierID){
-          return false;
-        }
-      }
-    }
-    return true;
-  }
-
-  
-
-
-  List<String> getUsers(){
-    List<String> _users =[];
-    for (Message message in messages){
-      _users.add(message.senderID);
+  List<String> getUsers() {
+    List<String> _users = [];
+    for (Message message in messages) {
+      _users.add(message.senderEmail);
     }
     return _users;
   }
-
-  String getReceiver(String currentUserID){
-    for (Message message in messages){
-      message.senderID != currentUserID;
-      return message.senderID;
-    }
-    return "";
-  }
-
 }
-  /* List<Chat> chatlist = [];
+
+/* List<Chat> chatlist = [];
 
   Future<List<Chat>> getChats() async{
     QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("Chats").get();
@@ -62,14 +36,13 @@ class Chat{
     List<Chat> chatlist = await chat;
   } */
 
-
-  /* Future<List<Chat>> getChats() async{
+/* Future<List<Chat>> getChats() async{
     QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("Chats").get();
     final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
     return chats;
   } */
 
-  //List<Chat> chatlist = [];
+List<Chat> chatlist = [];
 
 
 

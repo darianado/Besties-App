@@ -41,8 +41,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+
     return ProfileInformation(
+      userData: _userState.user!.userData!,
       editable: true,
+      onImageSection: Container(
+        color: opacBlack,
+        height: 30,
+        alignment: Alignment.center,
+        child: Text(
+          "EDIT",
+          style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
+        ),
+      ),
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: FloatingActionButton(

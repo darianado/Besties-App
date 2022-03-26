@@ -23,20 +23,23 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (url != null) {
-      return CachedNetworkImage(
-        imageUrl: url!,
-        errorWidget: (context, url, error) {
-          return errorPlaceholder();
-        },
-        placeholder: (context, url) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: CircularProgressIndicator(),
-            ),
-          );
-        },
-        fit: BoxFit.cover,
+      return AspectRatio(
+        aspectRatio: 1,
+        child: CachedNetworkImage(
+          imageUrl: url!,
+          errorWidget: (context, url, error) {
+            return errorPlaceholder();
+          },
+          placeholder: (context, url) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: CircularProgressIndicator(),
+              ),
+            );
+          },
+          fit: BoxFit.cover,
+        ),
       );
     } else {
       return errorPlaceholder();

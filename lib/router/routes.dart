@@ -7,7 +7,7 @@ import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_profile_screen.dart';
-import 'package:project_seg/screens/home/profile/match_profile.dart';
+import 'package:project_seg/screens/chat/match_profile.dart';
 import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
@@ -180,6 +180,18 @@ class AppRouter {
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
               child: EditPasswordScreen(),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+          ),
+          GoRoute(
+            name: matchProfileScreenName,
+            path: matchProfileScreenPath,
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: MatchProfileScreen(userData: state.extra! as UserData),
               transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,

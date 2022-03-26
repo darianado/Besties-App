@@ -107,6 +107,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               alignment: Alignment.center,
                               children: [
                                 Container(
+                                  color: secondaryColour.withOpacity(0.2),
                                   width: double.infinity,
                                   child: (widget.userData.profileImageUrl !=
                                           null)

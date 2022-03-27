@@ -19,7 +19,7 @@ class PillButtonFilled extends StatelessWidget {
     this.expandsWidth = false,
     this.textStyle = const TextStyle(color: Colors.white),
     required this.onPressed,
-    this.padding = const EdgeInsets.all(10.0),
+    this.padding = const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
     this.icon,
     this.iconPadding = 5,
     this.backgroundColor = tertiaryColour,
@@ -33,33 +33,34 @@ class PillButtonFilled extends StatelessWidget {
         width: (expandsWidth) ? double.infinity : null,
         child: (isLoading)
             ? Center(
-                child: SizedBox(
-                  height: 20,
-                  width: 20,
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: 50, maxWidth: 50),
                   child: CircularProgressIndicator(
                     color: textStyle?.color,
                     strokeWidth: 3,
                   ),
                 ),
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  (icon != null) ? icon! : Container(),
-                  (icon != null) ? SizedBox(width: iconPadding) : Container(),
-                  Text(
-                    text,
-                    style: textStyle,
-                  ),
-                ],
+            : Padding(
+                padding: EdgeInsets.all(textStyle!.fontSize! * 0.225),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    (icon != null) ? icon! : Container(),
+                    (icon != null) ? SizedBox(width: iconPadding) : Container(),
+                    Text(
+                      text,
+                      style: textStyle,
+                    ),
+                  ],
+                ),
               ),
       ),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(backgroundColor),
         padding: MaterialStateProperty.all<EdgeInsets>(padding),
-        shape: MaterialStateProperty.all(
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
       ),
     );
   }

@@ -9,6 +9,7 @@ class PillButtonOutlined extends StatelessWidget {
   final TextStyle? textStyle;
   final EdgeInsets padding;
   final Icon? icon;
+  final double iconPadding;
   final Function onPressed;
 
   const PillButtonOutlined({
@@ -20,7 +21,8 @@ class PillButtonOutlined extends StatelessWidget {
     required this.onPressed,
     this.color = secondaryColour,
     this.icon,
-    this.padding = const EdgeInsets.all(10.0),
+    this.iconPadding = 5,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
   }) : super(key: key);
 
   @override
@@ -38,17 +40,20 @@ class PillButtonOutlined extends StatelessWidget {
                   strokeWidth: 3,
                 ),
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  (icon != null) ? icon! : Container(),
-                  (icon != null) ? SizedBox(width: 5) : Container(),
-                  Text(
-                    text,
-                    style: textStyle,
-                  ),
-                ],
+            : Padding(
+                padding: const EdgeInsets.all(4.5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    (icon != null) ? icon! : Container(),
+                    (icon != null) ? SizedBox(width: iconPadding) : Container(),
+                    Text(
+                      text,
+                      style: textStyle,
+                    ),
+                  ],
+                ),
               ),
       ),
       style: ButtonStyle(

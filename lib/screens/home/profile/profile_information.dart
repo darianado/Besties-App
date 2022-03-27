@@ -173,9 +173,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       editable: widget.editable,
                       wiggling: widget.editable,
                       interests: widget.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
-                      onSave: (categorizedInterests) {
-                        saveInterests(widget.userData?.uid, categorizedInterests);
-                      },
+                      onSave: (categorizedInterests) => saveInterests(widget.userData?.uid, categorizedInterests),
                     ),
                     SizedBox(height: 25),
                     (widget.bottomSection != null) ? widget.bottomSection! : Container(),

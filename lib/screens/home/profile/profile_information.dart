@@ -80,7 +80,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 (widget.leftAction != null) ? widget.leftAction! : Container(),
-                (widget.rightAction != null) ? widget.rightAction! : Container(),
+                (widget.rightAction != null)
+                    ? widget.rightAction!
+                    : Container(),
               ],
             ),
             flexibleSpace: (loadingPicture)
@@ -91,7 +93,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   )
                 : InkWell(
-                    onTap: (widget.editable && widget.userData != null) ? () => _pickImage(widget.userData!.uid!) : null,
+                    onTap: (widget.editable && widget.userData != null)
+                        ? () => _pickImage(widget.userData!.uid!)
+                        : null,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -101,7 +105,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             Expanded(
                               child: Container(),
                             ),
-                            (widget.onImageSection != null) ? widget.onImageSection! : Container(),
+                            (widget.onImageSection != null)
+                                ? widget.onImageSection!
+                                : Container(),
                           ],
                         )
                       ],
@@ -110,74 +116,89 @@ class _ProfileInformationState extends State<ProfileInformation> {
           ),
           SliverFillRemaining(
             hasScrollBody: false,
-            child: Padding(
-              padding: const EdgeInsets.only(left: leftRightPadding, right: leftRightPadding, bottom: 15),
-              child: Column(
-                children: [
-                  Text(
-                    widget.userData?.fullName ?? "-",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        ?.apply(fontWeightDelta: 2, color: tertiaryColour.withOpacity((widget.editable) ? 0.2 : 1)),
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 15),
-                  UniversityButton(
-                    editable: widget.editable,
-                    wiggling: widget.editable,
-                    label: widget.userData?.university ?? "",
-                    onSave: (university) => saveUniversity(widget.userData?.uid, university),
-                  ),
-                  SizedBox(height: 10),
-                  Wrap(
-                    spacing: 6.0,
-                    runSpacing: 6.0,
-                    alignment: WrapAlignment.center,
-                    runAlignment: WrapAlignment.center,
-                    children: [
-                      DateOfBirthButton(label: "${widget.userData?.age}"),
-                      GenderButtton(
-                        editable: widget.editable,
-                        wiggling: widget.editable,
-                        label: widget.userData?.gender ?? "",
-                        onSave: (gender) => saveGender(widget.userData?.uid, gender),
-                      ),
-                      RelationshipStatusButton(
-                        editable: widget.editable,
-                        wiggling: widget.editable,
-                        label: widget.userData?.relationshipStatus ?? "",
-                        onSave: (relationshipStatus) => saveRelationshipStatus(widget.userData?.uid, relationshipStatus),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  BioField(
-                    label: widget.userData?.bio ?? " ",
-                    editable: widget.editable,
-                  ),
-                  SizedBox(height: 25),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "INTERESTS",
-                        style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                  DisplayInterests(
-                    editable: widget.editable,
-                    wiggling: widget.editable,
-                    interests: widget.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
-                    onSave: (categorizedInterests) {
-                      saveInterests(widget.userData?.uid, categorizedInterests);
-                    },
-                  ),
-                  SizedBox(height: 25),
-                  (widget.bottomSection != null) ? widget.bottomSection! : Container(),
-                ],
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: leftRightPadding,
+                    right: leftRightPadding,
+                    bottom: 15),
+                child: Column(
+                  children: [
+                    Text(
+                      widget.userData?.fullName ?? "-",
+                      style: Theme.of(context).textTheme.headline3?.apply(
+                          fontWeightDelta: 2,
+                          color: tertiaryColour
+                              .withOpacity((widget.editable) ? 0.2 : 1)),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 15),
+                    UniversityButton(
+                      editable: widget.editable,
+                      wiggling: widget.editable,
+                      label: widget.userData?.university ?? "",
+                      onSave: (university) =>
+                          saveUniversity(widget.userData?.uid, university),
+                    ),
+                    SizedBox(height: 10),
+                    Wrap(
+                      spacing: 6.0,
+                      runSpacing: 6.0,
+                      alignment: WrapAlignment.center,
+                      runAlignment: WrapAlignment.center,
+                      children: [
+                        DateOfBirthButton(label: "${widget.userData?.age}"),
+                        GenderButtton(
+                          editable: widget.editable,
+                          wiggling: widget.editable,
+                          label: widget.userData?.gender ?? "",
+                          onSave: (gender) =>
+                              saveGender(widget.userData?.uid, gender),
+                        ),
+                        RelationshipStatusButton(
+                          editable: widget.editable,
+                          wiggling: widget.editable,
+                          label: widget.userData?.relationshipStatus ?? "",
+                          onSave: (relationshipStatus) =>
+                              saveRelationshipStatus(
+                                  widget.userData?.uid, relationshipStatus),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 20),
+                    BioField(
+                      label: widget.userData?.bio ?? " ",
+                      editable: widget.editable,
+                    ),
+                    SizedBox(height: 25),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "INTERESTS",
+                          style: Theme.of(context).textTheme.bodyMedium?.apply(
+                              color: secondaryColour.withOpacity(0.3),
+                              fontWeightDelta: 3),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    DisplayInterests(
+                      editable: widget.editable,
+                      wiggling: widget.editable,
+                      interests: widget.userData?.categorizedInterests ??
+                          CategorizedInterests(categories: []),
+                      onSave: (categorizedInterests) {
+                        saveInterests(
+                            widget.userData?.uid, categorizedInterests);
+                      },
+                    ),
+                    SizedBox(height: 25),
+                    (widget.bottomSection != null)
+                        ? widget.bottomSection!
+                        : Container(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -192,7 +213,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
     }
   }
 
-  Future<void> saveRelationshipStatus(String? userId, String? relationshipStatus) async {
+  Future<void> saveRelationshipStatus(
+      String? userId, String? relationshipStatus) async {
     if (userId != null && relationshipStatus != null) {
       await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
     }
@@ -210,7 +232,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
     }
   }
 
-  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
+  Future<void> saveInterests(
+      String? userId, CategorizedInterests? interests) async {
     if (userId != null && interests != null) {
       await _firestoreService.setInterests(userId, interests);
     }

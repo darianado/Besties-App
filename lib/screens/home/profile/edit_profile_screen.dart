@@ -6,8 +6,6 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/chat/components/round_action_button.dart';
-import 'package:project_seg/screens/components/alerts.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
@@ -82,8 +80,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     } on FirebaseAuthException catch (e) {
       final errorMessage =
           AuthExceptionHandler.generateExceptionMessageFromException(e);
-      // showAlert(context, errorMessage);
-
       showDialog(
         context: context,
         builder: (context) => DismissDialog(errorMessage: errorMessage),
@@ -119,7 +115,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         .headline4
                         ?.apply(fontWeightDelta: 2),
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Text(
                     'Confirm Password',
                     style: Theme.of(context).textTheme.headline6,

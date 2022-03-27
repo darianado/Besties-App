@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/chat/components/round_action_button.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
@@ -31,11 +32,8 @@ class ProfileScreen extends StatelessWidget {
       editable: false,
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
-        child: FloatingActionButton(
-          heroTag: null,
+        child: RoundActionButton(
           onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
-          backgroundColor: tertiaryColour,
-          elevation: 0,
           child: Icon(
             FontAwesomeIcons.pen,
             color: whiteColour,

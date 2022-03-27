@@ -41,16 +41,17 @@ class _Contact_PageState extends State<Contact_Page> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          gradient: LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        stops: [0.4, 0.8, 1],
-        colors: [
-          whiteColour,
-          whiteColourShade2,
-          whiteColourShade3,
-        ],
-      )),
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          stops: [0.4, 0.8, 1],
+          colors: [
+            whiteColour,
+            whiteColourShade2,
+            whiteColourShade3,
+          ],
+        ),
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Column(
@@ -84,7 +85,7 @@ class _Contact_PageState extends State<Contact_Page> {
 }
 
 class LeftAlignedHeadline extends StatelessWidget {
-  final text;
+  final String text;
 
   const LeftAlignedHeadline({
     Key? key,

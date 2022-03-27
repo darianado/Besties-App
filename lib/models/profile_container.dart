@@ -3,6 +3,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/chat/components/round_action_button.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
@@ -163,7 +164,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
 
     final _animationController = AnimationController(vsync: this, value: (isLiked) ? likedValue : notLikedValue);
 
-    return FloatingActionButton(
+    return RoundActionButton(
       onPressed: () async {
         if (!isLiked) {
           await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 800));
@@ -184,12 +185,10 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
           }
         }
       },
-      //clipBehavior: Clip.hardEdge,
-      backgroundColor: secondaryColour,
       child: Transform.scale(
         scale: 1.35,
         child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
-      ), //buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
+      ),
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 import '../../router/route_names.dart';
 
-class MatchDialog extends StatelessWidget {
+class MatchDialog extends StatefulWidget {
   final String? otherName;
   final String? myImage;
   final String? otherImage;
@@ -22,6 +22,11 @@ class MatchDialog extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<MatchDialog> createState() => _MatchDialogState();
+}
+
+class _MatchDialogState extends State<MatchDialog> {
+  @override
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
@@ -29,7 +34,7 @@ class MatchDialog extends StatelessWidget {
       ),
       elevation: 0.0,
       backgroundColor: Colors.transparent,
-      child: dialogContent(context, otherName, myImage, otherImage, userMatch),
+      child: dialogContent(context, widget.otherName, widget.myImage, widget.otherImage, widget.userMatch),
     );
   }
 }

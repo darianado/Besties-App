@@ -195,15 +195,13 @@ class FirestoreService {
   
 
   //Gets the matchID from two uids.
-  Future<String> getMatchID(String? senderID, String? receiverID) async {
+  Future<String> getMatchID(String? userID, String? profileID) async {
     final snapshot = await _firebaseFirestore
         .collection("matches")
-        .where("uids", arrayContains: senderID)
-        .where("uids", arrayContains: receiverID)
+        .where("uids", isEqualTo: [userID,profileID])
         .get();
 
     String matchID = snapshot.docs.first.id;
-
     return matchID;
   }
 

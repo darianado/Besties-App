@@ -167,15 +167,15 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
     return FloatingActionButton(
       onPressed: () async {
         if (!isLiked) {
-          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 800));
+          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 1000));
 
           widget.onLikeComplete();
 
           bool isMatch = await _firestoreService.setLike(widget.profile.userData.uid);
 
           if (isMatch) {
-            final matchID = _firestoreService.getMatchID(_userState.user!.user!.uid, widget.profile.userData.uid);
-            final userMatch = UserMatch(matchID: matchID.toString(), match: widget.profile.userData, timestamp: DateTime.now());
+            final matchID = await _firestoreService.getMatchID(_userState.user!.user!.uid, widget.profile.userData.uid);
+            final userMatch = UserMatch(matchID: matchID, match: widget.profile.userData, timestamp: DateTime.now());
             showDialog(
               context: context,
               builder: (BuildContext context) => MatchDialog(

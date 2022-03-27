@@ -152,9 +152,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                 border: InputBorder.none,
                                 icon: buildIcons(Icons.lock, secondaryColour),
                                 labelText: 'Confirm new password'),
-                            validator: (value) =>
-                                validateRepeatedPassword(
-                                    value, _newPassword.text),
+                            validator: (value) => validateRepeatedPassword(
+                                value, _newPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
                         ),
@@ -163,11 +162,8 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           width: double.infinity,
                           child: PillButtonFilled(
                             text: "Update",
-                            backgroundColor: tertiaryColour,
                             textStyle: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: whiteColour),
+                                fontSize: 20, fontWeight: FontWeight.w600),
                             onPressed: () {
                               if (((_formKey.currentState as FormState)
                                       .validate()) ==
@@ -176,8 +172,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                     _oldPassword.text, _newPassword.text);
                                 context.pushNamed(homeScreenName, params: {
                                   pageParameterKey: profileScreenName
-                                }
-                                );
+                                });
                               }
                             },
                           ),

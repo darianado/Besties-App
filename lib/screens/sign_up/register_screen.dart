@@ -15,7 +15,6 @@ import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
-
 class RegisterScreen extends StatefulWidget {
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
@@ -47,7 +46,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       await userState.signUp(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showAlert(context, errorMsg);
 
       setState(() {
@@ -98,7 +98,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
+                padding: EdgeInsets.fromLTRB(
+                    leftRightPadding, 0, leftRightPadding, 30),
                 //  autovalidate: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +107,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.apply(color: secondaryColour, fontWeightDelta: 2),
                     ),
                     SizedBox(height: 40),
                     TextFormField(
@@ -140,7 +144,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         icon: buildIcons(Icons.lock, tertiaryColour),
                         labelText: 'Confirm password',
                       ),
-                      validator: (value) => validateRepeatedPassword(value, _password.text),
+                      validator: (value) =>
+                          validateRepeatedPassword(value, _password.text),
                     ),
                     SizedBox(height: 40),
                     Container(
@@ -148,12 +153,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: PillButtonFilled(
                         text: "Register",
                         isLoading: isLoading,
-                        backgroundColor: tertiaryColour,
                         textStyle: TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w600,
-                            color: whiteColour
-                        ),
+                            fontSize: 25, fontWeight: FontWeight.w600),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
@@ -168,7 +169,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           PillButtonOutlined(
                             text: "Log in",
                             color: tertiaryColour,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 30, vertical: 7),
                             textStyle: Theme.of(context).textTheme.labelLarge,
                             onPressed: () => context.goNamed(loginScreenName),
                           ),

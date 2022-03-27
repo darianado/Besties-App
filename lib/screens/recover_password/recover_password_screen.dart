@@ -112,11 +112,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Send recovery email",
-                        backgroundColor: tertiaryColour,
                         textStyle: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                            color: whiteColour),
+                            fontSize: 20, fontWeight: FontWeight.w600),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),

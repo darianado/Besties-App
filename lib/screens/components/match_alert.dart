@@ -61,12 +61,8 @@ dialogContent(BuildContext context, String? matchName, String? myImage,
             SizedBox(height: 15.0),
             PillButtonFilled(
               text: "Text ${matchName.toString()} now",
-              backgroundColor: tertiaryColour,
               expandsWidth: true,
-              textStyle: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.apply(color: whiteColour),
+              textStyle: Theme.of(context).textTheme.titleLarge,
               onPressed: () {
                 Navigator.of(context).pop(); // To close the dialog
               },

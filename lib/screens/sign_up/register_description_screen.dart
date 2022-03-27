@@ -73,7 +73,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               leading: IconButton(
                 onPressed: () => context.goNamed(registerPhotoScreenName,
                     extra: widget.userData),
-                icon: buildIcons(Icons.arrow_back_ios,primaryColour),
+                icon: buildIcons(Icons.arrow_back_ios, primaryColour),
                 //buildIcons(Icons.arrow_back_ios, kPrimaryColour),
               ),
               flexibleSpace: Container(
@@ -159,11 +159,10 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           maxLength: _contextState.context?.maxBioLength ?? 200,
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
-                          decoration:  InputDecoration(
+                          decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.all(radius10),
-                                borderSide: BorderSide.none
-                            ),
+                                borderSide: BorderSide.none),
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
@@ -182,12 +181,8 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         width: double.infinity,
                         child: PillButtonFilled(
                           text: "Next",
-                          backgroundColor: tertiaryColour,
                           textStyle: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                              color: whiteColour
-                          ),
+                              fontSize: 25, fontWeight: FontWeight.w600),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 
@@ -215,4 +210,3 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
     );
   }
 }
-

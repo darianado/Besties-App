@@ -41,7 +41,7 @@ class ChatsScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     chats.sort(
-      (a, b) =>
+      (b, a) =>
           a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
     );
 

@@ -17,8 +17,7 @@ class RecentChats extends StatelessWidget {
 
     List<UserMatch>? chats = _matchState.activeChats;
 
-    return Container(
-      width: double.infinity,
+    return Expanded(
       child: (chats != null && chats.isNotEmpty)
           ? ChatsScrollView(chats: chats)
           : Padding(
@@ -48,12 +47,15 @@ class ChatsScrollView extends StatelessWidget {
       (b, a) =>
           a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
     );
-
-    return SingleChildScrollView(
+  // children: <Widget>[
+  //   Container(
+  //     height: 50,
+  //     color: Colors.amber[600],
+  //     child: const Center(child: Text('Entry A')),
+  //   ),
+    return ListView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        children: chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList(),
-      ),
+      children :   chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList()
     );
   }
 }

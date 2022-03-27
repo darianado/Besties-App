@@ -78,12 +78,15 @@ String? validateUniversity(String? value) {
   return null;
 }
 
-String? validateInterests(CategorizedInterests? value) {
+String? validateInterests(CategorizedInterests? value, int? min, int? max) {
   if (value == null) return "You must fill in this field";
 
+  min = (min != null) ? min : 1;
+  max = (max != null) ? max : 10;
+
   final _flattenedInterests = value.flattenedInterests;
-  if (_flattenedInterests.length < 1 || _flattenedInterests.length > 10) {
-    return "Select between 1 and 10 interests";
+  if (_flattenedInterests.length < min || _flattenedInterests.length > max) {
+    return "Select between ${min} and ${max} interests";
   }
 
   return null;

@@ -40,6 +40,11 @@ class ChatsScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    chats.sort(
+      (a, b) =>
+          a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
+    );
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -62,7 +67,8 @@ class ChatsScrollViewItem extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => context.pushNamed(matchChatScreenName, extra: chat, params: {pageParameterKey: chatScreenName}),
+        onTap: () => context.pushNamed(matchChatScreenName,
+            extra: chat, params: {pageParameterKey: chatScreenName}),
         child: Container(
           margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -87,7 +93,10 @@ class ChatsScrollViewItem extends StatelessWidget {
                   children: [
                     Text(
                       chat.match?.firstName ?? "",
-                      style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.apply(fontWeightDelta: 2),
                     ),
                     Text(
                       chat.mostRecentMessage?.content ?? "",

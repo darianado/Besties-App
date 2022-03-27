@@ -27,8 +27,6 @@ class ChatScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = Provider.of<MatchState>(context);
-
     return Scaffold(
       backgroundColor: whiteColour,
       appBar: AppBar(
@@ -42,14 +40,7 @@ class ChatScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  reverse: true,
-                  itemCount: userMatch.messages?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Message message = userMatch.messages![index];
-                    return MessageWidget(message: message);
-                  },
-                ),
+                child: Conversation(context: context, userMatch: userMatch),
               ),
               SizedBox(height: 10),
               MesssageComposer(matchID: userMatch.matchID),
@@ -58,6 +49,27 @@ class ChatScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class Conversation extends StatelessWidget {
+  final UserMatch userMatch;
+  final BuildContext context;
+
+  Conversation({Key? key, required this.userMatch, required this.context})
+      : super(key: key);
+
+  @override
+  Widget build(context) {
+    final _ = Provider.of<MatchState>(context);
+
+    return ListView.builder(
+        reverse: true,
+        itemCount: userMatch.messages?.length ?? 0,
+        itemBuilder: (BuildContext context, int index) {
+          final Message message = userMatch.messages![index];
+          return MessageWidget(message: message);
+        });
   }
 }
 
@@ -76,7 +88,8 @@ class ProfileAppBarButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(5),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () => context.pushNamed(matchProfileScreenName, extra: userMatch, params: {pageParameterKey: chatScreenName}),
+        onTap: () => context.pushNamed(matchProfileScreenName,
+            extra: userMatch, params: {pageParameterKey: chatScreenName}),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -90,7 +103,10 @@ class ProfileAppBarButton extends StatelessWidget {
             SizedBox(width: 10),
             Text(
               userMatch.match?.firstName ?? "",
-              style: Theme.of(context).textTheme.headline4?.apply(color: whiteColour),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline4
+                  ?.apply(color: whiteColour),
             ),
           ],
         ),

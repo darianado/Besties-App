@@ -41,7 +41,7 @@ class PillButtonOutlined extends StatelessWidget {
                 ),
               )
             : Padding(
-                padding: const EdgeInsets.all(4.5),
+                padding: EdgeInsets.all(textStyle!.fontSize! * 0.225),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,

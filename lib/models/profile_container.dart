@@ -40,8 +40,7 @@ class ProfileContainer extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: NetworkImage(profile.userData.profileImageUrl ??
-              "assets/images/empty_profile_picture.jpg"),
+          image: NetworkImage(profile.userData.profileImageUrl ?? "assets/images/empty_profile_picture.jpg"),
         ),
       ),
       height: MediaQuery.of(context).size.height,
@@ -113,21 +112,18 @@ class ProfileContainer extends StatelessWidget {
     Set<String> profileInterests = <String>{};
 
     ///
-    for (Category category
-        in _userState.user!.userData!.categorizedInterests!.categories) {
+    for (Category category in _userState.user!.userData!.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         userInterests.add(interest.title);
       }
     }
-    for (Category category
-        in profile.userData.categorizedInterests!.categories) {
+    for (Category category in profile.userData.categorizedInterests!.categories) {
       for (Interest interest in category.interests) {
         profileInterests.add(interest.title);
       }
     }
 
-    dynamic commonInterests =
-        userInterests.intersection(profileInterests).length;
+    dynamic commonInterests = userInterests.intersection(profileInterests).length;
     if (commonInterests == 0) {
       return "NO";
     } else {
@@ -153,8 +149,7 @@ class LikeProfileButton extends StatefulWidget {
   State<LikeProfileButton> createState() => _LikeProfileButtonState();
 }
 
-class _LikeProfileButtonState extends State<LikeProfileButton>
-    with TickerProviderStateMixin {
+class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
   final FirestoreService _firestoreService = FirestoreService.instance;
 
   final notLikedValue = 0.0;
@@ -164,27 +159,16 @@ class _LikeProfileButtonState extends State<LikeProfileButton>
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    bool isLiked = _userState.user?.userData?.likes
-            ?.contains(widget.profile.userData.uid) ??
-        false;
+    bool isLiked = _userState.user?.userData?.likes?.contains(widget.profile.userData.uid) ?? false;
 
-    final _animationController = AnimationController(
-        vsync: this, value: (isLiked) ? likedValue : notLikedValue);
+    final _animationController = AnimationController(vsync: this, value: (isLiked) ? likedValue : notLikedValue);
 
     return RoundActionButton(
       onPressed: () async {
         if (!isLiked) {
-<<<<<<< HEAD
-          await _animationController.animateTo(likedValue,
-              duration: Duration(milliseconds: 800));
+          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
 
-          widget.onLikeComplete();
-=======
-           await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
->>>>>>> main
-
-          bool isMatch =
-              await _firestoreService.setLike(widget.profile.userData.uid);
+          bool isMatch = await _firestoreService.setLike(widget.profile.userData.uid);
 
           if (isMatch) {
             final matchID = await _firestoreService.getMatchID(_userState.user!.user!.uid, widget.profile.userData.uid);
@@ -204,8 +188,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton>
       },
       child: Transform.scale(
         scale: 1.35,
-        child: Lottie.asset("assets/lotties/like.json",
-            controller: _animationController),
+        child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
       ),
     );
   }
@@ -218,8 +201,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton>
 class PartialProfileDetails extends StatelessWidget {
   final UserData profile;
 
-  const PartialProfileDetails({Key? key, required this.profile})
-      : super(key: key);
+  const PartialProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -230,10 +212,7 @@ class PartialProfileDetails extends StatelessWidget {
         Text(
           profile.firstName ?? " ",
           maxLines: 2,
-          style: Theme.of(context)
-              .textTheme
-              .headline4
-              ?.apply(color: secondaryColour, fontWeightDelta: 2),
+          style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
         ),
         SizedBox(height: 3),
         Row(children: [
@@ -247,10 +226,7 @@ class PartialProfileDetails extends StatelessWidget {
           Expanded(
             child: Text(
               profile.university ?? "null",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline6
-                  ?.apply(color: secondaryColour),
+              style: Theme.of(context).textTheme.headline6?.apply(color: secondaryColour),
             ),
           ),
         ]),

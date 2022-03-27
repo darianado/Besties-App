@@ -67,4 +67,8 @@ class MatchState extends ChangeNotifier {
       */
     });
   }
+
+  List<UserMatch>? get activeChats {
+    return matches?.where((UserMatch element) => element.messages != null).toList();
+  }
 }

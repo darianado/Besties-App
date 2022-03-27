@@ -105,6 +105,11 @@ class FirestoreService {
     });
   }
 
+  // Saves a single message to firestore.
+  Future<void> saveMessage(String matchID, Message message) async {
+    _firebaseFirestore.collection("matches").doc(matchID).collection("messages").add(message.toMap());
+  }
+
   Future<CategorizedInterests> fetchInterests() async {
     final snapshot = await _firebaseFirestore.collection("app").doc("context").collection("interests").get();
     return CategorizedInterests(categories: snapshot.docs.map((doc) => (Category.fromSnapshot(doc))).toList());
@@ -187,13 +192,7 @@ class FirestoreService {
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
-
-  // Saves a single message to firestore.
-  Future<void> saveMessage(Message message, String senderID, String receiverID) async {
-    String matchID = await getMatchID(senderID, receiverID);
-
-    _firebaseFirestore.collection("matches").doc(matchID).collection("messages").add(message.toMap());
-  }
+  /*
 
   // Gets the matchID from two uids.
   Future<String> getMatchID(String senderID, String receiverID) async {
@@ -220,4 +219,5 @@ class FirestoreService {
 
     return results;
   }
+  */
 }

@@ -203,13 +203,9 @@ class AppRouter {
           GoRoute(
             name: matchChatScreenName,
             path: matchChatScreenPath,
-            pageBuilder: (context, state) => CustomTransitionPage<void>(
+            pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
               child: ChatScreen(userMatch: state.extra! as UserMatch),
-              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-                opacity: animation,
-                child: child,
-              ),
             ),
           ),
         ],

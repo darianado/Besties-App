@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
+import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
@@ -28,131 +32,22 @@ class _ChatScreenState extends State<ChatScreen> {
   //getMessages
   final FirestoreService _firestoreService = FirestoreService.instance;
 
-  /* Future<List<Message>> getMessages() async{
-    QuerySnapshot querySnapshot= await FirebaseFirestore.instance.collection("chats").where(FieldPath.documentId, isEqualTo: widget.chatID).get();
-    final chats= querySnapshot.docs.map((doc) => Chat.fromSnapshot(doc as firestore.DocumentSnapshot<Map>)).toList();
-      Chat chat = chats[0];
-      List<Message> messageList = chat.messages;
-      _messages = await messageList;
-  }
-
-  void convertList() async {
-    Future<List<Message>> messages = getMessages();
-    _messages = await messages;
-  } */
-
   //create a message with sender and time and save it to firestore
-  void _handleSubmitted(String content, String senderID, String receiverID) {
+  void _handleSubmitted(String content, String senderID, String matchID) {
+    if (content.trim() == "") return;
+
     DateTime now = DateTime.now();
     Message message = Message(content: content, senderID: senderID, timestamp: now);
 
-    _firestoreService.saveMessage(message, senderID, receiverID);
-    //FirestoreService.instance.updateMessageList(widget.chatID, _messages);
+    _firestoreService.saveMessage(matchID, message);
     _textController.clear();
-
-    setState(() {
-      //_messages.insert(0, message);
-    });
-  }
-
-  _messageBuilder(Message message, BuildContext context) {
-    final _userState = Provider.of<UserState>(context, listen: false);
-    final bool isMine = (message.senderID == _userState.user?.userData!.uid);
-
-    Container msg = Container(
-      margin: isMine ? const EdgeInsets.only(top: 5, bottom: 5, left: 80) : const EdgeInsets.only(top: 5, bottom: 5),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-      width: MediaQuery.of(context).size.width * 0.75,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: isMine ? chatSenderColour : chatReceiverColour,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(height: 3),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                message.content!,
-                style: TextStyle(
-                  color: whiteColour,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            const SizedBox(height: 3),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                message.messageTimestamp!,
-                style: TextStyle(
-                  color: whiteColour,
-                  fontSize: 10,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-
-      // decoration: BoxDecoration(
-      //     color: mine ? kChatSenderColour : kTertiaryColour,
-      //     borderRadius: mine
-      //         ? BorderRadius.only(
-      //             topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))
-      //         : BorderRadius.only(
-      //             topRight: Radius.circular(15),
-      //             bottomRight: Radius.circular(15))),
-    );
-    if (isMine) {
-      return msg;
-    }
-    return Row(
-      children: <Widget>[
-        msg,
-      ],
-    );
-  }
-
-  _buildMessageComposer(String currentUser) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        decoration: BoxDecoration(
-          borderRadius: circularBorderRadius10,
-          border: Border.all(color: tertiaryColour),
-        ),
-        child: Row(
-          children: [
-            //if users are able to send messages
-            Expanded(
-              child: TextField(
-                keyboardType: TextInputType.multiline,
-                controller: _textController,
-                decoration: const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true),
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                //_handleSubmitted(_textController.text, currentUser.toString());
-              },
-              child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    final currentUser = _userState.user?.user?.uid;
+    final _contextState = Provider.of<ContextState>(context);
+    final _matchState = Provider.of<MatchState>(context);
 
     print("There are ${widget.userMatch.messages?.length} messages to show for ${widget.userMatch.match?.fullName}");
 
@@ -161,7 +56,7 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         backgroundColor: tertiaryColour,
         title: Text(
-          currentUser.toString(),
+          widget.userMatch.match?.firstName ?? "",
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.bold,
@@ -171,28 +66,103 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: [
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: simpleWhiteColour,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    reverse: true,
+                    itemCount: widget.userMatch.messages?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      final Message message = widget.userMatch.messages![index];
+                      return MessageWidget(message: message);
+                    },
+                  ),
                 ),
-                child: ListView.builder(
-                  reverse: true,
-                  padding: const EdgeInsets.only(top: 15),
-                  itemCount: widget.userMatch.messages?.length ?? 0,
-                  itemBuilder: (BuildContext context, int index) {
-                    final Message message = widget.userMatch.messages![index];
-                    return _messageBuilder(message, context);
-                  },
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: circularBorderRadius10,
+                    border: Border.all(color: tertiaryColour),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          controller: _textController,
+                          decoration:
+                              const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true, counterText: ""),
+                          minLines: 1,
+                          maxLines: 10,
+                          maxLength: _contextState.context?.maxChatMessageLength ?? 100,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => _handleSubmitted(_textController.text, _userState.user!.user!.uid, widget.userMatch.matchID),
+                        child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
+                      )
+                    ],
+                  ),
                 ),
-              ),
+              ],
             ),
-            _buildMessageComposer(currentUser.toString()),
-          ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class MessageWidget extends StatelessWidget {
+  final Message message;
+
+  const MessageWidget({
+    Key? key,
+    required this.message,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final bool isMine = (message.senderID == _userState.user?.userData!.uid);
+
+    return Row(
+      mainAxisAlignment: isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+      children: [
+        Container(
+          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          margin: const EdgeInsets.only(top: 5, bottom: 5),
+          decoration: BoxDecoration(
+            color: isMine ? chatSenderColour : chatReceiverColour,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            crossAxisAlignment: isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Text(
+                message.content!,
+                style: TextStyle(
+                  color: isMine ? whiteColour : primaryColour,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                message.messageTimestamp!,
+                style: TextStyle(
+                  color: isMine ? whiteColourShade3 : secondaryColour,
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

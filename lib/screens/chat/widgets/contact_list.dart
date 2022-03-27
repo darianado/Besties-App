@@ -22,8 +22,6 @@ class Matches extends StatelessWidget {
   Widget build(BuildContext context) {
     final _matchState = Provider.of<MatchState>(context);
 
-    print("Number of matches: ${_matchState.matches?.length}");
-
     return Container(
       width: double.infinity,
       child: SingleChildScrollView(
@@ -40,8 +38,8 @@ class Matches extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(1000)),
                           onTap: () => context.pushNamed(matchProfileScreenName, extra: e, params: {pageParameterKey: chatScreenName}),
                           child: Container(
-                            height: 100,
-                            width: 100,
+                            height: 90,
+                            width: 90,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
                             ),

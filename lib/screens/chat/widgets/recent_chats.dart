@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants/colours.dart';
+import '../../../services/user_state.dart';
 
 class RecentChats extends StatelessWidget {
   @override
@@ -64,6 +68,15 @@ class ChatsScrollViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final bool isMine = (chat.mostRecentMessage!.senderID == _userState.user?.userData!.uid);
+
+            //     child: Icon(
+            //   FontAwesomeIcons.university,
+            //   color: secondaryColour,
+            // ),
+            //condition ? Widget() : OtherWidget()
+    
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -73,11 +86,11 @@ class ChatsScrollViewItem extends StatelessWidget {
           margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                 ),
@@ -107,7 +120,13 @@ class ChatsScrollViewItem extends StatelessWidget {
                   ],
                 ),
               ),
+                !isMine ? Icon(
+                  FontAwesomeIcons.reply,
+                  color: secondaryColour,
+                   size: 24.0,
+                 ) : Text("")
             ],
+
           ),
         ),
       ),

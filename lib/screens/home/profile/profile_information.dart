@@ -15,7 +15,7 @@ import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 
 class ProfileInformation extends StatefulWidget {
-  final UserData userData;
+  final UserData? userData;
   final bool editable;
   final Widget? leftAction;
   final Widget? rightAction;
@@ -24,7 +24,7 @@ class ProfileInformation extends StatefulWidget {
 
   ProfileInformation({
     Key? key,
-    required this.userData,
+    this.userData,
     required this.editable,
     this.onImageSection,
     this.leftAction,
@@ -73,9 +73,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
             expandedHeight: profileHeaderExtendedHeight,
             collapsedHeight: profileHeaderCollapsedHeight,
             automaticallyImplyLeading: false,
-            //excludeHeaderSemantics: false,
             backgroundColor: Colors.transparent,
-            //leading: widget.leftAction,
             titleSpacing: 0,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -84,11 +82,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
                 (widget.rightAction != null) ? widget.rightAction! : Container(),
               ],
             ),
-            /*
-            actions: [
-              (widget.rightAction != null) ? widget.rightAction! : Container(),
-            ],
-            */
             flexibleSpace: (loadingPicture)
                 ? const Center(
                     child: Padding(
@@ -97,11 +90,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   )
                 : InkWell(
-                    onTap: (widget.editable) ? () => _pickImage(widget.userData.uid!) : null,
+                    onTap: (widget.editable && widget.userData != null) ? () => _pickImage(widget.userData!.uid!) : null,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
-                        CachedImage(url: widget.userData.profileImageUrl),
+                        CachedImage(url: widget.userData?.profileImageUrl),
                         Column(
                           children: [
                             Expanded(
@@ -121,7 +114,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               child: Column(
                 children: [
                   Text(
-                    widget.userData.fullName ?? "-",
+                    widget.userData?.fullName ?? "-",
                     style: Theme.of(context)
                         .textTheme
                         .headline3
@@ -132,8 +125,8 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   UniversityButton(
                     editable: widget.editable,
                     wiggling: widget.editable,
-                    label: widget.userData.university ?? "",
-                    onSave: (university) => saveUniversity(widget.userData.uid, university),
+                    label: widget.userData?.university ?? "",
+                    onSave: (university) => saveUniversity(widget.userData?.uid, university),
                   ),
                   SizedBox(height: 10),
                   Wrap(
@@ -142,24 +135,24 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     alignment: WrapAlignment.center,
                     runAlignment: WrapAlignment.center,
                     children: [
-                      DateOfBirthButton(label: "${widget.userData.age}"),
+                      DateOfBirthButton(label: "${widget.userData?.age}"),
                       GenderButtton(
                         editable: widget.editable,
                         wiggling: widget.editable,
-                        label: widget.userData.gender ?? "",
-                        onSave: (gender) => saveGender(widget.userData.uid, gender),
+                        label: widget.userData?.gender ?? "",
+                        onSave: (gender) => saveGender(widget.userData?.uid, gender),
                       ),
                       RelationshipStatusButton(
                         editable: widget.editable,
                         wiggling: widget.editable,
-                        label: widget.userData.relationshipStatus ?? "",
-                        onSave: (relationshipStatus) => saveRelationshipStatus(widget.userData.uid, relationshipStatus),
+                        label: widget.userData?.relationshipStatus ?? "",
+                        onSave: (relationshipStatus) => saveRelationshipStatus(widget.userData?.uid, relationshipStatus),
                       ),
                     ],
                   ),
                   SizedBox(height: 20),
                   BioField(
-                    label: widget.userData.bio ?? " ",
+                    label: widget.userData?.bio ?? " ",
                     editable: widget.editable,
                   ),
                   SizedBox(height: 25),
@@ -176,9 +169,9 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   DisplayInterests(
                     editable: widget.editable,
                     wiggling: widget.editable,
-                    items: widget.userData.categorizedInterests?.flattenedInterests ?? [],
+                    items: widget.userData?.categorizedInterests?.flattenedInterests ?? [],
                     onSave: (categorizedInterests) {
-                      saveInterests(widget.userData.uid, categorizedInterests);
+                      saveInterests(widget.userData?.uid, categorizedInterests);
                     },
                   ),
                   SizedBox(height: 25),

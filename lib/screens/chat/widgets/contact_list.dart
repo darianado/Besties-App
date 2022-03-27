@@ -22,44 +22,55 @@ class Matches extends StatelessWidget {
   Widget build(BuildContext context) {
     final _matchState = Provider.of<MatchState>(context);
 
+    List<UserMatch>? matches = _matchState.matchesWithNoChat;
+
     return Container(
       width: double.infinity,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: _matchState.matches?.map((UserMatch e) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Material(
-                        borderRadius: BorderRadius.all(Radius.circular(1000)),
-                        child: InkWell(
+      child: (matches != null && matches.isNotEmpty)
+          ? SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: matches.map((UserMatch e) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Material(
                           borderRadius: BorderRadius.all(Radius.circular(1000)),
-                          onTap: () => context.pushNamed(matchProfileScreenName, extra: e, params: {pageParameterKey: chatScreenName}),
-                          child: Container(
-                            height: 90,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
+                          child: InkWell(
+                            borderRadius: BorderRadius.all(Radius.circular(1000)),
+                            onTap: () => context.pushNamed(matchProfileScreenName, extra: e, params: {pageParameterKey: chatScreenName}),
+                            child: Container(
+                              height: 90,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              clipBehavior: Clip.antiAlias,
+                              child: CachedImage(url: e.match!.profileImageUrl),
                             ),
-                            clipBehavior: Clip.antiAlias,
-                            child: CachedImage(url: e.match!.profileImageUrl),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 6),
-                      Text(
-                        e.match!.firstName ?? "",
-                        style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),
-                      )
-                    ],
-                  ),
-                );
-              }).toList() ??
-              [],
-        ),
-      ),
+                        SizedBox(height: 6),
+                        Text(
+                          e.match!.firstName ?? "55",
+                          style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),
+                        )
+                      ],
+                    ),
+                  );
+                }).toList(),
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Center(
+                child: Text(
+                  "New matches will appear here.",
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ),
+            ),
     );
   }
 }

@@ -5,6 +5,8 @@ import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -14,6 +16,7 @@ import '../../constants/borders.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:go_router/go_router.dart';
 
 class ChatScreen extends StatefulWidget {
   final UserMatch userMatch;
@@ -55,61 +58,76 @@ class _ChatScreenState extends State<ChatScreen> {
       backgroundColor: whiteColour,
       appBar: AppBar(
         backgroundColor: tertiaryColour,
-        title: Text(
-          widget.userMatch.match?.firstName ?? "",
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
+        title: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(5),
+          clipBehavior: Clip.hardEdge,
+          child: InkWell(
+            onTap: () => context.pushNamed(matchProfileScreenName, extra: widget.userMatch, params: {pageParameterKey: chatScreenName}),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(shape: BoxShape.circle),
+                  clipBehavior: Clip.antiAlias,
+                  child: CachedImage(url: widget.userMatch.match?.profileImageUrl),
+                ),
+                SizedBox(width: 10),
+                Text(
+                  widget.userMatch.match?.firstName ?? "",
+                  style: Theme.of(context).textTheme.headline4?.apply(color: whiteColour),
+                ),
+              ],
+            ),
           ),
         ),
         elevation: 0.0,
       ),
-      body: GestureDetector(
-        onTap: () => FocusScope.of(context).unfocus(),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                    reverse: true,
-                    itemCount: widget.userMatch.messages?.length ?? 0,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = widget.userMatch.messages![index];
-                      return MessageWidget(message: message);
-                    },
-                  ),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  reverse: true,
+                  itemCount: widget.userMatch.messages?.length ?? 0,
+                  itemBuilder: (BuildContext context, int index) {
+                    final Message message = widget.userMatch.messages![index];
+                    return MessageWidget(message: message);
+                  },
                 ),
-                SizedBox(height: 10),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  decoration: BoxDecoration(
-                    borderRadius: circularBorderRadius10,
-                    border: Border.all(color: tertiaryColour),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: TextField(
-                          keyboardType: TextInputType.multiline,
-                          controller: _textController,
-                          decoration:
-                              const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true, counterText: ""),
-                          minLines: 1,
-                          maxLines: 10,
-                          maxLength: _contextState.context?.maxChatMessageLength ?? 100,
-                        ),
+              ),
+              SizedBox(height: 10),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 5),
+                decoration: BoxDecoration(
+                  borderRadius: circularBorderRadius10,
+                  border: Border.all(color: tertiaryColour),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.multiline,
+                        controller: _textController,
+                        decoration:
+                            const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true, counterText: ""),
+                        minLines: 1,
+                        maxLines: 10,
+                        maxLength: _contextState.context?.maxChatMessageLength ?? 100,
                       ),
-                      TextButton(
-                        onPressed: () => _handleSubmitted(_textController.text, _userState.user!.user!.uid, widget.userMatch.matchID),
-                        child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
-                      )
-                    ],
-                  ),
+                    ),
+                    TextButton(
+                      onPressed: () => _handleSubmitted(_textController.text, _userState.user!.user!.uid, widget.userMatch.matchID),
+                      child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
+                    )
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

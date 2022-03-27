@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
     final _userState = Provider.of<UserState>(context);
 
     return ProfileInformation(
-      userData: _userState.user!.userData!,
+      userData: _userState.user?.userData,
       editable: false,
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),

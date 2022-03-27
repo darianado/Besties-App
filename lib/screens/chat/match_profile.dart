@@ -4,6 +4,7 @@ import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
@@ -22,33 +23,19 @@ import 'package:go_router/go_router.dart';
 ///
 class MatchProfileScreen extends StatelessWidget {
   final UserMatch userMatch;
+  final bool showMessageButton;
 
-  MatchProfileScreen({required this.userMatch});
+  MatchProfileScreen({
+    required this.userMatch,
+    this.showMessageButton = true,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ProfileInformation(
-      userData: userMatch.match!,
+      userData: userMatch.match,
       editable: false,
-      onImageSection: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: PillButtonFilled(
-          text: "Chat",
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-          textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
-          iconPadding: 10,
-          icon: Icon(
-            FontAwesomeIcons.comments,
-            color: whiteColour,
-            size: 20,
-          ),
-          backgroundColor: tertiaryColour,
-          onPressed: () {
-            Navigator.of(context).pop();
-            context.pushNamed(matchChatScreenName, extra: userMatch, params: {pageParameterKey: chatScreenName});
-          },
-        ),
-      ),
+      onImageSection: getOnImageSection(context),
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: FloatingActionButton(
@@ -65,5 +52,31 @@ class MatchProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget? getOnImageSection(BuildContext context) {
+    if (showMessageButton) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: PillButtonFilled(
+          text: "Chat",
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+          textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
+          iconPadding: 10,
+          icon: Icon(
+            FontAwesomeIcons.comments,
+            color: whiteColour,
+            size: 20,
+          ),
+          backgroundColor: tertiaryColour,
+          onPressed: () {
+            Navigator.of(context).pop();
+            context.goNamed(matchChatScreenName, extra: userMatch, params: {pageParameterKey: chatScreenName});
+          },
+        ),
+      );
+    }
+
+    return null;
   }
 }

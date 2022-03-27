@@ -44,7 +44,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final _userState = Provider.of<UserState>(context);
 
     return ProfileInformation(
-      userData: _userState.user!.userData!,
+      userData: _userState.user?.userData,
       editable: true,
       onImageSection: Container(
         color: opacBlack,

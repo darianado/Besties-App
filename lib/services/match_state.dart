@@ -44,31 +44,14 @@ class MatchState extends ChangeNotifier {
           notifyListeners();
         });
       });
-
-      /*
-      event.sort((a, b) {
-        final aTimestamp = a.timestamp;
-        final bTimestamp = b.timestamp;
-
-        if (aTimestamp != null && bTimestamp != null) {
-          return bTimestamp.compareTo(aTimestamp);
-        } else {
-          return 0;
-        }
-      });
-      List<String> sortedUserIDs = event.map((e) => e.matchUserID!).toList();
-
-      print("Sorted event: ${sortedUserIDs}");
-
-      matches = await _firestoreService.getUsers(sortedUserIDs);
-      print("Matches: ${matches?.map((e) => "UID: ${e.userData.uid}, name: ${e.userData.firstName}")}");
-      print("Matches changed!");
-      notifyListeners();
-      */
     });
   }
 
   List<UserMatch>? get activeChats {
     return matches?.where((UserMatch element) => element.messages != null).toList();
+  }
+
+  List<UserMatch>? get matchesWithNoChat {
+    return matches?.where((UserMatch element) => element.messages == null).toList();
   }
 }

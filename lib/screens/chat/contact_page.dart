@@ -26,7 +26,6 @@ class _Contact_PageState extends State<Contact_Page> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     fetchMatches();
   }
@@ -64,28 +63,13 @@ class _Contact_PageState extends State<Contact_Page> {
                       padding: EdgeInsets.only(left: 15, bottom: 5),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: Text('Matches',
-                            style: TextStyle(
-                              color: secondaryColour,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                            )),
+                        child: LeftAlignedHeadline(text: "Matches"),
                       ),
                     ),
                     Matches(),
                     Padding(
                       padding: EdgeInsets.only(left: 15, bottom: 5),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Chats',
-                            style: TextStyle(
-                              color: secondaryColour,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 1,
-                            )),
-                      ),
+                      child: LeftAlignedHeadline(text: "Chats"),
                     ),
                     RecentChats()
                   ],
@@ -95,6 +79,29 @@ class _Contact_PageState extends State<Contact_Page> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class LeftAlignedHeadline extends StatelessWidget {
+  final text;
+
+  const LeftAlignedHeadline({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(text,
+          style: TextStyle(
+            color: secondaryColour,
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+          )),
     );
   }
 }

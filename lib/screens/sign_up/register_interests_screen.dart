@@ -6,8 +6,10 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
@@ -22,7 +24,7 @@ class RegisterInterestsScreen extends StatefulWidget {
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
-  bool couldNotValidateInterests = false;
+  String? validateInterestsError;
 
   @override
   Widget build(BuildContext context) {
@@ -96,21 +98,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     },
                     selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
                   ),
-                  (couldNotValidateInterests)
-                      ? Row(
-                          children: [
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: Text(
-                                  "Ensure you have selected at least 1 interest",
-                                  style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      : Container(),
+                  ValidatorError(errorText: validateInterestsError),
                   const SizedBox(height: 20),
                   Container(
                     width: double.infinity,
@@ -119,19 +107,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                       backgroundColor: tertiaryColour,
                       textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: whiteColour),
                       onPressed: () {
-                        final _interests = widget.userData.categorizedInterests?.flattenedInterests;
-
-                        if (_interests == null || _interests.length < 1 || _interests.length > 10) {
-                          setState(() {
-                            couldNotValidateInterests = true;
-                          });
-                          return;
-                        }
-
-                        setState(() {
-                          couldNotValidateInterests = false;
-                        });
-
+                        if (!validate()) return;
                         saveToFirestore();
                       },
                     ),
@@ -143,5 +119,13 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
         ],
       ),
     );
+  }
+
+  bool validate() {
+    setState(() {
+      validateInterestsError = validateInterests(widget.userData.categorizedInterests);
+    });
+
+    return (validateInterestsError == null);
   }
 }

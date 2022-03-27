@@ -1,26 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:age_calculator/age_calculator.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
-
-class CategorizedInterests {
-  final List<Category> categories;
-
-  CategorizedInterests({required this.categories});
-
-  factory CategorizedInterests.fromList(List<dynamic> list) {
-    final categories = list.map((e) => Category.fromMap(e)).toList();
-    return CategorizedInterests(categories: categories);
-  }
-
-  List<Map<String, dynamic>> toList() {
-    return categories.map((e) => e.toMap()).toList();
-  }
-
-  List<Interest> get flattenedInterests {
-    return categories.map((category) => category.interests).expand((i) => i).toList();
-  }
-}
 
 class Preferences {
   CategorizedInterests? interests;

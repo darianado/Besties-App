@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
@@ -32,6 +33,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
 
       _firestoreService.saveUserData(widget.userData);
     }
+
+    print("Selected interests are: ${widget.userData.categorizedInterests?.flattenedInterests}");
 
     return Scaffold(
       body: CustomScrollView(
@@ -114,11 +117,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     child: PillButtonFilled(
                       text: "Done",
                       backgroundColor: tertiaryColour,
-                      textStyle: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                          color: whiteColour
-                      ),
+                      textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: whiteColour),
                       onPressed: () {
                         final _interests = widget.userData.categorizedInterests?.flattenedInterests;
 

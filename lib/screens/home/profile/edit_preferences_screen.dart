@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
@@ -172,7 +173,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   SizedBox(height: spaceBetweenWidgetAndTitle),
                   DisplayInterests(
                     editable: true,
-                    items: newPreferences?.interests?.flattenedInterests ?? [],
+                    interests: newPreferences?.interests ?? CategorizedInterests(categories: []),
                     onSave: (newCategorizedInterests) {
                       setState(() {
                         newPreferences?.interests = newCategorizedInterests;

@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/models/User/UserMatch.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
@@ -169,7 +170,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                   DisplayInterests(
                     editable: widget.editable,
                     wiggling: widget.editable,
-                    items: widget.userData?.categorizedInterests?.flattenedInterests ?? [],
+                    interests: widget.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
                     onSave: (categorizedInterests) {
                       saveInterests(widget.userData?.uid, categorizedInterests);
                     },

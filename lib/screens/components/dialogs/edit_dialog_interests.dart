@@ -3,7 +3,10 @@ import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/screens/components/widget/select_interests.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
 class EditDialogInterests extends StatefulWidget {
@@ -21,14 +24,24 @@ class EditDialogInterests extends StatefulWidget {
 }
 
 class _EditDialogInterestsState extends State<EditDialogInterests> {
+  String? validateInterestsError;
+
   @override
   Widget build(BuildContext context) {
     return EditDialog(
-      content: SelectInterests(
-        onChange: _changeSelection,
-        selected: widget.interests,
+      content: Column(
+        children: [
+          SelectInterests(
+            onChange: _changeSelection,
+            selected: widget.interests,
+          ),
+          ValidatorError(errorText: validateInterestsError),
+        ],
       ),
-      onSave: _save,
+      onSave: () {
+        if (!validate()) return;
+        _save();
+      },
     );
   }
 
@@ -43,5 +56,16 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
   void _save() {
     Navigator.of(context).pop();
     widget.onSave(widget.interests);
+  }
+
+  bool validate() {
+    final _contextState = Provider.of<ContextState>(context, listen: false);
+
+    setState(() {
+      validateInterestsError =
+          validateInterests(widget.interests, _contextState.context?.minInterestsSelected, _contextState.context?.maxInterestsSelected);
+    });
+
+    return (validateInterestsError == null);
   }
 }

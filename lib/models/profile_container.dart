@@ -167,9 +167,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
     return FloatingActionButton(
       onPressed: () async {
         if (!isLiked) {
-          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 1000));
-
-          widget.onLikeComplete();
+           await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
 
           bool isMatch = await _firestoreService.setLike(widget.profile.userData.uid);
 
@@ -186,6 +184,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
               ),
             );
           }
+          widget.onLikeComplete();
         }
       },
       //clipBehavior: Clip.hardEdge,

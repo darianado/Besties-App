@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;
@@ -21,7 +22,7 @@ class PillButtonFilled extends StatelessWidget {
     this.padding = const EdgeInsets.all(10.0),
     this.icon,
     this.iconPadding = 5,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor = tertiaryColour,
   }) : super(key: key);
 
   @override
@@ -57,7 +58,8 @@ class PillButtonFilled extends StatelessWidget {
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(backgroundColor),
         padding: MaterialStateProperty.all<EdgeInsets>(padding),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
       ),
     );
   }

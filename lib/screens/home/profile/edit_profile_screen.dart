@@ -9,12 +9,15 @@ import 'package:project_seg/screens/chat/components/round_action_button.dart';
 import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
+
+import '../../components/dialogs/edit_dialog.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -41,13 +44,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         alignment: Alignment.center,
         child: Text(
           "EDIT",
-          style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
+          style:
+              Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
         ),
       ),
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
-          onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+          onPressed: () => context.goNamed(homeScreenName,
+              params: {pageParameterKey: profileScreenName}),
           child: Icon(
             FontAwesomeIcons.check,
             color: whiteColour,
@@ -59,7 +64,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         text: "Delete account",
         expandsWidth: true,
         color: Colors.red,
-        textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+        textStyle:
+            Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
         icon: const Icon(
           FontAwesomeIcons.ban,
           color: Colors.red,
@@ -74,8 +80,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     try {
       await _authService.deleteAccount(password);
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
-      showAlert(context, errorMsg);
+      final errorMessage =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      // showAlert(context, errorMessage);
+
+      showDialog(
+        context: context,
+        builder: (context) => DismissDialog(errorMessage: errorMessage),
+      );
     }
   }
 
@@ -85,19 +97,29 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       context: context,
       barrierDismissible: false, // user must tap button!
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Center(
-            child: Text(
-              'Delete account',
-              style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
-            ),
-          ),
+        return EditDialog(
+          confirmButtonText: 'Delete',
+          confirmButtonColour: Color(0xFFE74a33),
+          onSave: () {
+            if (((_formKey.currentState as FormState).validate()) == true) {
+              _deleteUser(_password.text);
+            }
+          },
           content: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  const SizedBox(height: 10),
+                  Text(
+                    'Delete account',
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline4
+                        ?.apply(fontWeightDelta: 2),
+                  ),
+                  SizedBox(height: 5),
                   Text(
                     'Confirm Password',
                     style: Theme.of(context).textTheme.headline6,
@@ -126,35 +148,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  const Text(
+                  Text(
                     'Are you sure you want to leave us? \n All your details will be deleted!',
                     textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  const SizedBox(height: 15),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                        child: Text(
-                          'Cancel',
-                          style: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.grey),
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      PillButtonFilled(
-                        text: "Delete",
-                        backgroundColor: Colors.red,
-                        textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: whiteColour),
-                        onPressed: () {
-                          if (((_formKey.currentState as FormState).validate()) == true) {
-                            _deleteUser(_password.text);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),

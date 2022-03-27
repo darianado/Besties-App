@@ -33,7 +33,8 @@ class ProfileScreen extends StatelessWidget {
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
-          onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
+          onPressed: () => context.goNamed(editProfileScreenName,
+              params: {pageParameterKey: profileScreenName}),
           child: Icon(
             FontAwesomeIcons.pen,
             color: whiteColour,
@@ -45,8 +46,10 @@ class ProfileScreen extends StatelessWidget {
         PillButtonFilled(
           text: "Change password",
           expandsWidth: true,
-          textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: whiteColour),
-          backgroundColor: tertiaryColour,
+          textStyle: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.apply(color: whiteColour),
           icon: Icon(
             FontAwesomeIcons.lock,
             color: whiteColour,
@@ -61,7 +64,8 @@ class ProfileScreen extends StatelessWidget {
           text: "Sign out",
           expandsWidth: true,
           color: Colors.red,
-          textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+          textStyle:
+              Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
           icon: Icon(
             FontAwesomeIcons.signOutAlt,
             color: Colors.red,

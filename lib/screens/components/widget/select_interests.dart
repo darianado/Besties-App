@@ -223,9 +223,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                       text: "Ok",
                       backgroundColor: secondaryColour,
                       textStyle: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: whiteColour),
+                          fontSize: 18, fontWeight: FontWeight.w600),
                       onPressed: () {
                         Navigator.of(context).pop();
 

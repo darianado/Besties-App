@@ -17,7 +17,8 @@ class RegisterInterestsScreen extends StatefulWidget {
   UserData userData;
 
   @override
-  State<RegisterInterestsScreen> createState() => _RegisterInterestsScreenState();
+  State<RegisterInterestsScreen> createState() =>
+      _RegisterInterestsScreenState();
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
@@ -44,7 +45,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
+              onPressed: () => context.goNamed(registerDescriptionScreenName,
+                  extra: widget.userData),
               icon: buildIcons(Icons.arrow_back_ios, primaryColour),
             ),
             flexibleSpace: Container(
@@ -52,13 +54,17 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
+                padding: const EdgeInsets.fromLTRB(
+                    leftRightPadding, 5, leftRightPadding, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
-                        style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            ?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -91,7 +97,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                         widget.userData.categorizedInterests = newCategories;
                       });
                     },
-                    selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
+                    selected: widget.userData.categorizedInterests ??
+                        CategorizedInterests(categories: []),
                   ),
                   (couldNotValidateInterests)
                       ? Row(
@@ -101,7 +108,10 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                                 padding: const EdgeInsets.all(3.0),
                                 child: Text(
                                   "Ensure you have selected at least 1 interest",
-                                  style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.apply(color: Colors.red),
                                 ),
                               ),
                             ),
@@ -113,16 +123,15 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     width: double.infinity,
                     child: PillButtonFilled(
                       text: "Done",
-                      backgroundColor: tertiaryColour,
-                      textStyle: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w600,
-                          color: whiteColour
-                      ),
+                      textStyle:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                       onPressed: () {
-                        final _interests = widget.userData.categorizedInterests?.flattenedInterests;
+                        final _interests = widget
+                            .userData.categorizedInterests?.flattenedInterests;
 
-                        if (_interests == null || _interests.length < 1 || _interests.length > 10) {
+                        if (_interests == null ||
+                            _interests.length < 1 ||
+                            _interests.length > 10) {
                           setState(() {
                             couldNotValidateInterests = true;
                           });

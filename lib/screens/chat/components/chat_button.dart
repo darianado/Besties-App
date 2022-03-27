@@ -13,14 +13,13 @@ class OpenChatButton extends StatelessWidget {
     return PillButtonFilled(
       text: "Chat",
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
+      textStyle: Theme.of(context).textTheme.titleLarge,
       iconPadding: 10,
       icon: Icon(
         FontAwesomeIcons.comments,
         color: whiteColour,
         size: 20,
       ),
-      backgroundColor: tertiaryColour,
       onPressed: onPressed,
     );
   }

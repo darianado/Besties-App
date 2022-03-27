@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -161,6 +160,7 @@ class _LogInScreenState extends State<LogInScreen> {
                           child: PillButtonFilled(
                             text: "Log in",
                             isLoading: isLoading,
+                            backgroundColor: whiteColour,
                             textStyle: TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.w600,

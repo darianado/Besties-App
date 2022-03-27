@@ -167,11 +167,8 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                   width: double.infinity,
                   child: PillButtonFilled(
                     text: "Next",
-                    backgroundColor: tertiaryColour,
-                    textStyle: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w600,
-                        color: whiteColour),
+                    textStyle:
+                        TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                     onPressed: () {
                       if (widget.userData.profileImageUrl == null) {
                         setState(() {

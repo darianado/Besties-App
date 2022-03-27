@@ -47,12 +47,6 @@ class ChatsScrollView extends StatelessWidget {
       (b, a) =>
           a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
     );
-  // children: <Widget>[
-  //   Container(
-  //     height: 50,
-  //     color: Colors.amber[600],
-  //     child: const Center(child: Text('Entry A')),
-  //   ),
     return ListView(
       scrollDirection: Axis.vertical,
       children :   chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList()
@@ -72,12 +66,6 @@ class ChatsScrollViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context, listen: false);
     final bool isMine = (chat.mostRecentMessage!.senderID == _userState.user?.userData!.uid);
-
-            //     child: Icon(
-            //   FontAwesomeIcons.university,
-            //   color: secondaryColour,
-            // ),
-            //condition ? Widget() : OtherWidget()
     
     return Material(
       color: Colors.transparent,

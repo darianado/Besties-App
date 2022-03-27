@@ -6,6 +6,7 @@ import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/chat/components/round_action_button.dart';
 import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,76 @@ class ProfileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
+
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: CachedImage(url: profile.userData.profileImageUrl),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    whiteColour,
+                    gradientColour,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(leftRightPadding),
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: radius20,
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => SlidingProfileDetails(
+                        profile: profile.userData,
+                        commonInterests: getCommonInterests(_userState),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: PartialProfileDetails(
+                          profile: profile.userData,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: LikeProfileButton(
+                          profile: profile,
+                          onLikeComplete: onLikeComplete,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+
+    /*
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
@@ -44,65 +115,9 @@ class ProfileContainer extends StatelessWidget {
         ),
       ),
       height: MediaQuery.of(context).size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  whiteColour,
-                  gradientColour,
-                ],
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                tileMode: TileMode.mirror,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(leftRightPadding),
-              child: GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: radius20,
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) => SlidingProfileDetails(
-                      profile: profile.userData,
-                      commonInterests: getCommonInterests(_userState),
-                    ),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: PartialProfileDetails(
-                        profile: profile.userData,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: LikeProfileButton(
-                        profile: profile,
-                        onLikeComplete: onLikeComplete,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      child: 
     );
+    */
   }
 
   /// Returns a [Set] intersection between the user's interests

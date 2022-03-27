@@ -21,7 +21,7 @@ class Matches extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20.0),
               child: Center(
                 child: Text(
-                  "No new matches yet...keep scrolling!.",
+                  "No new matches yet... Keep scrolling!",
                   style: Theme.of(context).textTheme.caption,
                 ),
               ),

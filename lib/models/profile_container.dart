@@ -5,6 +5,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/chat/components/round_action_button.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
@@ -173,24 +174,32 @@ class _LikeProfileButtonState extends State<LikeProfileButton>
     return RoundActionButton(
       onPressed: () async {
         if (!isLiked) {
+<<<<<<< HEAD
           await _animationController.animateTo(likedValue,
               duration: Duration(milliseconds: 800));
 
           widget.onLikeComplete();
+=======
+           await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
+>>>>>>> main
 
           bool isMatch =
               await _firestoreService.setLike(widget.profile.userData.uid);
 
           if (isMatch) {
+            final matchID = await _firestoreService.getMatchID(_userState.user!.user!.uid, widget.profile.userData.uid);
+            final userMatch = UserMatch(matchID: matchID, match: widget.profile.userData, timestamp: DateTime.now());
             showDialog(
               context: context,
               builder: (BuildContext context) => MatchDialog(
                 otherName: widget.profile.userData.firstName,
                 myImage: _userState.user?.userData?.profileImageUrl,
                 otherImage: widget.profile.userData.profileImageUrl,
+                userMatch: userMatch,
               ),
             );
           }
+          widget.onLikeComplete();
         }
       },
       child: Transform.scale(

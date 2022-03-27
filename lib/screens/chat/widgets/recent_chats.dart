@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:provider/provider.dart';
+
+import '../../../constants/colours.dart';
+import '../../../services/user_state.dart';
 
 class RecentChats extends StatelessWidget {
   @override
@@ -13,8 +17,7 @@ class RecentChats extends StatelessWidget {
 
     List<UserMatch>? chats = _matchState.activeChats;
 
-    return Container(
-      width: double.infinity,
+    return Expanded(
       child: (chats != null && chats.isNotEmpty)
           ? ChatsScrollView(chats: chats)
           : Padding(
@@ -40,11 +43,13 @@ class ChatsScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    chats.sort(
+      (b, a) =>
+          a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
+    );
+    return ListView(
       scrollDirection: Axis.vertical,
-      child: Column(
-        children: chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList(),
-      ),
+      children :   chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList()
     );
   }
 }
@@ -59,19 +64,23 @@ class ChatsScrollViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final bool isMine = (chat.mostRecentMessage!.senderID == _userState.user?.userData!.uid);
+    
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => context.pushNamed(matchChatScreenName, extra: chat, params: {pageParameterKey: chatScreenName}),
+        onTap: () => context.pushNamed(matchChatScreenName,
+            extra: chat, params: {pageParameterKey: chatScreenName}),
         child: Container(
           margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 80,
-                width: 80,
+                height: 70,
+                width: 70,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                 ),
@@ -87,7 +96,10 @@ class ChatsScrollViewItem extends StatelessWidget {
                   children: [
                     Text(
                       chat.match?.firstName ?? "",
-                      style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.apply(fontWeightDelta: 2),
                     ),
                     Text(
                       chat.mostRecentMessage?.content ?? "",
@@ -98,7 +110,13 @@ class ChatsScrollViewItem extends StatelessWidget {
                   ],
                 ),
               ),
+                !isMine ? Icon(
+                  FontAwesomeIcons.reply,
+                  color: secondaryColour,
+                   size: 24.0,
+                 ) : Text("")
             ],
+
           ),
         ),
       ),

@@ -64,7 +64,7 @@ class _Contact_PageState extends State<Contact_Page> {
                       padding: EdgeInsets.only(left: 15, bottom: 5),
                       child: Align(
                         alignment: Alignment.centerLeft,
-                        child: LeftAlignedHeadline(text: "Matches"),
+                        child: LeftAlignedHeadline(text: "New matches"),
                       ),
                     ),
                     Matches(),

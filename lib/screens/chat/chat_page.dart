@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
 import 'package:intl/intl.dart';
+import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/constants/textStyles.dart';
-
 import '../../constants/borders.dart';
-
-
+import 'package:project_seg/services/firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ChatScreen extends StatefulWidget {
-  //const ChatScreen({ Key? key }) : super(key: key);
+  final UserMatch userMatch;
 
-
-  ChatScreen({user});
+  ChatScreen({
+    required this.userMatch,
+  });
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -23,184 +28,141 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   TextEditingController _textController = new TextEditingController();
-  
-  List<Message> _messages = [
-  Message ("currentUser", '1:00pm', 'Message 1', false, true),
-  Message ("firstUser", '1:00pm', 'Message 1', false, true),
-  Message ("currentUser", '1:00pm', 'Message 1', false, true),
-  Message ("firstUser", '1:00pm', 'Message 1', false, true),
-  Message ("currentUser", '1:00pm', 'Message 1', true, true),
-  Message ("firstUser", '1:00pm', 'Message 1', true, true),
-  Message ("currentUser", '1:00pm', 'Message 1', true, true),
-  Message ("firstUser", '1:00pm', 'Message 1', true, true),
-  Message ("currentUser", '1:00pm', 'Message 1', true, true),
-  Message ("firstUser", '1:00pm', 'Message 1', false, true),
-  Message ("currentUser", '1:00pm', 'Message 1', false, true),
-  Message ("firstUser", '1:00pm', 'Message 1', false, true),
-];
 
-void _handleSubmitted(String text){
-  DateTime now = DateTime.now();
-  String time = DateFormat('kk:mm:ss \n EEE d MMM').format(now);
-  _textController.clear();
-  Message message = new Message("current user", time, text, true, false);
-  setState(() {
-    //getMessages
-    _messages.insert(0, message);
-  });
-}
+  //getMessages
+  final FirestoreService _firestoreService = FirestoreService.instance;
 
-  _messagebuilder(Message message) {
-    Container msg = Container(
-      margin: message.mine
-          ? const EdgeInsets.only (top: 8, bottom: 8, left: 80)
-          : const EdgeInsets.only (top: 8, bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-      width: MediaQuery.of(context).size.width * 0.75,
-      child: Flexible(
-          child: Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: message.mine ? kChatSenderColour : kChatReceiverColour,
-              borderRadius: kSymmetricBorderRadius30,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                const SizedBox(
-                  height: 3,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    message.text,
-                    style: kChatTextStyle,
-                  ),
-                ),
-                const SizedBox(
-                  height: 3,
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    message.time,
-                    style: kChatTimeStyle,
-                  ),
-                ),
+  //create a message with sender and time and save it to firestore
+  void _handleSubmitted(String content, String senderID, String matchID) {
+    if (content.trim() == "") return;
 
-              ],
-            ),
-          ),
-      ),
+    DateTime now = DateTime.now();
+    Message message = Message(content: content, senderID: senderID, timestamp: now);
 
-      // decoration: BoxDecoration(
-      //     color: mine ? kChatSenderColour : kTertiaryColour,
-      //     borderRadius: mine
-      //         ? BorderRadius.only(
-      //             topLeft: Radius.circular(15), bottomLeft: Radius.circular(15))
-      //         : BorderRadius.only(
-      //             topRight: Radius.circular(15),
-      //             bottomRight: Radius.circular(15))),
-
-
-    );
-     if (message.mine) {
-      return msg;
-    }
-    return Row(
-      children: <Widget>[
-        msg,
-      ],
-    );
-  }
-
- _builMessageComposer() {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      height: 100,
-      color: kSimpleWhiteColour,
-      child: Row(
-        children: <Widget>[
-          //if users are able to send messages
-          IconButton(
-            icon: const Icon(Icons.photo),
-            iconSize: 25.0,
-            color: kSecondaryColour,
-            onPressed: () {},
-          ),
-          Expanded(
-            child: TextField(
-              maxLines: null,
-              keyboardType: TextInputType.multiline,
-              controller: _textController,
-              decoration: InputDecoration(
-                hintText: "Send a message...",
-                isCollapsed: true
-              ),
-            ),
-          ),
-          IconButton(
-            icon: const Icon(Icons.send),
-            iconSize: 25.0,
-            color: kSecondaryColour,
-            onPressed: () {
-              _handleSubmitted(_textController.text);
-            },
-          )
-        ],
-      ),
-    );
+    _firestoreService.saveMessage(matchID, message);
+    _textController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    final currentUser = _userState.user?.user?.email;
+    final _contextState = Provider.of<ContextState>(context);
+    final _matchState = Provider.of<MatchState>(context);
+
+    print("There are ${widget.userMatch.messages?.length} messages to show for ${widget.userMatch.match?.fullName}");
+
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: whiteColour,
       appBar: AppBar(
+        backgroundColor: tertiaryColour,
         title: Text(
-          currentUser.toString(),
-          style: kChatAppBarStyle,
+          widget.userMatch.match?.firstName ?? "",
+          style: TextStyle(
+            fontSize: 28,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.more_horiz),
-            iconSize: 30.0,
-            color: kSimpleWhiteColour,
-            onPressed: () {},
-          )
-        ],
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: kSimpleWhiteColour,
-                    borderRadius: kBorderRadiusTLeftTRight,
-                ),
-                child: ClipRRect(
-                  borderRadius: kBorderRadiusTLeftTRight,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+            child: Column(
+              children: [
+                Expanded(
                   child: ListView.builder(
-                      reverse: true,
-                      padding: const EdgeInsets.only(top: 15),
-                      itemCount: _messages.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final Message message = _messages[index];
-                         _messages[index].setRead();
-                        return _messagebuilder(message);
-                      }),
+                    reverse: true,
+                    itemCount: widget.userMatch.messages?.length ?? 0,
+                    itemBuilder: (BuildContext context, int index) {
+                      final Message message = widget.userMatch.messages![index];
+                      return MessageWidget(message: message);
+                    },
+                  ),
                 ),
-              ),
+                SizedBox(height: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  decoration: BoxDecoration(
+                    borderRadius: circularBorderRadius10,
+                    border: Border.all(color: tertiaryColour),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          keyboardType: TextInputType.multiline,
+                          controller: _textController,
+                          decoration:
+                              const InputDecoration(border: InputBorder.none, hintText: 'Message...', isCollapsed: true, counterText: ""),
+                          minLines: 1,
+                          maxLines: 10,
+                          maxLength: _contextState.context?.maxChatMessageLength ?? 100,
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () => _handleSubmitted(_textController.text, _userState.user!.user!.uid, widget.userMatch.matchID),
+                        child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-            _builMessageComposer()
-          ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+class MessageWidget extends StatelessWidget {
+  final Message message;
+
+  const MessageWidget({
+    Key? key,
+    required this.message,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final bool isMine = (message.senderID == _userState.user?.userData!.uid);
+
+    return Row(
+      mainAxisAlignment: isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+      children: [
+        Container(
+          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          margin: const EdgeInsets.only(top: 5, bottom: 5),
+          decoration: BoxDecoration(
+            color: isMine ? chatSenderColour : chatReceiverColour,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          child: Column(
+            crossAxisAlignment: isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              Text(
+                message.content!,
+                style: TextStyle(
+                  color: isMine ? whiteColour : primaryColour,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Text(
+                message.messageTimestamp!,
+                style: TextStyle(
+                  color: isMine ? whiteColourShade3 : secondaryColour,
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

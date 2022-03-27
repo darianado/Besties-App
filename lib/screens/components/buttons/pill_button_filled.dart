@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/borders.dart';
-import 'package:project_seg/constants/colours.dart';
 
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;
@@ -10,6 +8,7 @@ class PillButtonFilled extends StatelessWidget {
   final EdgeInsets padding;
   final Color backgroundColor;
   final Icon? icon;
+  final double iconPadding;
   final Function onPressed;
 
   const PillButtonFilled({
@@ -21,6 +20,7 @@ class PillButtonFilled extends StatelessWidget {
     required this.onPressed,
     this.padding = const EdgeInsets.all(10.0),
     this.icon,
+    this.iconPadding = 5,
     this.backgroundColor = Colors.white,
   }) : super(key: key);
 
@@ -31,16 +31,22 @@ class PillButtonFilled extends StatelessWidget {
       child: Container(
         width: (expandsWidth) ? double.infinity : null,
         child: (isLoading)
-            ? CircularProgressIndicator(
-                color: textStyle?.color,
-                strokeWidth: 3,
+            ? Center(
+                child: SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: textStyle?.color,
+                    strokeWidth: 3,
+                  ),
+                ),
               )
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   (icon != null) ? icon! : Container(),
-                  (icon != null) ? SizedBox(width: 5) : Container(),
+                  (icon != null) ? SizedBox(width: iconPadding) : Container(),
                   Text(
                     text,
                     style: textStyle,

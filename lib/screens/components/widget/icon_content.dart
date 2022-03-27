@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/constants/textStyles.dart';
+import '../../../constants/colours.dart';
 
 class IconContent extends StatelessWidget {
   final String label;
@@ -18,8 +18,10 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           this.label,
-          style: kLabelTextStyle,
-        )
+          style: TextStyle(
+            color: inactiveSliderColor,
+            fontSize: 18.0,
+        )),
       ],
     );
   }
@@ -51,3 +53,20 @@ IconData getIconForGender(String? gender) {
       return FontAwesomeIcons.venusMars;
   }
 }
+
+// class IconWidget extends StatelessWidget {
+//   final IconData icon;
+//   final Color colour;
+//
+//   const IconWidget({required this.icon, required this.colour});
+//
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Icon(
+//       icon,
+//       color: colour,
+//     );
+//   }
+// }
+

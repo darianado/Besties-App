@@ -1,54 +1,52 @@
 import 'package:flutter/material.dart';
 
-const kBottomContainerHeight = 80.0;
-const kActiveCardColor = Color(0xFF00CFFF);
-const kInactiveCardColor = Colors.transparent;
-const kActiveSliderColor = Color(0xFFEB1555);
-const kInactiveSliderColor = Color(0xFF8D8E98);
-const kBottomContainerColor = Color(0xFFEB1555);
+
+
+const activeCardColor = Color(0xFF00CFFF);
+const inactiveCardColor = Colors.transparent;
+
+const activeSliderColor = Color(0xFFEB1555);
+const inactiveSliderColor = Color(0xFF8D8E98);
+
+const bottomContainerColor = Color(0xFFEB1555);
 
 //colours for chat
-const kChatSenderColour = Color(0xFFADD8E6);
-const kChatTextColour = Color(0xFF232B2B);
-const kChatTimeColour = Color(0xFF7F7F7F);
-const kChatReceiverColour = Color(0xFF87CEFA);
-const kContactList = Color(0xFFADD8E6);
-const kChatList = Color (0xFFB0E0E6);
+const chatSenderColour = Color(0xFF218aff);
+const chatReceiverColour = Color(0xFFCBCBCB);
 
 //colours for next button
-const kButtonBackground = Color(0xFF041731);
+const buttonBackground = Color(0xFF041731);
 
 //colours for the landing page
-const kPrimaryColourLanding = Color(0xFF0083A1);
-const kShadowLanding = Color(0xFF041731);
-const kSecondColourLanding = Color(0xFF01B3E0);
+const primaryColourLanding = Color(0xFF0083A1);
+const shadowLanding = Color(0xFF041731);
+const secondColourLanding = Color(0xFF01B3E0);
 
 //login
-const kLoginBlue = Color(0xFF026689);
-
+const loginBlue = Color(0xFF026689);
 
 // colour scheme for the app
-const kPrimaryColour = Color(0xFF0A1128);
-const kSecondaryColour = Color(0xFF001F54);
-const kTertiaryColour = Color(0xFF034078);
-const kLightBlue = Color(0xFF1282A2);
-const kWhiteColour = Color(0xFFFEFCFB);
-const kWhiteColourShade2 = Color(0xFFE2F9FE);
-const kWhiteColourShade3 = Color(0xFFD8F8FF);
+const primaryColour = Color(0xFF0A1128);
+const secondaryColour = Color(0xFF001F54);
+const tertiaryColour = Color(0xFF034078);
+const lightBlue = Color(0xFF1282A2);
+const whiteColour = Color(0xFFFEFCFB);
+const whiteColourShade2 = Color(0xFFE2F9FE);
+const whiteColourShade3 = Color(0xFFD8F8FF);
 
-const kLightTertiaryColour = Color.fromARGB(26, 3, 64, 120);
-const kGradientColour = Color.fromARGB(0, 255, 255, 255);
+const lightTertiaryColour = Color.fromARGB(26, 3, 64, 120);
+const gradientColour = Color.fromARGB(0, 255, 255, 255);
 
 //standard colours
-Color kGreyShadeDark = Colors.grey.shade500;
-Color kRedLightShade = Colors.red.shade200;
+Color greyShadeDark = Colors.grey.shade500;
+Color redLightShade = Colors.red.shade200;
 
 //const kTransparent =  Colors.transparent;
-const Color kSimpleWhiteColour = Colors.white;
-const Color kIndigoColour = Colors.indigo;
-const Color kRedColour = Colors.red;
-const Color kGreyColour = Colors.grey;
-const Color kOrangeColour = Colors.orange;
+const Color simpleWhiteColour = Colors.white;
+const Color indigoColour = Colors.indigo;
+const Color redColour = Colors.red;
+const Color greyColour = Colors.grey;
+const Color orangeColour = Colors.orange;
 
-const Color kLightGreen = Color(0xFF24D876);
-Color kOpacBlack = Colors.black.withOpacity(0.5);
+const Color lightGreen = Color(0xFF24D876);
+Color opacBlack = Colors.black.withOpacity(0.5);

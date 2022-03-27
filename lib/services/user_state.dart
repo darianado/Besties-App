@@ -26,7 +26,9 @@ class UserState extends ChangeNotifier {
         _subscription?.cancel();
         notifyListeners();
       } else {
-        _subscription = _firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
+        _subscription = _firestoreService
+            .loggedInUser(userAuthEvent)
+            .listen((ActiveUser userFirestoreEvent) {
           _user = userFirestoreEvent;
           notifyListeners();
         });
@@ -34,9 +36,13 @@ class UserState extends ChangeNotifier {
     });
   }
 
-  Future<void> signIn(String email, String password) async => await _authService.signIn(email, password);
+  Future<void> signIn(String email, String password) async =>
+      await _authService.signIn(email, password);
 
-  Future<void> signUp(String email, String password) async => await _authService.signUp(email, password);
+  Future<void> signUp(String email, String password) async =>
+      await _authService.signUp(email, password);
 
   Future<void> signOut() async => await _authService.signOut();
+
+  // Future<void> deleteAccount() async => await _authService.deleteAccount();
 }

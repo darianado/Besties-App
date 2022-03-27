@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -12,6 +11,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
+import '../components/widget/icon_content.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
   RegisterDescriptionScreen({Key? key, required this.userData})
@@ -54,9 +54,9 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
         end: Alignment.bottomLeft,
         stops: [0.4, 0.8, 1],
         colors: [
-          kWhiteColour,
-          kWhiteColourShade2,
-          kWhiteColourShade3,
+          whiteColour,
+          whiteColourShade2,
+          whiteColourShade3,
         ],
       )),
       child: Scaffold(
@@ -66,17 +66,15 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
             SliverAppBar(
               pinned: true,
               automaticallyImplyLeading: false,
-              foregroundColor: kTertiaryColour,
-              backgroundColor: kSimpleWhiteColour,
+              foregroundColor: tertiaryColour,
+              backgroundColor: simpleWhiteColour,
               expandedHeight: 150,
               collapsedHeight: 130,
               leading: IconButton(
                 onPressed: () => context.goNamed(registerPhotoScreenName,
                     extra: widget.userData),
-                icon: Icon(
-                  Icons.arrow_back_ios,
-                  color: kPrimaryColour,
-                ),
+                icon: buildIcons(Icons.arrow_back_ios,primaryColour),
+                //buildIcons(Icons.arrow_back_ios, kPrimaryColour),
               ),
               flexibleSpace: Container(
                 width: double.infinity,
@@ -90,7 +88,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                     style: Theme.of(context)
                         .textTheme
                         .headline4
-                        ?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                        ?.apply(color: secondaryColour, fontWeightDelta: 2),
                   ),
                 ),
               ),
@@ -119,7 +117,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                       UniversityButton(
                         editable: true,
                         shouldExpand: true,
-                        color: kSecondaryColour,
+                        color: secondaryColour,
                         label: widget.userData.university ??
                             "Select your university",
                         onSave: (university) => setState(() {
@@ -161,12 +159,15 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           maxLength: _contextState.context?.maxBioLength ?? 200,
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
-                          decoration: const InputDecoration(
-                            border: kOutlineBorder,
+                          decoration:  InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.all(radius10),
+                                borderSide: BorderSide.none
+                            ),
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
                             filled: true,
-                            fillColor: kLightTertiaryColour,
+                            fillColor: lightTertiaryColour,
                           ),
                           onChanged: (value) =>
                               widget.userData.bio = value.trim(),
@@ -181,11 +182,12 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         width: double.infinity,
                         child: PillButtonFilled(
                           text: "Next",
-                          backgroundColor: kTertiaryColour,
+                          backgroundColor: tertiaryColour,
                           textStyle: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              color: whiteColour
+                          ),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 
@@ -213,3 +215,4 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
     );
   }
 }
+

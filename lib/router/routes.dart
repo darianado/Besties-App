@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/chat/chat_page.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_profile_screen.dart';
+import 'package:project_seg/screens/chat/match_profile.dart';
 import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
@@ -183,6 +186,26 @@ class AppRouter {
                 opacity: animation,
                 child: child,
               ),
+            ),
+          ),
+          GoRoute(
+            name: matchProfileScreenName,
+            path: matchProfileScreenPath,
+            pageBuilder: (context, state) => CustomTransitionPage<void>(
+              key: state.pageKey,
+              child: MatchProfileScreen(userMatch: state.extra! as UserMatch),
+              transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+            ),
+          ),
+          GoRoute(
+            name: matchChatScreenName,
+            path: matchChatScreenPath,
+            pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey,
+              child: ChatScreen(userMatch: state.extra! as UserMatch),
             ),
           ),
         ],

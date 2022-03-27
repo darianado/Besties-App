@@ -1,22 +1,27 @@
 import 'dart:collection';
 import 'dart:convert';
+
+import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/models/User/message_model.dart';
 import 'package:project_seg/services/user_state.dart';
-
 import '../models/profile_container.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;
+  final int batchSize = 10; // Determines how many splits we make when fetching profiles using array of userIDs
 
   FirestoreService._privateConstructor();
 
@@ -32,48 +37,77 @@ class FirestoreService {
         .map((doc) => ActiveUser.fromSnapshot(user, (doc.exists) ? doc : null));
   }
 
-  /// Returns a List of recommended profile ids.
-  static Future<List<String>> getRecommendedProfiles(String uid, int recs) async {
-    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
-    final resp = await callable.call(<String, dynamic>{
-      'uid': uid,
-      'recs': recs,
-    });
-
-    return List<String>.from(resp.data['data']);
-  }
-
-  /// Returns a List of [UserData] from a List of profile ids.
-  static Future<List<UserData>> getProfileData(String uid, int recs) async {
-    //List<String> uids = await getRecommendedProfiles(uid, recs);
-
-    List<String> uids = [];
-
-    CollectionReference _collectionRef = FirebaseFirestore.instance.collection('users');
-    QuerySnapshot querySnapshot;
-
-    if (uids.isEmpty) {
-      querySnapshot = await _collectionRef.get();
-    } else {
-      querySnapshot = await _collectionRef.where(FieldPath.documentId, whereIn: uids).get();
-    }
-
-    return querySnapshot.docs.map((doc) => UserData.fromSnapshot(doc as DocumentSnapshot<Map>)).toList();
-  }
-
-  /// Returns a Queue of [ProfileContainer]s from a List of [UserData].
-  static Future<Queue<ProfileContainer>> getProfileContainers(String uid, int recs) async {
-    List<UserData> data = await getProfileData(uid, recs);
-    Queue<ProfileContainer> containerQueue = Queue();
-
-    for (UserData userData in data) {
-      containerQueue.add(ProfileContainer(profile: userData));
-    }
-    return containerQueue;
+  Stream<firestore.DocumentSnapshot<Map>> recommendationsStream(String? userID) {
+    return _firebaseFirestore.collection("users").doc(userID).collection("derived").doc("recommendations").snapshots();
   }
 
   Stream<AppContext> appContext() {
     return _firebaseFirestore.collection("app").doc("context").snapshots().map((snapshot) => AppContext.fromSnapshot(snapshot));
+  }
+
+  List<List<String>> split(List<String> lst, int size) {
+    List<List<String>> results = [];
+
+    for (var i = 0; i < lst.length; i += size) {
+      final end = (i + size < lst.length) ? i + size : lst.length;
+      results.add(lst.sublist(i, end));
+    }
+
+    return results;
+  }
+
+  Future<List<OtherUser>> getUsers(List<String> userIDs) async {
+    List<List<String>> splitUserIDs = split(userIDs, batchSize);
+
+    List<OtherUser> results = [];
+
+    for (int si = 0; si < splitUserIDs.length; si++) {
+      List<String> slice = splitUserIDs[si];
+
+      final snapshot = await FirebaseFirestore.instance.collection("users").where(FieldPath.documentId, whereIn: slice).get();
+      results.addAll(
+        snapshot.docs.map((doc) {
+          final userData = UserData.fromSnapshot(doc);
+          return OtherUser(liked: false, userData: userData);
+        }).toList(),
+      );
+    }
+
+    results.sort((a, b) {
+      final aUserID = a.userData.uid;
+      final bUserID = b.userData.uid;
+      final aPosOriginal = userIDs.indexWhere((element) => element == aUserID);
+      final bPosOriginal = userIDs.indexWhere((element) => element == bUserID);
+
+      return aPosOriginal.compareTo(bPosOriginal);
+    });
+
+    return results;
+  }
+
+  Future<UserData> getUser(String userID) async {
+    final _userDoc = await _firebaseFirestore.collection("users").doc(userID).get();
+    return UserData.fromSnapshot(_userDoc);
+  }
+
+  Stream<List<UserMatch>> listenForMatches(String userID) {
+    return _firebaseFirestore.collection("matches").where("uids", arrayContains: userID).snapshots().map((event) {
+      return event.docs.map((e) => UserMatch.fromMatchSnapshot(e, userID)).toList();
+    });
+  }
+
+  Stream<List<Message>?> listenForMessages(String matchID) {
+    return _firebaseFirestore.collection("matches").doc(matchID).collection("messages").snapshots().map((snapshot) {
+      if (snapshot.docs.isNotEmpty) {
+        return snapshot.docs.map((e) => Message.fromSnapshot(e)).toList();
+      }
+      return null;
+    });
+  }
+
+  // Saves a single message to firestore.
+  Future<void> saveMessage(String matchID, Message message) async {
+    _firebaseFirestore.collection("matches").doc(matchID).collection("messages").add(message.toMap());
   }
 
   Future<CategorizedInterests> fetchInterests() async {
@@ -103,7 +137,7 @@ class FirestoreService {
     return await _firebaseFirestore.collection("users").doc(userId).set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
-  Future<bool> setLike(String? profileId, String userId) async {
+  Future<bool> setLike(String? profileId) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('likeUser');
     final resp = await callable.call(<String, String>{
       'profileUserID': profileId.toString(),
@@ -158,4 +192,32 @@ class FirestoreService {
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
+  /*
+
+  // Gets the matchID from two uids.
+  Future<String> getMatchID(String senderID, String receiverID) async {
+    final snapshot = await _firebaseFirestore
+        .collection("matches")
+        .where("uids", arrayContains: senderID)
+        .where("uids", arrayContains: receiverID)
+        .get();
+
+    String matchID = snapshot.docs.first.id;
+
+    return matchID;
+  }
+
+  // Gets a list of messages in a match.
+  Future<List<Message>> getMessageList(String senderID, String receiverID) async {
+    List<Message> results = [];
+    String matchID = await getMatchID(senderID, receiverID);
+
+    final snapshot = await FirebaseFirestore.instance.collection("matches").doc(matchID).collection("messages").get();
+
+    results.addAll(snapshot.docs.map((doc) => Message.fromSnapshot(doc)));
+    results.sort(((a, b) => a.timestamp!.compareTo(b.timestamp!)));
+
+    return results;
+  }
+  */
 }

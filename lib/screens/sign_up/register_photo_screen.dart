@@ -1,17 +1,15 @@
 import 'dart:io';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/storage_service.dart';
+
+import 'package:project_seg/screens/components/widget/icon_content.dart';
+
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
@@ -56,29 +54,31 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
           SliverAppBar(
             pinned: true,
             automaticallyImplyLeading: false,
-            foregroundColor: kTertiaryColour,
-            backgroundColor: kWhiteColour,
+            foregroundColor: tertiaryColour,
+            backgroundColor: whiteColour,
             expandedHeight: 120,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed(registerBasicInfoScreenName, extra: widget.userData),
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: kPrimaryColour,
-              ),
+              onPressed: () => context.goNamed(registerBasicInfoScreenName,
+                  extra: widget.userData),
+              icon: buildIcons(Icons.arrow_back_ios, primaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
+                padding: const EdgeInsets.fromLTRB(
+                    leftRightPadding, 5, leftRightPadding, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
-                        style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            ?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -90,9 +90,9 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
             hasScrollBody: false,
             child: Column(
               children: [
-                SizedBox(height: 40),
+                SizedBox(height: 20),
                 SizedBox(
-                  height: 400,
+                  // height: 400,
                   child: Material(
                     child: (loadingPicture)
                         ? Center(
@@ -107,9 +107,12 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               alignment: Alignment.center,
                               children: [
                                 Container(
+                                  color: secondaryColour.withOpacity(0.2),
                                   width: double.infinity,
-                                  child: (widget.userData.profileImageUrl != null)
-                                      ? CachedImage(url: widget.userData.profileImageUrl)
+                                  child: (widget.userData.profileImageUrl !=
+                                          null)
+                                      ? CachedImage(
+                                          url: widget.userData.profileImageUrl)
                                       : Image.asset(
                                           "assets/images/empty_profile_picture.jpg",
                                           fit: BoxFit.cover,
@@ -118,24 +121,19 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                     color: Colors.black.withOpacity(0.6),
-                                    borderRadius: kCircularBorderRadius10,
+                                    borderRadius: circularBorderRadius10,
                                   ),
-                                  height: 60,
+                                  height: 55,
                                   width: 100,
                                   alignment: Alignment.center,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Icon(
-                                        Icons.photo,
-                                        color: kWhiteColour,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
+                                      buildIcons(Icons.photo, whiteColour),
+                                      SizedBox(width: 10),
                                       Text(
                                         "EDIT",
-                                        style: TextStyle(color: kWhiteColour),
+                                        style: TextStyle(color: whiteColour),
                                       ),
                                     ],
                                   ),
@@ -153,7 +151,10 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                               padding: const EdgeInsets.all(5.0),
                               child: Text(
                                 "You must select a photo",
-                                style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.apply(color: Colors.red),
                               ),
                             ),
                           ),
@@ -166,8 +167,11 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                   width: double.infinity,
                   child: PillButtonFilled(
                     text: "Next",
-                    backgroundColor: kTertiaryColour,
-                    textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
+                    backgroundColor: tertiaryColour,
+                    textStyle: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w600,
+                        color: whiteColour),
                     onPressed: () {
                       if (widget.userData.profileImageUrl == null) {
                         setState(() {
@@ -179,7 +183,8 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                         couldNotValidatePhotoSelection = false;
                       });
 
-                      context.goNamed(registerDescriptionScreenName, extra: widget.userData);
+                      context.goNamed(registerDescriptionScreenName,
+                          extra: widget.userData);
                     },
                   ),
                 ),

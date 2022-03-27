@@ -1,67 +1,64 @@
+import 'package:project_seg/constants/borders.dart';
+import 'package:project_seg/models/User/OtherUser.dart';
+import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/Chat.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/chat/chat_page.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
+import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/chat/match_profile.dart';
+import 'package:project_seg/services/match_state.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
-class Contacts extends StatelessWidget {
+import '../../../constants/colours.dart';
 
-
+class Matches extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const <Widget>[
-                Text(
-                  "Your matched friends",
-                  style: kContactListStyle,
-                )
-              ],
-            ),
-          ),
-          Container(
-            height: 120,
-            child: ListView.builder(
-              padding: const EdgeInsets.only(left: 10),
-              scrollDirection: Axis.horizontal,
-              itemCount: contacts.length,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatScreen(user: contacts[index])
-                    )
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        CircleAvatar(
-                          radius: 35.0,
-                          backgroundImage:
-                              AssetImage(contacts[index].imageUrl),
+    final _matchState = Provider.of<MatchState>(context);
+
+    return Container(
+      width: double.infinity,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          children: _matchState.matches?.map((UserMatch e) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Material(
+                        borderRadius: BorderRadius.all(Radius.circular(1000)),
+                        child: InkWell(
+                          borderRadius: BorderRadius.all(Radius.circular(1000)),
+                          onTap: () => context.pushNamed(matchProfileScreenName, extra: e, params: {pageParameterKey: chatScreenName}),
+                          child: Container(
+                            height: 90,
+                            width: 90,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                            ),
+                            clipBehavior: Clip.antiAlias,
+                            child: CachedImage(url: e.match!.profileImageUrl),
+                          ),
                         ),
-                        const SizedBox(
-                          height: 6,
-                        ),
-                        Text(
-                          contacts[index].name,
-                          style: kContactListNamesStyle,
-                        ),
-                      ],
-                    ),
+                      ),
+                      SizedBox(height: 6),
+                      Text(
+                        e.match!.firstName ?? "",
+                        style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),
+                      )
+                    ],
                   ),
                 );
-              },
-            ),
-          )
-        ],
+              }).toList() ??
+              [],
+        ),
       ),
     );
   }

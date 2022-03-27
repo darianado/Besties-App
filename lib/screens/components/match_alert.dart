@@ -1,7 +1,7 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 class MatchDialog extends StatelessWidget {
   final String? otherName;
@@ -28,22 +28,19 @@ class MatchDialog extends StatelessWidget {
   }
 }
 
-dialogContent(BuildContext context, String? matchName, String? myImage, String? otherImage) {
+dialogContent(BuildContext context, String? matchName, String? myImage,
+    String? otherImage) {
   return Stack(
-    children: <Widget>[
+    children: [
       //...bottom card part,
       Container(
-        padding: const EdgeInsets.only(
-          top: Consts.avatarRadius + 20,
-          bottom: Consts.padding,
-          left: Consts.padding,
-          right: Consts.padding,
-        ),
-        margin: const EdgeInsets.only(top: Consts.avatarRadius),
+        padding: const EdgeInsets.fromLTRB(
+            Consts.padding, 70, Consts.padding, Consts.padding),
+        margin: const EdgeInsets.only(top: 70),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: whiteColour,
           shape: BoxShape.rectangle,
-          borderRadius: BorderRadius.circular(Consts.padding),
+          borderRadius: BorderRadius.circular(30),
           boxShadow: const [
             BoxShadow(
               color: Colors.black26,
@@ -54,60 +51,90 @@ dialogContent(BuildContext context, String? matchName, String? myImage, String? 
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min, // To make the card compact
-          children: <Widget>[
-            SizedBox(height: 16.0),
-             const Text(
-              "yeeeey a new match " ,
+          children: [
+            const SizedBox(height: 15.0),
+            Text(
+              "It's a match!",
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 33.0,
-              ),
+              style: Theme.of(context).textTheme.headline4,
             ),
-            SizedBox(height: 24.0),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop(); // To close the dialog
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: kSecondaryColour,
-                ),
-                child: Text(
-                  "Text " + matchName.toString() +" now!" ,
-                  style: const TextStyle(
-                    fontSize: 20,
-                  ),
-                  ),
-              ),
+            SizedBox(height: 15.0),
+            PillButtonFilled(
+              text: "Text ${matchName.toString()} now",
+              backgroundColor: tertiaryColour,
+              expandsWidth: true,
+              textStyle: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.apply(color: whiteColour),
+              onPressed: () {
+                Navigator.of(context).pop(); // To close the dialog
+              },
             ),
           ],
         ),
       ),
-
-      //...top circlular image part,
-       Positioned(
-        left: Consts.padding,
-        right: Consts.padding-110,
-        child: CircleAvatar(
-          backgroundImage:  NetworkImage(myImage ??
-              "assets/images/empty_profile_picture.jpg"),
-                    
-          radius: Consts.avatarRadius,
-        ),
-      ),
-
-
-      Positioned(
-          left: Consts.padding-110,
-          right: Consts.padding,
-          child: CircleAvatar(
-            backgroundImage:  NetworkImage(otherImage ??
-                "assets/images/empty_profile_picture.jpg"),     
-            radius: Consts.avatarRadius,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          //...top left circlular image part
+          Positioned(
+            left: Consts.padding - 110,
+            right: Consts.padding,
+            child: Stack(
+              children: [
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: whiteColour.withOpacity(0.4),
+                  ),
+                ),
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(otherImage ??
+                          "assets/images/empty_profile_picture.jpg"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
+          //...top right circlular image part
+          Positioned(
+            left: Consts.padding - 110,
+            right: Consts.padding,
+            child: Stack(
+              children: [
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: whiteColour.withOpacity(0.4),
+                  ),
+                ),
+                Container(
+                  width: Consts.avatarRadius,
+                  height: Consts.avatarRadius,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          myImage ?? "assets/images/empty_profile_picture.jpg"),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
-
     ],
   );
 }
@@ -115,7 +142,6 @@ dialogContent(BuildContext context, String? matchName, String? myImage, String? 
 class Consts {
   Consts._();
 
-  static const double padding = 50.0;
-  static const double avatarRadius = 77.0;
+  static const double padding = 40.0;
+  static const double avatarRadius = 125.0;
 }
-

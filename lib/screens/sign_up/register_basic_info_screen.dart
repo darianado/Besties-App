@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/constants/textStyles.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -15,9 +14,13 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/screens/components/widget/relationship_status.dart';
-
 import '../../constants/borders.dart';
+
+
+///The second screen that is displayed through the sign up process
+///The user is asked to provide details such as first name, last name
+///birthday, gender and their relationship status.
+
 
 class RegisterBasicInfoScreen extends StatefulWidget {
   RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
@@ -28,11 +31,13 @@ class RegisterBasicInfoScreen extends StatefulWidget {
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
 
+///The state for the [RegisterBasicInfoScreen] widget.
 class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
   final TextEditingController _firstName = TextEditingController();
   final TextEditingController _lastName = TextEditingController();
 
+  ///Conditions for creating an account
   bool couldNotValidateDOB = false;
   bool couldNotValidateGender = false;
   bool couldNotValidateRelationshipStatus = false;
@@ -66,9 +71,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
           end: Alignment.bottomLeft,
           stops: [0.4, 0.8, 1],
           colors: [
-            kWhiteColour,
-            kWhiteColourShade2,
-            kWhiteColourShade3,
+            whiteColour,
+            whiteColourShade2,
+            whiteColourShade3,
           ],
         ),
       ),
@@ -79,16 +84,13 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
             SliverAppBar(
               pinned: true,
               automaticallyImplyLeading: false,
-              backgroundColor: kSimpleWhiteColour,
+              backgroundColor: simpleWhiteColour,
               expandedHeight: 120,
               collapsedHeight: 100,
               actions: [
                 IconButton(
                   onPressed: () => _userState.signOut(),
-                  icon: Icon(
-                    FontAwesomeIcons.signOutAlt,
-                    color: kPrimaryColour,
-                  ),
+                  icon: buildIcons(FontAwesomeIcons.signOutAlt, primaryColour),
                 ),
               ],
               flexibleSpace: Container(
@@ -102,7 +104,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       Expanded(
                         child: Text(
                           'Let\'s start with the basics...',
-                          style: Theme.of(context).textTheme.headline4?.apply(color: kSecondaryColour, fontWeightDelta: 2),
+                          style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                         ),
                       ),
                     ],
@@ -123,8 +125,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: kCircularBorderRadius10,
-                          color: kLightTertiaryColour,
+                          borderRadius: circularBorderRadius10,
+                          color: lightTertiaryColour,
                         ),
                         child: TextFormField(
                           controller: _firstName,
@@ -142,8 +144,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          borderRadius: kCircularBorderRadius10,
-                          color: kLightTertiaryColour,
+                          borderRadius: circularBorderRadius10,
+                          color: lightTertiaryColour,
                         ),
                         child: TextFormField(
                           controller: _lastName,
@@ -169,7 +171,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       DateOfBirthButton(
                         editable: true,
                         shouldExpand: true,
-                        color: kSecondaryColour,
+                        color: secondaryColour,
                         label: (widget.userData.dob != null) ? "${widget.userData.humanReadableDateOfBirth}" : "Select a date",
                         onSave: (dateTime) => setState(() {
                           widget.userData.dob = dateTime;
@@ -202,10 +204,10 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: _contextState.context?.genders?.map((gender) {
                                 return ChipWidget(
-                                  color: kIndigoColour,
+                                  color: indigoColour,
                                   bordered: widget.userData.gender == gender ? false : true,
-                                  textColor: (widget.userData.gender == gender) ? kSimpleWhiteColour : null,
-                                  iconColor: (widget.userData.gender == gender) ? kSimpleWhiteColour : null,
+                                  textColor: (widget.userData.gender == gender) ? simpleWhiteColour : null,
+                                  iconColor: (widget.userData.gender == gender) ? simpleWhiteColour : null,
                                   icon: getIconForGender(gender),
                                   label: gender,
                                   mini: true,
@@ -266,8 +268,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         width: double.infinity,
                         child: PillButtonFilled(
                           text: "Next",
-                          backgroundColor: kTertiaryColour,
-                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: kWhiteColour),
+                          backgroundColor: tertiaryColour,
+                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: whiteColour),
                           onPressed: () {
                             if (!_key.currentState!.validate()) return;
 

@@ -1,78 +1,35 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-
-
-class User {
-  final String email;
-  final String name;
-  final String imageUrl;
-
-  User(this.email, this.name, this.imageUrl);
-
-  String getName(){
-    return name.toString();
-  }
-}
+import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 
 class Message {
-  final _firestore = FirebaseFirestore.instance;
-  void getMessages() async {
-    final messages = await _firestore.collection('messages').get();
-    for (var message in messages.docs){
-      print(message.data());
-    }
-  }
+  String? content;
+  String? senderID;
+  DateTime? timestamp;
 
-  String senderEmail;
-  //String receiverEmail;
-  String time; 
-  String text;
-  bool unread;
-  bool mine;
+  Message({
+    this.senderID,
+    this.content,
+    this.timestamp,
+  });
 
-  Message (
-    this.senderEmail, 
-    //this.receiverEmail,
-    this.time, 
-    this.text, 
-    this.mine,
-    this.unread,
+  factory Message.fromSnapshot(DocumentSnapshot<Map> doc) {
+    Map? data = doc.data();
+    return Message(
+      content: data?['content'],
+      senderID: data?['senderID'],
+      timestamp: (data?['timestamp'] as Timestamp).toDate(),
     );
-
-  String getMessageText(){
-    return text;
   }
 
-  String getMessageUser(){
-    return senderEmail;
+  String? get messageTimestamp {
+    return "${timestamp?.day.toString().padLeft(2, '0')}/${timestamp?.month.toString().padLeft(2, '0')} ${timestamp?.hour.toString().padLeft(2, '0')}:${timestamp?.minute.toString().padLeft(2, '0')}";
   }
 
-  String getMessageTime(){
-    return time;
+  Map<String, dynamic> toMap() {
+    return {
+      "content": content,
+      "senderID": senderID,
+      "timestamp": timestamp,
+    };
   }
-
-  void setRead(){
-    unread = false; 
-  }
-
 }
-
-final User currentUser = User ("","Current User", "assets/images/empty_profile_picture.jpg");
-final User firstUser = User ("", "second friend", "assets/images/empty_profile_picture.jpg");
-final User secondUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User thirdUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User fourthUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User fifthUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-final User sixthUser = User ("", "first friend", "assets/images/empty_profile_picture.jpg");
-
-List<User> contacts = [firstUser, secondUser, thirdUser, fourthUser, fifthUser, sixthUser];
-
-List<Message> chats = [
-  Message ("secondUser", '1:00pm', "Message 1", true, true),
-  Message ("firstUser", '1:00pm', "Message 1",  false, true),
-  Message ("firstUser", '1:00pm', "Message 1", false, true),
-  Message ("firstUser", '1:00pm', "Message 1", false, true),
-  Message ("firstUser", '1:00pm', "Message 1", true, true),
-  Message ("firstUser", '1:00pm', "Message 1", false, true),
-];
-

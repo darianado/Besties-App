@@ -11,9 +11,7 @@ import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/pick_image.dart';
-import 'package:provider/provider.dart';
 
 class ProfileInformation extends StatefulWidget {
   final UserData? userData;

@@ -192,10 +192,10 @@ class FirestoreService {
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
-  /*
+  
 
-  // Gets the matchID from two uids.
-  Future<String> getMatchID(String senderID, String receiverID) async {
+  //Gets the matchID from two uids.
+  Future<String> getMatchID(String? senderID, String? receiverID) async {
     final snapshot = await _firebaseFirestore
         .collection("matches")
         .where("uids", arrayContains: senderID)
@@ -219,5 +219,5 @@ class FirestoreService {
 
     return results;
   }
-  */
+
 }

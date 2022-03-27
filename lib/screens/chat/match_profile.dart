@@ -20,7 +20,7 @@ import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:go_router/go_router.dart';
 
-///The screen displays the profile of the current user
+///The screen displays the profile of a  user
 ///
 class MatchProfileScreen extends StatelessWidget {
   final UserMatch userMatch;

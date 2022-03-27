@@ -1,18 +1,24 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+
+import '../../router/route_names.dart';
 
 class MatchDialog extends StatelessWidget {
   final String? otherName;
   final String? myImage;
   final String? otherImage;
+  final UserMatch? userMatch;
 
   const MatchDialog({
     Key? key,
     required this.otherName,
     required this.myImage,
     required this.otherImage,
+    required this.userMatch,
   }) : super(key: key);
 
   @override
@@ -23,13 +29,13 @@ class MatchDialog extends StatelessWidget {
       ),
       elevation: 0.0,
       backgroundColor: Colors.transparent,
-      child: dialogContent(context, otherName, myImage, otherImage),
+      child: dialogContent(context, otherName, myImage, otherImage, userMatch),
     );
   }
 }
 
 dialogContent(BuildContext context, String? matchName, String? myImage,
-    String? otherImage) {
+    String? otherImage, UserMatch? userMatch) {
   return Stack(
     children: [
       //...bottom card part,
@@ -69,6 +75,7 @@ dialogContent(BuildContext context, String? matchName, String? myImage,
                   ?.apply(color: whiteColour),
               onPressed: () {
                 Navigator.of(context).pop(); // To close the dialog
+                context.goNamed(matchChatScreenName, extra: userMatch, params: {pageParameterKey: chatScreenName});
               },
             ),
           ],

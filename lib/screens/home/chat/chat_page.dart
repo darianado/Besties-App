@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:project_seg/constants/constant.dart';
+import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/UserMatch.dart';
 import 'package:project_seg/models/User/message_model.dart';
-import 'package:project_seg/models/User/Chat.dart';
-import 'package:intl/intl.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/chat/components/message_composer.dart';
-import 'package:project_seg/screens/chat/components/message_widget.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/screens/home/chat/components/message_composer.dart';
+import 'package:project_seg/screens/home/chat/components/message_widget.dart';
 import 'package:project_seg/services/match_state.dart';
-import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:project_seg/constants/colours.dart';
-import '../../constants/borders.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:go_router/go_router.dart';
 
 class ChatScreen extends StatelessWidget {
   ChatScreen({required this.userMatch});
@@ -56,8 +46,7 @@ class Conversation extends StatelessWidget {
   final UserMatch userMatch;
   final BuildContext context;
 
-  Conversation({Key? key, required this.userMatch, required this.context})
-      : super(key: key);
+  Conversation({Key? key, required this.userMatch, required this.context}) : super(key: key);
 
   @override
   Widget build(context) {
@@ -88,8 +77,7 @@ class ProfileAppBarButton extends StatelessWidget {
       borderRadius: BorderRadius.circular(5),
       clipBehavior: Clip.hardEdge,
       child: InkWell(
-        onTap: () => context.pushNamed(matchProfileScreenName,
-            extra: userMatch, params: {pageParameterKey: chatScreenName}),
+        onTap: () => context.pushNamed(matchProfileScreenName, extra: userMatch, params: {pageParameterKey: chatScreenName}),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -103,10 +91,7 @@ class ProfileAppBarButton extends StatelessWidget {
             SizedBox(width: 10),
             Text(
               userMatch.match?.firstName ?? "",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline4
-                  ?.apply(color: whiteColour),
+              style: Theme.of(context).textTheme.headline4?.apply(color: whiteColour),
             ),
           ],
         ),

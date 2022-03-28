@@ -5,9 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/chat/components/round_action_button.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
+import 'package:project_seg/screens/home/chat/components/round_action_button.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
@@ -42,15 +42,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         alignment: Alignment.center,
         child: Text(
           "EDIT",
-          style:
-              Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
+          style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
         ),
       ),
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
-          onPressed: () => context.goNamed(homeScreenName,
-              params: {pageParameterKey: profileScreenName}),
+          onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
           child: Icon(
             FontAwesomeIcons.check,
             color: whiteColour,
@@ -62,8 +60,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         text: "Delete account",
         expandsWidth: true,
         color: Colors.red,
-        textStyle:
-            Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+        textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
         icon: const Icon(
           FontAwesomeIcons.ban,
           color: Colors.red,
@@ -78,8 +75,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     try {
       await _authService.deleteAccount(password);
     } on FirebaseAuthException catch (e) {
-      final errorMessage =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMessage = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(
         context: context,
         builder: (context) => DismissDialog(errorMessage: errorMessage),
@@ -110,10 +106,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(height: 10),
                   Text(
                     'Delete account',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4
-                        ?.apply(fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
                   ),
                   const SizedBox(height: 5),
                   Text(

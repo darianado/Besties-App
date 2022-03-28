@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/chat/contact_page.dart';
+import 'package:project_seg/screens/home/chat/contact_page.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
 
@@ -26,8 +26,7 @@ class MenuData {
 
   List<MenuItemData> get items => entries.whereType<MenuItemData>().toList();
 
-  int indexOfItemWithRoute(String routeName) =>
-      items.indexWhere((element) => element.routeName == routeName);
+  int indexOfItemWithRoute(String routeName) => items.indexWhere((element) => element.routeName == routeName);
 }
 
 MenuData menuData = MenuData(

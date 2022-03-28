@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/screens/chat/widgets/contact_list.dart';
-import 'package:project_seg/screens/chat/widgets/recent_chats.dart';
+import 'package:project_seg/screens/home/chat/widgets/contact_list.dart';
+import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:project_seg/constants/colours.dart';
-//import 'package:project_seg/models/User/Chat.dart';
-import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Contact_Page extends StatefulWidget {
   const Contact_Page({Key? key}) : super(key: key);

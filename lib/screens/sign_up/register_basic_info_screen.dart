@@ -22,9 +22,13 @@ import '../../constants/borders.dart';
 ///birthday, gender and their relationship status.
 
 class RegisterBasicInfoScreen extends StatefulWidget {
-  const RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
-
   final UserData userData;
+  
+  const RegisterBasicInfoScreen({
+    Key? key, 
+    required this.userData
+    }) : super(key: key);
+
 
   @override
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();

@@ -83,8 +83,7 @@ abstract class WidgetPumper {
     );
   }
 
-
-  /* /// Pumps a [RegisterBasicInfoScreen] for testing purposes
+     /// Pumps a [RegisterBasicInfoScreen] for testing purposes
   static pumpRegisterBasicInfoScreen(
       WidgetTester tester, ValueKey key, UserData userData) async {
     await tester.pumpWidget(
@@ -92,16 +91,21 @@ abstract class WidgetPumper {
         builder: (BuildContext context) {
           return ChangeNotifierProvider<UserState>.value(
             value: UserState.instance,
-            child: MaterialApp(
-              home: Scaffold(
-                body: RegisterBasicInfoScreen(key: key, userData: userData),
+            child: ChangeNotifierProvider<ContextState>.value(
+              value: ContextState.instance,
+              child: MaterialApp(
+                home: Scaffold(
+                  body: RegisterBasicInfoScreen(key: key, userData: userData),
+                ),
               ),
             ),
           );
         },
       ),
     );
-  } */
+  }
+
+
   
 
 }

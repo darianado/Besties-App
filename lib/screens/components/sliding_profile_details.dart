@@ -1,13 +1,14 @@
 // Widget that displays all of the profile's details as a sliding bottom sheet.
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/screens/components/buttons/gender_button.dart';
+import 'package:project_seg/screens/components/interests_in_common.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import '../../models/User/UserData.dart';
+
+import '../../models/User/user_data.dart';
 import 'buttons/bio_field.dart';
 import 'buttons/edit_dob_button.dart';
-import 'buttons/gender_button.dart';
 import 'buttons/relationship_status_button.dart';
 import 'buttons/university_button.dart';
 
@@ -19,9 +20,8 @@ import 'buttons/university_button.dart';
 /// relationship status and bio.
 class SlidingProfileDetails extends StatefulWidget {
   final UserData profile;
-  final String? commonInterests;
 
-  const SlidingProfileDetails({Key? key, required this.profile, this.commonInterests}) : super(key: key);
+  const SlidingProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<SlidingProfileDetails> createState() => _SlidingProfileDetailsState();
@@ -36,11 +36,6 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
     super.initState();
     controller = AutoScrollController(
         viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom), axis: Axis.vertical);
-  }
-
-  /// Scrolls the information back to the top of the modal bottom sheet.
-  Future<dynamic> _scrollBackToTop(details) async {
-    await controller.scrollToIndex(0, duration: const Duration(milliseconds: 500), preferPosition: AutoScrollPosition.begin);
   }
 
   @override
@@ -69,7 +64,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                 runAlignment: WrapAlignment.center,
                 children: [
                   DateOfBirthButton(label: (widget.profile.age ?? " ").toString()),
-                  GenderButtton(label: widget.profile.gender ?? " "),
+                  GenderButton(label: widget.profile.gender ?? " "),
                   RelationshipStatusButton(label: widget.profile.relationshipStatus ?? " "),
                 ],
               ),
@@ -79,28 +74,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                 editable: false,
               ),
               const SizedBox(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "YOU HAVE ",
-                    style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 2),
-                  ),
-                  Text(
-                    widget.commonInterests ?? "NO",
-                    style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 5),
-                  ),
-                  widget.commonInterests == "1"
-                      ? Text(
-                          " INTEREST IN COMMON!",
-                          style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 2),
-                        )
-                      : Text(
-                          " INTERESTS IN COMMON!",
-                          style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 2),
-                        ),
-                ],
-              ),
+              InterestsInCommon(profile: widget.profile),
             ],
           ),
         ),

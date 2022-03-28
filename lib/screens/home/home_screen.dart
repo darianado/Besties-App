@@ -1,37 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/models/Navigation/MenuData.dart';
+import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
-
-int indexOfItemWithName(String pageName) {
-  if (pageName == "profile") {
-    return 0;
-  } else if (pageName == "feed") {
-    return 1;
-  } else {
-    return 2;
-  }
-}
-
-String pathOfIndex(int index) {
-  if (index == 0) {
-    return "profile";
-  } else if (index == 1) {
-    return "feed";
-  } else {
-    return "chat";
-  }
-}
 
 class HomeScreen extends StatefulWidget {
   final int index;
   HomeScreen({Key? key, required String page})
-      : index = indexOfItemWithName(page),
+      : index = menuData.indexOfItemWithRoute(page),
         super(key: key);
 
   @override
@@ -49,12 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    super.initState();
     final _matchState = MatchState.instance;
     final _userState = UserState.instance;
 
     _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
     selectedIndex = widget.index;
+    super.initState();
   }
 
   @override
@@ -64,11 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeSelection(int index) {
-    if (index == 1 && _selectedIndex == 1) {
+    if (index == 1) {
       FeedScreen.animateToTop();
     }
 
-    context.go("/" + pathOfIndex(index));
+    selectedIndex = index;
+
+    final destination = menuData.pathOfItemWithIndex(_selectedIndex);
+    context.go(destination);
   }
 
   List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();

@@ -22,7 +22,7 @@ class EditDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 10),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.all(15),
@@ -39,7 +39,7 @@ class EditDialog extends StatelessWidget {
                 ),
                 child: content,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,16 +48,16 @@ class EditDialog extends StatelessWidget {
                     child: PillButtonOutlined(
                       text: "Cancel",
                       color: tertiaryColour,
-                      padding: EdgeInsets.symmetric(vertical: 7),
+                      padding: const EdgeInsets.symmetric(vertical: 7),
                       textStyle: Theme.of(context).textTheme.titleLarge,
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: PillButtonFilled(
                       text: confirmButtonText,
-                      padding: EdgeInsets.symmetric(vertical: 7),
+                      padding: const EdgeInsets.symmetric(vertical: 7),
                       backgroundColor: confirmButtonColour,
                       textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: confirmButtonTextColour),
                       onPressed: onSave,

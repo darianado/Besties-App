@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/models/Matches/user_match.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
-import 'package:project_seg/screens/home/chat/chat_page.dart';
-import 'package:project_seg/screens/home/chat/match_profile.dart';
+import 'package:project_seg/screens/home/chat/chat_thread_screen.dart';
+import 'package:project_seg/screens/home/chat/match_profile_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
@@ -71,7 +71,7 @@ class AppRouter {
         path: registerScreenPath,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: state.pageKey,
-          child: RegisterScreen(),
+          child: const RegisterScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
             opacity: animation,
             child: child,
@@ -137,7 +137,7 @@ class AppRouter {
         path: recoverPasswordScreenPath,
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: RecoverPasswordScreen(),
+          child: const RecoverPasswordScreen(),
         ),
       ),
       GoRoute(
@@ -157,7 +157,7 @@ class AppRouter {
             path: editProfileScreenPath,
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: EditProfileScreen(),
+              child: const EditProfileScreen(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
@@ -169,7 +169,7 @@ class AppRouter {
             path: editPreferencesScreenPath,
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: EditPreferencesScreen(),
+              child: const EditPreferencesScreen(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
@@ -181,7 +181,7 @@ class AppRouter {
             path: editPasswordScreenPath,
             pageBuilder: (context, state) => CustomTransitionPage<void>(
               key: state.pageKey,
-              child: EditPasswordScreen(),
+              child: const EditPasswordScreen(),
               transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                 opacity: animation,
                 child: child,
@@ -205,7 +205,7 @@ class AppRouter {
             path: matchChatScreenPath,
             pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
-              child: ChatScreen(userMatch: state.extra! as UserMatch),
+              child: ChatThreadScreen(userMatch: state.extra! as UserMatch),
             ),
           ),
         ],

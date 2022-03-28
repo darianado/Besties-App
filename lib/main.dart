@@ -1,17 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'constants/constant.dart';
 import 'firebase_options.dart';
 
 void main() async {

@@ -4,12 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-
-class GenderButtton extends StatelessWidget {
+class GenderButton extends StatelessWidget {
   final bool editable;
   final bool wiggling;
   final bool shouldExpand;
@@ -17,7 +15,7 @@ class GenderButtton extends StatelessWidget {
   final Color color;
   final Function(String?)? onSave;
 
-  GenderButtton({
+  const GenderButton({
     Key? key,
     this.editable = false,
     this.wiggling = false,
@@ -31,7 +29,7 @@ class GenderButtton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (editable) {
       return ShakeAnimatedWidget(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 4),
         child: chip(context),
       );
@@ -52,7 +50,6 @@ class GenderButtton extends StatelessWidget {
   }
 
   Widget chip(BuildContext context) {
-
     return ChipWidget(
       color: color,
       shouldExpand: shouldExpand,

@@ -1,8 +1,6 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart' as storage;
-import 'package:image_picker/image_picker.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:uuid/uuid.dart';
 
 class StorageService {
@@ -15,18 +13,17 @@ class StorageService {
   static StorageService get instance => _instance;
 
   Future<String?> changeUserPhoto(String userId, File? image) async {
-    print("Changing");
-
     if (image != null) {
-      storage.ListResult imageRefs = await _firebaseStorage.ref('user_avatars/$userId').list(storage.ListOptions(maxResults: 5));
-      imageRefs.items.forEach((element) {
-        print("Deleting");
+      const options = storage.ListOptions(maxResults: 5);
+
+      storage.ListResult imageRefs = await _firebaseStorage.ref('user_avatars/$userId').list(options);
+      for (var element in imageRefs.items) {
         element.delete();
-      });
+      }
 
       File file = File(image.path);
 
-      String ref = 'profile_pictures/$userId/${Uuid().v4()}.png';
+      String ref = 'profile_pictures/$userId/${const Uuid().v4()}.png';
 
       //print("This is the file ref: " + ref);
 
@@ -36,5 +33,7 @@ class StorageService {
 
       //FirestoreService.instance.setProfileImageUrl(downloadUrl);
     }
+
+    return null;
   }
 }

@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
-import 'package:project_seg/screens/components/widget/select_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:project_seg/utility/form_validators.dart';
-import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
+import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/router/route_names.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/interests/select_interests.dart';
+import 'package:project_seg/screens/components/validation_error.dart';
+import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/utility/form_validators.dart';
+import 'package:provider/provider.dart';
 
 class RegisterInterestsScreen extends StatefulWidget {
-  RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
+  const RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
 
-  UserData userData;
+  final UserData userData;
 
   @override
   State<RegisterInterestsScreen> createState() => _RegisterInterestsScreenState();
@@ -30,15 +28,12 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
   @override
   Widget build(BuildContext context) {
     final _contextState = Provider.of<ContextState>(context);
-    final _userState = Provider.of<UserState>(context);
 
     void saveToFirestore() {
       final FirestoreService _firestoreService = FirestoreService.instance;
 
       _firestoreService.saveUserData(widget.userData);
     }
-
-    print("Selected interests are: ${widget.userData.categorizedInterests?.flattenedInterests}");
 
     return Scaffold(
       body: CustomScrollView(
@@ -52,7 +47,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
-              icon: buildIcons(Icons.arrow_back_ios, primaryColour),
+              icon: const Icon(Icons.arrow_back_ios, color: primaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -79,7 +74,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
               padding: const EdgeInsets.all(leftRightPadding),
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                     "It is time to let us know more about your interests.",
                     textAlign: TextAlign.center,
                   ),
@@ -97,14 +92,14 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     },
                     selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
                   ),
-                  ValidatorError(errorText: validateInterestsError),
+                  ValidationError(errorText: validateInterestsError),
                   const SizedBox(height: 20),
-                  Container(
+                  SizedBox(
                     width: double.infinity,
                     child: PillButtonFilled(
                       text: "Done",
                       backgroundColor: tertiaryColour,
-                      textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: whiteColour),
+                      textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: whiteColour),
                       onPressed: () {
                         if (!validate()) return;
                         saveToFirestore();

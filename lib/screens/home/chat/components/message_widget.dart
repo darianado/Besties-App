@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class MessageWidget extends StatelessWidget {
           margin: const EdgeInsets.only(top: 5, bottom: 5),
           decoration: BoxDecoration(
             color: isMine ? chatSenderColour : chatReceiverColour,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
           child: Column(
             crossAxisAlignment: isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,

@@ -1,11 +1,11 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:provider/provider.dart';
-import 'package:project_seg/constants/colours.dart';
 
 class UniversityButton extends StatelessWidget {
   final bool editable;
@@ -15,7 +15,7 @@ class UniversityButton extends StatelessWidget {
   final Color color;
   final Function(String?)? onSave;
 
-  UniversityButton({
+  const UniversityButton({
     Key? key,
     this.editable = false,
     this.wiggling = false,
@@ -29,7 +29,7 @@ class UniversityButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (wiggling) {
       return ShakeAnimatedWidget(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 1),
         child: chip(context),
       );

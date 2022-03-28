@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
-import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/screens/components/widget/display_interests.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
+import 'package:project_seg/screens/components/interests/display_interests.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/utility/pick_image.dart';
 
@@ -21,7 +21,7 @@ class ProfileInformation extends StatefulWidget {
   final Widget? onImageSection;
   final Widget? bottomSection;
 
-  ProfileInformation({
+  const ProfileInformation({
     Key? key,
     this.userData,
     required this.editable,
@@ -59,10 +59,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   @override
   Widget build(BuildContext context) {
-    //const double profileImageRadius = 100;
-    const double profileHeaderExtendedHeight = 350;
-    const double profileHeaderCollapsedHeight = 220;
-
     return Scaffold(
       backgroundColor: whiteColour,
       body: CustomScrollView(
@@ -129,7 +125,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       label: widget.userData?.university ?? "",
                       onSave: (university) => saveUniversity(widget.userData?.uid, university),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Wrap(
                       spacing: 6.0,
                       runSpacing: 6.0,
@@ -137,7 +133,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       runAlignment: WrapAlignment.center,
                       children: [
                         DateOfBirthButton(label: "${widget.userData?.age}"),
-                        GenderButtton(
+                        GenderButton(
                           editable: widget.editable,
                           wiggling: widget.editable,
                           label: widget.userData?.gender ?? "",
@@ -151,12 +147,12 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     BioField(
                       label: widget.userData?.bio ?? " ",
                       editable: widget.editable,
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -166,14 +162,14 @@ class _ProfileInformationState extends State<ProfileInformation> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     DisplayInterests(
                       editable: widget.editable,
                       wiggling: widget.editable,
                       interests: widget.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
                       onSave: (categorizedInterests) => saveInterests(widget.userData?.uid, categorizedInterests),
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 25),
                     (widget.bottomSection != null) ? widget.bottomSection! : Container(),
                   ],
                 ),

@@ -1,17 +1,10 @@
 import 'dart:async';
-import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/User/ActiveUser.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/feed_content_gatherer.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/recommendations_state.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
 
 class FeedContentController extends ChangeNotifier {
   final _desiredFeedContentLength = 5;
@@ -27,12 +20,11 @@ class FeedContentController extends ChangeNotifier {
   static FeedContentController get instance => _instance;
 
   FeedContentGatherer? _gatherer;
-  final FirestoreService _firestoreService = FirestoreService.instance;
 
   void assignController(PageController controller) {
     controller.addListener(() => pageChangeListener(controller));
     _gatherer = FeedContentGatherer(onLikeComplete: (likedUser) {
-      controller.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+      controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
       _gatherer?.removeLiked();
     });
   }
@@ -135,7 +127,7 @@ class FeedLoadingSheet extends StatelessWidget {
                 children: [
                   AspectRatio(
                     aspectRatio: 1.2,
-                    child: Container(
+                    child: SizedBox(
                       width: double.infinity,
                       child: Lottie.asset('assets/lotties/searching.json', fit: BoxFit.cover),
                     ),
@@ -144,14 +136,10 @@ class FeedLoadingSheet extends StatelessWidget {
                     "Searching...",
                     style: Theme.of(context).textTheme.headline4,
                   ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("Give us a minute while we search for your next match."),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("If this is taking too long, try editing your preferences.")
+                  const SizedBox(height: 20),
+                  const Text("Give us a minute while we search for your next match."),
+                  const SizedBox(height: 10),
+                  const Text("If this is taking too long, try editing your preferences.")
                 ],
               ),
             ),

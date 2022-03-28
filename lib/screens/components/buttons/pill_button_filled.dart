@@ -29,12 +29,12 @@ class PillButtonFilled extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () => onPressed(),
-      child: Container(
+      child: SizedBox(
         width: (expandsWidth) ? double.infinity : null,
         child: (isLoading)
             ? Center(
                 child: Container(
-                  constraints: BoxConstraints(maxHeight: 50, maxWidth: 50),
+                  constraints: const BoxConstraints(maxHeight: 50, maxWidth: 50),
                   child: CircularProgressIndicator(
                     color: textStyle?.color,
                     strokeWidth: 3,

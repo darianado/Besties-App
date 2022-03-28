@@ -34,7 +34,7 @@ dependencies:
   multi_select_flutter: ^4.0.0
   scroll_to_index: ^2.1.1
   flutter_svg: ^1.0.3
-
+  rename: ^2.0.1
   #Load the Google fonts package
   google_fonts: ^2.3.1
 

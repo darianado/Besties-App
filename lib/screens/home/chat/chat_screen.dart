@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/screens/home/chat/components/left_aligned_headline.dart';
 import 'package:project_seg/screens/home/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-class Contact_Page extends StatefulWidget {
-  const Contact_Page({Key? key}) : super(key: key);
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({Key? key}) : super(key: key);
 
   @override
-  State<Contact_Page> createState() => _Contact_PageState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _Contact_PageState extends State<Contact_Page> {
-  final _firestoreService = FirestoreService.instance;
-
+class _ChatScreenState extends State<ChatScreen> {
   List<OtherUser>? matches;
 
   @override
@@ -30,7 +28,6 @@ class _Contact_PageState extends State<Contact_Page> {
     final _matchState = Provider.of<MatchState>(context, listen: false);
     final _userState = Provider.of<UserState>(context, listen: false);
     _matchState.onStart(_userState.user!.user!.uid);
-    print("Fetched the following matches: ${matches}");
   }
 
   @override
@@ -55,7 +52,7 @@ class _Contact_PageState extends State<Contact_Page> {
             Expanded(
               child: SafeArea(
                 child: Column(
-                  children: <Widget>[
+                  children: const [
                     Padding(
                       padding: EdgeInsets.only(left: 15, bottom: 5),
                       child: Align(
@@ -76,29 +73,6 @@ class _Contact_PageState extends State<Contact_Page> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class LeftAlignedHeadline extends StatelessWidget {
-  final String text;
-
-  const LeftAlignedHeadline({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(text,
-          style: TextStyle(
-            color: secondaryColour,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          )),
     );
   }
 }

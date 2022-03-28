@@ -8,17 +8,13 @@ class PickAndCropImage {
   final ImagePicker _picker = ImagePicker();
 
   Future<String?> pickImage(String uid) async {
-    XFile? file = await _picker.pickImage(
-        source: ImageSource.gallery,
-        maxHeight: 800,
-        maxWidth: 800,
-        imageQuality: 90);
+    XFile? file = await _picker.pickImage(source: ImageSource.gallery, maxHeight: 800, maxWidth: 800, imageQuality: 90);
     if (file == null) return null;
 
     File? f = File(file.path);
     f = await ImageCropper().cropImage(
       sourcePath: file.path,
-      aspectRatio: CropAspectRatio(ratioX: 9, ratioY: 16),
+      aspectRatio: const CropAspectRatio(ratioX: 9, ratioY: 16),
       aspectRatioPresets: [CropAspectRatioPreset.ratio16x9],
     );
 

@@ -6,9 +6,8 @@ import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
+import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
-import 'package:project_seg/screens/components/alerts.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +36,11 @@ class _LogInScreenState extends State<LogInScreen> {
     try {
       await userState.signIn(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
-      showAlert(context, errorMsg);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      showDialog(
+        context: context,
+        builder: (context) => DismissDialog(message: errorMsg),
+      );
 
       setState(() {
         isLoading = false;
@@ -53,7 +54,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     final _userState = Provider.of<UserState>(context);
 
-    void submitForm(GlobalKey<FormState> key) {
+    void _submitForm(GlobalKey<FormState> key) {
       if (_formKey.currentState!.validate()) {
         signIn(_userState);
       }
@@ -61,8 +62,7 @@ class _LogInScreenState extends State<LogInScreen> {
 
     return Theme(
       data: ThemeData(
-        textTheme:
-            Theme.of(context).textTheme.apply(bodyColor: simpleWhiteColour),
+        textTheme: Theme.of(context).textTheme.apply(bodyColor: simpleWhiteColour),
         brightness: Brightness.dark,
       ),
       child: Builder(builder: (context) {
@@ -80,35 +80,45 @@ class _LogInScreenState extends State<LogInScreen> {
           )),
           child: Scaffold(
             backgroundColor: Colors.transparent,
+            appBar: PreferredSize(
+              preferredSize: Size.fromHeight(0.1 * screenHeight),
+              child: AppBar(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                  systemOverlayStyle: const SystemUiOverlayStyle(
+                    statusBarColor: Colors.transparent,
+                  ),
+                  title: Text(
+                    'BESTIES',
+                    style: Theme.of(context).textTheme.headline3?.apply(color: whiteColour),
+                  ),
+                  centerTitle: true,
+                  automaticallyImplyLeading: false),
+            ),
             body: Center(
               child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        leftRightPadding, 0, leftRightPadding, 30),
+                    padding: const EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SvgPicture.asset('assets/logo/white_text_logo.svg',
-                            fit: BoxFit.fitHeight),
+                        SvgPicture.asset('assets/logo/white_text_logo.svg', fit: BoxFit.fitHeight),
                         const SizedBox(height: 50),
                         Text(
                           'Log in',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
-                              ?.apply(color: whiteColour),
+                          style: Theme.of(context).textTheme.headline4?.apply(color: whiteColour),
                         ),
                         const SizedBox(height: 40),
                         TextFormField(
                           controller: _email,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             fillColor: whiteColour,
                             focusColor: whiteColour,
-                            border: const UnderlineInputBorder(),
-                            icon: buildIcons(Icons.email, whiteColour),
+                            border: UnderlineInputBorder(),
+                            icon: Icon(Icons.email, color: whiteColour),
                             labelText: 'Email address',
                           ),
                           validator: validateEmail,
@@ -118,9 +128,9 @@ class _LogInScreenState extends State<LogInScreen> {
                         TextFormField(
                           controller: _password,
                           obscureText: true,
-                          decoration: InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            icon: buildIcons(Icons.lock, whiteColour),
+                          decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(Icons.lock, color: whiteColour),
                             labelText: 'Password',
                           ),
                           validator: validatePassword,
@@ -131,50 +141,38 @@ class _LogInScreenState extends State<LogInScreen> {
                           child: TextButton(
                             child: Text(
                               'Forget password?',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.apply(color: whiteColour),
+                              style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
                             ),
-                            onPressed: () =>
-                                context.pushNamed(recoverPasswordScreenName),
+                            onPressed: () => context.pushNamed(recoverPasswordScreenName),
                           ),
                         ),
                         const SizedBox(height: 30),
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           child: PillButtonFilled(
                             text: "Log in",
                             isLoading: isLoading,
                             backgroundColor: whiteColour,
-                            textStyle: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                                color: secondaryColour),
-                            onPressed: () => submitForm(_formKey),
+                            textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: secondaryColour),
+                            onPressed: () => _submitForm(_formKey),
                           ),
                         ),
                         const SizedBox(height: 30),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Don\'t have an account?',
-                              ),
-                              PillButtonOutlined(
-                                text: "Sign up",
-                                color: whiteColour,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 30, vertical: 7),
-                                textStyle:
-                                    Theme.of(context).textTheme.labelLarge,
-                                onPressed: () =>
-                                    context.pushNamed(registerScreenName),
-                              ),
-                            ],
-                          ),
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Don\'t have an account?',
+                            ),
+                            PillButtonOutlined(
+                              text: "Sign up",
+                              color: whiteColour,
+                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                              textStyle: Theme.of(context).textTheme.labelLarge,
+                              onPressed: () => context.pushNamed(registerScreenName),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

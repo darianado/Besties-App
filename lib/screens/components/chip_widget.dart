@@ -31,11 +31,11 @@ class ChipWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      borderRadius: BorderRadius.all(radius100),
+      borderRadius: const BorderRadius.all(radius100),
       color: simpleWhiteColour,
       child: InkWell(
         onTap: (onTap != null) ? (() => onTap!()) : (null),
-        borderRadius: BorderRadius.all(radius100),
+        borderRadius: const BorderRadius.all(radius100),
         child: Container(
           width: (shouldExpand) ? double.infinity : null,
           decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class ChipWidget extends StatelessWidget {
                 color: color,
                 width: 1,
               ),
-              borderRadius: BorderRadiusDirectional.all(radius100),
+              borderRadius: const BorderRadiusDirectional.all(radius100),
               color: (bordered == true) ? null : color),
           child: Padding(
             padding: EdgeInsets.all(((mini) ? 6.0 : 9.0)),

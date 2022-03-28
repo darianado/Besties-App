@@ -1,19 +1,14 @@
-import 'dart:collection';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'dart:io';
 import 'dart:ui';
 
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
-import 'package:project_seg/services/match_state.dart';
-import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:project_seg/constants/colours.dart';
-import 'package:colorful_safe_area/colorful_safe_area.dart';
 
 /// The screen that displays profiles to the user.
 ///
@@ -22,7 +17,7 @@ import 'package:colorful_safe_area/colorful_safe_area.dart';
 /// A [CircularProgressIndicator] is returned for the whole duration of
 /// the async method.
 class FeedScreen extends StatefulWidget {
-  FeedScreen({Key? key}) : super(key: key);
+  const FeedScreen({Key? key}) : super(key: key);
 
   static PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
@@ -40,7 +35,6 @@ class _FeedScreenState extends State<FeedScreen> {
   void initState() {
     super.initState();
 
-    final _userState = Provider.of<UserState>(context, listen: false);
     final _feedContent = Provider.of<FeedContentController>(context, listen: false);
     _feedContent.onFeedInitialized();
     _feedContent.assignController(FeedScreen.controller);
@@ -66,7 +60,7 @@ class _FeedScreenState extends State<FeedScreen> {
           ),
         ),
         ColorfulSafeArea(
-          overflowRules: OverflowRules.all(true),
+          overflowRules: const OverflowRules.all(true),
           color: Colors.white.withOpacity(0.5),
           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(),
@@ -75,14 +69,14 @@ class _FeedScreenState extends State<FeedScreen> {
           child: Padding(
             padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
             child: Container(
-              decoration: BoxDecoration(shape: BoxShape.circle, boxShadow: [
+              decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [
                 BoxShadow(
                   color: secondaryColour,
                   blurRadius: 55.0,
                 ),
               ]),
               child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.menu,
                   color: whiteColour,
                   size: 30,

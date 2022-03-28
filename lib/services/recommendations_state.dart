@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/User/ActiveUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/active_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class RecommendationsState extends ChangeNotifier {

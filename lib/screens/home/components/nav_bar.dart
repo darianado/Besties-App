@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/Navigation/MenuData.dart';
+import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/constants/colours.dart';
 
 class NavBar extends StatelessWidget {

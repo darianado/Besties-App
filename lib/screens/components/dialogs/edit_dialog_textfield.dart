@@ -5,18 +5,17 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 class EditDialogTextField extends StatefulWidget {
-  String value;
+  final String value;
   final Function(String?, String) onSave;
 
-  EditDialogTextField({Key? key, required this.value, required this.onSave})
-      : super(key: key);
+  const EditDialogTextField({Key? key, required this.value, required this.onSave}) : super(key: key);
 
   @override
   State<EditDialogTextField> createState() => _EditDialogTextFieldState();
 }
 
 class _EditDialogTextFieldState extends State<EditDialogTextField> {
-  TextEditingController _textFieldController = TextEditingController();
+  final TextEditingController _textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +30,7 @@ class _EditDialogTextFieldState extends State<EditDialogTextField> {
         minLines: 1,
         maxLength: _contextState.context?.maxBioLength ?? 200,
         maxLines: 10,
-        decoration: InputDecoration(border: InputBorder.none),
+        decoration: const InputDecoration(border: InputBorder.none),
         style: Theme.of(context).textTheme.titleLarge,
       ),
       onSave: () {

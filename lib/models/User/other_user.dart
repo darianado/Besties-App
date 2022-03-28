@@ -1,4 +1,4 @@
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 
 class OtherUser {
   bool liked;

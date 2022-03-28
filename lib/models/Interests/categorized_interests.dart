@@ -19,6 +19,16 @@ class CategorizedInterests {
     return categories.map((category) => category.interests).expand((i) => i).toList();
   }
 
+  int numberOfInterestsInCommonWith(CategorizedInterests? other) {
+    if (other == null) return 0;
+
+    final _ownFlattenedInterestsAsStrings = flattenedInterests.map((Interest interest) => interest.title.toLowerCase()).toSet();
+    final _otherFlattenedInterestsAsStrings = other.flattenedInterests.map((Interest interest) => interest.title.toLowerCase()).toSet();
+    final _intersection = _ownFlattenedInterestsAsStrings.intersection(_otherFlattenedInterestsAsStrings);
+
+    return _intersection.length;
+  }
+
   CategorizedInterests filter(CategorizedInterests other) {
     final newCategories = categories.where((Category category) {
       int _filterCategoryIndex =
@@ -44,14 +54,14 @@ class CategorizedInterests {
   CategorizedInterests addMissing(CategorizedInterests other) {
     List<Category> newCategories = categories;
 
-    other.categories.forEach((Category otherCategory) {
+    for (var otherCategory in other.categories) {
       int _otherCategoryIndex =
           categories.indexWhere((Category category) => otherCategory.title.toLowerCase() == category.title.toLowerCase());
 
       if (_otherCategoryIndex == -1) {
         newCategories.add(Category(title: otherCategory.title, interests: []));
       }
-    });
+    }
 
     return CategorizedInterests(categories: newCategories);
   }
@@ -84,6 +94,6 @@ class CategorizedInterests {
   }
 
   @override
-  // TODO: implement hashCode
-  int get hashCode => super.hashCode;
+  // Need to have this here for consistency. Not using in our current app.
+  int get hashCode => super.hashCode ^ categories.length;
 }

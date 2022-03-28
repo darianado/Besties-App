@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
 class RelationshipStatusButton extends StatelessWidget {
@@ -15,7 +14,7 @@ class RelationshipStatusButton extends StatelessWidget {
   final Color color;
   final Function(String?)? onSave;
 
-  RelationshipStatusButton({
+  const RelationshipStatusButton({
     Key? key,
     this.editable = false,
     this.wiggling = false,
@@ -29,7 +28,7 @@ class RelationshipStatusButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (wiggling) {
       return ShakeAnimatedWidget(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 1),
         child: chip(context),
       );
@@ -49,7 +48,6 @@ class RelationshipStatusButton extends StatelessWidget {
   }
 
   Function? getOnTap(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
 
     final _onSave = onSave;

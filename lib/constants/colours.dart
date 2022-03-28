@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-
-
 const activeCardColor = Color(0xFF00CFFF);
 const inactiveCardColor = Colors.transparent;
 
@@ -49,4 +47,4 @@ const Color greyColour = Colors.grey;
 const Color orangeColour = Colors.orange;
 
 const Color lightGreen = Color(0xFF24D876);
-Color opacBlack = Colors.black.withOpacity(0.5);
+Color opaqueBlack = Colors.black.withOpacity(0.5);

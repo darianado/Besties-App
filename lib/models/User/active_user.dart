@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 
 class ActiveUser {
   final User? user;

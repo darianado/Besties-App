@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/profile_container.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/screens/home/feed/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 
@@ -19,7 +19,7 @@ class FeedContentGatherer extends ChangeNotifier {
 
   FeedContentGatherer({required this.onLikeComplete});
 
-  // TODO: write some insurance in case this fails or times out.
+  // Write some insurance in case this fails or times out.
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{

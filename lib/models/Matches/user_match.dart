@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/Matches/message.dart';
+import 'package:project_seg/models/User/user_data.dart';
 
 class UserMatch {
   String matchID;
@@ -9,7 +9,7 @@ class UserMatch {
   List<Message>? _messages;
 
   List<Message>? get messages => _messages;
-  void set messages(List<Message>? newMessages) {
+  set messages(List<Message>? newMessages) {
     newMessages?.sort((a, b) {
       final aTimestamp = a.timestamp;
       final bTimestamp = b.timestamp;
@@ -21,7 +21,7 @@ class UserMatch {
       }
     });
 
-    this._messages = newMessages;
+    _messages = newMessages;
   }
 
   UserMatch({required this.matchID, this.match, this.timestamp});

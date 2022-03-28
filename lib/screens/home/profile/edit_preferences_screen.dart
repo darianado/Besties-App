@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
+import 'package:project_seg/screens/components/interests/display_interests.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/utility/helpers.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
 import '../../../services/user_state.dart';
-import '../../components/widget/display_interests.dart';
 
 class EditPreferencesScreen extends StatefulWidget {
+  const EditPreferencesScreen({Key? key}) : super(key: key);
+
   @override
   State<EditPreferencesScreen> createState() => _EditPreferencesScreenState();
 }
 
 class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
-  RangeValues _currentAgeRangeValues = const RangeValues(16, 30);
-
   Preferences? newPreferences;
-
   bool isLoading = false;
 
   Future<void> save(String userID, Preferences preferences) async {
@@ -37,10 +36,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     setState(() {
       isLoading = false;
     });
-  }
-
-  int difference(int? n1, int? n2) {
-    return (n1 != null && n2 != null) ? n2 - n1 : 0;
   }
 
   @override
@@ -125,7 +120,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: spaceBetweenWidgetAndTitle),
+                  const SizedBox(height: spaceBetweenWidgetAndTitle),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _contextState.context?.genders?.map((gender) {
@@ -170,7 +165,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: spaceBetweenWidgetAndTitle),
+                  const SizedBox(height: spaceBetweenWidgetAndTitle),
                   DisplayInterests(
                     editable: true,
                     interests: newPreferences?.interests ?? CategorizedInterests(categories: []),
@@ -186,7 +181,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     backgroundColor: secondaryColour,
                     expandsWidth: true,
                     isLoading: isLoading,
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     onPressed: () async {
                       await save(_userState.user!.user!.uid, newPreferences!);
 
@@ -201,7 +196,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     text: "Cancel",
                     color: secondaryColour,
                     expandsWidth: true,
-                    textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: secondaryColour),
+                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: secondaryColour),
                     onPressed: () => context.goNamed(
                       homeScreenName,
                       params: {pageParameterKey: feedScreenName},

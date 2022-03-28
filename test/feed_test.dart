@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/dalu_auth/mock.dart';
+import 'mock.dart';
 
 void main() {
   // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()

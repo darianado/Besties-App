@@ -5,6 +5,8 @@ import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/dalu_auth/mock.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/widget/display_interests.dart';
+import 'package:project_seg/services/user_state.dart';
 
 import 'test_resources/TestProfile.dart';
 import 'test_resources/WidgetPumper.dart';
@@ -19,39 +21,22 @@ void main() {
 
   OtherUser firstProfile = TestProfile.firstProfile;
 
-  group('ProfileContainer widget tests', () {
-    testWidgets('Test ProfileContainer Widget displays correct information',
+  group('ProfileScreen widget tests', () {
+    testWidgets('Test ProfileInformation Widget displays correct information',
         (tester) async {
-      ValueKey key = const ValueKey("ProfileContainer Key");
+      ValueKey key = const ValueKey("ProfileScreen Key");
 
-      await WidgetPumper.pumpProfileContainer(tester, key, firstProfile);
-
-      expect(find.text(firstProfile.userData.firstName!), findsOneWidget);
-      expect(find.text(firstProfile.userData.university!), findsOneWidget);
-      expect(find.byType(CachedImage), findsOneWidget);
-
-      expect(find.text(firstProfile.userData.lastName!), findsNothing);
-      expect(find.text(firstProfile.userData.age!.toString()), findsNothing);
-      expect(
-          find.text(firstProfile.userData.relationshipStatus!), findsNothing);
-      expect(find.text(firstProfile.userData.bio!), findsNothing);
-
-      expect(find.byType(GenderButtton), findsNothing);
-    });
-
-    testWidgets(
-        'Test SlidingProfileDetails Widget displays correct information',
-        (tester) async {
-      ValueKey key = const ValueKey("SlidingProfileDetails Key");
-      await WidgetPumper.pumpSlidingProfileDetails(tester, key, firstProfile);
+      await WidgetPumper.pumpProfileScreen(tester, key, firstProfile.userData);
 
       expect(find.text(firstProfile.userData.fullName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);
       expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
+
       expect(
           find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
-
+      
+      expect(find.byType(DisplayInterests), findsOneWidget);
       expect(find.byType(GenderButtton), findsOneWidget);
     });
   });

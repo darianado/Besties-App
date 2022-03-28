@@ -1,8 +1,8 @@
 import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
 
 abstract class TestProfile {
   static OtherUser firstProfile = OtherUser(

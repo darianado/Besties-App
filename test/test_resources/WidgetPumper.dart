@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/profile_container.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/screens/home/feed/profile_container.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/sliding_profile_details.dart';
@@ -14,6 +14,8 @@ import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
+
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 
 /// Holds static methods to pump widgets for testing purposes.
 abstract class WidgetPumper {
@@ -80,4 +82,27 @@ abstract class WidgetPumper {
       ),
     );
   }
+
+
+  /* /// Pumps a [RegisterBasicInfoScreen] for testing purposes
+  static pumpRegisterBasicInfoScreen(
+      WidgetTester tester, ValueKey key, UserData userData) async {
+    await tester.pumpWidget(
+      Builder(
+        builder: (BuildContext context) {
+          return ChangeNotifierProvider<UserState>.value(
+            value: UserState.instance,
+            child: MaterialApp(
+              home: Scaffold(
+                body: RegisterBasicInfoScreen(key: key, userData: userData),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  } */
+  
+
 }
+

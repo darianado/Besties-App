@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/dalu_auth/mock.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'mock.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
-import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
 
 import 'test_resources/TestProfile.dart';
 import 'test_resources/WidgetPumper.dart';
@@ -36,7 +36,7 @@ void main() {
           find.text(firstProfile.userData.relationshipStatus!), findsNothing);
       expect(find.text(firstProfile.userData.bio!), findsNothing);
 
-      expect(find.byType(GenderButtton), findsNothing);
+      expect(find.byType(GenderButton), findsNothing);
     });
 
     testWidgets(
@@ -52,7 +52,7 @@ void main() {
           find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
 
-      expect(find.byType(GenderButtton), findsOneWidget);
+      expect(find.byType(GenderButton), findsOneWidget);
     });
   });
 }

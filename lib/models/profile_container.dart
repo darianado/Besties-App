@@ -105,19 +105,6 @@ class ProfileContainer extends StatelessWidget {
         ),
       ],
     );
-
-    /*
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(profile.userData.profileImageUrl ?? "assets/images/empty_profile_picture.jpg"),
-        ),
-      ),
-      height: MediaQuery.of(context).size.height,
-      child: 
-    );
-    */
   }
 
   /// Returns a [Set] intersection between the user's interests
@@ -183,22 +170,18 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
         if (!isLiked) {
           await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
 
+          widget.onLikeComplete();
+
           bool isMatch = await _firestoreService.setLike(widget.profile.userData.uid);
 
           if (isMatch) {
-            final matchID = await _firestoreService.getMatchID(_userState.user!.user!.uid, widget.profile.userData.uid);
-            final userMatch = UserMatch(matchID: matchID, match: widget.profile.userData, timestamp: DateTime.now());
             showDialog(
               context: context,
               builder: (BuildContext context) => MatchDialog(
-                otherName: widget.profile.userData.firstName,
-                myImage: _userState.user?.userData?.profileImageUrl,
-                otherImage: widget.profile.userData.profileImageUrl,
-                userMatch: userMatch,
+                otherUser: widget.profile.userData,
               ),
             );
           }
-          widget.onLikeComplete();
         }
       },
       child: Transform.scale(

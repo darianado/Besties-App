@@ -5,7 +5,6 @@ import 'package:project_seg/models/Interests/categorized_interests.dart';
 class Preferences {
   CategorizedInterests? interests;
   List<String?>? genders;
-  String? queueID;
   int? maxAge;
   int? minAge;
 
@@ -14,7 +13,6 @@ class Preferences {
     this.maxAge,
     this.minAge,
     this.genders,
-    this.queueID,
   });
 
   factory Preferences.fromMap(Map<String, dynamic> map) {
@@ -22,7 +20,6 @@ class Preferences {
     return Preferences(
       interests: _interests,
       genders: List<String?>.from(map['genders'] ?? []),
-      queueID: map['queueID'],
       maxAge: map['maxAge'],
       minAge: map['minAge'],
     );
@@ -32,11 +29,24 @@ class Preferences {
     return {
       "categorizedInterests": interests?.toList(),
       "genders": genders,
-      "queueID": queueID,
       "maxAge": maxAge,
       "minAge": minAge,
     };
   }
+
+  @override
+  bool operator ==(other) {
+    print("Comparing preferences");
+    return other is Preferences &&
+        maxAge == other.maxAge &&
+        minAge == other.minAge &&
+        (genders?.every((element) => other.genders?.contains(element) ?? false) ?? false) &&
+        interests == other.interests;
+  }
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 }
 
 class UserData {

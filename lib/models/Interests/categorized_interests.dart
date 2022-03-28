@@ -67,4 +67,23 @@ class CategorizedInterests {
       categories[index] = other;
     }
   }
+
+  @override
+  bool operator ==(other) {
+    if (other is CategorizedInterests) {
+      List<String> _interests = flattenedInterests.map((Interest interest) => interest.title).toList();
+      List<String> _otherInterests = other.flattenedInterests.map((Interest interest) => interest.title).toList();
+
+      _interests.sort();
+      _otherInterests.sort();
+
+      return _interests.join(",") == _otherInterests.join(",");
+    } else {
+      return false;
+    }
+  }
+
+  @override
+  // TODO: implement hashCode
+  int get hashCode => super.hashCode;
 }

@@ -5,13 +5,13 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/cached_image.dart';
-import 'package:project_seg/screens/components/circle_cached_image.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
+import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 import 'package:project_seg/screens/home/chat/chat_thread_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-import '../../router/route_names.dart';
+import '../../../router/route_names.dart';
 
 class MatchDialog extends StatefulWidget {
   final UserData? otherUser;

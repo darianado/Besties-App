@@ -8,7 +8,7 @@ import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
-import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/widget/display_interests.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/utility/pick_image.dart';

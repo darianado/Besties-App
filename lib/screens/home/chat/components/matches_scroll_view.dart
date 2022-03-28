@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/components/circle_cached_image.dart';
+import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 
 class MatchesScrollView extends StatelessWidget {
   const MatchesScrollView({

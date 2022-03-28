@@ -6,7 +6,7 @@ import 'package:project_seg/models/User/user_data.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
 
 import 'package:project_seg/screens/components/widget/icon_content.dart';

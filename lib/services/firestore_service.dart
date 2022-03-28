@@ -18,7 +18,7 @@ import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/services/user_state.dart';
-import '../models/profile_container.dart';
+import '../screens/home/feed/profile_container.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;

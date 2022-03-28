@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
 
 class CircleCachedImage extends StatelessWidget {
   const CircleCachedImage({

@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/components/circle_cached_image.dart';
+import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';

@@ -25,7 +25,7 @@ class SelectInterests extends StatefulWidget {
 
 class _SelectInterestsState extends State<SelectInterests> {
   final FirestoreService _firestoreService = FirestoreService.instance;
-  late Future<CategorizedInterests>? possibleCategories;
+  Future<CategorizedInterests>? possibleCategories;
 
   @override
   void initState() {
@@ -37,7 +37,8 @@ class _SelectInterestsState extends State<SelectInterests> {
   Widget build(BuildContext context) {
     return FutureBuilder<CategorizedInterests>(
       future: possibleCategories,
-      builder: (BuildContext context, AsyncSnapshot<CategorizedInterests> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<CategorizedInterests> snapshot) {
         CategorizedInterests? _possible = snapshot.data;
 
         if (_possible == null) {
@@ -50,14 +51,16 @@ class _SelectInterestsState extends State<SelectInterests> {
           );
         }
 
-        CategorizedInterests _filteredSelected = widget.selected.filter(_possible);
+        CategorizedInterests _filteredSelected =
+            widget.selected.filter(_possible);
         _filteredSelected = _filteredSelected.addMissing(_possible);
 
         return Column(
           children: [
             Column(
               children: _possible.categories.map((Category category) {
-                Category _selectedCategory = _filteredSelected.getCorrespondingCategory(category);
+                Category _selectedCategory =
+                    _filteredSelected.getCorrespondingCategory(category);
 
                 //print("Found that this is the corresponding selectedCategory: ${_selectedCategory.interests.map((e) => e.title)}");
 
@@ -92,14 +95,20 @@ class _SelectInterestsState extends State<SelectInterests> {
 }
 
 class EditInterestBottomSheet extends StatefulWidget {
-  EditInterestBottomSheet({Key? key, required this.category, required this.selected, required this.onChange}) : super(key: key);
+  EditInterestBottomSheet(
+      {Key? key,
+      required this.category,
+      required this.selected,
+      required this.onChange})
+      : super(key: key);
 
   Category category;
   Category selected;
   final Function(Category) onChange;
 
   @override
-  State<EditInterestBottomSheet> createState() => _EditInterestBottomSheetState();
+  State<EditInterestBottomSheet> createState() =>
+      _EditInterestBottomSheetState();
 }
 
 class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
@@ -115,7 +124,11 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(widget.category.title, style: Theme.of(context).textTheme.headline5?.apply(fontWeightDelta: 2)),
+                  Text(widget.category.title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          ?.apply(fontWeightDelta: 2)),
                 ],
               ),
               const SizedBox(height: 20),
@@ -127,7 +140,8 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                         spacing: 6.0,
                         runSpacing: 6.0,
                         children: widget.category.interests.map((interest) {
-                          if (isInBoth(interest, widget.category.interests, widget.selected.interests)) {
+                          if (isInBoth(interest, widget.category.interests,
+                              widget.selected.interests)) {
                             return ChipWidget(
                               color: tertiaryColour,
                               label: interest.title,
@@ -136,7 +150,9 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                               mini: true,
                               onTap: () {
                                 setState(() {
-                                  widget.selected.interests.removeWhere((element) => element.title == interest.title);
+                                  widget.selected.interests.removeWhere(
+                                      (element) =>
+                                          element.title == interest.title);
                                 });
                               },
                             );
@@ -167,7 +183,10 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                     child: PillButtonFilled(
                       text: "Save",
                       backgroundColor: secondaryColour,
-                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: whiteColour),
+                      textStyle: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: whiteColour),
                       onPressed: () {
                         Navigator.of(context).pop();
 
@@ -185,14 +204,22 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
     );
   }
 
-  bool isInBoth(Interest interest, List<Interest> first, List<Interest> second) {
-    return first.where((element) => element.title == interest.title).isNotEmpty &&
+  bool isInBoth(
+      Interest interest, List<Interest> first, List<Interest> second) {
+    return first
+            .where((element) => element.title == interest.title)
+            .isNotEmpty &&
         second.where((element) => element.title == interest.title).isNotEmpty;
   }
 }
 
 class CategoryView extends StatelessWidget {
-  CategoryView({Key? key, required this.category, required this.selected, required this.onTap}) : super(key: key);
+  CategoryView(
+      {Key? key,
+      required this.category,
+      required this.selected,
+      required this.onTap})
+      : super(key: key);
 
   Category category;
   Category selected;

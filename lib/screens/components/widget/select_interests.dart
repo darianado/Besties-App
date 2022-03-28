@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
@@ -9,8 +10,11 @@ import '../../../constants/borders.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 class SelectInterests extends StatefulWidget {
-  SelectInterests({Key? key, required this.selected, required this.onChange})
-      : super(key: key);
+  SelectInterests({
+    Key? key,
+    required this.selected,
+    required this.onChange,
+  }) : super(key: key);
 
   CategorizedInterests selected;
   final Function(CategorizedInterests) onChange;
@@ -21,7 +25,7 @@ class SelectInterests extends StatefulWidget {
 
 class _SelectInterestsState extends State<SelectInterests> {
   final FirestoreService _firestoreService = FirestoreService.instance;
-  late Future<CategorizedInterests>? possibleCategories;
+  Future<CategorizedInterests>? possibleCategories;
 
   @override
   void initState() {
@@ -35,9 +39,9 @@ class _SelectInterestsState extends State<SelectInterests> {
       future: possibleCategories,
       builder:
           (BuildContext context, AsyncSnapshot<CategorizedInterests> snapshot) {
-        CategorizedInterests? possible = snapshot.data;
+        CategorizedInterests? _possible = snapshot.data;
 
-        if (possible == null) {
+        if (_possible == null) {
           return const Center(
             child: SizedBox(
               height: 50,
@@ -47,89 +51,46 @@ class _SelectInterestsState extends State<SelectInterests> {
           );
         }
 
-        widget.selected = retainPossible(widget.selected, possible);
-        widget.selected = addMissingCategories(widget.selected, possible);
+        CategorizedInterests _filteredSelected =
+            widget.selected.filter(_possible);
+        _filteredSelected = _filteredSelected.addMissing(_possible);
 
         return Column(
           children: [
             Column(
-              children: possible.categories.map((category) {
-                Category _selected = widget.selected.categories.singleWhere(
-                    (e) => e.title == category.title,
-                    orElse: () =>
-                        Category(title: category.title, interests: []));
+              children: _possible.categories.map((Category category) {
+                Category _selectedCategory =
+                    _filteredSelected.getCorrespondingCategory(category);
+
+                //print("Found that this is the corresponding selectedCategory: ${_selectedCategory.interests.map((e) => e.title)}");
 
                 return CategoryView(
-                  category: category,
-                  selected: _selected,
-                  onTap: () {
-                    showModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return EditInterestBottomSheet(
-                            category: category,
-                            selected: _selected,
-                            onChange: (newCategory) {
-                              print(
-                                  "Selected: ${newCategory.interests.map((e) => e.title)}");
-                              setState(() {
-                                _selected = newCategory;
-                              });
+                    category: category,
+                    selected: _selectedCategory,
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return EditInterestBottomSheet(
+                              category: category,
+                              selected: _selectedCategory,
+                              onChange: (newCategory) {
+                                //print("Selected: ${newCategory.interests.map((e) => e.title)}");
+                                setState(() {
+                                  _selectedCategory = newCategory;
+                                });
 
-                              widget.onChange(widget.selected);
-                            },
-                          );
-                        });
-                  },
-                );
+                                widget.onChange(_filteredSelected);
+                              },
+                            );
+                          });
+                    });
               }).toList(),
             ),
           ],
         );
       },
     );
-  }
-
-  CategorizedInterests retainPossible(
-      CategorizedInterests categories, CategorizedInterests filter) {
-    CategorizedInterests _localCategories = categories;
-
-    _localCategories.categories.forEach((category) {
-      int? _filterCategoryIndex = filter.categories.indexWhere(
-          (e) => e.title.toLowerCase() == category.title.toLowerCase());
-
-      if (_filterCategoryIndex == -1) {
-        // Concurrency error
-      } else {
-        category.interests.forEach((interest) {
-          int _filterInterestIndex = filter.categories
-              .elementAt(_filterCategoryIndex)
-              .interests
-              .indexWhere((e) => e.title == interest.title);
-
-          if (_filterInterestIndex == -1) category.interests.remove(interest);
-        });
-      }
-    });
-
-    return _localCategories;
-  }
-
-  CategorizedInterests addMissingCategories(
-      CategorizedInterests categories, CategorizedInterests filter) {
-    CategorizedInterests _localCategories = categories;
-
-    filter.categories.forEach((category) {
-      int _categoryIndex =
-          categories.categories.indexWhere((e) => e.title == category.title);
-
-      if (_categoryIndex == -1) {
-        _localCategories.categories
-            .add(Category(title: category.title, interests: []));
-      }
-    });
-
-    return _localCategories;
   }
 }
 
@@ -220,7 +181,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
                 children: [
                   Expanded(
                     child: PillButtonFilled(
-                      text: "Ok",
+                      text: "Save",
                       backgroundColor: secondaryColour,
                       textStyle: const TextStyle(
                           fontSize: 18,

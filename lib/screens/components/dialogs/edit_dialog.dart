@@ -6,11 +6,17 @@ import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart
 class EditDialog extends StatelessWidget {
   final Widget content;
   final Function onSave;
+  final String confirmButtonText;
+  final Color confirmButtonTextColour;
+  final Color confirmButtonColour;
 
   const EditDialog({
     Key? key,
     required this.content,
     required this.onSave,
+    this.confirmButtonText = 'Save',
+    this.confirmButtonTextColour = whiteColour,
+    this.confirmButtonColour = tertiaryColour,
   }) : super(key: key);
 
   @override
@@ -33,9 +39,7 @@ class EditDialog extends StatelessWidget {
                 ),
                 child: content,
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 10),
               Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -49,15 +53,13 @@ class EditDialog extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  SizedBox(width: 10),
                   Expanded(
                     child: PillButtonFilled(
-                      text: "Save",
+                      text: confirmButtonText,
                       padding: EdgeInsets.symmetric(vertical: 7),
-                      backgroundColor: tertiaryColour,
-                      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
+                      backgroundColor: confirmButtonColour,
+                      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: confirmButtonTextColour),
                       onPressed: onSave,
                     ),
                   ),

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/ActiveUser.dart';
+import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class RecommendationsState extends ChangeNotifier {
@@ -11,7 +12,7 @@ class RecommendationsState extends ChangeNotifier {
 
   bool loadingRecommendations = false;
   String? _currentQueueID;
-  String? get currentQueueID => _currentQueueID;
+  Preferences? _currentPreferences;
 
   RecommendationsState(User user) {
     startListening(user);
@@ -21,28 +22,27 @@ class RecommendationsState extends ChangeNotifier {
 
   void startListening(User user) {
     _firestoreService.loggedInUser(user).listen((ActiveUser activeUser) async {
-      if (_currentQueueID != null && activeUser.userData?.preferences?.queueID == _currentQueueID) {
-        print("Queue not changed!");
-        return;
-      }
+      if (_currentPreferences == null || _currentPreferences != activeUser.userData?.preferences) {
+        _currentPreferences = activeUser.userData?.preferences;
 
-      loadingRecommendations = true;
-      notifyListeners();
+        loadingRecommendations = true;
+        notifyListeners();
 
-      _subscription?.cancel();
-      _subscription = _firestoreService.recommendationsStream(activeUser.user?.uid).listen((DocumentSnapshot<Map> event) {
-        if (event.exists) {
-          Map? data = event.data();
+        _subscription?.cancel();
+        _subscription = _firestoreService.recommendationsStream(activeUser.user?.uid).listen((DocumentSnapshot<Map> event) {
+          if (event.exists) {
+            Map? data = event.data();
 
-          final uniqueID = data?['queueID'];
+            final uniqueID = data?['queueID'];
 
-          if (_currentQueueID == null || uniqueID != _currentQueueID) {
-            _currentQueueID = uniqueID;
-            loadingRecommendations = false;
-            notifyListeners();
+            if (_currentQueueID == null || uniqueID != _currentQueueID) {
+              _currentQueueID = uniqueID;
+              loadingRecommendations = false;
+              notifyListeners();
+            }
           }
-        }
-      });
+        });
+      }
     });
   }
 }

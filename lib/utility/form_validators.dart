@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 
 String? validateNotEmpty(String? value, String fieldName) {
   if (value == null || value.isEmpty) {
@@ -42,6 +43,50 @@ String? validateExistsAndDifferentFrom(String? value, String validateAgainst) {
 
   if (value == validateAgainst) {
     return "Cannot be the same as before";
+  }
+
+  return null;
+}
+
+String? validateRelationshipStatus(String? value) {
+  if (value == null) return "You must fill in this field.";
+  return null;
+}
+
+String? validateGender(String? value) {
+  if (value == null) return "You must fill in this field.";
+  return null;
+}
+
+String? validateDOB(DateTime? value) {
+  if (value == null) return "You must fill in this field.";
+  return null;
+}
+
+String? validateProfileImageUrl(String? value) {
+  if (value == null) return "You must set a profile picture.";
+  return null;
+}
+
+String? validateBio(String? value) {
+  if (value == null) return "You must fill in this field.";
+  return null;
+}
+
+String? validateUniversity(String? value) {
+  if (value == null) return "You must fill in this field.";
+  return null;
+}
+
+String? validateInterests(CategorizedInterests? value, int? min, int? max) {
+  if (value == null) return "You must fill in this field";
+
+  min = (min != null) ? min : 1;
+  max = (max != null) ? max : 10;
+
+  final _flattenedInterests = value.flattenedInterests;
+  if (_flattenedInterests.length < min || _flattenedInterests.length > max) {
+    return "Select between ${min} and ${max} interests";
   }
 
   return null;

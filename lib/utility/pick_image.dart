@@ -18,8 +18,8 @@ class PickAndCropImage {
     File? f = File(file.path);
     f = await ImageCropper().cropImage(
       sourcePath: file.path,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-      aspectRatioPresets: [CropAspectRatioPreset.square],
+      aspectRatio: CropAspectRatio(ratioX: 9, ratioY: 16),
+      aspectRatioPresets: [CropAspectRatioPreset.ratio16x9],
     );
 
     String? url = await StorageService.instance.changeUserPhoto(uid, f);

@@ -7,6 +7,9 @@ class AppContext {
   List<String>? genders;
   List<String>? relationshipStatuses;
   int? maxBioLength;
+  int? maxChatMessageLength;
+  int? minInterestsSelected;
+  int? maxInterestsSelected;
   int? minAge;
   int? maxAge;
 
@@ -15,6 +18,9 @@ class AppContext {
     this.genders,
     this.relationshipStatuses,
     this.maxBioLength,
+    this.maxChatMessageLength,
+    this.minInterestsSelected,
+    this.maxInterestsSelected,
     this.minAge,
     this.maxAge,
   });
@@ -32,6 +38,9 @@ class AppContext {
       genders: List<String>.from(data?['genders']),
       relationshipStatuses: List<String>.from(data?['relationshipStatuses']),
       maxBioLength: data?['maxBioLength'],
+      maxChatMessageLength: data?['maxChatMessageLength'],
+      maxInterestsSelected: data?['maxInterestsSelected'],
+      minInterestsSelected: data?['minInterestsSelected'],
       maxAge: data?['maxAge'],
       minAge: data?['minAge'],
     );

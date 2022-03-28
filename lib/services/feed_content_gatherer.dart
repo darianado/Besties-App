@@ -27,6 +27,8 @@ class FeedContentGatherer extends ChangeNotifier {
       'recs': amount,
     });
 
+    //print("Received this response: ${resp.data}");
+
     final result = List<String>.from(resp.data['data']);
 
     result.removeWhere((element) => _userState.user?.userData?.likes?.contains(element) ?? false);
@@ -97,7 +99,7 @@ class FeedContentGatherer extends ChangeNotifier {
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users, onLikeComplete);
     queue.addAll(widgets);
-    print("Queue: ${queue.length}");
+    //print("Queue: ${queue.length}");
     gathering = false;
   }
 

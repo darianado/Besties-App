@@ -6,10 +6,12 @@ import '../../constants/colours.dart';
 
 class CachedImage extends StatelessWidget {
   final String? url;
+  final double? aspectRatio;
 
   const CachedImage({
     Key? key,
     this.url,
+    this.aspectRatio,
   }) : super(key: key);
 
   Widget errorPlaceholder() {
@@ -23,21 +25,42 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (url != null) {
-      return CachedNetworkImage(
-        imageUrl: url!,
-        errorWidget: (context, url, error) {
-          return errorPlaceholder();
-        },
-        placeholder: (context, url) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: CircularProgressIndicator(),
-            ),
-          );
-        },
-        fit: BoxFit.cover,
-      );
+      if (aspectRatio != null) {
+        return AspectRatio(
+          aspectRatio: aspectRatio!,
+          child: CachedNetworkImage(
+            imageUrl: url!,
+            errorWidget: (context, url, error) {
+              return errorPlaceholder();
+            },
+            placeholder: (context, url) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            },
+            fit: BoxFit.cover,
+          ),
+        );
+      } else {
+        return CachedNetworkImage(
+          imageUrl: url!,
+          errorWidget: (context, url, error) {
+            return errorPlaceholder();
+          },
+          placeholder: (context, url) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: CircularProgressIndicator(),
+              ),
+            );
+          },
+          fit: BoxFit.cover,
+        );
+      }
     } else {
       return errorPlaceholder();
     }

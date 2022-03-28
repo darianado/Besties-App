@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/OtherUser.dart';
 import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
+import 'package:project_seg/screens/home/chat/components/round_action_button.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
-import 'package:project_seg/constants/colours.dart';
 import '../constants/constant.dart';
 import '../screens/components/sliding_profile_details.dart';
-import '../screens/components/widget/icon_content.dart';
 import '../services/firestore_service.dart';
 import '../services/user_state.dart';
 import 'Interests/category.dart';
 import 'Interests/interest.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// The Widget that displays a profile's information.
 ///
@@ -36,72 +37,73 @@ class ProfileContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: NetworkImage(profile.userData.profileImageUrl ?? "assets/images/empty_profile_picture.jpg"),
+
+    return Stack(
+      children: [
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: CachedImage(url: profile.userData.profileImageUrl),
         ),
-      ),
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: <Color>[
-                  whiteColour,
-                  gradientColour,
-                ],
-                begin: Alignment.bottomCenter,
-                end: Alignment.topCenter,
-                tileMode: TileMode.mirror,
-              ),
-            ),
-            child: Padding(
-              padding: EdgeInsets.all(leftRightPadding),
-              child: GestureDetector(
-                onTap: () {
-                  showModalBottomSheet(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: radius20,
-                      ),
-                    ),
-                    context: context,
-                    builder: (context) => SlidingProfileDetails(
-                      profile: profile.userData,
-                      commonInterests: getCommonInterests(_userState),
-                    ),
-                  );
-                },
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      flex: 5,
-                      child: PartialProfileDetails(
-                        profile: profile.userData,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: LikeProfileButton(
-                        profile: profile,
-                        onLikeComplete: onLikeComplete,
-                      ),
-                    ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Container(
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  colors: <Color>[
+                    whiteColour,
+                    gradientColour,
                   ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  tileMode: TileMode.mirror,
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(leftRightPadding),
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: radius20,
+                        ),
+                      ),
+                      context: context,
+                      builder: (context) => SlidingProfileDetails(
+                        profile: profile.userData,
+                        commonInterests: getCommonInterests(_userState),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: PartialProfileDetails(
+                          profile: profile.userData,
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: LikeProfileButton(
+                          profile: profile,
+                          onLikeComplete: onLikeComplete,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -163,10 +165,10 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
 
     final _animationController = AnimationController(vsync: this, value: (isLiked) ? likedValue : notLikedValue);
 
-    return FloatingActionButton(
+    return RoundActionButton(
       onPressed: () async {
         if (!isLiked) {
-          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 800));
+          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
 
           widget.onLikeComplete();
 
@@ -176,20 +178,16 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
             showDialog(
               context: context,
               builder: (BuildContext context) => MatchDialog(
-                otherName: widget.profile.userData.firstName,
-                myImage: _userState.user?.userData?.profileImageUrl,
-                otherImage: widget.profile.userData.profileImageUrl,
+                otherUser: widget.profile.userData,
               ),
             );
           }
         }
       },
-      //clipBehavior: Clip.hardEdge,
-      backgroundColor: secondaryColour,
       child: Transform.scale(
         scale: 1.35,
         child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
-      ), //buildIcons(Icons.thumb_up_off_alt_rounded, kWhiteColour),
+      ),
     );
   }
 }

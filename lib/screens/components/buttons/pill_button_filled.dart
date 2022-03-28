@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;
@@ -8,6 +9,7 @@ class PillButtonFilled extends StatelessWidget {
   final EdgeInsets padding;
   final Color backgroundColor;
   final Icon? icon;
+  final double iconPadding;
   final Function onPressed;
 
   const PillButtonFilled({
@@ -17,9 +19,10 @@ class PillButtonFilled extends StatelessWidget {
     this.expandsWidth = false,
     this.textStyle = const TextStyle(color: Colors.white),
     required this.onPressed,
-    this.padding = const EdgeInsets.all(10.0),
+    this.padding = const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
     this.icon,
-    this.backgroundColor = Colors.white,
+    this.iconPadding = 5,
+    this.backgroundColor = tertiaryColour,
   }) : super(key: key);
 
   @override
@@ -30,26 +33,28 @@ class PillButtonFilled extends StatelessWidget {
         width: (expandsWidth) ? double.infinity : null,
         child: (isLoading)
             ? Center(
-                child: SizedBox(
-                  height: 20,
-                  width: 20,
+                child: Container(
+                  constraints: BoxConstraints(maxHeight: 50, maxWidth: 50),
                   child: CircularProgressIndicator(
                     color: textStyle?.color,
                     strokeWidth: 3,
                   ),
                 ),
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  (icon != null) ? icon! : Container(),
-                  (icon != null) ? SizedBox(width: 5) : Container(),
-                  Text(
-                    text,
-                    style: textStyle,
-                  ),
-                ],
+            : Padding(
+                padding: EdgeInsets.all(textStyle!.fontSize! * 0.225),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    (icon != null) ? icon! : Container(),
+                    (icon != null) ? SizedBox(width: iconPadding) : Container(),
+                    Text(
+                      text,
+                      style: textStyle,
+                    ),
+                  ],
+                ),
               ),
       ),
       style: ButtonStyle(

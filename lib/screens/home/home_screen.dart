@@ -4,6 +4,7 @@ import 'package:project_seg/models/Navigation/MenuData.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
+import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +50,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    final _matchState = MatchState.instance;
+    final _userState = UserState.instance;
 
+    _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
     selectedIndex = widget.index;
   }
 

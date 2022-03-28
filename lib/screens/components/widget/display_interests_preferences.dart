@@ -1,9 +1,10 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/UserData.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/screens/components/dialogs/edit_dialog_chipdisplay.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -27,7 +28,6 @@ class DisplayInterestsPreferences extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Wrap(
       spacing: 6.0,
       runSpacing: 6.0,
@@ -69,8 +69,8 @@ class DisplayInterestsPreferences extends StatelessWidget {
     return () => showDialog(
           context: context,
           builder: (BuildContext context) {
-            return EditDialogChipDisplay(
-              values: _userState.user?.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
+            return EditDialogInterests(
+              interests: _userState.user?.userData?.preferences?.interests ?? CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

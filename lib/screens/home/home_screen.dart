@@ -3,13 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
-  int index;
+  final int index;
   HomeScreen({Key? key, required String page})
       : index = menuData.indexOfItemWithRoute(page),
         super(key: key);
@@ -19,20 +17,22 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late int _selectedIndex;
+
   set selectedIndex(int index) {
     setState(() {
-      widget.index = index;
+      _selectedIndex = index;
     });
   }
 
   @override
   void initState() {
-    super.initState();
     final _matchState = MatchState.instance;
     final _userState = UserState.instance;
 
     _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
     selectedIndex = widget.index;
+    super.initState();
   }
 
   @override
@@ -46,11 +46,9 @@ class _HomeScreenState extends State<HomeScreen> {
       FeedScreen.animateToTop();
     }
 
-    setState(() {
-      widget.index = index;
-    });
+    selectedIndex = index;
 
-    final destination = menuData.pathOfItemWithIndex(widget.index);
+    final destination = menuData.pathOfItemWithIndex(_selectedIndex);
     context.go(destination);
   }
 
@@ -60,12 +58,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index: widget.index,
+        index: _selectedIndex,
         children: itemWidgets,
       ),
       bottomNavigationBar: NavBar(
         menuData: menuData,
-        selectedIndex: widget.index,
+        selectedIndex: _selectedIndex,
         onPressed: changeSelection,
       ),
     );

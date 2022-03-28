@@ -12,10 +12,10 @@ class OpenChatButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PillButtonFilled(
       text: "Chat",
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 9),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
       textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
       iconPadding: 10,
-      icon: Icon(
+      icon: const Icon(
         FontAwesomeIcons.comments,
         color: whiteColour,
         size: 20,

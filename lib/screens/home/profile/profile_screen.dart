@@ -27,7 +27,7 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
           onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
-          child: Icon(
+          child: const Icon(
             FontAwesomeIcons.pen,
             color: whiteColour,
             size: 22,
@@ -39,7 +39,7 @@ class ProfileScreen extends StatelessWidget {
           text: "Change password",
           expandsWidth: true,
           textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: whiteColour),
-          icon: Icon(
+          icon: const Icon(
             FontAwesomeIcons.lock,
             color: whiteColour,
             size: 18.0,
@@ -54,7 +54,7 @@ class ProfileScreen extends StatelessWidget {
           expandsWidth: true,
           color: Colors.red,
           textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
-          icon: Icon(
+          icon: const Icon(
             FontAwesomeIcons.signOutAlt,
             color: Colors.red,
             size: 18.0,

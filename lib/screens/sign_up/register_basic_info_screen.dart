@@ -9,10 +9,10 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
+import 'package:project_seg/utility/helpers.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../../constants/borders.dart';
@@ -22,9 +22,9 @@ import '../../constants/borders.dart';
 ///birthday, gender and their relationship status.
 
 class RegisterBasicInfoScreen extends StatefulWidget {
-  RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
+  const RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
 
-  UserData userData;
+  final UserData userData;
 
   @override
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
@@ -88,7 +88,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
               actions: [
                 IconButton(
                   onPressed: () => _userState.signOut(),
-                  icon: buildIcons(FontAwesomeIcons.signOutAlt, primaryColour),
+                  icon: const Icon(FontAwesomeIcons.signOutAlt, color: primaryColour),
                 ),
               ],
               flexibleSpace: Container(
@@ -118,7 +118,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                   padding: const EdgeInsets.all(leftRightPadding),
                   child: Column(
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
@@ -137,7 +137,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           validator: (value) => validateNotEmpty(value, "First name"),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
                         width: double.infinity,
@@ -156,7 +156,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           validator: (value) => validateNotEmpty(value, "Last name"),
                         ),
                       ),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       Row(
                         children: [
                           Text(
@@ -165,7 +165,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       DateOfBirthButton(
                         editable: true,
                         shouldExpand: true,
@@ -176,7 +176,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         }),
                       ),
                       ValidationError(errorText: validateDOBerror),
-                      SizedBox(height: 25),
+                      const SizedBox(height: 25),
                       Row(
                         children: [
                           Text(
@@ -185,7 +185,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: _contextState.context?.genders?.map((gender) {
@@ -205,9 +205,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                             [],
                       ),
                       ValidationError(errorText: validateGenderError),
-                      SizedBox(
-                        height: 25,
-                      ),
+                      const SizedBox(height: 25),
                       Row(
                         children: <Widget>[
                           Text(
@@ -216,7 +214,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       RelationshipStatusButton(
                         editable: true,
                         shouldExpand: true,
@@ -226,12 +224,12 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         }),
                       ),
                       ValidationError(errorText: validateRelationshipStatusError),
-                      SizedBox(height: 30),
-                      Container(
+                      const SizedBox(height: 30),
+                      SizedBox(
                         width: double.infinity,
                         child: PillButtonFilled(
                           text: "Next",
-                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                          textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                           onPressed: () {
                             setState(() {
                               widget.userData.firstName = _firstName.text.trim();

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
-import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class MatchState extends ChangeNotifier {
@@ -38,9 +37,6 @@ class MatchState extends ChangeNotifier {
       matches?.forEach((UserMatch element) {
         _firestoreService.listenForMessages(element.matchID).listen((event) {
           element.messages = event;
-          if (event != null) {
-            print("Update to the messages!");
-          }
           notifyListeners();
         });
       });

@@ -1,6 +1,3 @@
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-import 'package:project_seg/screens/sign_up/register_description_screen.dart';
-
 const pageParameterKey = "page";
 
 const splashScreenName = "splash";

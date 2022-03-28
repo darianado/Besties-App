@@ -1,30 +1,28 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/interest.dart';
-import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
-import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:project_seg/constants/colours.dart';
 
-class DisplayInterests extends StatelessWidget {
-  const DisplayInterests({
+class DisplayInterestsPreferences extends StatelessWidget {
+  const DisplayInterestsPreferences({
     Key? key,
-    required this.interests,
+    required this.items,
     this.editable = false,
     this.wiggling = false,
     this.mini = true,
     this.onSave,
   }) : super(key: key);
 
-  final CategorizedInterests interests;
+  final List<Interest> items;
   final bool wiggling;
   final bool editable;
   final bool mini;
-  final Function(CategorizedInterests)? onSave;
+  final Function(CategorizedInterests?)? onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +31,7 @@ class DisplayInterests extends StatelessWidget {
       runSpacing: 6.0,
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
-      children: interests.flattenedInterests.map((interest) {
+      children: items.map((interest) {
         if (wiggling) {
           return ShakeAnimatedWidget(
             duration: const Duration(milliseconds: 200),
@@ -54,12 +52,14 @@ class DisplayInterests extends StatelessWidget {
       label: label,
       capitalizeLabel: true,
       mini: mini,
-      textColor: whiteColour,
+      textColor: simpleWhiteColour,
       onTap: getOnTap(label, context),
     );
   }
 
   Function? getOnTap(String label, BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+
     final _onSave = onSave;
 
     if (!editable || (_onSave == null)) return null;
@@ -68,7 +68,7 @@ class DisplayInterests extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogInterests(
-              interests: interests,
+              interests: _userState.user?.userData?.preferences?.interests ?? CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

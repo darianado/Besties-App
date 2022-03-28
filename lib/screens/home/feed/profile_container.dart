@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/other_user.dart';
-import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
-import 'package:project_seg/screens/components/dialogs/match_alert.dart';
-import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/home/feed/components/like_profile_button.dart';
 import 'package:project_seg/screens/home/feed/components/partial_profile_details.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:provider/provider.dart';
+
 import '../../../constants/borders.dart';
 import '../../../constants/constant.dart';
 import '../../components/sliding_profile_details.dart';
-import '../../../services/firestore_service.dart';
-import '../../../services/user_state.dart';
-import '../../../models/Interests/category.dart';
-import '../../../models/Interests/interest.dart';
 
 /// The Widget that displays a profile's information.
 ///
@@ -38,11 +28,9 @@ class ProfileContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-
     return Stack(
       children: [
-        Container(
+        SizedBox(
           width: double.infinity,
           height: double.infinity,
           child: CachedImage(url: profile.userData.profileImageUrl),
@@ -65,11 +53,11 @@ class ProfileContainer extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: EdgeInsets.all(leftRightPadding),
+                padding: const EdgeInsets.all(leftRightPadding),
                 child: GestureDetector(
                   onTap: () {
                     showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
+                      shape: const RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(
                           top: radius20,
                         ),

@@ -52,7 +52,7 @@ class RecentChatsScrollViewItem extends StatelessWidget {
                 url: chat.match?.profileImageUrl,
                 size: 70,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               Expanded(
@@ -73,12 +73,12 @@ class RecentChatsScrollViewItem extends StatelessWidget {
                 ),
               ),
               !isMine
-                  ? Icon(
+                  ? const Icon(
                       FontAwesomeIcons.reply,
                       color: secondaryColour,
                       size: 24.0,
                     )
-                  : Text("")
+                  : const Text("")
             ],
           ),
         ),

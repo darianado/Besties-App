@@ -1,16 +1,14 @@
 // Widget that displays all of the profile's details as a sliding bottom sheet.
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/interests_in_common.dart';
-import 'package:project_seg/services/user_state.dart';
-import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
+
 import '../../models/User/user_data.dart';
 import 'buttons/bio_field.dart';
 import 'buttons/edit_dob_button.dart';
-import 'buttons/gender_button.dart';
 import 'buttons/relationship_status_button.dart';
 import 'buttons/university_button.dart';
 
@@ -40,11 +38,6 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
         viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom), axis: Axis.vertical);
   }
 
-  /// Scrolls the information back to the top of the modal bottom sheet.
-  Future<dynamic> _scrollBackToTop(details) async {
-    await controller.scrollToIndex(0, duration: const Duration(milliseconds: 500), preferPosition: AutoScrollPosition.begin);
-  }
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -71,7 +64,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                 runAlignment: WrapAlignment.center,
                 children: [
                   DateOfBirthButton(label: (widget.profile.age ?? " ").toString()),
-                  GenderButtton(label: widget.profile.gender ?? " "),
+                  GenderButton(label: widget.profile.gender ?? " "),
                   RelationshipStatusButton(label: widget.profile.relationshipStatus ?? " "),
                 ],
               ),

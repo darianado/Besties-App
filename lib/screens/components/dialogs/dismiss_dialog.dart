@@ -14,7 +14,7 @@ class DismissDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      insetPadding: EdgeInsets.symmetric(horizontal: 40),
+      insetPadding: const EdgeInsets.symmetric(horizontal: 40),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(leftRightPadding, 20, leftRightPadding, 20),
@@ -22,7 +22,7 @@ class DismissDialog extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(message, style: Theme.of(context).textTheme.titleLarge),
-            SizedBox(height: 15),
+            const SizedBox(height: 15),
             Align(
               alignment: Alignment.topRight,
               child: PillButtonFilled(

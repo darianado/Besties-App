@@ -11,9 +11,10 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import '../../../constants/borders.dart';
-import '../../components/widget/icon_content.dart';
 
 class EditPasswordScreen extends StatefulWidget {
+  const EditPasswordScreen({Key? key}) : super(key: key);
+
   @override
   _EditPasswordScreenState createState() => _EditPasswordScreenState();
 }
@@ -47,8 +48,6 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Container(
       decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -78,7 +77,10 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 ),
                 leading: IconButton(
                   onPressed: () => context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
-                  icon: buildIcons(Icons.arrow_back_ios, primaryColour),
+                  icon: const Icon(
+                    Icons.arrow_back_ios,
+                    color: primaryColour,
+                  ),
                 ),
               ),
               SliverFillRemaining(
@@ -105,8 +107,13 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           child: TextFormField(
                             controller: _oldPassword,
                             obscureText: true,
-                            decoration: InputDecoration(
-                                border: InputBorder.none, icon: buildIcons(Icons.lock, secondaryColour), labelText: 'Current password'),
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.lock,
+                                  color: secondaryColour,
+                                ),
+                                labelText: 'Current password'),
                             validator: validatePassword,
                             textInputAction: TextInputAction.next,
                           ),
@@ -122,8 +129,13 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           child: TextFormField(
                             controller: _newPassword,
                             obscureText: true,
-                            decoration: InputDecoration(
-                                border: InputBorder.none, icon: buildIcons(Icons.lock, secondaryColour), labelText: 'New password'),
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.lock,
+                                  color: secondaryColour,
+                                ),
+                                labelText: 'New password'),
                             validator: (value) => validateExistsAndDifferentFrom(value, _oldPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
@@ -139,18 +151,23 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           child: TextFormField(
                             controller: _confirmNewPassword,
                             obscureText: true,
-                            decoration: InputDecoration(
-                                border: InputBorder.none, icon: buildIcons(Icons.lock, secondaryColour), labelText: 'Confirm new password'),
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                icon: Icon(
+                                  Icons.lock,
+                                  color: secondaryColour,
+                                ),
+                                labelText: 'Confirm new password'),
                             validator: (value) => validateRepeatedPassword(value, _newPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
                         ),
                         const SizedBox(height: 45),
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           child: PillButtonFilled(
                             text: "Update",
-                            textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                            textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                             onPressed: () {
                               if (((_formKey.currentState as FormState).validate()) == true) {
                                 _changePassword(_oldPassword.text, _newPassword.text);

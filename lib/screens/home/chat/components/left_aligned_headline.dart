@@ -14,7 +14,7 @@ class LeftAlignedHeadline extends StatelessWidget {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(text,
-          style: TextStyle(
+          style: const TextStyle(
             color: secondaryColour,
             fontSize: 30,
             fontWeight: FontWeight.bold,

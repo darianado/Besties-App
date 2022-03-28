@@ -4,7 +4,6 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/home/chat/components/left_aligned_headline.dart';
 import 'package:project_seg/screens/home/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
-import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -17,8 +16,6 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  final _firestoreService = FirestoreService.instance;
-
   List<OtherUser>? matches;
 
   @override
@@ -55,7 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
             Expanded(
               child: SafeArea(
                 child: Column(
-                  children: <Widget>[
+                  children: const [
                     Padding(
                       padding: EdgeInsets.only(left: 15, bottom: 5),
                       child: Align(

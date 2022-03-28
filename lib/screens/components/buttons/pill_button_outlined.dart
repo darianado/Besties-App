@@ -29,7 +29,7 @@ class PillButtonOutlined extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () => onPressed(),
-      child: Container(
+      child: SizedBox(
         width: (expandsWidth) ? double.infinity : null,
         child: (isLoading)
             ? SizedBox(

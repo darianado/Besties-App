@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/images/circle_cached_image.dart';
-import 'package:project_seg/screens/home/chat/chat_thread_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -33,7 +29,7 @@ class _MatchDialogState extends State<MatchDialog> {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: whiteColour,
@@ -46,13 +42,13 @@ class _MatchDialogState extends State<MatchDialog> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 Text(
                   "It's a match!",
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headline4,
                 ),
-                SizedBox(height: 15.0),
+                const SizedBox(height: 15.0),
                 PillButtonFilled(
                   text: "Go to matches",
                   expandsWidth: true,

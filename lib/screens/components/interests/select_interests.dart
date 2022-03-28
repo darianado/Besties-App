@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/models/Interests/category.dart';
-import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/interests/category_view.dart';
-import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/interests/edit_interests_bottom_sheet.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/constants/colours.dart';
-import '../../../constants/borders.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 class SelectInterests extends StatefulWidget {
-  SelectInterests({
+  const SelectInterests({
     Key? key,
     required this.selected,
     required this.onChange,
   }) : super(key: key);
 
-  CategorizedInterests selected;
+  final CategorizedInterests selected;
   final Function(CategorizedInterests) onChange;
 
   @override

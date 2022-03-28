@@ -54,14 +54,14 @@ class CategorizedInterests {
   CategorizedInterests addMissing(CategorizedInterests other) {
     List<Category> newCategories = categories;
 
-    other.categories.forEach((Category otherCategory) {
+    for (var otherCategory in other.categories) {
       int _otherCategoryIndex =
           categories.indexWhere((Category category) => otherCategory.title.toLowerCase() == category.title.toLowerCase());
 
       if (_otherCategoryIndex == -1) {
         newCategories.add(Category(title: otherCategory.title, interests: []));
       }
-    });
+    }
 
     return CategorizedInterests(categories: newCategories);
   }
@@ -94,5 +94,6 @@ class CategorizedInterests {
   }
 
   @override
-  int get hashCode => super.hashCode;
+  // Need to have this here for consistency. Not using in our current app.
+  int get hashCode => super.hashCode ^ categories.length;
 }

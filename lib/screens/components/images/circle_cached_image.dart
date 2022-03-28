@@ -16,7 +16,7 @@ class CircleCachedImage extends StatelessWidget {
     return Container(
       height: size,
       width: size,
-      decoration: BoxDecoration(shape: BoxShape.circle),
+      decoration: const BoxDecoration(shape: BoxShape.circle),
       clipBehavior: Clip.antiAlias,
       child: CachedImage(url: url),
     );

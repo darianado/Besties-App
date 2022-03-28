@@ -7,13 +7,13 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-class MesssageComposer extends StatelessWidget {
+class MessageComposer extends StatelessWidget {
   final String matchID;
 
-  TextEditingController _textController = new TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   final FirestoreService _firestoreService = FirestoreService.instance;
 
-  MesssageComposer({
+  MessageComposer({
     Key? key,
     required this.matchID,
   }) : super(key: key);
@@ -35,7 +35,7 @@ class MesssageComposer extends StatelessWidget {
     final _contextState = Provider.of<ContextState>(context);
 
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 5),
       decoration: BoxDecoration(
         borderRadius: circularBorderRadius10,
         border: Border.all(color: tertiaryColour),
@@ -56,7 +56,10 @@ class MesssageComposer extends StatelessWidget {
             onPressed: () {
               _handleSend(_textController.text, _userState.user?.user?.uid);
             },
-            child: Text('Send', style: TextStyle(color: tertiaryColour, fontSize: 18)),
+            child: const Text(
+              'Send',
+              style: TextStyle(color: tertiaryColour, fontSize: 18),
+            ),
           )
         ],
       ),

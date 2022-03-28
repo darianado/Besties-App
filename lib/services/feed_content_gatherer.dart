@@ -19,7 +19,7 @@ class FeedContentGatherer extends ChangeNotifier {
 
   FeedContentGatherer({required this.onLikeComplete});
 
-  // TODO: write some insurance in case this fails or times out.
+  // Write some insurance in case this fails or times out.
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{

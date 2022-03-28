@@ -8,7 +8,6 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
@@ -74,7 +73,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Text(
@@ -95,28 +94,30 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       ),
                       child: TextFormField(
                         controller: _email,
-                        decoration: InputDecoration(
-                            border: InputBorder.none, icon: buildIcons(Icons.email, tertiaryColour), labelText: 'Enter your email address'),
+                        decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            icon: Icon(Icons.email, color: tertiaryColour),
+                            labelText: 'Enter your email address'),
                         validator: validateEmail,
                         textInputAction: TextInputAction.next,
                       ),
                     ),
                     const SizedBox(height: 35),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Send recovery email",
-                        textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                         onPressed: () => _submitForm(_formKey),
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Container(
+                    SizedBox(
                       width: double.infinity,
                       child: PillButtonOutlined(
                         text: "Return to log in",
                         color: tertiaryColour,
-                        textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: tertiaryColour),
+                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: tertiaryColour),
                         onPressed: () => context.goNamed(loginScreenName),
                       ),
                     ),

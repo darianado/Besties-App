@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
-import '../components/widget/icon_content.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
-  RegisterDescriptionScreen({Key? key, required this.userData}) : super(key: key);
+  const RegisterDescriptionScreen({Key? key, required this.userData}) : super(key: key);
 
-  UserData userData;
+  final UserData userData;
 
   @override
   _RegisterDescriptionScreenState createState() => _RegisterDescriptionScreenState();
@@ -74,7 +71,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
               collapsedHeight: 130,
               leading: IconButton(
                 onPressed: () => context.goNamed(registerPhotoScreenName, extra: widget.userData),
-                icon: buildIcons(Icons.arrow_back_ios, primaryColour),
+                icon: const Icon(Icons.arrow_back_ios, color: primaryColour),
                 //buildIcons(Icons.arrow_back_ios, kPrimaryColour),
               ),
               flexibleSpace: Container(
@@ -98,7 +95,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                   padding: const EdgeInsets.all(leftRightPadding),
                   child: Column(
                     children: [
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Row(
                         children: <Widget>[
                           Text(
@@ -107,7 +104,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       UniversityButton(
                         editable: true,
                         shouldExpand: true,
@@ -118,7 +115,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                         }),
                       ),
                       ValidationError(errorText: validateUniversityError),
-                      SizedBox(height: 40),
+                      const SizedBox(height: 40),
                       Row(
                         children: [
                           Text(
@@ -127,14 +124,14 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       TextFormField(
                           controller: _bio,
                           minLines: 6,
                           maxLength: _contextState.context?.maxBioLength ?? 200,
                           maxLines: 10,
                           textAlignVertical: TextAlignVertical.top,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.all(radius10), borderSide: BorderSide.none),
                             labelText: "Enter your bio here...",
                             floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -145,12 +142,12 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences),
                       ValidationError(errorText: validateBioError),
-                      SizedBox(height: 35),
-                      Container(
+                      const SizedBox(height: 35),
+                      SizedBox(
                         width: double.infinity,
                         child: PillButtonFilled(
                           text: "Next",
-                          textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                          textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                           onPressed: () {
                             if (!_key.currentState!.validate() || !validate()) return;
 

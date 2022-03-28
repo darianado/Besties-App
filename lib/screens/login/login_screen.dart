@@ -7,7 +7,6 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
@@ -112,11 +111,11 @@ class _LogInScreenState extends State<LogInScreen> {
                         const SizedBox(height: 40),
                         TextFormField(
                           controller: _email,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             fillColor: whiteColour,
                             focusColor: whiteColour,
-                            border: const UnderlineInputBorder(),
-                            icon: buildIcons(Icons.email, whiteColour),
+                            border: UnderlineInputBorder(),
+                            icon: Icon(Icons.email, color: whiteColour),
                             labelText: 'Email address',
                           ),
                           validator: validateEmail,
@@ -126,9 +125,9 @@ class _LogInScreenState extends State<LogInScreen> {
                         TextFormField(
                           controller: _password,
                           obscureText: true,
-                          decoration: InputDecoration(
-                            border: const UnderlineInputBorder(),
-                            icon: buildIcons(Icons.lock, whiteColour),
+                          decoration: const InputDecoration(
+                            border: UnderlineInputBorder(),
+                            icon: Icon(Icons.lock, color: whiteColour),
                             labelText: 'Password',
                           ),
                           validator: validatePassword,
@@ -145,34 +144,32 @@ class _LogInScreenState extends State<LogInScreen> {
                           ),
                         ),
                         const SizedBox(height: 30),
-                        Container(
+                        SizedBox(
                           width: double.infinity,
                           child: PillButtonFilled(
                             text: "Log in",
                             isLoading: isLoading,
                             backgroundColor: whiteColour,
-                            textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: secondaryColour),
+                            textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: secondaryColour),
                             onPressed: () => _submitForm(_formKey),
                           ),
                         ),
                         const SizedBox(height: 30),
-                        Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Don\'t have an account?',
-                              ),
-                              PillButtonOutlined(
-                                text: "Sign up",
-                                color: whiteColour,
-                                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                                textStyle: Theme.of(context).textTheme.labelLarge,
-                                onPressed: () => context.pushNamed(registerScreenName),
-                              ),
-                            ],
-                          ),
-                        )
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Don\'t have an account?',
+                            ),
+                            PillButtonOutlined(
+                              text: "Sign up",
+                              color: whiteColour,
+                              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                              textStyle: Theme.of(context).textTheme.labelLarge,
+                              onPressed: () => context.pushNamed(registerScreenName),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

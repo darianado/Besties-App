@@ -26,7 +26,7 @@ class MessageWidget extends StatelessWidget {
           margin: const EdgeInsets.only(top: 5, bottom: 5),
           decoration: BoxDecoration(
             color: isMine ? chatSenderColour : chatReceiverColour,
-            borderRadius: BorderRadius.all(Radius.circular(10)),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
           child: Column(
             crossAxisAlignment: isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,

@@ -7,7 +7,6 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
-import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -16,6 +15,8 @@ import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
 class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({Key? key}) : super(key: key);
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -100,8 +101,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
-                //  autovalidate: true,
+                padding: const EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -110,67 +110,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       'Sign up',
                       style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     TextFormField(
                       controller: _email,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: buildIcons(Icons.email, tertiaryColour),
+                        icon: Icon(Icons.email, color: tertiaryColour),
                         labelText: 'Email address',
                       ),
                       validator: validateEmail,
                       textInputAction: TextInputAction.next,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextFormField(
                       controller: _password,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: buildIcons(Icons.lock, tertiaryColour),
+                        icon: Icon(Icons.lock, color: tertiaryColour),
                         labelText: 'Password',
                       ),
                       validator: validatePassword,
                       textInputAction: TextInputAction.next,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextFormField(
                       controller: _confirmPassword,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         border: UnderlineInputBorder(),
-                        icon: buildIcons(Icons.lock, tertiaryColour),
+                        icon: Icon(Icons.lock, color: tertiaryColour),
                         labelText: 'Confirm password',
                       ),
                       validator: (value) => validateRepeatedPassword(value, _password.text),
                     ),
-                    SizedBox(height: 40),
-                    Container(
+                    const SizedBox(height: 40),
+                    SizedBox(
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Register",
                         isLoading: isLoading,
-                        textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                        textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Already registered?',
-                          ),
-                          PillButtonOutlined(
-                            text: "Log in",
-                            color: tertiaryColour,
-                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                            textStyle: Theme.of(context).textTheme.labelLarge,
-                            onPressed: () => context.goNamed(loginScreenName),
-                          ),
-                        ],
-                      ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Already registered?'),
+                        PillButtonOutlined(
+                          text: "Log in",
+                          color: tertiaryColour,
+                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                          textStyle: Theme.of(context).textTheme.labelLarge,
+                          onPressed: () => context.goNamed(loginScreenName),
+                        ),
+                      ],
                     ),
                   ],
                 ),

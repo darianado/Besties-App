@@ -6,10 +6,10 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 
 class EditInterestBottomSheet extends StatefulWidget {
-  EditInterestBottomSheet({Key? key, required this.category, required this.selected, required this.onChange}) : super(key: key);
+  const EditInterestBottomSheet({Key? key, required this.category, required this.selected, required this.onChange}) : super(key: key);
 
-  Category category;
-  Category selected;
+  final Category category;
+  final Category selected;
   final Function(Category) onChange;
 
   @override
@@ -20,80 +20,78 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(widget.category.title, style: Theme.of(context).textTheme.headline5?.apply(fontWeightDelta: 2)),
-                ],
-              ),
-              const SizedBox(height: 20),
-              SingleChildScrollView(
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Wrap(
-                        spacing: 6.0,
-                        runSpacing: 6.0,
-                        children: widget.category.interests.map((interest) {
-                          if (isInBoth(interest, widget.category.interests, widget.selected.interests)) {
-                            return ChipWidget(
-                              color: tertiaryColour,
-                              label: interest.title,
-                              bordered: false,
-                              textColor: simpleWhiteColour,
-                              mini: true,
-                              onTap: () {
-                                setState(() {
-                                  widget.selected.interests.removeWhere((element) => element.title == interest.title);
-                                });
-                              },
-                            );
-                          } else {
-                            return ChipWidget(
-                              color: tertiaryColour,
-                              label: interest.title,
-                              bordered: true,
-                              mini: true,
-                              onTap: () {
-                                setState(() {
-                                  widget.selected.interests.add(interest);
-                                });
-                              },
-                            );
-                          }
-                        }).toList(),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(widget.category.title, style: Theme.of(context).textTheme.headline5?.apply(fontWeightDelta: 2)),
+              ],
+            ),
+            const SizedBox(height: 20),
+            SingleChildScrollView(
+              child: Row(
                 children: [
                   Expanded(
-                    child: PillButtonFilled(
-                      text: "Save",
-                      backgroundColor: secondaryColour,
-                      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: whiteColour),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-
-                        widget.onChange(widget.selected);
-                      },
+                    child: Wrap(
+                      spacing: 6.0,
+                      runSpacing: 6.0,
+                      children: widget.category.interests.map((interest) {
+                        if (isInBoth(interest, widget.category.interests, widget.selected.interests)) {
+                          return ChipWidget(
+                            color: tertiaryColour,
+                            label: interest.title,
+                            bordered: false,
+                            textColor: simpleWhiteColour,
+                            mini: true,
+                            onTap: () {
+                              setState(() {
+                                widget.selected.interests.removeWhere((element) => element.title == interest.title);
+                              });
+                            },
+                          );
+                        } else {
+                          return ChipWidget(
+                            color: tertiaryColour,
+                            label: interest.title,
+                            bordered: true,
+                            mini: true,
+                            onTap: () {
+                              setState(() {
+                                widget.selected.interests.add(interest);
+                              });
+                            },
+                          );
+                        }
+                      }).toList(),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
-            ],
-          ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                  child: PillButtonFilled(
+                    text: "Save",
+                    backgroundColor: secondaryColour,
+                    textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: whiteColour),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+
+                      widget.onChange(widget.selected);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
         ),
       ),
     );

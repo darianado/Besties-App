@@ -36,7 +36,6 @@ class Preferences {
 
   @override
   bool operator ==(other) {
-    print("Comparing preferences");
     return other is Preferences &&
         maxAge == other.maxAge &&
         minAge == other.minAge &&
@@ -45,8 +44,8 @@ class Preferences {
   }
 
   @override
-  // TODO: implement hashCode
-  int get hashCode => super.hashCode;
+  int get hashCode =>
+      super.hashCode ^ (maxAge != null ? maxAge! : 1) ^ (minAge != null ? minAge! : 1) ^ (genders != null ? genders!.length : 1);
 }
 
 class UserData {

@@ -13,7 +13,7 @@ import 'package:project_seg/screens/home/profile/profile_information.dart';
 class MatchProfileScreen extends StatelessWidget {
   final UserMatch userMatch;
 
-  MatchProfileScreen({required this.userMatch});
+  const MatchProfileScreen({Key? key, required this.userMatch}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class MatchProfileScreen extends StatelessWidget {
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
-          child: Icon(
+          child: const Icon(
             Icons.close,
             color: whiteColour,
             size: 22,

@@ -41,7 +41,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
     return RoundActionButton(
       onPressed: () async {
         if (!isLiked) {
-          await _animationController.animateTo(likedValue, duration: Duration(milliseconds: 600));
+          await _animationController.animateTo(likedValue, duration: const Duration(milliseconds: 600));
 
           widget.onLikeComplete();
 

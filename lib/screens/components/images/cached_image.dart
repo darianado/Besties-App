@@ -15,7 +15,7 @@ class CachedImage extends StatelessWidget {
   }) : super(key: key);
 
   Widget errorPlaceholder() {
-    return Icon(
+    return const Icon(
       FontAwesomeIcons.exclamationCircle,
       size: 16,
       color: orangeColour,
@@ -45,9 +45,9 @@ class CachedImage extends StatelessWidget {
         return errorPlaceholder();
       },
       placeholder: (context, url) {
-        return Center(
+        return const Center(
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(5.0),
             child: CircularProgressIndicator(),
           ),
         );

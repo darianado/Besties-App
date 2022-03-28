@@ -23,7 +23,7 @@ class PartialProfileDetails extends StatelessWidget {
           maxLines: 2,
           style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
         ),
-        SizedBox(height: 3),
+        const SizedBox(height: 3),
         Row(children: [
           const Padding(
             padding: EdgeInsets.only(right: 7.5),

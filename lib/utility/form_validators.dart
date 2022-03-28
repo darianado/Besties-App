@@ -86,7 +86,7 @@ String? validateInterests(CategorizedInterests? value, int? min, int? max) {
 
   final _flattenedInterests = value.flattenedInterests;
   if (_flattenedInterests.length < min || _flattenedInterests.length > max) {
-    return "Select between ${min} and ${max} interests";
+    return "Select between $min and $max interests";
   }
 
   return null;

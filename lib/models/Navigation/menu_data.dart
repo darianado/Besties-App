@@ -37,19 +37,19 @@ MenuData menuData = MenuData(
       title: "Profile",
       icon: FontAwesomeIcons.solidUserCircle,
       routeName: profileScreenName,
-      destinationWidget: ProfileScreen(),
+      destinationWidget: const ProfileScreen(),
     ),
     MenuItemData(
       title: "Feed",
       icon: FontAwesomeIcons.home,
       routeName: feedScreenName,
-      destinationWidget: FeedScreen(),
+      destinationWidget: const FeedScreen(),
     ),
     MenuItemData(
       title: "Chat",
       icon: FontAwesomeIcons.solidComment,
       routeName: chatScreenName,
-      destinationWidget: ChatScreen(),
+      destinationWidget: const ChatScreen(),
     ),
   ],
 );

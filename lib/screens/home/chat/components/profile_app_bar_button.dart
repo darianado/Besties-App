@@ -28,7 +28,7 @@ class ProfileAppBarButton extends StatelessWidget {
               url: userMatch.match?.profileImageUrl,
               size: 40,
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
               userMatch.match?.firstName ?? "",
               style: Theme.of(context).textTheme.headline4?.apply(color: whiteColour),

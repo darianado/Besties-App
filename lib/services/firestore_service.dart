@@ -1,24 +1,18 @@
 import 'dart:collection';
-import 'dart:convert';
 
-import 'package:async/async.dart';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/Interests/interest.dart';
-import 'package:project_seg/models/User/active_user.dart';
+import 'package:project_seg/models/Interests/category.dart';
+import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
+import 'package:project_seg/models/User/active_user.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/models/App/app_context.dart';
-import 'package:project_seg/models/Interests/category.dart';
-import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/services/user_state.dart';
-import '../screens/home/feed/profile_container.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore _firebaseFirestore = firestore.FirebaseFirestore.instance;

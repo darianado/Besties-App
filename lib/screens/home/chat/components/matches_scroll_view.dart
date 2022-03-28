@@ -38,9 +38,9 @@ class MatchesScrollViewItem extends StatelessWidget {
       child: Column(
         children: [
           Material(
-            borderRadius: BorderRadius.all(Radius.circular(1000)),
+            borderRadius: const BorderRadius.all(Radius.circular(1000)),
             child: InkWell(
-              borderRadius: BorderRadius.all(Radius.circular(1000)),
+              borderRadius: const BorderRadius.all(Radius.circular(1000)),
               onTap: () => context.pushNamed(matchProfileScreenName, extra: match, params: {pageParameterKey: chatScreenName}),
               child: CircleCachedImage(
                 url: match.match?.profileImageUrl,
@@ -48,7 +48,7 @@ class MatchesScrollViewItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Text(
             match.match!.firstName ?? "",
             style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),

@@ -8,7 +8,7 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/utility/form_validators.dart';
 
 class DeleteAccountDialog extends StatefulWidget {
-  DeleteAccountDialog({Key? key}) : super(key: key);
+  const DeleteAccountDialog({Key? key}) : super(key: key);
 
   @override
   State<DeleteAccountDialog> createState() => _DeleteAccountDialogState();
@@ -25,7 +25,7 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   Widget build(BuildContext context) {
     return EditDialog(
       confirmButtonText: 'Delete',
-      confirmButtonColour: Color(0xFFE74a33),
+      confirmButtonColour: const Color(0xFFE74a33),
       onSave: () {
         if (((_formKey.currentState as FormState).validate()) == true) {
           _deleteUser(_password.text);

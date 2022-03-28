@@ -1,6 +1,7 @@
 import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +15,7 @@ class DateOfBirthButton extends StatelessWidget {
   final Color color;
   final Function(DateTime?)? onSave;
 
-  DateOfBirthButton(
+  const DateOfBirthButton(
       {Key? key,
       this.wiggling = false,
       this.editable = false,
@@ -25,12 +26,12 @@ class DateOfBirthButton extends StatelessWidget {
       : super(key: key);
 
   bool validAge(DateTime selectedDate) {
-    return (DateTime.now().difference(selectedDate) > Duration(days: 5844));
+    return (DateTime.now().difference(selectedDate) > const Duration(days: sixteenYearsInDays));
   }
 
   DateTime validDate() {
     DateTime dateNow = DateTime.now();
-    DateTime limitDate = dateNow.subtract(Duration(days: 5844));
+    DateTime limitDate = dateNow.subtract(const Duration(days: sixteenYearsInDays));
     return limitDate;
   }
 
@@ -38,7 +39,7 @@ class DateOfBirthButton extends StatelessWidget {
   Widget build(BuildContext context) {
     if (wiggling) {
       return ShakeAnimatedWidget(
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 1.5),
         child: chip(context),
       );
@@ -74,13 +75,12 @@ class DateOfBirthButton extends StatelessWidget {
       initialDate: validDate(),
       firstDate: DateTime(1900),
       lastDate: validDate(),
-      //validDate(DateTime.now()),
       fieldHintText: 'mm/dd/yyyy',
       initialEntryMode: DatePickerEntryMode.calendar,
       builder: (context, child) {
         return Theme(
           data: ThemeData.light().copyWith(
-            colorScheme: ColorScheme.light(primary: secondaryColour),
+            colorScheme: const ColorScheme.light(primary: secondaryColour),
           ),
           child: child!,
         );

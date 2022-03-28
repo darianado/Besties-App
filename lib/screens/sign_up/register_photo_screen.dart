@@ -1,17 +1,12 @@
-import 'dart:io';
-import 'package:project_seg/constants/colours.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-
-import 'package:project_seg/screens/components/widget/icon_content.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/pick_image.dart';
@@ -20,9 +15,9 @@ import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 
 class RegisterPhotoScreen extends StatefulWidget {
-  RegisterPhotoScreen({Key? key, required this.userData}) : super(key: key);
+  const RegisterPhotoScreen({Key? key, required this.userData}) : super(key: key);
 
-  UserData userData;
+  final UserData userData;
 
   @override
   State<RegisterPhotoScreen> createState() => _RegisterPhotoScreenState();
@@ -64,7 +59,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
             collapsedHeight: 130,
             leading: IconButton(
               onPressed: () => context.goNamed(registerBasicInfoScreenName, extra: widget.userData),
-              icon: buildIcons(Icons.arrow_back_ios, primaryColour),
+              icon: const Icon(Icons.arrow_back_ios, color: primaryColour),
             ),
             flexibleSpace: Container(
               width: double.infinity,
@@ -89,14 +84,14 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
             hasScrollBody: false,
             child: Column(
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                   // height: 400,
                   child: Material(
                     child: (loadingPicture)
-                        ? Center(
+                        ? const Center(
                             child: Padding(
-                              padding: const EdgeInsets.all(5.0),
+                              padding: EdgeInsets.all(5.0),
                               child: CircularProgressIndicator(),
                             ),
                           )
@@ -128,8 +123,8 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   alignment: Alignment.center,
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      buildIcons(Icons.photo, whiteColour),
+                                    children: const [
+                                      Icon(Icons.photo, color: whiteColour),
                                       SizedBox(width: 10),
                                       Text(
                                         "EDIT",
@@ -149,7 +144,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                   width: double.infinity,
                   child: PillButtonFilled(
                     text: "Next",
-                    textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                     onPressed: () {
                       if (!validate()) return;
 

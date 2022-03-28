@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
-import 'package:project_seg/screens/components/validation_error.dart';
 import 'package:project_seg/screens/components/interests/select_interests.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+import 'package:project_seg/screens/components/validation_error.dart';
 import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
 class EditDialogInterests extends StatefulWidget {
-  CategorizedInterests interests;
+  final CategorizedInterests interests;
   final Function(CategorizedInterests) onSave;
 
-  EditDialogInterests({
+  const EditDialogInterests({
     Key? key,
     required this.interests,
     required this.onSave,
@@ -25,7 +22,14 @@ class EditDialogInterests extends StatefulWidget {
 }
 
 class _EditDialogInterestsState extends State<EditDialogInterests> {
+  late CategorizedInterests interests;
   String? validateInterestsError;
+
+  @override
+  void initState() {
+    super.initState();
+    interests = widget.interests;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,16 +51,14 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
   }
 
   void _changeSelection(CategorizedInterests selected) {
-    if (selected != null) {
-      setState(() {
-        widget.interests = selected;
-      });
-    }
+    setState(() {
+      interests = selected;
+    });
   }
 
   void _save() {
     Navigator.of(context).pop();
-    widget.onSave(widget.interests);
+    widget.onSave(interests);
   }
 
   bool validate() {

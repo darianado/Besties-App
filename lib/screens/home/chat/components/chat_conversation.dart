@@ -9,7 +9,7 @@ class ChatConversation extends StatelessWidget {
   final UserMatch userMatch;
   final BuildContext context;
 
-  ChatConversation({Key? key, required this.userMatch, required this.context}) : super(key: key);
+  const ChatConversation({Key? key, required this.userMatch, required this.context}) : super(key: key);
 
   @override
   Widget build(context) {

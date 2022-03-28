@@ -3,8 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
+import 'package:project_seg/screens/components/interests_in_common.dart';
+import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import '../../models/User/UserData.dart';
+import '../../models/User/user_data.dart';
 import 'buttons/bio_field.dart';
 import 'buttons/edit_dob_button.dart';
 import 'buttons/gender_button.dart';
@@ -19,9 +22,8 @@ import 'buttons/university_button.dart';
 /// relationship status and bio.
 class SlidingProfileDetails extends StatefulWidget {
   final UserData profile;
-  final String? commonInterests;
 
-  const SlidingProfileDetails({Key? key, required this.profile, this.commonInterests}) : super(key: key);
+  const SlidingProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<SlidingProfileDetails> createState() => _SlidingProfileDetailsState();
@@ -79,28 +81,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                 editable: false,
               ),
               const SizedBox(height: 25),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "YOU HAVE ",
-                    style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 2),
-                  ),
-                  Text(
-                    widget.commonInterests ?? "NO",
-                    style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 5),
-                  ),
-                  widget.commonInterests == "1"
-                      ? Text(
-                          " INTEREST IN COMMON!",
-                          style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 2),
-                        )
-                      : Text(
-                          " INTERESTS IN COMMON!",
-                          style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 2),
-                        ),
-                ],
-              ),
+              InterestsInCommon(profile: widget.profile),
             ],
           ),
         ),

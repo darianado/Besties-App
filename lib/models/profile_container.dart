@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
 import 'package:project_seg/screens/components/match_alert.dart';
-import 'package:project_seg/screens/home/chat/components/round_action_button.dart';
+import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:provider/provider.dart';
 import '../constants/borders.dart';
@@ -73,10 +73,7 @@ class ProfileContainer extends StatelessWidget {
                         ),
                       ),
                       context: context,
-                      builder: (context) => SlidingProfileDetails(
-                        profile: profile.userData,
-                        commonInterests: getCommonInterests(_userState),
-                      ),
+                      builder: (context) => SlidingProfileDetails(profile: profile.userData),
                     );
                   },
                   child: Row(
@@ -105,32 +102,6 @@ class ProfileContainer extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  /// Returns a [Set] intersection between the user's interests
-  /// and the displayed profile's interests
-  String getCommonInterests(UserState _userState) {
-    Set<String> userInterests = <String>{};
-    Set<String> profileInterests = <String>{};
-
-    ///
-    for (Category category in _userState.user!.userData!.categorizedInterests!.categories) {
-      for (Interest interest in category.interests) {
-        userInterests.add(interest.title);
-      }
-    }
-    for (Category category in profile.userData.categorizedInterests!.categories) {
-      for (Interest interest in category.interests) {
-        profileInterests.add(interest.title);
-      }
-    }
-
-    dynamic commonInterests = userInterests.intersection(profileInterests).length;
-    if (commonInterests == 0) {
-      return "NO";
-    } else {
-      return commonInterests.toString();
-    }
   }
 }
 

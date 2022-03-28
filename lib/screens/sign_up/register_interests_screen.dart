@@ -3,9 +3,10 @@ import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/screens/components/validation_error.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
-import 'package:project_seg/screens/components/widget/select_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/screens/components/interests/select_interests.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
@@ -37,8 +38,6 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
 
       _firestoreService.saveUserData(widget.userData);
     }
-
-    print("Selected interests are: ${widget.userData.categorizedInterests?.flattenedInterests}");
 
     return Scaffold(
       body: CustomScrollView(
@@ -97,7 +96,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     },
                     selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
                   ),
-                  ValidatorError(errorText: validateInterestsError),
+                  ValidationError(errorText: validateInterestsError),
                   const SizedBox(height: 20),
                   Container(
                     width: double.infinity,

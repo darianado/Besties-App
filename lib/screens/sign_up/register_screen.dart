@@ -6,9 +6,9 @@ import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
-import 'package:project_seg/screens/components/alerts.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
@@ -46,9 +46,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       await userState.signUp(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
-      showAlert(context, errorMsg);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      showDialog(
+        context: context,
+        builder: (context) => DismissDialog(message: errorMsg),
+      );
 
       setState(() {
         isLoading = false;
@@ -98,8 +100,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    leftRightPadding, 0, leftRightPadding, 30),
+                padding: EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
                 //  autovalidate: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -107,10 +108,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   children: <Widget>[
                     Text(
                       'Sign up',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.apply(color: secondaryColour, fontWeightDelta: 2),
+                      style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                     ),
                     SizedBox(height: 40),
                     TextFormField(
@@ -144,8 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         icon: buildIcons(Icons.lock, tertiaryColour),
                         labelText: 'Confirm password',
                       ),
-                      validator: (value) =>
-                          validateRepeatedPassword(value, _password.text),
+                      validator: (value) => validateRepeatedPassword(value, _password.text),
                     ),
                     SizedBox(height: 40),
                     Container(
@@ -153,8 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: PillButtonFilled(
                         text: "Register",
                         isLoading: isLoading,
-                        textStyle: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.w600),
+                        textStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
@@ -169,8 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           PillButtonOutlined(
                             text: "Log in",
                             color: tertiaryColour,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 7),
+                            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                             textStyle: Theme.of(context).textTheme.labelLarge,
                             onPressed: () => context.goNamed(loginScreenName),
                           ),

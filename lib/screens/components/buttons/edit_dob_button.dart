@@ -6,8 +6,6 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
-import '../alerts.dart';
-
 class DateOfBirthButton extends StatelessWidget {
   final bool editable;
   final bool wiggling;
@@ -16,23 +14,22 @@ class DateOfBirthButton extends StatelessWidget {
   final Color color;
   final Function(DateTime?)? onSave;
 
-  DateOfBirthButton({Key? key,
-    this.wiggling = false,
-    this.editable = false,
-    this.shouldExpand = false,
-    required this.label,
-    this.onSave,
-    this.color = Colors.green})
+  DateOfBirthButton(
+      {Key? key,
+      this.wiggling = false,
+      this.editable = false,
+      this.shouldExpand = false,
+      required this.label,
+      this.onSave,
+      this.color = Colors.green})
       : super(key: key);
-
 
   bool validAge(DateTime selectedDate) {
     return (DateTime.now().difference(selectedDate) > Duration(days: 5844));
   }
 
-
   DateTime validDate() {
-    DateTime dateNow =  DateTime.now();
+    DateTime dateNow = DateTime.now();
     DateTime limitDate = dateNow.subtract(Duration(days: 5844));
     return limitDate;
   }
@@ -90,19 +87,6 @@ class DateOfBirthButton extends StatelessWidget {
       },
     );
 
-   if (picked != null) onSave!(picked);
-
-
-        // if (picked != null && picked != dob)
-        // {
-        //   if(validAge(picked))
-        //   {
-        //     onSave!(picked);
-        //   }
-        //   else{
-        //     showCalendarAlertDialog(context);
-        //   }
-        // }
-      }
-    }
-
+    if (picked != null) onSave!(picked);
+  }
+}

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/User/UserData.dart';
-
+import 'package:project_seg/models/User/user_data.dart';
 
 class RelationshipStatus extends StatefulWidget {
-
   RelationshipStatus({Key? key, required this.userData}) : super(key: key);
 
   UserData userData;
@@ -13,7 +11,7 @@ class RelationshipStatus extends StatefulWidget {
 }
 
 class _RelationshipStatusState extends State<RelationshipStatus> {
-  _RelationshipStatusState({required this.userData}) ;
+  _RelationshipStatusState({required this.userData});
 
   UserData userData;
 

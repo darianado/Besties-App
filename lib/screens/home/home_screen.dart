@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:project_seg/models/Navigation/MenuData.dart';
+import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
@@ -8,30 +8,10 @@ import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-int indexOfItemWithName(String pageName) {
-  if (pageName == "profile") {
-    return 0;
-  } else if (pageName == "feed") {
-    return 1;
-  } else {
-    return 2;
-  }
-}
-
-String pathOfIndex(int index) {
-  if (index == 0) {
-    return "profile";
-  } else if (index == 1) {
-    return "feed";
-  } else {
-    return "chat";
-  }
-}
-
 class HomeScreen extends StatefulWidget {
-  final int index;
+  int index;
   HomeScreen({Key? key, required String page})
-      : index = indexOfItemWithName(page),
+      : index = menuData.indexOfItemWithRoute(page),
         super(key: key);
 
   @override
@@ -39,11 +19,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late int _selectedIndex;
-
   set selectedIndex(int index) {
     setState(() {
-      _selectedIndex = index;
+      widget.index = index;
     });
   }
 
@@ -64,11 +42,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void changeSelection(int index) {
-    if (index == 1 && _selectedIndex == 1) {
+    if (index == 1) {
       FeedScreen.animateToTop();
     }
 
-    context.go("/" + pathOfIndex(index));
+    setState(() {
+      widget.index = index;
+    });
+
+    final destination = menuData.pathOfItemWithIndex(widget.index);
+    context.go(destination);
   }
 
   List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();
@@ -77,12 +60,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index: _selectedIndex,
+        index: widget.index,
         children: itemWidgets,
       ),
       bottomNavigationBar: NavBar(
         menuData: menuData,
-        selectedIndex: _selectedIndex,
+        selectedIndex: widget.index,
         onPressed: changeSelection,
       ),
     );

@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
+import 'package:project_seg/screens/components/validation_error.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/constants/colours.dart';
@@ -116,7 +117,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           widget.userData.university = university;
                         }),
                       ),
-                      ValidatorError(errorText: validateUniversityError),
+                      ValidationError(errorText: validateUniversityError),
                       SizedBox(height: 40),
                       Row(
                         children: [
@@ -143,7 +144,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
                           onChanged: (value) => widget.userData.bio = value.trim(),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.sentences),
-                      ValidatorError(errorText: validateBioError),
+                      ValidationError(errorText: validateBioError),
                       SizedBox(height: 35),
                       Container(
                         width: double.infinity,

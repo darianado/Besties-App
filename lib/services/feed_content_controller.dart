@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/User/ActiveUser.dart';
+import 'package:project_seg/models/User/active_user.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/feed_content_gatherer.dart';
 import 'package:project_seg/services/firestore_service.dart';

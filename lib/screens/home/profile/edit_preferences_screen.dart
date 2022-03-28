@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -10,6 +10,7 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/widget/icon_content.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/utility/helpers.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
 import '../../../services/user_state.dart';
@@ -24,7 +25,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
   RangeValues _currentAgeRangeValues = const RangeValues(16, 30);
 
   Preferences? newPreferences;
-
   bool isLoading = false;
 
   Future<void> save(String userID, Preferences preferences) async {
@@ -37,10 +37,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     setState(() {
       isLoading = false;
     });
-  }
-
-  int difference(int? n1, int? n2) {
-    return (n1 != null && n2 != null) ? n2 - n1 : 0;
   }
 
   @override

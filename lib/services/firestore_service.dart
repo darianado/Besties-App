@@ -8,15 +8,15 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/interest.dart';
-import 'package:project_seg/models/User/ActiveUser.dart';
-import 'package:project_seg/models/User/UserMatch.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/active_user.dart';
+import 'package:project_seg/models/Matches/user_match.dart';
+import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/services/user_state.dart';
 import '../models/profile_container.dart';
 
@@ -193,14 +193,10 @@ class FirestoreService {
       _firebaseFirestore.collection("users").doc(uid).set(data.toMap());
     }
   }
-  
 
   //Gets the matchID from two uids.
   Future<String> getMatchID(String? userID, String? profileID) async {
-    final snapshot = await _firebaseFirestore
-        .collection("matches")
-        .where("uids", isEqualTo: [userID,profileID])
-        .get();
+    final snapshot = await _firebaseFirestore.collection("matches").where("uids", isEqualTo: [userID, profileID]).get();
 
     String matchID = snapshot.docs.first.id;
     return matchID;
@@ -218,5 +214,4 @@ class FirestoreService {
 
     return results;
   }
-
 }

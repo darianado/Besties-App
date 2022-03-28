@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
-import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/home/chat/components/chat_button.dart';
-import 'package:project_seg/screens/home/chat/components/round_action_button.dart';
+import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 
 ///The screen displays the profile of a  user

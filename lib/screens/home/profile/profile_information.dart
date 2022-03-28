@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
@@ -59,10 +59,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   @override
   Widget build(BuildContext context) {
-    //const double profileImageRadius = 100;
-    const double profileHeaderExtendedHeight = 350;
-    const double profileHeaderCollapsedHeight = 220;
-
     return Scaffold(
       backgroundColor: whiteColour,
       body: CustomScrollView(

@@ -6,7 +6,7 @@ import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
-import 'package:project_seg/screens/home/chat/components/round_action_button.dart';
+import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';

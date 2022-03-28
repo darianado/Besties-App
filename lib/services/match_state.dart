@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:project_seg/models/User/UserMatch.dart';
-import 'package:project_seg/models/User/OtherUser.dart';
+import 'package:project_seg/models/Matches/user_match.dart';
+import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class MatchState extends ChangeNotifier {

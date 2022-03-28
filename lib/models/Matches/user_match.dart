@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/User/message_model.dart';
+import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/models/Matches/message.dart';
 
 class UserMatch {
   String matchID;

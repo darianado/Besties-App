@@ -28,41 +28,31 @@ class CachedImage extends StatelessWidget {
       if (aspectRatio != null) {
         return AspectRatio(
           aspectRatio: aspectRatio!,
-          child: CachedNetworkImage(
-            imageUrl: url!,
-            errorWidget: (context, url, error) {
-              return errorPlaceholder();
-            },
-            placeholder: (context, url) {
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: CircularProgressIndicator(),
-                ),
-              );
-            },
-            fit: BoxFit.cover,
-          ),
+          child: imageWidget,
         );
       } else {
-        return CachedNetworkImage(
-          imageUrl: url!,
-          errorWidget: (context, url, error) {
-            return errorPlaceholder();
-          },
-          placeholder: (context, url) {
-            return Center(
-              child: Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: CircularProgressIndicator(),
-              ),
-            );
-          },
-          fit: BoxFit.cover,
-        );
+        return imageWidget;
       }
     } else {
       return errorPlaceholder();
     }
+  }
+
+  CachedNetworkImage get imageWidget {
+    return CachedNetworkImage(
+      imageUrl: url!,
+      errorWidget: (context, url, error) {
+        return errorPlaceholder();
+      },
+      placeholder: (context, url) {
+        return Center(
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+      fit: BoxFit.cover,
+    );
   }
 }

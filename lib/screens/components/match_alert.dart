@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/UserData.dart';
-import 'package:project_seg/models/User/UserMatch.dart';
+import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/cached_image.dart';
+import 'package:project_seg/screens/components/circle_cached_image.dart';
+import 'package:project_seg/screens/home/chat/chat_thread_screen.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
@@ -68,8 +70,6 @@ class _MatchDialogState extends State<MatchDialog> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    height: 140,
-                    width: 140,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
@@ -77,11 +77,12 @@ class _MatchDialogState extends State<MatchDialog> {
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,
-                    child: CachedImage(url: widget.otherUser?.profileImageUrl),
+                    child: CircleCachedImage(
+                      url: widget.otherUser?.profileImageUrl,
+                      size: 140,
+                    ),
                   ),
                   Container(
-                    height: 140,
-                    width: 140,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
@@ -89,7 +90,10 @@ class _MatchDialogState extends State<MatchDialog> {
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,
-                    child: CachedImage(url: _userState.user?.userData?.profileImageUrl),
+                    child: CircleCachedImage(
+                      url: _userState.user?.userData?.profileImageUrl,
+                      size: 140,
+                    ),
                   ),
                 ],
               ),

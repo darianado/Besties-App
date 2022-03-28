@@ -19,6 +19,16 @@ class CategorizedInterests {
     return categories.map((category) => category.interests).expand((i) => i).toList();
   }
 
+  int numberOfInterestsInCommonWith(CategorizedInterests? other) {
+    if (other == null) return 0;
+
+    final _ownFlattenedInterestsAsStrings = flattenedInterests.map((Interest interest) => interest.title.toLowerCase()).toSet();
+    final _otherFlattenedInterestsAsStrings = other.flattenedInterests.map((Interest interest) => interest.title.toLowerCase()).toSet();
+    final _intersection = _ownFlattenedInterestsAsStrings.intersection(_otherFlattenedInterestsAsStrings);
+
+    return _intersection.length;
+  }
+
   CategorizedInterests filter(CategorizedInterests other) {
     final newCategories = categories.where((Category category) {
       int _filterCategoryIndex =
@@ -84,6 +94,5 @@ class CategorizedInterests {
   }
 
   @override
-  // TODO: implement hashCode
   int get hashCode => super.hashCode;
 }

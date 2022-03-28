@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/models/User/UserData.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
-import 'package:project_seg/screens/components/widget/select_interests.dart';
+import 'package:project_seg/screens/components/validation_error.dart';
+import 'package:project_seg/screens/components/interests/select_interests.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -35,7 +36,7 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
             onChange: _changeSelection,
             selected: widget.interests,
           ),
-          ValidatorError(errorText: validateInterestsError),
+          ValidationError(errorText: validateInterestsError),
         ],
       ),
       onSave: () {

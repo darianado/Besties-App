@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/MenuData.dart';
+import 'package:project_seg/screens/home/chat/contact_page.dart';
+import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
@@ -67,6 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if (index == 1 && _selectedIndex == 1) {
       FeedScreen.animateToTop();
     }
+
+    else if (index == 2 && _selectedIndex == 2) {
+      ChatsScrollView.animateToTop();
+    }
+    
 
     context.go("/" + pathOfIndex(index));
   }

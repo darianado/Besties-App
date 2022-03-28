@@ -33,19 +33,26 @@ class RecentChats extends StatelessWidget {
 }
 
 class ChatsScrollView extends StatelessWidget {
-  const ChatsScrollView({
+   ChatsScrollView({
     Key? key,
     required this.chats,
   }) : super(key: key);
 
   final List<UserMatch> chats;
 
+  static final ScrollController scrollController = ScrollController();
+
+     static void animateToTop() {
+     scrollController.animateTo(scrollController.position.minScrollExtent, duration: const Duration(milliseconds: 300), curve: Curves.fastOutSlowIn);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     chats.sort(
       (b, a) => a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
     );
-    return ListView(scrollDirection: Axis.vertical, children: chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList());
+    return ListView(controller : scrollController, scrollDirection: Axis.vertical, children: chats.map((chat) => ChatsScrollViewItem(chat: chat)).toList());
   }
 }
 

@@ -13,6 +13,7 @@ import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
@@ -79,24 +80,6 @@ class _LogInScreenState extends State<LogInScreen> {
           )),
           child: Scaffold(
             backgroundColor: Colors.transparent,
-            appBar: PreferredSize(
-              preferredSize: Size.fromHeight(0.1 * screenHeight),
-              child: AppBar(
-                  elevation: 0,
-                  backgroundColor: Colors.transparent,
-                  systemOverlayStyle: const SystemUiOverlayStyle(
-                    statusBarColor: Colors.transparent,
-                  ),
-                  title: Text(
-                    'BESTIES',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline3
-                        ?.apply(color: whiteColour),
-                  ),
-                  centerTitle: true,
-                  automaticallyImplyLeading: false),
-            ),
             body: Center(
               child: SingleChildScrollView(
                 child: Form(
@@ -107,7 +90,10 @@ class _LogInScreenState extends State<LogInScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
+                      children: [
+                        SvgPicture.asset('assets/logo/white_text_logo.svg',
+                            fit: BoxFit.fitHeight),
+                        const SizedBox(height: 50),
                         Text(
                           'Log in',
                           style: Theme.of(context)

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
@@ -80,31 +81,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
       )),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.transparent,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-          ),
-          title: Text(
-            'BESTIES',
-            style: Theme.of(context).textTheme.headline3,
-          ),
-          centerTitle: true,
-          automaticallyImplyLeading: false,
-        ),
         body: Center(
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(
-                    leftRightPadding, 0, leftRightPadding, 30),
+                padding: EdgeInsets.only(
+                    left: leftRightPadding,
+                    right: leftRightPadding,
+                    bottom: 30),
                 //  autovalidate: true,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
+                  children: [
+                    SvgPicture.asset('assets/logo/blue_text_logo.svg',
+                        fit: BoxFit.fitHeight),
+                    const SizedBox(height: 40),
                     Text(
                       'Sign up',
                       style: Theme.of(context)
@@ -112,7 +105,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           .headline4
                           ?.apply(color: secondaryColour, fontWeightDelta: 2),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     TextFormField(
                       controller: _email,
                       decoration: InputDecoration(
@@ -123,7 +116,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       validator: validateEmail,
                       textInputAction: TextInputAction.next,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextFormField(
                       controller: _password,
                       obscureText: true,
@@ -135,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       validator: validatePassword,
                       textInputAction: TextInputAction.next,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     TextFormField(
                       controller: _confirmPassword,
                       obscureText: true,
@@ -147,7 +140,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       validator: (value) =>
                           validateRepeatedPassword(value, _password.text),
                     ),
-                    SizedBox(height: 40),
+                    const SizedBox(height: 40),
                     Container(
                       width: double.infinity,
                       child: PillButtonFilled(
@@ -158,14 +151,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Already registered?',
-                          ),
+                          Text('Already registered?'),
                           PillButtonOutlined(
                             text: "Log in",
                             color: tertiaryColour,

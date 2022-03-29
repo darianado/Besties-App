@@ -55,6 +55,10 @@ class DateOfBirthButton extends StatelessWidget {
     return limitDate;
   }
 
+
+  /**
+   * The widget wiggles when it can be editable
+   */
   @override
   Widget build(BuildContext context) {
     if (wiggling) {

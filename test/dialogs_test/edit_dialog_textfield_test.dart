@@ -5,8 +5,8 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import '../mock.dart';
 
-import '../test_resources/TestProfile.dart';
-import '../test_resources/WidgetPumper.dart';
+import '../test_resources/test_profile.dart';
+import '../test_resources/widget_pumper.dart';
 
 void main() {
   // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
@@ -19,8 +19,7 @@ void main() {
   OtherUser firstProfile = TestProfile.firstProfile;
 
   group('EditDialogTextField Widget tests', () {
-    testWidgets('Test EditDialogTextField Widget saves new fields once edited',
-        (tester) async {
+    testWidgets('Test EditDialogTextField Widget saves new fields once edited', (tester) async {
       String newBio = "My new Bio!";
       String oldBio = firstProfile.userData.bio!;
 

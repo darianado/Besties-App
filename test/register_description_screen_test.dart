@@ -7,7 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/sign_up/register_description_screen.dart';
 import 'mock.dart';
-import 'test_resources/WidgetPumper.dart';
+import 'test_resources/widget_pumper.dart';
 
 void main() {
   setupFirebaseAuthMocks();
@@ -18,10 +18,8 @@ void main() {
     //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
   });
 
-  testWidgets('Description page has all info widgets',
-      (WidgetTester tester) async {
-    await WidgetPumper.pumpCustomWidget(
-        tester, RegisterDescriptionScreen(userData: currentUserData));
+  testWidgets('Description page has all info widgets', (WidgetTester tester) async {
+    await WidgetPumper.pumpCustomWidget(tester, RegisterDescriptionScreen(userData: currentUserData));
 
     final Finder iconButton = find.byType(IconButton);
     expect(iconButton, findsOneWidget);
@@ -32,8 +30,7 @@ void main() {
     final Finder universityFinder = find.text('UNIVERSITY');
     expect(universityFinder, findsOneWidget);
 
-    final Finder universityFinderTextFinder =
-        find.text('Select your university');
+    final Finder universityFinderTextFinder = find.text('Select your university');
     expect(universityFinderTextFinder, findsOneWidget);
 
     final Finder universityWidgetFinder = find.byType(UniversityButton);
@@ -51,15 +48,13 @@ void main() {
     final Finder bioTextFinder = find.text('BIO / SHORT DESCRIPTION');
     expect(bioTextFinder, findsOneWidget);
 
-    final Finder bioWidgetFinder =
-        find.widgetWithText(TextFormField, 'Enter your bio here...');
+    final Finder bioWidgetFinder = find.widgetWithText(TextFormField, 'Enter your bio here...');
     expect(bioWidgetFinder, findsOneWidget);
 
     await tester.enterText(bioWidgetFinder, "This is my bio.");
     await tester.pumpAndSettle();
 
-    final Finder textBioWidgetFinder =
-        find.widgetWithText(TextFormField, "This is my bio.");
+    final Finder textBioWidgetFinder = find.widgetWithText(TextFormField, "This is my bio.");
     expect(textBioWidgetFinder, findsOneWidget);
 
     final Finder nextTextFinder = find.text('Next');

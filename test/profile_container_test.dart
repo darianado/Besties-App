@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/sliding_profile_details.dart';
-import 'package:project_seg/screens/home/feed/profile_container.dart';
+import 'package:project_seg/screens/home/feed/components/profile_container.dart';
 import 'mock.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
@@ -21,10 +21,8 @@ void main() {
   OtherUser firstProfile = TestProfile.firstProfile;
 
   group('ProfileContainer widget tests', () {
-    testWidgets('Test ProfileContainer Widget displays correct information',
-        (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester,
-          ProfileContainer(profile: firstProfile, onLikeComplete: () => {}));
+    testWidgets('Test ProfileContainer Widget displays correct information', (tester) async {
+      await WidgetPumper.pumpCustomWidget(tester, ProfileContainer(profile: firstProfile, onLikeComplete: () => {}));
 
       expect(find.text(firstProfile.userData.firstName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);
@@ -32,24 +30,19 @@ void main() {
 
       expect(find.text(firstProfile.userData.lastName!), findsNothing);
       expect(find.text(firstProfile.userData.age!.toString()), findsNothing);
-      expect(
-          find.text(firstProfile.userData.relationshipStatus!), findsNothing);
+      expect(find.text(firstProfile.userData.relationshipStatus!), findsNothing);
       expect(find.text(firstProfile.userData.bio!), findsNothing);
 
       expect(find.byType(GenderButton), findsNothing);
     });
 
-    testWidgets(
-        'Test SlidingProfileDetails Widget displays correct information',
-        (tester) async {
-      await WidgetPumper.pumpCustomWidget(
-          tester, SlidingProfileDetails(profile: firstProfile.userData));
+    testWidgets('Test SlidingProfileDetails Widget displays correct information', (tester) async {
+      await WidgetPumper.pumpCustomWidget(tester, SlidingProfileDetails(profile: firstProfile.userData));
 
       expect(find.text(firstProfile.userData.fullName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);
       expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
-      expect(
-          find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
+      expect(find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
 
       expect(find.byType(GenderButton), findsOneWidget);

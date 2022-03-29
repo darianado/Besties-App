@@ -5,8 +5,8 @@ import 'package:project_seg/screens/components/buttons/bio_field.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import '../mock.dart';
 
-import '../test_resources/TestProfile.dart';
-import '../test_resources/WidgetPumper.dart';
+import '../test_resources/test_profile.dart';
+import '../test_resources/widget_pumper.dart';
 
 void main() {
   // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
@@ -20,17 +20,13 @@ void main() {
 
   group('BioField Widget tests', () {
     testWidgets('Test BioField displays correct information', (tester) async {
-      await WidgetPumper.pumpCustomWidget(
-          tester, BioField(label: firstProfile.userData.bio!));
+      await WidgetPumper.pumpCustomWidget(tester, BioField(label: firstProfile.userData.bio!));
 
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
     });
 
-    testWidgets(
-        'Test editable BioField displays EditDialogTextField Widget on tap',
-        (tester) async {
-      await WidgetPumper.pumpCustomWidget(
-          tester, BioField(label: firstProfile.userData.bio!, editable: true));
+    testWidgets('Test editable BioField displays EditDialogTextField Widget on tap', (tester) async {
+      await WidgetPumper.pumpCustomWidget(tester, BioField(label: firstProfile.userData.bio!, editable: true));
 
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
 

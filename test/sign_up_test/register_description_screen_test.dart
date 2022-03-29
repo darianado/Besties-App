@@ -1,13 +1,15 @@
 import 'dart:math';
-
+import 'package:project_seg/constants/colours.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/sign_up/register_description_screen.dart';
-import 'mock.dart';
-import 'test_resources/widget_pumper.dart';
+import '../mock.dart';
+import 'package:project_seg/constants/colours.dart';
+import '../test_resources/widget_pumper.dart';
+
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -25,6 +27,8 @@ void main() {
 
     final Finder textFinder = find.text('... and a bit more about Amy');
     expect(textFinder, findsOneWidget);
+    final textStyle = tester.widget<Text>(textFinder);
+    expect(textStyle.style?.color, secondaryColour);
 
     final Finder universityFinder = find.text('UNIVERSITY');
     expect(universityFinder, findsOneWidget);
@@ -34,6 +38,10 @@ void main() {
 
     final Finder universityWidgetFinder = find.byType(UniversityButton);
     expect(universityWidgetFinder, findsOneWidget);
+    final univeristyWidgetStyle = tester.widget<UniversityButton>(universityWidgetFinder);
+    expect(univeristyWidgetStyle.color, secondaryColour);
+    expect(univeristyWidgetStyle.label, "Select your university");
+
 
     /* await tester.tap(find.widgetWithText(UniversityButton, 'Select your university'));
     await tester.pumpAndSettle();
@@ -61,5 +69,10 @@ void main() {
 
     final Finder nextButtonFinder = find.widgetWithText(ElevatedButton, 'Next');
     expect(nextButtonFinder, findsOneWidget);
+
+    final buttonTextStyle = tester.widget<Text>(nextTextFinder);
+    expect(buttonTextStyle.style?.fontSize, 25);
+    expect(buttonTextStyle.style?.fontWeight, FontWeight.w600);
+
   });
 }

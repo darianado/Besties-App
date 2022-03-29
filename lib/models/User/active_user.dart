@@ -11,7 +11,11 @@ class ActiveUser {
   ActiveUser({this.user, this.userData, this.emailVerified, this.matches});
 
   factory ActiveUser.fromSnapshot(User user, DocumentSnapshot<Map>? doc) {
-    return ActiveUser(user: user, userData: (doc != null) ? UserData.fromSnapshot(doc) : null, emailVerified: user.emailVerified);
+    return ActiveUser(
+        user: user,
+        userData:
+            (doc != null && doc.exists) ? UserData.fromSnapshot(doc) : null,
+        emailVerified: user.emailVerified);
   }
 
   bool get hasInconsistentState {

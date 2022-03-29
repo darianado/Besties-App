@@ -1,14 +1,16 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
-//import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-
-import 'mock.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../mock.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
-import 'test_resources/WidgetPumper.dart';
+import '../test_resources/WidgetPumper.dart';
+import 'package:project_seg/constants/colours.dart';
 
 void main() {
   setupFirebaseAuthMocks();
@@ -24,16 +26,26 @@ void main() {
     await WidgetPumper.pumpCustomWidget(
         tester, RegisterBasicInfoScreen(userData: currentUserData));
 
-    expect(find.text('Let\'s start with the basics...'), findsOneWidget);
+    final Finder iconFinder = find.byIcon(FontAwesomeIcons.signOutAlt);
+    expect(iconFinder, findsOneWidget);
+
+    final iconColor = tester.widget<Icon>(iconFinder);
+    expect(iconColor.color, primaryColour);
+
+    final textFinder = find.text('Let\'s start with the basics...');
+    expect(textFinder, findsOneWidget);
+    final textStyle = tester.widget<Text>(textFinder);
+    expect(textStyle.style?.color, secondaryColour);
 
     final Finder firstNameText = find.text('First name');
     expect(firstNameText, findsOneWidget);
-    final Finder firstName = find.widgetWithText(TextField, 'First name');
+    final Finder firstName = find.widgetWithText(TextFormField, 'First name');
     expect(firstName, findsOneWidget);
+
 
     final Finder lastNameText = find.text('Last name');
     expect(lastNameText, findsOneWidget);
-    final Finder lastName = find.widgetWithText(TextField, 'Last name');
+    final Finder lastName = find.widgetWithText(TextFormField, 'Last name');
     expect(lastName, findsOneWidget);
 
     final Finder numberOfChipWidgets = find.byType(ChipWidget);
@@ -41,6 +53,7 @@ void main() {
 
     final Finder birthday = find.text('BIRTHDAY');
     expect(birthday, findsOneWidget);
+
     final Finder birthdaySelectButton =
         find.widgetWithText(ChipWidget, 'Select a date');
     expect(birthdaySelectButton, findsOneWidget);
@@ -49,15 +62,6 @@ void main() {
     expect(genderText, findsOneWidget);
     final Finder genderIcon = find.byType(Icon);
     expect(genderIcon, findsWidgets);
-
-    /* final Finder defaultGender = find.byIcon(FontAwesomeIcons.venus);
-      expect(defaultGender, findsOneWidget);
-      
-      final Finder maleGender = find.byIcon(FontAwesomeIcons.mars);
-      expect(maleGender, findsOneWidget);
-
-      final Finder femaleGender = find.byIcon(FontAwesomeIcons.venus);
-      expect(femaleGender, findsOneWidget); */
 
     final Finder relationshipStatus = find.text('RELATIONSHIP STATUS');
     expect(relationshipStatus, findsOneWidget);
@@ -69,6 +73,10 @@ void main() {
     expect(nextText, findsOneWidget);
     final Finder nextButton = find.widgetWithText(ElevatedButton, 'Next');
     expect(nextButton, findsOneWidget);
+
+    final buttonTextStyle = tester.widget<Text>(nextText);
+    expect(buttonTextStyle.style?.fontSize, 25);
+    expect(buttonTextStyle.style?.fontWeight, FontWeight.w600);
 
     expect(find.byType(TextField), findsWidgets);
     expect(find.widgetWithText(TextField, 'First name'), findsOneWidget);

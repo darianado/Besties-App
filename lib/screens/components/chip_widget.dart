@@ -5,7 +5,7 @@ import '../../constants/colours.dart';
 /**
  * This class represents the model of a reusable widget that is used
  * to display a text or an icon or both in form of a chip. It takes color
- * the chip will have as required argument but allows further customisation.
+ * the chip will have as a required argument but allows further customisation.
  */
 
 class ChipWidget extends StatelessWidget {
@@ -84,6 +84,10 @@ class ChipWidget extends StatelessWidget {
       ),
     );
   }
+
+  /**
+   * This method capitalises letters in a string.
+   */
 
   String capitalize(String label) {
     if (label.length >= 2) {

@@ -10,6 +10,7 @@ import 'package:project_seg/screens/components/sliding_profile_details.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
+import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/user_state.dart';
@@ -118,6 +119,28 @@ abstract class WidgetPumper {
               child: MaterialApp(
                 home: Scaffold(
                   body: RegisterDescriptionScreen(key: key, userData: userData),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+   /// Pumps a [LogInScreen] for testing purposes
+  static pumpLogInScreen(
+      WidgetTester tester, ValueKey key) async {
+    await tester.pumpWidget(
+      Builder(
+        builder: (BuildContext context) {
+          return ChangeNotifierProvider<UserState>.value(
+            value: UserState.instance,
+            child: ChangeNotifierProvider<ContextState>.value(
+              value: ContextState.instance,
+              child: MaterialApp(
+                home: Scaffold(
+                  body: LogInScreen(key: key),
                 ),
               ),
             ),

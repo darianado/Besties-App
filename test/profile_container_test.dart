@@ -7,8 +7,8 @@ import 'mock.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 
-import 'test_resources/TestProfile.dart';
-import 'test_resources/WidgetPumper.dart';
+import 'test_resources/test_profile.dart';
+import 'test_resources/widget_pumper.dart';
 
 void main() {
   // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()

@@ -3,6 +3,11 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display a dismiss dialog.
+ */
+
 class DismissDialog extends StatelessWidget {
   final String message;
 
@@ -10,6 +15,11 @@ class DismissDialog extends StatelessWidget {
     Key? key,
     required this.message,
   }) : super(key: key);
+
+  /**
+   * This method builds an DismissDialog widget that is invoked when
+   * a certain action generates an error.
+   */
 
   @override
   Widget build(BuildContext context) {

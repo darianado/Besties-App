@@ -3,6 +3,11 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display a dialog when users want make edits on their profiles.
+ */
+
 class EditDialog extends StatelessWidget {
   final Widget content;
   final Function onSave;
@@ -18,6 +23,13 @@ class EditDialog extends StatelessWidget {
     this.confirmButtonTextColour = whiteColour,
     this.confirmButtonColour = tertiaryColour,
   }) : super(key: key);
+
+  /**
+   * This method builds a Dialog widget that is invoked when users
+   * want to edit information that is displayed to their own profiles.
+   * The dialog contains a "Save" button in order to update the changes that
+   * occured and a "Cancel" button that allows exiting the dialog.
+   */
 
   @override
   Widget build(BuildContext context) {

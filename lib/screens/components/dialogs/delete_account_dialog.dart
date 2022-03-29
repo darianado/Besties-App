@@ -7,6 +7,12 @@ import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/utility/form_validators.dart';
 
+
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display a dialog when users want to delete their account.
+ */
+
 class DeleteAccountDialog extends StatefulWidget {
   const DeleteAccountDialog({Key? key}) : super(key: key);
 
@@ -20,6 +26,14 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   final TextEditingController _password = TextEditingController();
 
   final AuthService _authService = AuthService.instance;
+
+  /**
+   * This method builds an EditDialog widget that is invoked when users
+   * show interest into deleteing their account.
+   * In order to perform this action, users are required to confirm their password,
+   * followed by pressing the "Delete" button. They can also exit the dialog by
+   * pressing "Cancel"
+   */
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +97,11 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
       ),
     );
   }
+
+  /**
+   * This asyncronous method deletes the account to be removed from the database.
+   * @param String - the password confirmation.
+   */
 
   _deleteUser(String password) async {
     try {

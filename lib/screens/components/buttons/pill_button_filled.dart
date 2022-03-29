@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display text in a pill-shaped field with a fill of the provided colour.
+ * It takes the text to be displayed and he on pressed function as required
+ * arguments, but can be further customised.
+ */
+
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;
   final String text;
@@ -34,7 +41,8 @@ class PillButtonFilled extends StatelessWidget {
         child: (isLoading)
             ? Center(
                 child: Container(
-                  constraints: const BoxConstraints(maxHeight: 50, maxWidth: 50),
+                  constraints:
+                      const BoxConstraints(maxHeight: 50, maxWidth: 50),
                   child: CircularProgressIndicator(
                     color: textStyle?.color,
                     strokeWidth: 3,
@@ -60,7 +68,8 @@ class PillButtonFilled extends StatelessWidget {
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(backgroundColor),
         padding: MaterialStateProperty.all<EdgeInsets>(padding),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
       ),
     );
   }

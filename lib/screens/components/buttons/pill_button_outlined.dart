@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display text in a pill-shaped field.
+ * It takes the text to be displayed and the on pressed function as
+ * required arguments, but can be further customised.
+ */
+
 class PillButtonOutlined extends StatelessWidget {
   final bool isLoading;
   final bool expandsWidth;
@@ -58,7 +65,8 @@ class PillButtonOutlined extends StatelessWidget {
       ),
       style: ButtonStyle(
         padding: MaterialStateProperty.all<EdgeInsets>(padding),
-        shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
+        shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(100))),
         side: MaterialStateProperty.all(BorderSide(color: color, width: 1)),
       ),
     );

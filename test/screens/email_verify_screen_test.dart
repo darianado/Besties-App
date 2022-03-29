@@ -4,7 +4,10 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lottie/lottie.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/states/context_state.dart';
@@ -31,6 +34,17 @@ void main() {
       await tester.pump();
 
       expect(find.textContaining("seg-djangoals@example.org"), findsOneWidget);
+
+      final Finder resendEmailButtonFinder = find.widgetWithText(PillButtonOutlined, "Resend email");
+      expect(resendEmailButtonFinder, findsOneWidget);
+
+      final resendEmailButton = tester.widget<PillButtonOutlined>(resendEmailButtonFinder);
+      expect(resendEmailButton.color, whiteColour);
+      expect(resendEmailButton.onPressed, isNotNull);
+      expect(resendEmailButton.textStyle?.color, whiteColour);
+
+      expect(find.byType(Lottie), findsOneWidget);
+      expect(find.byType(IconButton), findsOneWidget);
     });
   });
 }

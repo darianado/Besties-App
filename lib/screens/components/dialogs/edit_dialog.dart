@@ -24,12 +24,7 @@ class EditDialog extends StatelessWidget {
     this.confirmButtonColour = tertiaryColour,
   }) : super(key: key);
 
-  /**
-   * This method builds a Dialog widget that is invoked when users
-   * want to edit information that is displayed to their own profiles.
-   * The dialog contains a "Save" button in order to update the changes that
-   * occured and a "Cancel" button that allows exiting the dialog.
-   */
+
 
   @override
   Widget build(BuildContext context) {

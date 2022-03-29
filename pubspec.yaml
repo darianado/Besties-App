@@ -73,6 +73,8 @@ dependencies:
   colorful_safe_area: ^0.3.0
   visibility_detector: ^0.2.2
   async: ^2.8.2
+  firebase_auth_mocks: ^0.8.3
+  fake_cloud_firestore: ^1.2.2
 
 dev_dependencies:
   network_image_mock: ^2.0.1

@@ -8,20 +8,17 @@ import '../test_resources/test_profile.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await _widgetPumper.setup();
   });
 
   OtherUser firstProfile = TestProfile.firstProfile;
 
   group('DateOfBirthButton Widget tests', () {
-    testWidgets('Test DateOfBirthButton displays correct information',
-        (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester,
-          DateOfBirthButton(label: firstProfile.userData.age!.toString()));
+    testWidgets('Test DateOfBirthButton displays correct information', (tester) async {
+      await _widgetPumper.pumpWidget(tester, DateOfBirthButton(label: firstProfile.userData.age!.toString()));
 
       expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
     });

@@ -10,6 +10,7 @@ import 'package:project_seg/screens/components/interests/select_interests.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
 import 'package:project_seg/services/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
@@ -27,13 +28,11 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
     final _contextState = Provider.of<ContextState>(context);
+    final _firestoreService = Provider.of<FirestoreService>(context);
 
-    void saveToFirestore() {
-      final FirestoreService _firestoreService = FirestoreService.instance;
-
-      _firestoreService.saveUserData(widget.userData);
-    }
+    void saveToFirestore() => _firestoreService.saveUserData(widget.userData, _userState.user?.user?.uid);
 
     return Scaffold(
       body: CustomScrollView(

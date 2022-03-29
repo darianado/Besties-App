@@ -25,7 +25,14 @@ class LikeProfileButton extends StatefulWidget {
 }
 
 class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  late final FirestoreService _firestoreService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+  }
 
   final notLikedValue = 0.0;
   final likedValue = 1.0;

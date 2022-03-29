@@ -11,16 +11,15 @@ import 'package:project_seg/screens/components/buttons/relationship_status_butto
 import 'test_resources/widget_pumper.dart';
 
 void main() {
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
   UserData currentUserData = UserData();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
-    //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+    await _widgetPumper.setup();
   });
 
   testWidgets('basic sign up page has all the field widgets', (WidgetTester tester) async {
-    await WidgetPumper.pumpCustomWidget(tester, RegisterBasicInfoScreen(userData: currentUserData));
+    await _widgetPumper.pumpWidget(tester, RegisterBasicInfoScreen(userData: currentUserData));
 
     expect(find.text('Let\'s start with the basics...'), findsOneWidget);
 

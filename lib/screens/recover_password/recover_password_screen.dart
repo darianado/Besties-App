@@ -11,7 +11,9 @@ import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
+import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 
 class RecoverPasswordScreen extends StatefulWidget {
@@ -24,7 +26,6 @@ class RecoverPasswordScreen extends StatefulWidget {
 class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
-  final AuthService _authService = AuthService.instance;
 
   bool isEmail(String input) => EmailValidator.validate(input);
 
@@ -32,7 +33,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
     String message = 'Please check your email for a password reset link';
 
     try {
-      await _authService.resetPassword(email);
+      await Provider.of<UserState>(context).resetPassword(email);
     } on FirebaseAuthException catch (e) {
       final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       message = errorMsg;

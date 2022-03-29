@@ -6,16 +6,29 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-class BioField extends StatelessWidget {
-  final FirestoreService _firestoreService = FirestoreService.instance;
+class BioField extends StatefulWidget {
   final bool editable;
   final String label;
 
   BioField({Key? key, required this.label, this.editable = false}) : super(key: key);
 
   @override
+  State<BioField> createState() => _BioFieldState();
+}
+
+class _BioFieldState extends State<BioField> {
+  late final FirestoreService _firestoreService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (editable) {
+    if (widget.editable) {
       return ShakeAnimatedWidget(
         duration: const Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 0.6),
@@ -44,7 +57,7 @@ class BioField extends StatelessWidget {
             color: tertiaryColour.withOpacity(0.1),
           ),
           child: Text(
-            label,
+            widget.label,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -55,7 +68,7 @@ class BioField extends StatelessWidget {
   Function? getOnTap(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    if (!editable) return null;
+    if (!widget.editable) return null;
 
     return () => showDialog(
         context: context,

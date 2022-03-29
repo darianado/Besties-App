@@ -5,6 +5,7 @@ import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/match_state.dart';
 import 'package:project_seg/services/user_state.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final int index;
@@ -27,10 +28,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    /*
     final _matchState = MatchState.instance;
-    final _userState = UserState.instance;
+
+    final _userState = Provider.of<UserState>(context);
 
     _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
+    */
     selectedIndex = widget.index;
     super.initState();
   }

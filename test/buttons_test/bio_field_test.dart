@@ -9,24 +9,23 @@ import '../test_resources/test_profile.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await _widgetPumper.setup();
   });
 
   OtherUser firstProfile = TestProfile.firstProfile;
 
   group('BioField Widget tests', () {
     testWidgets('Test BioField displays correct information', (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester, BioField(label: firstProfile.userData.bio!));
+      await _widgetPumper.pumpWidget(tester, BioField(label: firstProfile.userData.bio!));
 
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
     });
 
     testWidgets('Test editable BioField displays EditDialogTextField Widget on tap', (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester, BioField(label: firstProfile.userData.bio!, editable: true));
+      await _widgetPumper.pumpWidget(tester, BioField(label: firstProfile.userData.bio!, editable: true));
 
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
 

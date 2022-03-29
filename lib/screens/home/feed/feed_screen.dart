@@ -8,6 +8,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
+import 'package:project_seg/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
 /// The screen that displays profiles to the user.
@@ -36,7 +37,8 @@ class _FeedScreenState extends State<FeedScreen> {
     super.initState();
 
     final _feedContent = Provider.of<FeedContentController>(context, listen: false);
-    _feedContent.onFeedInitialized();
+    final _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+    _feedContent.onFeedInitialized(_firestoreService);
     _feedContent.assignController(FeedScreen.controller);
   }
 

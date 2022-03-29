@@ -17,8 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     _userState = Provider.of<UserState>(context, listen: false);
-    _userState.onAppStart();
-
     _appContext = Provider.of<ContextState>(context, listen: false);
     _appContext.onAppStart();
 

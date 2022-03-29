@@ -6,16 +6,16 @@ import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
 import 'mock.dart';
 import 'test_resources/widget_pumper.dart';
 
-void main(){
-  setupFirebaseAuthMocks();
+void main() {
+  final WidgetPumper _widgetPumper = WidgetPumper();
   UserData currentUserData = UserData();
 
-  setUpAll( () async {
-    await Firebase.initializeApp();
+  setUpAll(() async {
+    await _widgetPumper.setup();
   });
 
   testWidgets('interests page has all widgets', (WidgetTester tester) async {
-    await WidgetPumper.pumpCustomWidget(tester, RegisterInterestsScreen(userData: currentUserData));
+    await _widgetPumper.pumpWidget(tester, RegisterInterestsScreen(userData: currentUserData));
 
     final Finder iconButton = find.byType(IconButton);
     expect(iconButton, findsOneWidget);
@@ -29,7 +29,7 @@ void main(){
     final Finder textParagraphFinder = find.byType(SliverFillRemaining);
     expect(textParagraphFinder, findsOneWidget);
 
-    final Finder nextTextFinder = find.text ('Done');
+    final Finder nextTextFinder = find.text('Done');
     expect(nextTextFinder, findsOneWidget);
 
     final Finder nextButtonFinder = find.widgetWithText(ElevatedButton, 'Done');

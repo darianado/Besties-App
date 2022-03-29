@@ -7,16 +7,29 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
-class MessageComposer extends StatelessWidget {
+class MessageComposer extends StatefulWidget {
   final String matchID;
-
-  final TextEditingController _textController = TextEditingController();
-  final FirestoreService _firestoreService = FirestoreService.instance;
 
   MessageComposer({
     Key? key,
     required this.matchID,
   }) : super(key: key);
+
+  @override
+  State<MessageComposer> createState() => _MessageComposerState();
+}
+
+class _MessageComposerState extends State<MessageComposer> {
+  final TextEditingController _textController = TextEditingController();
+
+  late final FirestoreService _firestoreService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+  }
 
   //create a message with sender and time and save it to firestore
   void _handleSend(String content, String? senderID) {
@@ -25,7 +38,7 @@ class MessageComposer extends StatelessWidget {
     DateTime now = DateTime.now();
     Message message = Message(content: content, senderID: senderID, timestamp: now);
 
-    _firestoreService.saveMessage(matchID, message);
+    _firestoreService.saveMessage(widget.matchID, message);
     _textController.clear();
   }
 

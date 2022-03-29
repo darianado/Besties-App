@@ -10,27 +10,23 @@ import 'test_resources/test_profile.dart';
 import 'test_resources/widget_pumper.dart';
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await _widgetPumper.setup();
   });
 
   OtherUser firstProfile = TestProfile.firstProfile;
 
   group('ProfileScreen widget tests', () {
-    testWidgets('Test ProfileInformation Widget displays correct information',
-        (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester,
-          ProfileInformation(userData: firstProfile.userData, editable: false));
+    testWidgets('Test ProfileInformation Widget displays correct information', (tester) async {
+      await _widgetPumper.pumpWidget(tester, ProfileInformation(userData: firstProfile.userData, editable: false));
 
       expect(find.text(firstProfile.userData.fullName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);
       expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
 
-      expect(
-          find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
+      expect(find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
       expect(find.text(firstProfile.userData.bio!), findsOneWidget);
 
       expect(find.byType(DisplayInterests), findsOneWidget);

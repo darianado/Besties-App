@@ -9,11 +9,10 @@ import '../test_resources/test_profile.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await _widgetPumper.setup();
   });
 
   OtherUser firstProfile = TestProfile.firstProfile;
@@ -23,7 +22,7 @@ void main() {
       String newBio = "My new Bio!";
       String oldBio = firstProfile.userData.bio!;
 
-      await WidgetPumper.pumpCustomWidget(
+      await _widgetPumper.pumpWidget(
         tester,
         EditDialogTextField(
           key: const ValueKey("key"),

@@ -11,18 +11,17 @@ import 'test_resources/test_profile.dart';
 import 'test_resources/widget_pumper.dart';
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await _widgetPumper.setup();
   });
 
   OtherUser firstProfile = TestProfile.firstProfile;
 
   group('ProfileContainer widget tests', () {
     testWidgets('Test ProfileContainer Widget displays correct information', (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester, ProfileContainer(profile: firstProfile, onLikeComplete: () => {}));
+      await _widgetPumper.pumpWidget(tester, ProfileContainer(profile: firstProfile, onLikeComplete: () => {}));
 
       expect(find.text(firstProfile.userData.firstName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);
@@ -37,7 +36,7 @@ void main() {
     });
 
     testWidgets('Test SlidingProfileDetails Widget displays correct information', (tester) async {
-      await WidgetPumper.pumpCustomWidget(tester, SlidingProfileDetails(profile: firstProfile.userData));
+      await _widgetPumper.pumpWidget(tester, SlidingProfileDetails(profile: firstProfile.userData));
 
       expect(find.text(firstProfile.userData.fullName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);

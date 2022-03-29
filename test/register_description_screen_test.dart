@@ -10,16 +10,15 @@ import 'mock.dart';
 import 'test_resources/widget_pumper.dart';
 
 void main() {
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
   UserData currentUserData = UserData(firstName: "Amy");
 
   setUpAll(() async {
-    await Firebase.initializeApp();
-    //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+    await _widgetPumper.setup();
   });
 
   testWidgets('Description page has all info widgets', (WidgetTester tester) async {
-    await WidgetPumper.pumpCustomWidget(tester, RegisterDescriptionScreen(userData: currentUserData));
+    await _widgetPumper.pumpWidget(tester, RegisterDescriptionScreen(userData: currentUserData));
 
     final Finder iconButton = find.byType(IconButton);
     expect(iconButton, findsOneWidget);

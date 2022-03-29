@@ -5,7 +5,9 @@ import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/services/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
+import 'package:project_seg/services/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
+import 'package:provider/provider.dart';
 
 class DeleteAccountDialog extends StatefulWidget {
   const DeleteAccountDialog({Key? key}) : super(key: key);
@@ -18,8 +20,6 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   final TextEditingController _password = TextEditingController();
-
-  final AuthService _authService = AuthService.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +86,7 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
 
   _deleteUser(String password) async {
     try {
-      await _authService.deleteAccount(password);
+      await Provider.of<UserState>(context).deleteAccount(password);
     } on FirebaseAuthException catch (e) {
       final errorMessage = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(

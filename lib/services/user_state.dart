@@ -7,26 +7,27 @@ import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class UserState extends ChangeNotifier {
-  final AuthService _authService = AuthService.instance;
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  final AuthService authService;
+  final FirestoreService firestoreService;
 
   ActiveUser? _user;
   ActiveUser? get user => _user;
 
-  UserState._privateConstructor();
-  static final UserState _instance = UserState._privateConstructor();
-  static UserState get instance => _instance;
+  UserState({required this.authService, required this.firestoreService}) {
+    onAppStart();
+  }
 
   StreamSubscription<ActiveUser?>? _subscription;
 
   void onAppStart() {
-    _authService.user.listen((auth.User? userAuthEvent) {
+    authService.user.listen((auth.User? userAuthEvent) {
       if (userAuthEvent == null) {
         _user = ActiveUser(user: userAuthEvent);
         _subscription?.cancel();
         notifyListeners();
       } else {
-        _subscription = _firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
+        _user = ActiveUser(user: userAuthEvent);
+        _subscription = firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
           _user = userFirestoreEvent;
           notifyListeners();
         });
@@ -34,11 +35,24 @@ class UserState extends ChangeNotifier {
     });
   }
 
-  Future<void> signIn(String email, String password) async => await _authService.signIn(email, password);
+  Future<void> signIn(String email, String password) async => await authService.signIn(email, password);
 
-  Future<void> signUp(String email, String password) async => await _authService.signUp(email, password);
+  Future<void> signUp(String email, String password) async => await authService.signUp(email, password);
 
-  Future<void> signOut() async => await _authService.signOut();
+  Future<void> signOut() async => await authService.signOut();
+
+  Future<void> deleteAccount(String password) async => await authService.deleteAccount(password);
+
+  Future<void> resetPassword(String email) async => await authService.resetPassword(email);
+
+  Future<void> changePassword(String currentPassword, String newPassword) async =>
+      await authService.changePassword(currentPassword, newPassword);
+
+  Future<void> sendVerificationEmail() async => await authService.sendVerificationEmail();
+
+  void startCheckingForVerifiedEmail() => authService.startCheckingForVerifiedEmail();
+
+  void stopCheckingForVerifiedEmail() => authService.stopCheckingForVerifiedEmail();
 
   // Future<void> deleteAccount() async => await _authService.deleteAccount();
 }

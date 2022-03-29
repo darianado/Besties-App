@@ -12,6 +12,7 @@ import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/interests/display_interests.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/utility/pick_image.dart';
+import 'package:provider/provider.dart';
 
 class ProfileInformation extends StatefulWidget {
   final UserData? userData;
@@ -39,17 +40,24 @@ class _ProfileInformationState extends State<ProfileInformation> {
   bool loadingPicture = false;
 
   final PickAndCropImage _pickAndCrop = PickAndCropImage();
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  late final FirestoreService _firestoreService;
 
-  void _pickImage(String uid) async {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+  }
+
+  void _pickImage(String userID) async {
     setState(() {
       loadingPicture = true;
     });
 
-    String? url = await _pickAndCrop.pickImage(uid);
+    String? url = await _pickAndCrop.pickImage(userID);
 
     if (url != null) {
-      FirestoreService.instance.setProfileImageUrl(url);
+      _firestoreService.setProfileImageUrl(url, userID);
     }
 
     setState(() {

@@ -23,6 +23,7 @@ class EditPreferencesScreen extends StatefulWidget {
 }
 
 class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
+  late final FirestoreService _firestoreService;
   Preferences? newPreferences;
   bool isLoading = false;
 
@@ -31,7 +32,14 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
       isLoading = true;
     });
 
-    await FirestoreService.instance.setPreferences(userID, preferences);
+    await _firestoreService.setPreferences(userID, preferences);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }
 
   @override

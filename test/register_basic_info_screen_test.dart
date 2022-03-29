@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+//import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/models/User/user_data.dart';
 
 import 'mock.dart';
-//import 'test_resources/WidgetPumper.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,7 +16,6 @@ import 'test_resources/WidgetPumper.dart';
 
 void main() {
   setupFirebaseAuthMocks();
-
   UserData currentUserData = UserData();
 
     setUpAll(() async {
@@ -25,9 +23,8 @@ void main() {
       //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
     });
 
-  group ('register basic info screen tests', () {
-    testWidgets('basic sign up page has all the field names', (WidgetTester tester) async {
-      ValueKey key = const ValueKey("");
+    testWidgets('basic sign up page has all the field widgets', (WidgetTester tester) async {
+      ValueKey key = const ValueKey("basic info page test");
       await  WidgetPumper.pumpRegisterBasicInfoScreen(tester, key, currentUserData);
 
       expect(find.text('Let\'s start with the basics...'), findsOneWidget);
@@ -105,8 +102,6 @@ void main() {
 
     });
 
-
-  });
   
   
 }

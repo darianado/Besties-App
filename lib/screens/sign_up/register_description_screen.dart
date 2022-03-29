@@ -14,7 +14,10 @@ import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 
 class RegisterDescriptionScreen extends StatefulWidget {
-  const RegisterDescriptionScreen({Key? key, required this.userData}) : super(key: key);
+  const RegisterDescriptionScreen({
+    Key? key, 
+    required this.userData
+    }) : super(key: key);
 
   final UserData userData;
 

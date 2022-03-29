@@ -32,10 +32,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     });
 
     await FirestoreService.instance.setPreferences(userID, preferences);
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override

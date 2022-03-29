@@ -45,6 +45,10 @@ class DisplayInterestsPreferences extends StatelessWidget {
     );
   }
 
+  /**
+   * This method returns a widget that displays the label in a chip.
+   */
+
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
       color: tertiaryColour,
@@ -57,6 +61,11 @@ class DisplayInterestsPreferences extends StatelessWidget {
     );
   }
 
+  /**
+   * This method specifies action to be performed in the editable instances
+   * of this button. It will trigger the onSave functionality.
+   */
+
   Function? getOnTap(String label, BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
@@ -68,7 +77,8 @@ class DisplayInterestsPreferences extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogInterests(
-              interests: _userState.user?.userData?.preferences?.interests ?? CategorizedInterests(categories: []),
+              interests: _userState.user?.userData?.preferences?.interests ??
+                  CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

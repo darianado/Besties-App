@@ -19,3 +19,6 @@ The deployed version of the application can be found [here](**TO DO: add deploye
 ## Access Credential
 - Email: seg-djangoals@example.org
 - Password: Password123
+
+## Sources
+- Packages and external libraries used in this application are listed in 'pubspec.yaml'.

@@ -8,9 +8,9 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/interests/select_interests.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 

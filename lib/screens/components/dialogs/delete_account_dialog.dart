@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
-import 'package:project_seg/services/auth_exception_handler.dart';
+import 'package:project_seg/utility/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 

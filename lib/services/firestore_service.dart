@@ -12,7 +12,7 @@ import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/models/User/active_user.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 
 class FirestoreService {
   final firestore.FirebaseFirestore firebaseFirestore;

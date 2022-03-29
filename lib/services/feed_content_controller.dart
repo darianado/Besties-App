@@ -5,8 +5,8 @@ import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/services/feed_content_gatherer.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/recommendations_state.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/recommendations_state.dart';
+import 'package:project_seg/states/user_state.dart';
 
 class FeedContentController extends ChangeNotifier {
   final _desiredFeedContentLength = 5;

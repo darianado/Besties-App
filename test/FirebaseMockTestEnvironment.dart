@@ -1,9 +1,9 @@
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 
 class FirebaseMockTestEnvironment {
   late final FirestoreService firestoreService;

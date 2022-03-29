@@ -8,12 +8,12 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/interests/display_interests.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/utility/helpers.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
-import '../../../services/user_state.dart';
+import '../../../states/user_state.dart';
 
 class EditPreferencesScreen extends StatefulWidget {
   const EditPreferencesScreen({Key? key}) : super(key: key);

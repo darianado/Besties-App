@@ -7,9 +7,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
 import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 import '../FirebaseMockTestEnvironment.dart';

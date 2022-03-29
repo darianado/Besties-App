@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 

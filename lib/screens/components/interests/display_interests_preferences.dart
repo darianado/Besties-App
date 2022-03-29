@@ -5,7 +5,7 @@ import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class DisplayInterestsPreferences extends StatelessWidget {

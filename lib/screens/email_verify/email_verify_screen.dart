@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class EmailVerifyScreen extends StatefulWidget {

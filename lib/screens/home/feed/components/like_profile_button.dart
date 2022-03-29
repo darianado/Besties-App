@@ -4,7 +4,7 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/components/dialogs/match_alert.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 /// The [FloatingActionButton] to like the displayed profile.

@@ -8,7 +8,7 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/home/feed/components/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 
 class FeedContentGatherer extends ChangeNotifier {
   final int queueSize = 10; // Determines the threshold where the app will fetch users from the backend.

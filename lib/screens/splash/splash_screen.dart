@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/context_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {

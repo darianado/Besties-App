@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/services/match_state.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/match_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {

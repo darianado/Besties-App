@@ -18,7 +18,7 @@ import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
 import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 
 class AppRouter {
   final UserState userState;

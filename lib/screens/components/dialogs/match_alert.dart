@@ -4,7 +4,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/images/circle_cached_image.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 import '../../../router/route_names.dart';

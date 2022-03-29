@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/home/chat/components/matches_scroll_view.dart';
-import 'package:project_seg/services/match_state.dart';
+import 'package:project_seg/states/match_state.dart';
 import 'package:provider/provider.dart';
 
 class Matches extends StatelessWidget {

@@ -6,12 +6,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/feed_content_gatherer.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/match_state.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/match_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 import 'firebase_options.dart';

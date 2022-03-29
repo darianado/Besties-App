@@ -1,22 +1,10 @@
-import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
-import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/states/context_state.dart';
-import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/states/user_state.dart';
-import 'package:provider/provider.dart';
 
-import '../FirebaseMockTestEnvironment.dart';
-import '../mock.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {

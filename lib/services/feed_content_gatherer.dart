@@ -5,7 +5,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/screens/home/feed/profile_container.dart';
+import 'package:project_seg/screens/home/feed/components/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 

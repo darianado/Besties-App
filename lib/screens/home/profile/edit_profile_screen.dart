@@ -56,19 +56,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           color: Colors.red,
           size: 18,
         ),
-        onPressed: _showDialog,
+        onPressed: () => showDialog(
+          context: context,
+          barrierDismissible: false, // user must tap button!
+          builder: (BuildContext context) {
+            return const DeleteAccountDialog();
+          },
+        ),
       ),
-    );
-  }
-
-  //delete account confirmation dialog
-  Future<void> _showDialog() async {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return const DeleteAccountDialog();
-      },
     );
   }
 }

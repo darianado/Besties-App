@@ -6,12 +6,23 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/services/user_state.dart';
 import 'package:provider/provider.dart';
 
+
+///This class represents the model of a reusable widget that is used
+///to display the bio of users.
+///The bio field contains a label where the users can edit their bio
+///that can be editable, depending on the place it is used
+///
+
+
 class BioField extends StatelessWidget {
   final FirestoreService _firestoreService = FirestoreService.instance;
   final bool editable;
   final String label;
 
   BioField({Key? key, required this.label, this.editable = false}) : super(key: key);
+
+
+  ///The widget can be editable when it is used  in the Edit Profile screen
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +36,10 @@ class BioField extends StatelessWidget {
       return bio(context, getOnTap(context));
     }
   }
+
+
+  ///This method constructs the bio widget that is shown on the profile related screens:
+  ///Profile Screen, Edit Profile Screen and when users can see their matches' profiles
 
   Widget bio(BuildContext context, Function? onTap) {
     return Material(
@@ -63,6 +78,9 @@ class BioField extends StatelessWidget {
           return EditDialogTextField(value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
         });
   }
+
+  ///This method is an asynchronous method that allows the user to save
+  ///the edited bio.
 
   Future<void> saveBio(String? userId, String? bio) async {
     if (userId != null && bio != null) {

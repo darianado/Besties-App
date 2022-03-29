@@ -14,33 +14,29 @@ import '../mock.dart';
 //import 'test_resources/WidgetPumper.dart';
 
 void main() {
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await Firebase.initializeApp();
-    //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
+    await _widgetPumper.setup();
   });
 
   OtherUser currentUser = TestProfile.firstProfile;
 
   Category selected = currentUser.userData.categorizedInterests!.categories[0];
 
-  Category category = Category (
-              title: "food",
-              interests: [
-                Interest(title: "Cocktails"),
-                Interest(title: "Brunch"),
-                Interest(title: "Coffee"),
-                Interest(title: "Tea"),
-              ],
-            );
+  Category category = Category(
+    title: "food",
+    interests: [
+      Interest(title: "Cocktails"),
+      Interest(title: "Brunch"),
+      Interest(title: "Coffee"),
+      Interest(title: "Tea"),
+    ],
+  );
 
   testWidgets('CategoryView', (WidgetTester tester) async {
-    await WidgetPumper.pumpCustomWidget(
-      tester, 
-      CategoryView(category: category, selected: selected, onTap: (){}
-      ));
-    
+    await _widgetPumper.pumpWidget(tester, CategoryView(category: category, selected: selected, onTap: () {}));
+
     final Finder titleFinder = find.text("food");
     expect(titleFinder, findsOneWidget);
 
@@ -68,7 +64,6 @@ void main() {
     expect(secondInterestWidgetStyle.textColor, simpleWhiteColour);
     expect(secondInterestWidgetStyle.label, "Brunch");
 
-
     final Finder thirdInterestWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
     expect(thirdInterestWidgetFinder, findsOneWidget);
 
@@ -80,11 +75,5 @@ void main() {
 
     final Finder fourthInterestWidgetFinder = find.widgetWithText(ChipWidget, "Tea");
     expect(fourthInterestWidgetFinder, findsNothing);
-
-
-
-    
-
   });
-  
 }

@@ -3,14 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
-
+import 'package:project_seg/screens/login/login_screen.dart';
 import 'mock.dart';
-import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/screens/components/buttons/gender_button.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
-import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'test_resources/WidgetPumper.dart';
 
 
@@ -20,12 +14,11 @@ void main() {
 
     setUpAll(() async {
       await Firebase.initializeApp();
-      //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
     });
 
     testWidgets('log in page has all the field widgets', (WidgetTester tester) async {
       ValueKey key = const ValueKey("basic info page test");
-      await  WidgetPumper.pumpLogInScreen(tester, key);
+      await  WidgetPumper.pumpCustomWidget(tester,LogInScreen());
 
       expect(find.text('Log in'), findsWidgets);
 
@@ -38,14 +31,6 @@ void main() {
       expect(passwordText, findsOneWidget);
       final Finder password = find.widgetWithText(TextField, 'Password');
       expect(password, findsOneWidget);
-
-      // final Finder numberOfChipWidgets = find.byType(ChipWidget);
-      // expect(numberOfChipWidgets, findsWidgets);
-
-      // final Finder logInText = find.text ('Log in');
-      // expect(logInText, findsOneWidget);
-      // final Finder logInButton = find.widgetWithText(ElevatedButton, 'Log in');
-      // expect(logInButton, findsOneWidget);
 
       final Finder forgetPasswordText = find.text ('Forget password?');
       expect(forgetPasswordText, findsOneWidget);

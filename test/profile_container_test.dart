@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/screens/components/sliding_profile_details.dart';
+import 'package:project_seg/screens/home/feed/profile_container.dart';
 import 'mock.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
@@ -22,9 +23,8 @@ void main() {
   group('ProfileContainer widget tests', () {
     testWidgets('Test ProfileContainer Widget displays correct information',
         (tester) async {
-      ValueKey key = const ValueKey("ProfileContainer Key");
-
-      await WidgetPumper.pumpProfileContainer(tester, key, firstProfile);
+      await WidgetPumper.pumpCustomWidget(tester,
+          ProfileContainer(profile: firstProfile, onLikeComplete: () => {}));
 
       expect(find.text(firstProfile.userData.firstName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);
@@ -42,8 +42,8 @@ void main() {
     testWidgets(
         'Test SlidingProfileDetails Widget displays correct information',
         (tester) async {
-      ValueKey key = const ValueKey("SlidingProfileDetails Key");
-      await WidgetPumper.pumpSlidingProfileDetails(tester, key, firstProfile);
+      await WidgetPumper.pumpCustomWidget(
+          tester, SlidingProfileDetails(profile: firstProfile.userData));
 
       expect(find.text(firstProfile.userData.fullName!), findsOneWidget);
       expect(find.text(firstProfile.userData.university!), findsOneWidget);

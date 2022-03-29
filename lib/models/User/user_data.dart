@@ -40,6 +40,7 @@ class Preferences {
         maxAge == other.maxAge &&
         minAge == other.minAge &&
         (genders?.every((element) => other.genders?.contains(element) ?? false) ?? false) &&
+        (other.genders?.every((element) => genders?.contains(element) ?? false) ?? false) &&
         interests == other.interests;
   }
 

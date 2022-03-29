@@ -11,6 +11,7 @@ abstract class TestProfile {
         lastName: "Garcia",
         university: "King's College London",
         relationshipStatus: "In a relationship",
+        gender: "Female",
         bio: "This is my bio.",
         dob: DateTime(2001, 1, 1),
         categorizedInterests: CategorizedInterests(

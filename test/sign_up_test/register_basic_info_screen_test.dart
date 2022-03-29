@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -9,8 +8,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../mock.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
-import '../test_resources/WidgetPumper.dart';
 import 'package:project_seg/constants/colours.dart';
+import '../test_resources/widget_pumper.dart';
 
 void main() {
   setupFirebaseAuthMocks();
@@ -21,10 +20,8 @@ void main() {
     //final TestWidgetsFlutterBinding binding = TestWidgetsFlutterBinding.ensureInitialized();
   });
 
-  testWidgets('basic sign up page has all the field widgets',
-      (WidgetTester tester) async {
-    await WidgetPumper.pumpCustomWidget(
-        tester, RegisterBasicInfoScreen(userData: currentUserData));
+  testWidgets('basic sign up page has all the field widgets', (WidgetTester tester) async {
+    await WidgetPumper.pumpCustomWidget(tester, RegisterBasicInfoScreen(userData: currentUserData));
 
     final Finder iconFinder = find.byIcon(FontAwesomeIcons.signOutAlt);
     expect(iconFinder, findsOneWidget);
@@ -56,6 +53,7 @@ void main() {
 
     final Finder birthdaySelectButton =
         find.widgetWithText(ChipWidget, 'Select a date');
+
     expect(birthdaySelectButton, findsOneWidget);
 
     final Finder genderText = find.text('GENDER');
@@ -65,8 +63,7 @@ void main() {
 
     final Finder relationshipStatus = find.text('RELATIONSHIP STATUS');
     expect(relationshipStatus, findsOneWidget);
-    final Finder selectButton =
-        find.widgetWithText(RelationshipStatusButton, 'Click to select');
+    final Finder selectButton = find.widgetWithText(RelationshipStatusButton, 'Click to select');
     expect(selectButton, findsOneWidget);
 
     final Finder nextText = find.text('Next');

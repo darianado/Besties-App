@@ -6,9 +6,9 @@ import 'package:project_seg/screens/home/feed/components/like_profile_button.dar
 import 'package:project_seg/screens/home/feed/components/partial_profile_details.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 
-import '../../../constants/borders.dart';
-import '../../../constants/constant.dart';
-import '../../components/sliding_profile_details.dart';
+import '../../../../constants/borders.dart';
+import '../../../../constants/constant.dart';
+import '../../../components/sliding_profile_details.dart';
 
 /// The Widget that displays a profile's information.
 ///

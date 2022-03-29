@@ -5,12 +5,11 @@ import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/interests/category_view.dart';
-import '../test_resources/WidgetPumper.dart';
-import '../test_resources/TestProfile.dart';
+import 'package:project_seg/constants/colours.dart';
+import '../test_resources/widget_pumper.dart';
+import '../test_resources/test_profile.dart';
 import 'package:firebase_core/firebase_core.dart';
 import '../mock.dart';
-import 'package:project_seg/constants/borders.dart';
-import 'package:project_seg/constants/colours.dart';
 
 //import 'test_resources/WidgetPumper.dart';
 

@@ -5,13 +5,15 @@ import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/screens/home/feed/profile_container.dart';
+import 'package:project_seg/screens/home/feed/components/profile_container.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/user_state.dart';
 
 class FeedContentGatherer extends ChangeNotifier {
-  final int queueSize = 10; // Determines the threshold where the app will fetch users from the backend.
-  final int batchSize = 10; // Determines how many splits we make when fetching profiles using array of userIDs
+  final int queueSize =
+      10; // Determines the threshold where the app will fetch users from the backend.
+  final int batchSize =
+      10; // Determines how many splits we make when fetching profiles using array of userIDs
   final Function(UserData) onLikeComplete;
 
   final AuthService _authService = AuthService.instance;
@@ -21,7 +23,9 @@ class FeedContentGatherer extends ChangeNotifier {
 
   // Write some insurance in case this fails or times out.
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
-    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
+    HttpsCallable callable =
+        FirebaseFunctions.instanceFor(region: 'europe-west2')
+            .httpsCallable('requestRecommendations');
     final resp = await callable.call(<String, dynamic>{
       'uid': userID,
       'recs': amount,
@@ -31,7 +35,8 @@ class FeedContentGatherer extends ChangeNotifier {
 
     final result = List<String>.from(resp.data['data']);
 
-    result.removeWhere((element) => _userState.user?.userData?.likes?.contains(element) ?? false);
+    result.removeWhere((element) =>
+        _userState.user?.userData?.likes?.contains(element) ?? false);
 
     //await Future.delayed(Duration(seconds: 12));
 
@@ -57,7 +62,10 @@ class FeedContentGatherer extends ChangeNotifier {
     for (int si = 0; si < splitUserIDs.length; si++) {
       List<String> slice = splitUserIDs[si];
 
-      final snapshot = await FirebaseFirestore.instance.collection("users").where(FieldPath.documentId, whereIn: slice).get();
+      final snapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .where(FieldPath.documentId, whereIn: slice)
+          .get();
       results.addAll(
         snapshot.docs.map((doc) {
           final userData = UserData.fromSnapshot(doc);
@@ -69,7 +77,8 @@ class FeedContentGatherer extends ChangeNotifier {
     return results;
   }
 
-  List<ProfileContainer> constructWidgetsFromUserData(List<OtherUser> userDataLst, Function onLikeComplete) {
+  List<ProfileContainer> constructWidgetsFromUserData(
+      List<OtherUser> userDataLst, Function onLikeComplete) {
     return userDataLst
         .map((e) => ProfileContainer(
               key: UniqueKey(),
@@ -95,7 +104,8 @@ class FeedContentGatherer extends ChangeNotifier {
 
   Future<void> _gatherForQueue(int amount) async {
     gathering = true;
-    final userIDs = await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
+    final userIDs =
+        await getRecommendedUserIDs(_authService.currentUser!.uid, amount);
     final users = await getUsers(userIDs);
     final widgets = constructWidgetsFromUserData(users, onLikeComplete);
     queue.addAll(widgets);
@@ -112,7 +122,10 @@ class FeedContentGatherer extends ChangeNotifier {
   }
 
   void removeLiked() {
-    queue.removeWhere((ProfileContainer element) => _userState.user?.userData?.likes?.contains(element.profile.userData.uid) ?? false);
+    queue.removeWhere((ProfileContainer element) =>
+        _userState.user?.userData?.likes
+            ?.contains(element.profile.userData.uid) ??
+        false);
   }
 
   void removeAll() {

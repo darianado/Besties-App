@@ -32,10 +32,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     });
 
     await FirestoreService.instance.setPreferences(userID, preferences);
-
-    setState(() {
-      isLoading = false;
-    });
   }
 
   @override
@@ -114,7 +110,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   Row(
                     children: [
                       Text(
-                        "Sexual orientation",
+                        "Gender",
                         textAlign: TextAlign.left,
                         style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
                       ),

@@ -4,6 +4,12 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display an edit dialog when users want edit the bio on their profiles.
+ */
+
 class EditDialogTextField extends StatefulWidget {
   final String value;
   final Function(String?, String) onSave;
@@ -16,6 +22,13 @@ class EditDialogTextField extends StatefulWidget {
 
 class _EditDialogTextFieldState extends State<EditDialogTextField> {
   final TextEditingController _textFieldController = TextEditingController();
+
+  /**
+   * This method builds an EditDialog widget that is invoked when users
+   * want to edit their bio.
+   * Once changes are made, they will be saved.
+   */
+
 
   @override
   Widget build(BuildContext context) {

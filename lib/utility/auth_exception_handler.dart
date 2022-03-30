@@ -57,10 +57,10 @@ class AuthExceptionHandler {
         errorMessage = "Please enter a valid email address.";
         break;
       case AuthResultStatus.wrongPassword:
-        errorMessage = "Your password is incorrect.";
+        errorMessage = "The password you typed is incorrect. Please try again!";
         break;
       case AuthResultStatus.userNotFound:
-        errorMessage = "User with this email doesn't exist.";
+        errorMessage = "User with this email doesn't exist. Please create an account!";
         break;
       case AuthResultStatus.userDisabled:
         errorMessage = "User with this email has been disabled.";
@@ -75,7 +75,7 @@ class AuthExceptionHandler {
         errorMessage = "The email has already been registered. Please login or reset your password.";
         break;
       case AuthResultStatus.weakPassword:
-        errorMessage = "The password must be 6 characters long or more.";
+        errorMessage = "The password must be at least 6 characters long.";
         break;
       case AuthResultStatus.emailNotVerified:
         errorMessage = "A verification email has been sent to this account, please verify your email in order to login";

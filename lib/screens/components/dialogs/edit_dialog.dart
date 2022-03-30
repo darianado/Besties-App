@@ -3,6 +3,11 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 
+/**
+ * This class represents a model of a reusable widget that is used
+ * to display a dialog when users want to make edits on their profiles.
+ */
+
 class EditDialog extends StatelessWidget {
   final Widget content;
   final Function onSave;
@@ -31,7 +36,8 @@ class EditDialog extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -59,7 +65,10 @@ class EditDialog extends StatelessWidget {
                       text: confirmButtonText,
                       padding: const EdgeInsets.symmetric(vertical: 7),
                       backgroundColor: confirmButtonColour,
-                      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: confirmButtonTextColour),
+                      textStyle: Theme.of(context)
+                          .textTheme
+                          .titleLarge
+                          ?.apply(color: confirmButtonTextColour),
                       onPressed: onSave,
                     ),
                   ),

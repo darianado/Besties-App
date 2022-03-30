@@ -3,7 +3,7 @@ import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 
 /**
  * This class represents the model of a reusable widget that is used
- * to display a dialog dropdown when users want edit information on their
+ * to display a dialog dropdown when users want to edit information on their
  * profiles such as the university, gender or relationship status.
  */
 
@@ -12,7 +12,8 @@ class EditDialogDropdown extends StatefulWidget {
   final String? initialValue;
   final Function(String?) onSave;
 
-  EditDialogDropdown({Key? key, required this.items, value, required this.onSave})
+  EditDialogDropdown(
+      {Key? key, required this.items, value, required this.onSave})
       : initialValue = safelyGetValue(items, value),
         super(key: key);
 
@@ -27,7 +28,8 @@ class EditDialogDropdown extends StatefulWidget {
    */
 
   static String? safelyGetValue(List<String> items, String? proposedValue) {
-    if (proposedValue != null && items.contains(proposedValue)) return proposedValue;
+    if (proposedValue != null && items.contains(proposedValue))
+      return proposedValue;
     if (items.isNotEmpty) return items.first;
     return null;
   }

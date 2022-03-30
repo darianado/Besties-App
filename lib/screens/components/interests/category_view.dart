@@ -6,10 +6,8 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 
 /**
  * This class represents the model of a reusable widget that is used
- * to display a main category and related to it subcategories. It takes
- * the main category, the subcategories and the function to be performed
- * when it's tapped as required arguments. It displayes the selected intrests
- * in chips.
+ * to display the main categories. Users can select a category
+ * they are interested in.
  */
 
 class CategoryView extends StatelessWidget {
@@ -23,6 +21,13 @@ class CategoryView extends StatelessWidget {
   final Category category;
   final Category selected;
   final Function onTap;
+
+  /**
+   * This method build a widget that is is used to display all the categories
+   * grouped by title.
+   * Users can select a category title in order to have displayed all the interests
+   * that are part of that category.
+   */
 
   @override
   Widget build(BuildContext context) {

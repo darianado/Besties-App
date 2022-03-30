@@ -8,6 +8,13 @@ import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dar
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display the interests selected by the user in their prefrences.
+ * The widget can be editable.
+ * Each interest is shown in a separated widget.
+ */
+
 class DisplayInterestsPreferences extends StatelessWidget {
   const DisplayInterestsPreferences({
     Key? key,

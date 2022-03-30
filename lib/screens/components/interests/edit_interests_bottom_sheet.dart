@@ -5,6 +5,12 @@ import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to edit the selection of interests made by users.
+ * All interests are grouped by categories.
+ */
+
 class EditInterestBottomSheet extends StatefulWidget {
   const EditInterestBottomSheet(
       {Key? key,
@@ -23,6 +29,15 @@ class EditInterestBottomSheet extends StatefulWidget {
 }
 
 class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
+
+  /**
+   * This method build a widget that is is used to display all the interests
+   * grouped by their super-categories.
+   * Users can select a new category they are interested into, but also unselect
+   * a previous one.
+   * Once changes are done, they can be saved by the users
+   */
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

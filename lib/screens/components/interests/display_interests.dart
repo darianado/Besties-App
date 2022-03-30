@@ -5,6 +5,13 @@ import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display the interests selected on the user's profile.
+ * The widget can be editable.
+ * Each interest is shown in a separated widget.
+ */
+
 class DisplayInterests extends StatelessWidget {
   const DisplayInterests({
     Key? key,

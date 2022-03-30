@@ -29,6 +29,7 @@ class UserState extends ChangeNotifier {
         _user = ActiveUser(user: userAuthEvent);
         _subscription = firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
           _user = userFirestoreEvent;
+          //print("We got a user object: ${_user?.userData?.firstName}");
           notifyListeners();
         });
       }

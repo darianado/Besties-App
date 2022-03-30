@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/router/routes.dart';
@@ -14,13 +15,19 @@ import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
 import 'firebase_mock_environment.dart';
+import 'firebase_mocks.dart';
 
 class WidgetPumper {
   final FirebaseMockEnvironment firebaseEnv = FirebaseMockEnvironment();
 
-  WidgetPumper();
+  WidgetPumper() {
+    setupFirebaseMocks();
+  }
 
-  Future<void> setup(String activeUserEmail, {bool authenticated = false}) => firebaseEnv.setup(activeUserEmail, authenticated);
+  Future<void> setup(String activeUserEmail, {bool authenticated = false}) async {
+    await Firebase.initializeApp();
+    firebaseEnv.setup(activeUserEmail, authenticated);
+  }
 
   Future<void> pumpWidget(WidgetTester tester, Widget widget) async {
     return await tester.pumpWidget(

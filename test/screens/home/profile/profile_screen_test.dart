@@ -82,7 +82,7 @@ void main() {
     });
 
     testWidgets("Clicking change password redirects to the change password page", (tester) async {
-      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
       await tester.idle();

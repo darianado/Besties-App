@@ -7,7 +7,7 @@ Future<void> signOutHelper(WidgetPumper pumper) async {
   expect(pumper.firebaseEnv.userState.user?.user?.uid, isNull);
 }
 
-Future<void> signInHelper(WidgetPumper pumper, String email, String password) async {
-  await pumper.firebaseEnv.userState.signIn(email, password);
+Future<void> signInHelper(WidgetPumper pumper, String email) async {
+  await pumper.firebaseEnv.userState.signIn(email, "Password");
   expect(pumper.firebaseEnv.userState.user?.user?.uid, isNotNull);
 }

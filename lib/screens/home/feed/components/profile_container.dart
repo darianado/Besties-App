@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/other_user.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/home/feed/components/like_profile_button.dart';
 import 'package:project_seg/screens/home/feed/components/partial_profile_details.dart';
@@ -17,12 +18,14 @@ import '../../../components/sliding_profile_details.dart';
 /// a modal bottom sheet that contains [SlidingProfileDetails]
 /// and a [LikeProfileButton].
 class ProfileContainer extends StatelessWidget {
-  final OtherUser profile;
+  final UserData profile;
+  final bool liked;
   final Function onLikeComplete;
 
   const ProfileContainer({
     Key? key,
     required this.profile,
+    required this.liked,
     required this.onLikeComplete,
   }) : super(key: key);
 
@@ -33,7 +36,7 @@ class ProfileContainer extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: double.infinity,
-          child: CachedImage(url: profile.userData.profileImageUrl),
+          child: CachedImage(url: profile.profileImageUrl),
         ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +66,7 @@ class ProfileContainer extends StatelessWidget {
                         ),
                       ),
                       context: context,
-                      builder: (context) => SlidingProfileDetails(profile: profile.userData),
+                      builder: (context) => SlidingProfileDetails(profile: profile),
                     );
                   },
                   child: Row(
@@ -72,14 +75,13 @@ class ProfileContainer extends StatelessWidget {
                     children: [
                       Expanded(
                         flex: 5,
-                        child: PartialProfileDetails(
-                          profile: profile.userData,
-                        ),
+                        child: PartialProfileDetails(profile: profile),
                       ),
                       Expanded(
                         flex: 1,
                         child: LikeProfileButton(
                           profile: profile,
+                          liked: liked,
                           onLikeComplete: onLikeComplete,
                         ),
                       ),

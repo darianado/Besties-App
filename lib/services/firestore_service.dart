@@ -3,6 +3,7 @@ import 'dart:collection';
 import 'package:cloud_firestore/cloud_firestore.dart' as firestore;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:project_seg/models/App/app_context.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
@@ -123,6 +124,15 @@ class FirestoreService {
   }
 
   Future<bool> setLike(String? profileId) async {
+    if (firebaseFirestore is FakeFirebaseFirestore) {
+      print("Calling from fake context, returning dummy value");
+      if (profileId == "abc123") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
     HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('likeUser');
     final resp = await callable.call(<String, String>{
       'profileUserID': profileId.toString(),

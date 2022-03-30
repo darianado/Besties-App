@@ -84,7 +84,8 @@ class FeedContentGatherer extends ChangeNotifier {
     return userDataLst
         .map((e) => ProfileContainer(
               key: UniqueKey(),
-              profile: e,
+              profile: e.userData,
+              liked: e.liked,
               onLikeComplete: () => onLikeComplete(e.userData),
             ))
         .toList();
@@ -123,7 +124,7 @@ class FeedContentGatherer extends ChangeNotifier {
   }
 
   void removeLiked() {
-    queue.removeWhere((ProfileContainer element) => userState.user?.userData?.likes?.contains(element.profile.userData.uid) ?? false);
+    queue.removeWhere((ProfileContainer element) => userState.user?.userData?.likes?.contains(element.profile.uid) ?? false);
   }
 
   void removeAll() {

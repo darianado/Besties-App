@@ -14,6 +14,7 @@ abstract class TestProfile {
       gender: "Female",
       bio: "This is my bio.",
       dob: DateTime(2001, 1, 1),
+      profileImageUrl: "https://directemployers.org/wp-content/uploads/2018/08/avatar-JohnDoe.jpg",
       categorizedInterests: CategorizedInterests(
         categories: [
           Category(

@@ -8,7 +8,9 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- *
+ * This class represents a widget that is used to implement email
+ * verification functionality and display a screen informing a user
+ * that an email was sent to them.
  */
 
 class EmailVerifyScreen extends StatefulWidget {
@@ -33,6 +35,12 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
     _userState.stopCheckingForVerifiedEmail();
     super.dispose();
   }
+
+  /**
+   * This method builds an information screen that an email waas sent
+   * to the user. In order to move forward, the user is required to
+   * confirm their email by clicking on the link in the mail.
+   */
 
   @override
   Widget build(BuildContext context) {

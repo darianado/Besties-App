@@ -9,7 +9,6 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
-
 /**
  * This class represents the model of a reusable widget that is used
  * to display a dialog when users want to delete their account.
@@ -26,6 +25,7 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   final TextEditingController _password = TextEditingController();
+
   /**
    * This method builds an EditDialog widget that is invoked when users
    * show interest into deleteing their account.
@@ -53,7 +53,10 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
               const SizedBox(height: 10),
               Text(
                 'Delete account',
-                style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    ?.apply(fontWeightDelta: 2),
               ),
               const SizedBox(height: 5),
               Text(
@@ -106,7 +109,8 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
     try {
       await Provider.of<UserState>(context).deleteAccount(password);
     } on FirebaseAuthException catch (e) {
-      final errorMessage = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMessage =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(
         context: context,
         builder: (context) => DismissDialog(message: errorMessage),

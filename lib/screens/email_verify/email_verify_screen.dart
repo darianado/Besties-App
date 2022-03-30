@@ -91,7 +91,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                         color: whiteColour,
                         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                         textStyle: Theme.of(context).textTheme.labelLarge?.apply(color: whiteColour),
-                        onPressed: () => _userState.sendVerificationEmail(),
+                        onPressed: () async => await _userState.sendVerificationEmail(),
                       ),
                     ],
                   ),

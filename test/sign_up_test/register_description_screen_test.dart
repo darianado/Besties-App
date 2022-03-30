@@ -10,13 +10,12 @@ import '../mock.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../test_resources/widget_pumper.dart';
 
-
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
   UserData currentUserData = UserData(firstName: "Amy");
 
   setUpAll(() async {
-    await _widgetPumper.setup();
+    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
   testWidgets('Description page has all info widgets', (WidgetTester tester) async {
@@ -41,7 +40,6 @@ void main() {
     final univeristyWidgetStyle = tester.widget<UniversityButton>(universityWidgetFinder);
     expect(univeristyWidgetStyle.color, secondaryColour);
     expect(univeristyWidgetStyle.label, "Select your university");
-
 
     /* await tester.tap(find.widgetWithText(UniversityButton, 'Select your university'));
     await tester.pumpAndSettle();
@@ -73,6 +71,5 @@ void main() {
     final buttonTextStyle = tester.widget<Text>(nextTextFinder);
     expect(buttonTextStyle.style?.fontSize, 25);
     expect(buttonTextStyle.style?.fontWeight, FontWeight.w600);
-
   });
 }

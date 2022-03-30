@@ -16,7 +16,7 @@ void main() {
   UserData currentUserData = UserData();
 
   setUpAll(() async {
-    await _widgetPumper.setup();
+    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
   testWidgets('basic sign up page has all the field widgets', (WidgetTester tester) async {
@@ -38,7 +38,6 @@ void main() {
     final Finder firstName = find.widgetWithText(TextFormField, 'First name');
     expect(firstName, findsOneWidget);
 
-
     final Finder lastNameText = find.text('Last name');
     expect(lastNameText, findsOneWidget);
     final Finder lastName = find.widgetWithText(TextFormField, 'Last name');
@@ -50,8 +49,7 @@ void main() {
     final Finder birthday = find.text('BIRTHDAY');
     expect(birthday, findsOneWidget);
 
-    final Finder birthdaySelectButton =
-        find.widgetWithText(ChipWidget, 'Select a date');
+    final Finder birthdaySelectButton = find.widgetWithText(ChipWidget, 'Select a date');
 
     expect(birthdaySelectButton, findsOneWidget);
 

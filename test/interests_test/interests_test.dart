@@ -17,7 +17,7 @@ void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
   setUpAll(() async {
-    await _widgetPumper.setup();
+    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
   OtherUser currentUser = TestProfile.firstProfile;

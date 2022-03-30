@@ -9,14 +9,14 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
-import '../FirebaseMockTestEnvironment.dart';
+import 'firebase_mock_environment.dart';
 
 class WidgetPumper {
-  final FirebaseMockTestEnvironment firebaseEnv = FirebaseMockTestEnvironment();
+  final FirebaseMockEnvironment firebaseEnv = FirebaseMockEnvironment();
 
   WidgetPumper();
 
-  Future<void> setup() => firebaseEnv.setup();
+  Future<void> setup(String activeUserEmail, {bool authenticated = false}) => firebaseEnv.setup(activeUserEmail, authenticated);
 
   Future<void> pumpWidget(WidgetTester tester, Widget widget) async {
     return await tester.pumpWidget(

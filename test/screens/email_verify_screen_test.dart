@@ -13,8 +13,10 @@ import '../test_resources/widget_pumper.dart';
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
+  const String userEmail = "johndoe@example.org";
+
   setUpAll(() async {
-    await _widgetPumper.setup();
+    await _widgetPumper.setup(userEmail, authenticated: true);
   });
 
   group("Email verify screen tests:", () {
@@ -24,7 +26,7 @@ void main() {
       await tester.idle();
       await tester.pump();
 
-      expect(find.textContaining("seg-djangoals@example.org"), findsOneWidget);
+      expect(find.textContaining(userEmail), findsOneWidget);
 
       final Finder resendEmailButtonFinder = find.widgetWithText(PillButtonOutlined, "Resend email");
       expect(resendEmailButtonFinder, findsOneWidget);

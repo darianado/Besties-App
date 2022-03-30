@@ -13,7 +13,7 @@ void main() {
   UserData currentUserData = UserData();
 
   setUpAll(() async {
-    await _widgetPumper.setup();
+    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
   testWidgets('log in page has all the field widgets', (WidgetTester tester) async {

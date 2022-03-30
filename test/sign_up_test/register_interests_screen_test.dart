@@ -9,13 +9,12 @@ import '../mock.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../test_resources/widget_pumper.dart';
 
-
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
   UserData currentUserData = UserData();
 
   setUpAll(() async {
-    await _widgetPumper.setup();
+    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
   testWidgets('interests page has all widgets', (WidgetTester tester) async {
@@ -49,6 +48,5 @@ void main() {
     expect(buttonTextStyle.style?.fontSize, 25);
     expect(buttonTextStyle.style?.fontWeight, FontWeight.w600);
     expect(buttonTextStyle.style?.color, whiteColour);
-    
   });
 }

@@ -67,6 +67,69 @@ final List<Map<String, dynamic>> appUsersTestData = [
       ),
     ),
   },
+  {
+    "email": "janedoe@example.org",
+    "emailVerified": false,
+    "data": UserData(
+      uid: "very-random-id",
+      firstName: "Jane",
+      lastName: "Doe",
+      likes: [],
+      bio: "Growth prevent power pull. Wind there role occur.",
+      dob: DateTime(1999, 12, 19).toUtc(),
+      gender: "Non-binary",
+      university: "King's College London",
+      relationshipStatus: "Single",
+      profileImageUrl: "https://directemployers.org/wp-content/uploads/2018/08/avatar-JohnDoe.jpg",
+      categorizedInterests: CategorizedInterests(
+        categories: [
+          Category(title: "Arts and Literature", interests: []),
+          Category(title: "Food", interests: [
+            Interest(title: "Cocktails"),
+            Interest(title: "Brunch"),
+            Interest(title: "Vegan"),
+            Interest(title: "Baking"),
+          ]),
+          Category(title: "Games", interests: []),
+          Category(title: "Popular culture", interests: []),
+          Category(title: "Science and Technology", interests: []),
+          Category(title: "Self care", interests: []),
+          Category(title: "Social activities", interests: []),
+          Category(title: "Sports", interests: []),
+        ],
+      ),
+      preferences: Preferences(
+        maxAge: 50,
+        minAge: 18,
+        genders: ["Non-binary", "Female"],
+        interests: CategorizedInterests(
+          categories: [
+            Category(title: "Arts and Literature", interests: [
+              Interest(title: "Musicals"),
+              Interest(title: "Theatre"),
+              Interest(title: "Classical music"),
+              Interest(title: "Novels"),
+            ]),
+            Category(title: "Food", interests: [
+              Interest(title: "Cocktails"),
+              Interest(title: "Vegan"),
+              Interest(title: "Baking"),
+            ]),
+            Category(title: "Games", interests: []),
+            Category(title: "Popular culture", interests: [
+              Interest(title: "Stand-up comedy"),
+            ]),
+            Category(title: "Science and Technology", interests: [
+              Interest(title: "Medicine"),
+            ]),
+            Category(title: "Self care", interests: []),
+            Category(title: "Social activities", interests: []),
+            Category(title: "Sports", interests: []),
+          ],
+        ),
+      ),
+    ),
+  },
 ];
 
 final appContextTestData = {

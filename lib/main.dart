@@ -102,8 +102,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            routeInformationParser: router.routeInformationParser,
-            routerDelegate: router.routerDelegate,
+            routeInformationParser: router(null).routeInformationParser,
+            routerDelegate: router(null).routerDelegate,
           );
         },
       ),

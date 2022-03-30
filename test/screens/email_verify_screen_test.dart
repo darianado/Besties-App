@@ -5,26 +5,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
+import 'package:project_seg/screens/login/login_screen.dart';
 
+import '../helpers.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
-  const String userEmail = "johndoe@example.org";
+  const String userEmail = "janedoe@example.org";
 
   setUpAll(() async {
     await _widgetPumper.setup(userEmail, authenticated: true);
   });
 
-  group("Email verify screen tests:", () {
+  group("Email verify screen:", () {
     testWidgets('Contains correct information', (tester) async {
-      await _widgetPumper.pumpWidget(tester, const EmailVerifyScreen());
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
 
-      await tester.idle();
-      await tester.pump();
+      expect(find.byType(EmailVerifyScreen), findsOneWidget);
 
       expect(find.textContaining(userEmail), findsOneWidget);
 
@@ -63,11 +65,10 @@ void main() {
     });
 
     testWidgets("Clicking log out button logs out", (tester) async {
-      await _widgetPumper.pumpWidget(tester, const EmailVerifyScreen());
+      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
 
-      await tester.idle();
-      await tester.pump();
-
+      expect(find.byType(EmailVerifyScreen), findsOneWidget);
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNotNull);
 
       final Finder logOutButtonFinder = find.byType(IconButton);
@@ -75,18 +76,21 @@ void main() {
 
       final IconButton logOutButton = tester.widget<IconButton>(logOutButtonFinder);
       expect(logOutButton.onPressed, isNotNull);
-      logOutButton.onPressed!();
 
-      await tester.pump();
+      expect(() => logOutButton.onPressed!(), returnsNormally);
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(LogInScreen), findsOneWidget);
 
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNull);
     });
 
-    testWidgets("Clicking resend email fails with mock error", (tester) async {
-      await _widgetPumper.pumpWidget(tester, const EmailVerifyScreen());
+    testWidgets("Clicking resend email does not crash", (tester) async {
+      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
 
-      await tester.idle();
-      await tester.pump();
+      expect(find.byType(EmailVerifyScreen), findsOneWidget);
 
       final Finder resendEmailButtonFinder = find.widgetWithText(PillButtonOutlined, "Resend email");
       expect(resendEmailButtonFinder, findsOneWidget);
@@ -94,9 +98,11 @@ void main() {
       final resendEmailButton = tester.widget<PillButtonOutlined>(resendEmailButtonFinder);
       expect(resendEmailButton.onPressed, isNotNull);
 
-      resendEmailButton.onPressed();
+      expect(() => resendEmailButton.onPressed(), returnsNormally);
 
       await tester.pump();
+
+      expect(find.byType(EmailVerifyScreen), findsOneWidget);
     });
   });
 }

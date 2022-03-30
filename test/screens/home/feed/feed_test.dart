@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
 
-import '../../../helpers.dart';
+import '../../../test_resources/helpers.dart';
 import '../../../test_resources/firebase_mocks.dart';
 import '../../../test_resources/widget_pumper.dart';
 

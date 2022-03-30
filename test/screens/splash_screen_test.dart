@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/constants/borders.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
 
-import '../helpers.dart';
+import '../test_resources/helpers.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {

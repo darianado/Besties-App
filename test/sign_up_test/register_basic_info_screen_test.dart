@@ -1,15 +1,13 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../mock.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../test_resources/widget_pumper.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -63,20 +61,22 @@ void main() {
     final Finder selectButton = find.widgetWithText(RelationshipStatusButton, 'Click to select');
     expect(selectButton, findsOneWidget);
 
-    final Finder nextText = find.text('Next');
-    expect(nextText, findsOneWidget);
-    final Finder nextButton = find.widgetWithText(ElevatedButton, 'Next');
-    expect(nextButton, findsOneWidget);
+    final Finder nextButton = find.widgetWithText(PillButtonFilled, 'Next');
 
-    final buttonTextStyle = tester.widget<Text>(nextText);
-    expect(buttonTextStyle.style?.fontSize, 25);
-    expect(buttonTextStyle.style?.fontWeight, FontWeight.w600);
+    final nextButtonStyle = tester.widget<PillButtonFilled>(nextButton);
+    expect(nextButtonStyle.text, 'Next');
+    expect(nextButtonStyle.textStyle!.fontSize, 25);
+    expect(nextButtonStyle.textStyle!.fontWeight, FontWeight.w600);
 
-    expect(find.byType(TextField), findsWidgets);
-    expect(find.widgetWithText(TextField, 'First name'), findsOneWidget);
-    expect(find.widgetWithText(TextField, 'Last name'), findsOneWidget);
+    
+  });
 
-    //text field only takes one value
+  testWidgets("textFormField only takes one value", (tester) async{
+    await _widgetPumper.pumpWidget(tester, RegisterBasicInfoScreen(userData: currentUserData));
+
+    final Finder firstName = find.widgetWithText(TextFormField, 'First name');
+    final Finder lastName = find.widgetWithText(TextFormField, 'Last name');
+
     await tester.enterText(firstName, 'Amy');
     await tester.enterText(lastName, 'Garcia');
 

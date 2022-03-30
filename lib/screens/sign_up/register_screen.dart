@@ -14,6 +14,12 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * The fourth screen that is displayed through the sign up process.
+ * The user is asked to provide details about the university they attend
+ * and specify their bio.
+ */
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -47,7 +53,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     try {
       await userState.signUp(_email.text.trim(), _password.text.trim());
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(
         context: context,
         builder: (context) => DismissDialog(message: errorMsg),
@@ -88,16 +95,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
+                padding: const EdgeInsets.fromLTRB(
+                    leftRightPadding, 0, leftRightPadding, 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SvgPicture.asset('assets/logo/blue_text_logo.svg', fit: BoxFit.fitHeight),
+                    SvgPicture.asset('assets/logo/blue_text_logo.svg',
+                        fit: BoxFit.fitHeight),
                     const SizedBox(height: 40),
                     Text(
                       'Sign up',
-                      style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.apply(color: secondaryColour, fontWeightDelta: 2),
                     ),
                     const SizedBox(height: 40),
                     TextFormField(
@@ -131,7 +143,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         icon: Icon(Icons.lock, color: tertiaryColour),
                         labelText: 'Confirm password',
                       ),
-                      validator: (value) => validateRepeatedPassword(value, _password.text),
+                      validator: (value) =>
+                          validateRepeatedPassword(value, _password.text),
                     ),
                     const SizedBox(height: 40),
                     SizedBox(
@@ -139,7 +152,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: PillButtonFilled(
                         text: "Register",
                         isLoading: isLoading,
-                        textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
+                        textStyle: const TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.w600),
                         onPressed: () => submitForm(_formKey),
                       ),
                     ),
@@ -151,7 +165,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         PillButtonOutlined(
                           text: "Log in",
                           color: tertiaryColour,
-                          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 7),
                           textStyle: Theme.of(context).textTheme.labelLarge,
                           onPressed: () => context.goNamed(loginScreenName),
                         ),

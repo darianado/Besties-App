@@ -16,6 +16,11 @@ import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 
+/**
+ * This class represents a widget that is used to help users who
+ * forgot their password to get back access to their account.
+ */
+
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
 
@@ -27,13 +32,11 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
 
-  bool isEmail(String input) => EmailValidator.validate(input);
-
   _sendEmailVerification(String email) async {
     String message = 'Please check your email for a password reset link';
 
     try {
-      await Provider.of<UserState>(context).resetPassword(email);
+      await Provider.of<UserState>(context, listen: false).resetPassword(email);
     } on FirebaseAuthException catch (e) {
       final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       message = errorMsg;
@@ -108,7 +111,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Send recovery email",
-                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                        textStyle: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2, color: whiteColour),
                         onPressed: () => _submitForm(_formKey),
                       ),
                     ),
@@ -118,7 +121,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       child: PillButtonOutlined(
                         text: "Return to log in",
                         color: tertiaryColour,
-                        textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: tertiaryColour),
+                        textStyle: Theme.of(context).textTheme.headline6,
                         onPressed: () => context.goNamed(loginScreenName),
                       ),
                     ),

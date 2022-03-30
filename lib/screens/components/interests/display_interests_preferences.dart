@@ -8,6 +8,13 @@ import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dar
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display the interests selected by the user in their prefrences.
+ * The widget can be editable.
+ * Each interest is shown in a separated widget.
+ */
+
 class DisplayInterestsPreferences extends StatelessWidget {
   const DisplayInterestsPreferences({
     Key? key,
@@ -45,6 +52,10 @@ class DisplayInterestsPreferences extends StatelessWidget {
     );
   }
 
+  /**
+   * This method returns a widget that displays the label in a chip.
+   */
+
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
       color: tertiaryColour,
@@ -57,6 +68,11 @@ class DisplayInterestsPreferences extends StatelessWidget {
     );
   }
 
+  /**
+   * This method specifies action to be performed in the editable instances
+   * of this button. It will trigger the onSave functionality.
+   */
+
   Function? getOnTap(String label, BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
@@ -68,7 +84,8 @@ class DisplayInterestsPreferences extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogInterests(
-              interests: _userState.user?.userData?.preferences?.interests ?? CategorizedInterests(categories: []),
+              interests: _userState.user?.userData?.preferences?.interests ??
+                  CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

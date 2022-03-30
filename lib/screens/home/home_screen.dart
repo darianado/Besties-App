@@ -7,6 +7,13 @@ import 'package:project_seg/states/match_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * The Home screen.
+ * This screen that helps navigating through the pages that are connected
+ * by the Nav Bar (Profile, Feed, Chat history).
+ * The page displays its specific content and the NavBar
+ */
+
 class HomeScreen extends StatefulWidget {
   final int index;
   HomeScreen({Key? key, required String page})
@@ -28,21 +35,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    /*
-    final _matchState = MatchState.instance;
-
-    final _userState = Provider.of<UserState>(context);
+    final _matchState = Provider.of<MatchState>(context, listen: false);
+    final _userState = Provider.of<UserState>(context, listen: false);
 
     _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
-    */
     selectedIndex = widget.index;
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant HomeScreen oldWidget) {
-    selectedIndex = widget.index;
-    super.didUpdateWidget(oldWidget);
   }
 
   void changeSelection(int index) {
@@ -51,9 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     selectedIndex = index;
-
-    final destination = menuData.pathOfItemWithIndex(_selectedIndex);
-    context.go(destination);
   }
 
   List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();

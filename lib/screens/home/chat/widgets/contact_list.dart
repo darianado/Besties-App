@@ -4,8 +4,19 @@ import 'package:project_seg/screens/home/chat/components/matches_scroll_view.dar
 import 'package:project_seg/states/match_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * This class is used to store the matches of a user before a chat is initiated.
+ */
+
 class Matches extends StatelessWidget {
   const Matches({Key? key}) : super(key: key);
+
+  /**
+   * This method builds a widget that displays all the matches that have not started
+   * a chat in a horizontal row.
+   * If no matches are available yet, the text "No new matches yet... Keep scrolling!"
+   * is displayed.
+   */
 
   @override
   Widget build(BuildContext context) {

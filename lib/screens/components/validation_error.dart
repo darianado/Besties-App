@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+/**
+ * This class represents a widget that is used to display
+ * a validation error message. It displays it as a text in red.
+ */
+
 class ValidationError extends StatelessWidget {
   final String? errorText;
 
@@ -18,7 +23,8 @@ class ValidationError extends StatelessWidget {
           padding: const EdgeInsets.all(3.0),
           child: Text(
             errorText!,
-            style: Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
+            style:
+                Theme.of(context).textTheme.bodySmall?.apply(color: Colors.red),
           ),
         ),
       ],

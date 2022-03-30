@@ -4,10 +4,14 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/utility/auth_exception_handler.dart';
-import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
+
+/**
+ * This class represents a model of a reusable widget that is used
+ * to display a dialog when a user wants to delete their account.
+ */
 
 class DeleteAccountDialog extends StatefulWidget {
   const DeleteAccountDialog({Key? key}) : super(key: key);
@@ -20,6 +24,14 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   final TextEditingController _password = TextEditingController();
+
+  /**
+   * This method builds an EditDialog widget that is invoked when a user
+   * shows interest into deleteing their account. In order to perform
+   * this action, users are required to confirm their password,
+   * followed by pressing the "Delete" button. They can also
+   * exit the dialog by pressing "Cancel".
+   */
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +52,10 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
               const SizedBox(height: 10),
               Text(
                 'Delete account',
-                style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
+                style: Theme.of(context)
+                    .textTheme
+                    .headline4
+                    ?.apply(fontWeightDelta: 2),
               ),
               const SizedBox(height: 5),
               Text(
@@ -84,11 +99,17 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
     );
   }
 
+  /**
+   * This asyncronous method deletes the account from the database.
+   * @param String - the password confirmation.
+   */
+
   _deleteUser(String password) async {
     try {
       await Provider.of<UserState>(context).deleteAccount(password);
     } on FirebaseAuthException catch (e) {
-      final errorMessage = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMessage =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(
         context: context,
         builder: (context) => DismissDialog(message: errorMessage),

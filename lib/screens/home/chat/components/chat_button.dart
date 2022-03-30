@@ -3,6 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
+/**
+ * This class represents the model of a reusable button that is used
+ * in the profile of a match in order for the user to start chatting
+ */
+
 class OpenChatButton extends StatelessWidget {
   final Function onPressed;
 

@@ -46,8 +46,6 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     final _feedContentController = Provider.of<FeedContentController>(context);
 
-    //print("Rebuilding. There are ${_feedContentController.content.length} elements in feed");
-
     return Stack(
       alignment: Alignment.topRight,
       children: [

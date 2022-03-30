@@ -1,15 +1,36 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_seg/screens/home/feed/feed_screen.dart';
 
+import 'helpers.dart';
 import 'mock.dart';
+import 'test_resources/widget_pumper.dart';
 
 void main() {
-  // TestWidgetsFlutterBinding.ensureInitialized(); Gets called in setupFirebaseAuthMocks()
-  setupFirebaseAuthMocks();
+  final WidgetPumper _widgetPumper = WidgetPumper();
+
+  const String userEmail = "johndoe@example.org";
 
   setUpAll(() async {
-    await Firebase.initializeApp();
+    await _widgetPumper.setup(userEmail, authenticated: true);
   });
+
+/*
+  group("Feed screen:", () {
+    testWidgets("Contains correct information", (tester) async {
+      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+
+      expect(find.byType(FeedScreen), findsOneWidget);
+
+      final Finder refreshIndicatorFinder = find.byType(RefreshIndicator);
+      expect(refreshIndicatorFinder, findsOneWidget);
+      final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
+      expect(() => refreshIndicator.onRefresh(), returnsNormally);
+    });
+  });
+  */
 
   // UserData firstProfile = UserData(
   //   firstName: "Amy",

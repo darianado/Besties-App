@@ -7,6 +7,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
   {
     "email": "johndoe@example.org",
     "emailVerified": true,
+    "recommendations": {},
     "data": UserData(
       uid: "abc123",
       firstName: "John",

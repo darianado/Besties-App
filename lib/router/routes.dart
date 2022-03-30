@@ -222,6 +222,7 @@ class AppRouter {
           final initialized = userState.user != null;
           final loggedIn = userState.user?.user != null;
           final emailVerified = userState.user?.user?.emailVerified ?? false;
+          final waitingOnFirestore = userState.waitingOnFirestore;
           final fetchedUser = userState.user?.userData != null;
 
           final splashLoc = state.namedLocation(splashScreenName);
@@ -280,6 +281,7 @@ class AppRouter {
           if (initialized &&
               loggedIn &&
               !fetchedUser &&
+              !waitingOnFirestore &&
               emailVerified &&
               !(goingToRegisterBasicInfo || goingToRegisterPhoto || goingToRegisterDescription || goingToRegisterInterests)) {
             return registerBasicInfoLoc;
@@ -288,6 +290,7 @@ class AppRouter {
           if (initialized &&
               loggedIn &&
               fetchedUser &&
+              !waitingOnFirestore &&
               (goingToSplash ||
                   goingToEmailVerify ||
                   goingToLogin ||

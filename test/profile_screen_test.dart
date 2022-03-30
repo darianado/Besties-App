@@ -16,7 +16,6 @@ import 'package:project_seg/screens/components/interests/display_interests.dart'
 import 'test_resources/testing_data.dart';
 import 'test_resources/widget_pumper.dart';
 
-
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
@@ -34,12 +33,10 @@ void main() {
 
       /// Test change button
 
-      final Finder changePasswordButtonFinder = find.widgetWithText(
-          PillButtonFilled, "Change password");
+      final Finder changePasswordButtonFinder = find.widgetWithText(PillButtonFilled, "Change password");
       expect(changePasswordButtonFinder, findsOneWidget);
 
-      final PillButtonFilled changePasswordButton = tester.widget<
-          PillButtonFilled>(changePasswordButtonFinder);
+      final PillButtonFilled changePasswordButton = tester.widget<PillButtonFilled>(changePasswordButtonFinder);
       expect(changePasswordButton.onPressed, isNotNull);
       expect(changePasswordButton.textStyle?.color, whiteColour);
 
@@ -51,12 +48,10 @@ void main() {
 
       /// Test sign out button
 
-      final Finder SignOutButtonFinder = find.widgetWithText(
-          PillButtonOutlined, "Sign out");
+      final Finder SignOutButtonFinder = find.widgetWithText(PillButtonOutlined, "Sign out");
       expect(SignOutButtonFinder, findsOneWidget);
 
-      final PillButtonOutlined SignOutButton = tester.widget<
-          PillButtonOutlined>(SignOutButtonFinder);
+      final PillButtonOutlined SignOutButton = tester.widget<PillButtonOutlined>(SignOutButtonFinder);
       expect(SignOutButton.onPressed, isNotNull);
       expect(SignOutButton.textStyle?.color, Colors.red);
 
@@ -96,7 +91,7 @@ void main() {
       //print(find.byElementPredicate((element) => true).allCandidates.map((e) => "$e \n").toList());
 
       final Finder changePasswordButtonFinder = find.widgetWithText(PillButtonFilled, "Change password");
-      //expect(changePasswordButtonFinder, findsOneWidget);
+      expect(changePasswordButtonFinder, findsOneWidget);
       // final changePasswordButton = tester.widget<PillButtonFilled>(changePasswordButtonFinder);
       // expect(changePasswordButton.onPressed, isNotNull);
 
@@ -105,16 +100,16 @@ void main() {
       // await tester.pump();
     });
 
-      //expect(find.textContaining("John"), findsOneWidget);
-      //expect(find.textContaining("Doe"), findsOneWidget);
+    //expect(find.textContaining("John"), findsOneWidget);
+    //expect(find.textContaining("Doe"), findsOneWidget);
 
-      //expect(find.textContaining("King's College London"), findsOneWidget);
-      // expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
-      //
-      // expect(find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
-      // expect(find.text(firstProfile.userData.bio!), findsOneWidget);
-      //
-      // expect(find.byType(DisplayInterests), findsOneWidget);
-      // expect(find.byType(GenderButton), findsOneWidget);
-    });
+    //expect(find.textContaining("King's College London"), findsOneWidget);
+    // expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
+    //
+    // expect(find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
+    // expect(find.text(firstProfile.userData.bio!), findsOneWidget);
+    //
+    // expect(find.byType(DisplayInterests), findsOneWidget);
+    // expect(find.byType(GenderButton), findsOneWidget);
+  });
 }

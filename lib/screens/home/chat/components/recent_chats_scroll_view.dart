@@ -10,7 +10,7 @@ import 'package:go_router/go_router.dart';
 
 /**
  * This class represents the model of a reusable widget that is used
- * to display the chatting history of a user.
+ * to display a chat item in the chat history list.
  */
 
 class RecentChatsScrollView extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 
 /**
  * This class represents the model of a reusable widget that is used
- * to display the matches of a user.
+ * to display a match with an user.
  */
 
 
@@ -19,7 +19,7 @@ class MatchesScrollView extends StatelessWidget {
   final List<UserMatch> matches;
 
   /**
-   * This method builds a widget that displays all the matches a user has in a row.
+   * This method builds a widget that displays a match of a user.
    */
   @override
   Widget build(BuildContext context) {

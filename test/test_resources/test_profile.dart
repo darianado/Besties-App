@@ -33,6 +33,25 @@ abstract class TestProfile {
           )
         ],
       ),
+      preferences: Preferences(
+        interests: CategorizedInterests(
+        categories: [
+          Category(
+            title: "food",
+            interests: [
+              Interest(title: "Cocktails"),
+              Interest(title: "Brunch"),
+            ],
+          ),
+          Category(
+            title: "sports",
+            interests: [
+              Interest(title: "Hiking"),
+            ],
+          )
+        ],
+      ),
+        )
     ),
     liked: false,
   );

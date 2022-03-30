@@ -7,6 +7,12 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * This class represents a model of a reusable widget that is used to
+ * display a dialog for when users want to edit their interests.
+ *
+ */
+
 class EditDialogInterests extends StatefulWidget {
   final CategorizedInterests interests;
   final Function(CategorizedInterests) onSave;
@@ -61,12 +67,21 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
     widget.onSave(interests);
   }
 
+  /**
+   * This method checks whether the newly selected interests meet the criteria.
+   *
+   * @return true, if the user selected interests are valid,
+   * false otherwise
+   */
+
   bool validate() {
     final _contextState = Provider.of<ContextState>(context, listen: false);
 
     setState(() {
-      validateInterestsError =
-          validateInterests(widget.interests, _contextState.context?.minInterestsSelected, _contextState.context?.maxInterestsSelected);
+      validateInterestsError = validateInterests(
+          widget.interests,
+          _contextState.context?.minInterestsSelected,
+          _contextState.context?.maxInterestsSelected);
     });
 
     return (validateInterestsError == null);

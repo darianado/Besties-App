@@ -7,6 +7,10 @@ import 'package:lottie/lottie.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ *
+ */
+
 class EmailVerifyScreen extends StatefulWidget {
   const EmailVerifyScreen({Key? key}) : super(key: key);
 
@@ -62,17 +66,24 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                       SizedBox(
                         height: 300,
                         width: 300,
-                        child: Lottie.asset('assets/lotties/mail-verification.json'),
+                        child: Lottie.asset(
+                            'assets/lotties/mail-verification.json'),
                       ),
                       Text(
                         "You've got mail!",
-                        style: Theme.of(context).textTheme.headline4?.apply(color: whiteColour),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            ?.apply(color: whiteColour),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 30),
                       Text(
                         "Before you can proceed, head over to your inbox to activate your account.",
-                        style: Theme.of(context).textTheme.headline6?.apply(color: whiteColour),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.apply(color: whiteColour),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 80)
@@ -82,16 +93,22 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                     children: [
                       Text(
                         "We have sent the email to '${_userState.user?.user?.email}'. Didn't receive it yet?",
-                        style: TextStyle(color: whiteColour.withOpacity(0.7), fontSize: 15),
+                        style: TextStyle(
+                            color: whiteColour.withOpacity(0.7), fontSize: 15),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(height: 25),
                       PillButtonOutlined(
                         text: "Resend email",
                         color: whiteColour,
-                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                        textStyle: Theme.of(context).textTheme.labelLarge?.apply(color: whiteColour),
-                        onPressed: () async => await _userState.sendVerificationEmail(),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 7),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .labelLarge
+                            ?.apply(color: whiteColour),
+                        onPressed: () async =>
+                            await _userState.sendVerificationEmail(),
                       ),
                     ],
                   ),

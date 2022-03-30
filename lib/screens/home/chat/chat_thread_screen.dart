@@ -5,6 +5,14 @@ import 'package:project_seg/screens/home/chat/components/chat_conversation.dart'
 import 'package:project_seg/screens/home/chat/components/message_composer.dart';
 import 'package:project_seg/screens/home/chat/components/profile_app_bar_button.dart';
 
+
+/**
+ * The screen that displays the chat between two users.
+ * The page contains the ProfileAppBarButton providing information about the user to chat with,
+ * the messages send between users and
+ * the MessageComposer where the user can write a message to be sent.
+ */
+
 class ChatThreadScreen extends StatelessWidget {
   const ChatThreadScreen({Key? key, required this.userMatch}) : super(key: key);
 

@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/router/routes.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/states/context_state.dart';
@@ -102,8 +103,8 @@ class MyApp extends StatelessWidget {
                 ),
               ),
             ),
-            routeInformationParser: router(null).routeInformationParser,
-            routerDelegate: router(null).routerDelegate,
+            routeInformationParser: router("/" + feedScreenName).routeInformationParser,
+            routerDelegate: router("/" + feedScreenName).routerDelegate,
           );
         },
       ),

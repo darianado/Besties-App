@@ -28,21 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    /*
-    final _matchState = MatchState.instance;
-
-    final _userState = Provider.of<UserState>(context);
+    final _matchState = Provider.of<MatchState>(context, listen: false);
+    final _userState = Provider.of<UserState>(context, listen: false);
 
     _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
-    */
     selectedIndex = widget.index;
     super.initState();
-  }
-
-  @override
-  void didUpdateWidget(covariant HomeScreen oldWidget) {
-    selectedIndex = widget.index;
-    super.didUpdateWidget(oldWidget);
   }
 
   void changeSelection(int index) {
@@ -51,9 +42,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     selectedIndex = index;
-
-    final destination = menuData.pathOfItemWithIndex(_selectedIndex);
-    context.go(destination);
   }
 
   List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();

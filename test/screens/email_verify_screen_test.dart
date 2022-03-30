@@ -24,6 +24,7 @@ void main() {
 
   group("Email verify screen:", () {
     testWidgets('Contains correct information', (tester) async {
+      await signInHelper(_widgetPumper, userEmail, "Password123");
       await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);

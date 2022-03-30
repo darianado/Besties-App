@@ -27,10 +27,7 @@ void main() {
 
   group('ProfileScreen widget tests', () {
     testWidgets('Displays correct information', (tester) async {
-      await _widgetPumper.pumpWidget(tester, ProfileScreen());
-
-      await tester.idle();
-      await tester.pump();
+      await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
       /// Test change button
 
@@ -68,10 +65,7 @@ void main() {
     });
 
       testWidgets("Clicking sign out button signs out", (tester) async {
-        await _widgetPumper.pumpWidget(tester, const ProfileScreen());
-
-        await tester.idle();
-        await tester.pump();
+        await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
         expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNotNull);
 
@@ -88,10 +82,7 @@ void main() {
       });
 
     testWidgets("Clicking change password redirects to the change password page", (tester) async {
-      await _widgetPumper.pumpWidget(tester, const ProfileScreen());
-
-      await tester.idle();
-      await tester.pump();
+      await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
       final Finder changePasswordButtonFinder = find.widgetWithText(PillButtonFilled, "Change password");
       expect(changePasswordButtonFinder, findsOneWidget);

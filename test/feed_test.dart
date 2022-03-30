@@ -28,10 +28,10 @@ void main() {
       expect(refreshIndicatorFinder, findsOneWidget);
       final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
       expect(() => refreshIndicator.onRefresh(), returnsNormally);
+      await tester.pumpAndSettle();
     });
   });
-  */
-
+*/
   // UserData firstProfile = UserData(
   //   firstName: "Amy",
   //   lastName: "Garcia",

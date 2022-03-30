@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/other_user.dart';
@@ -21,21 +22,31 @@ class FeedContentGatherer extends ChangeNotifier {
 
   // Write some insurance in case this fails or times out.
   Future<List<String>> getRecommendedUserIDs(String userID, int amount) async {
-    HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
-    final resp = await callable.call(<String, dynamic>{
-      'uid': userID,
-      'recs': amount,
-    });
+    List<String> results = [];
 
-    //print("Received this response: ${resp.data}");
+    // HTTP clients are unavailable in Flutter tests. We must catch this, and provide a dummy response.
+    if (userState.firestoreService is FakeFirebaseFirestore) {
+      print("Making a response");
+      final appRecommendationsTestResponse = {
+        "status": 200,
+        "data": [
+          "abc123",
+          "acb321",
+        ],
+      };
+      results = appRecommendationsTestResponse['data'] as List<String>;
+    } else {
+      HttpsCallable callable = FirebaseFunctions.instanceFor(region: 'europe-west2').httpsCallable('requestRecommendations');
+      final resp = await callable.call(<String, dynamic>{
+        'uid': userID,
+        'recs': amount,
+      });
 
-    final result = List<String>.from(resp.data['data']);
+      results = List<String>.from(resp.data['data']);
+    }
 
-    result.removeWhere((element) => userState.user?.userData?.likes?.contains(element) ?? false);
-
-    //await Future.delayed(Duration(seconds: 12));
-
-    return result;
+    results.removeWhere((element) => userState.user?.userData?.likes?.contains(element) ?? false);
+    return results;
   }
 
   List<List<String>> split(List<String> lst, int size) {

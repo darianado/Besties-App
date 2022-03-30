@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-int difference(int? n1, int? n2) {
+double difference(double? n1, double? n2) {
   return (n1 != null && n2 != null) ? n2 - n1 : 0;
 }
 

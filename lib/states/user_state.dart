@@ -40,6 +40,15 @@ class UserState extends ChangeNotifier {
     });
   }
 
+  /**
+   * Testing method used to reset the UserState in case of testing features
+   * that are not directly available to logged in users (e.g. splash screen).
+   */
+  Future<void> resetUserState() async {
+    _user = null;
+    notifyListeners();
+  }
+
   Future<void> signIn(String email, String password) async => await authService.signIn(email, password);
 
   Future<void> signUp(String email, String password) async => await authService.signUp(email, password);

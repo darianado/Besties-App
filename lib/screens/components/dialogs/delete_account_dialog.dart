@@ -26,9 +26,6 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   final GlobalKey _formKey = GlobalKey<FormState>();
 
   final TextEditingController _password = TextEditingController();
-
-  final AuthService _authService = AuthService.instance;
-
   /**
    * This method builds an EditDialog widget that is invoked when users
    * show interest into deleteing their account.

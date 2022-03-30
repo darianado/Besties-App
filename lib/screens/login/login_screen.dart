@@ -15,7 +15,12 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 /**
- *
+ * This class represents a widget that is used to implement a user
+ * verification functionality (log in) and display a screen for user
+ * to provide his email and password associated with his account.
+ * It also has a "Forgot password" link that redirects to password
+ * recovery screen and "Sign up" link that redirects to sign up form
+ * for new users to join the app.
  */
 
 class LogInScreen extends StatefulWidget {

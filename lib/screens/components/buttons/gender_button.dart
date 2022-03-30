@@ -7,15 +7,15 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-
 /**
- * This class represents the model of a reusable widget that is used
- * to display the gender of users.
- * The Gender button can be editable in the Edit Profile screen, but it cannot
- * be edited when the current users sees information related to the others( in the partial
- * profile screen available on Feed or on other users' complete profile that is available after
- * a match occured)
- * In the sign up screen the button is used multiple times so that users can select their gender
+ * This class represents a model of a reusable widget that is used
+ * to display the user's gender.
+ * The Gender button can be editable in the Edit Profile screen, but
+ * it cannot be edited when the current user sees information related
+ * to others (in the partial profile screen available on Feed or
+ * on other users' complete profile that are available after a match occurred).
+ * In the sign up screen the button is used multiple times so that
+ * users can select their gender.
  */
 
 class GenderButton extends StatelessWidget {
@@ -37,8 +37,10 @@ class GenderButton extends StatelessWidget {
   }) : super(key: key);
 
   /**
-   * The widget wiggles when it can be editable(in th Edit Profile Screen)
+   * The widget wiggles when it is in the edit mode
+   * (for example in the Edit Profile Screen).
    */
+
   @override
   Widget build(BuildContext context) {
     if (editable) {
@@ -53,9 +55,9 @@ class GenderButton extends StatelessWidget {
   }
 
   /**
-   * This method generates icons depanding on gender
+   * This method generates icons depanding on gender.
    * @ param String? - the gender to be selected
-   * @return the IconData corresponded to the selected gender
+   * @return the IconData corresponding to the selected gender
    */
 
   IconData getIconForGender(String? gender) {
@@ -79,9 +81,10 @@ class GenderButton extends StatelessWidget {
   }
 
   /**
-   * This method allows users to tap on the button in the instances when it is ediatble.
-   * If the button is not editable in that case, nothing will happen,
-   * otherwise a DialogDropdown will be triggered so that users can select a new gender.
+   * This method allows users to tap on the button in the instances
+   * when it is ediatble. If the button is not editable, nothing will happen,
+   * otherwise a DialogDropdown will be triggered so that users
+   * can select a new gender.
    */
 
   Function? getOnTap(BuildContext context) {

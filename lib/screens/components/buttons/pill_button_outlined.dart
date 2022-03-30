@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
+ * This class represents a model of a reusable widget that is used
  * to display text in a pill-shaped field.
- * It takes the text to be displayed and the on pressed function as
- * required arguments, but can be further customised.
+ * It takes a text to be displayed and the on pressed function as
+ * required arguments, but can be customised further.
  */
 
 class PillButtonOutlined extends StatelessWidget {

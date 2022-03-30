@@ -8,12 +8,13 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
+ * This class represents a model of a reusable widget that is used
  * to display the university the users attend to.
- * The University button can be editable in the Sign Up process and in Edit Profile screen,
- * but it cannot be edited when the current users sees information related to the others( in the partial
- * profile screen available on Feed or on other users' complete profile that is available after
- * a match occured)
+ * The University button can be editable in the Sign Up process
+ * and in Edit Profile screen, but it cannot be edited when the current
+ * user sees information related to the others (in the partial profile
+ * screen available on Feed or on other users' complete profile
+ * that is available after a match occured).
  */
 
 class UniversityButton extends StatelessWidget {
@@ -33,7 +34,6 @@ class UniversityButton extends StatelessWidget {
     this.color = tertiaryColour,
     this.onSave,
   }) : super(key: key);
-
 
   /**
    * The widget wiggles when it can be editable(in th Edit Profile Screen)

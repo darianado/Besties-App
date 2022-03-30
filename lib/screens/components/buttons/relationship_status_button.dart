@@ -7,8 +7,8 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
- * to display the relationship related information for the users.
+ * This class represents a model of a reusable widget that is used
+ * to display information about relationship status of the users.
  * The Relationship Status button can be editable
  * depending on the place it is used. In the profile related screens
  * it displays the user's relationship status.
@@ -57,7 +57,7 @@ class RelationshipStatusButton extends StatelessWidget {
 
   /**
    * This method specifies action to be performed in the editable instances
-   * of this button. It will trigger the onSave functionality.
+   * of this button. It will trigger the provided onSave function.
    */
 
   Function? getOnTap(BuildContext context) {

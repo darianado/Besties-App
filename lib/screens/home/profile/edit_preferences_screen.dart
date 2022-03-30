@@ -8,12 +8,12 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/interests/display_interests.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/utility/helpers.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
-import '../../../services/user_state.dart';
+import '../../../states/user_state.dart';
 
 class EditPreferencesScreen extends StatefulWidget {
   const EditPreferencesScreen({Key? key}) : super(key: key);
@@ -23,6 +23,7 @@ class EditPreferencesScreen extends StatefulWidget {
 }
 
 class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
+  late final FirestoreService _firestoreService;
   Preferences? newPreferences;
   bool isLoading = false;
 
@@ -31,11 +32,14 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
       isLoading = true;
     });
 
-    await FirestoreService.instance.setPreferences(userID, preferences);
+    await _firestoreService.setPreferences(userID, preferences);
+  }
 
-    setState(() {
-      isLoading = false;
-    });
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }
 
   @override

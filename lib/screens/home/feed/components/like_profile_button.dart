@@ -4,7 +4,7 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/components/dialogs/match_alert.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 /// The [FloatingActionButton] to like the displayed profile.
@@ -25,7 +25,14 @@ class LikeProfileButton extends StatefulWidget {
 }
 
 class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  late final FirestoreService _firestoreService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+  }
 
   final notLikedValue = 0.0;
   final likedValue = 1.0;

@@ -8,7 +8,7 @@ import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/components/dialogs/delete_account_dialog.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {

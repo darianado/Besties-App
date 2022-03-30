@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
 import 'package:project_seg/services/firestore_service.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 ///This class represents the model of a reusable widget that is used
@@ -11,9 +11,7 @@ import 'package:provider/provider.dart';
 ///The bio field contains a label where users can edit their bio
 ///which can be editable, depending on where it is used.
 ///
-
-class BioField extends StatelessWidget {
-  final FirestoreService _firestoreService = FirestoreService.instance;
+class BioField extends StatefulWidget {
   final bool editable;
   final String label;
 
@@ -23,8 +21,22 @@ class BioField extends StatelessWidget {
   ///The widget can be editable when it is used  in the Edit Profile screen
 
   @override
+  State<BioField> createState() => _BioFieldState();
+}
+
+class _BioFieldState extends State<BioField> {
+  late final FirestoreService _firestoreService;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _firestoreService = Provider.of<FirestoreService>(context, listen: false);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    if (editable) {
+    if (widget.editable) {
       return ShakeAnimatedWidget(
         duration: const Duration(milliseconds: 200),
         shakeAngle: Rotation.deg(z: 0.6),
@@ -56,7 +68,7 @@ class BioField extends StatelessWidget {
             color: tertiaryColour.withOpacity(0.1),
           ),
           child: Text(
-            label,
+            widget.label,
             style: Theme.of(context).textTheme.titleMedium,
           ),
         ),
@@ -67,7 +79,7 @@ class BioField extends StatelessWidget {
   Function? getOnTap(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    if (!editable) return null;
+    if (!widget.editable) return null;
 
     return () => showDialog(
         context: context,

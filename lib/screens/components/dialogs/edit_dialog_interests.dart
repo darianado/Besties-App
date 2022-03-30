@@ -3,7 +3,7 @@ import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/screens/components/interests/select_interests.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-import 'package:project_seg/services/context_state.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 

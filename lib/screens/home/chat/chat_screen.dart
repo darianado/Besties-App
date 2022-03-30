@@ -4,8 +4,8 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/home/chat/components/left_aligned_headline.dart';
 import 'package:project_seg/screens/home/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
-import 'package:project_seg/services/match_state.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/match_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class ChatScreen extends StatefulWidget {

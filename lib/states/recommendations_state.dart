@@ -8,20 +8,20 @@ import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class RecommendationsState extends ChangeNotifier {
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  final FirestoreService firestoreService;
 
   bool loadingRecommendations = false;
   String? _currentQueueID;
   Preferences? _currentPreferences;
 
-  RecommendationsState(User user) {
+  RecommendationsState(User user, {required this.firestoreService}) {
     startListening(user);
   }
 
   StreamSubscription<DocumentSnapshot?>? _subscription;
 
   void startListening(User user) {
-    _firestoreService.loggedInUser(user).listen((ActiveUser activeUser) async {
+    firestoreService.loggedInUser(user).listen((ActiveUser activeUser) async {
       if (_currentPreferences == null || _currentPreferences != activeUser.userData?.preferences) {
         _currentPreferences = activeUser.userData?.preferences;
 
@@ -29,7 +29,7 @@ class RecommendationsState extends ChangeNotifier {
         notifyListeners();
 
         _subscription?.cancel();
-        _subscription = _firestoreService.recommendationsStream(activeUser.user?.uid).listen((DocumentSnapshot<Map> event) {
+        _subscription = firestoreService.recommendationsStream(activeUser.user?.uid).listen((DocumentSnapshot<Map> event) {
           if (event.exists) {
             Map? data = event.data();
 

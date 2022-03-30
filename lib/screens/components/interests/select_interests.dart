@@ -4,6 +4,7 @@ import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/components/interests/category_view.dart';
 import 'package:project_seg/screens/components/interests/edit_interests_bottom_sheet.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:provider/provider.dart';
 
 class SelectInterests extends StatefulWidget {
   const SelectInterests({
@@ -20,13 +21,12 @@ class SelectInterests extends StatefulWidget {
 }
 
 class _SelectInterestsState extends State<SelectInterests> {
-  final FirestoreService _firestoreService = FirestoreService.instance;
   late Future<CategorizedInterests>? possibleCategories;
 
   @override
   void initState() {
     super.initState();
-    possibleCategories = _firestoreService.fetchInterests();
+    possibleCategories = Provider.of<FirestoreService>(context, listen: false).fetchInterests();
   }
 
   @override

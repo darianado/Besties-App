@@ -7,7 +7,7 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';

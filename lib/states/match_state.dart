@@ -5,16 +5,14 @@ import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/services/firestore_service.dart';
 
 class MatchState extends ChangeNotifier {
-  final FirestoreService _firestoreService = FirestoreService.instance;
+  final FirestoreService firestoreService;
 
-  MatchState._privateConstructor();
-  static final MatchState _instance = MatchState._privateConstructor();
-  static MatchState get instance => _instance;
+  MatchState({required this.firestoreService});
 
   List<UserMatch>? matches;
 
   void onStart(String userID) {
-    _firestoreService.listenForMatches(userID).listen((List<UserMatch> event) async {
+    firestoreService.listenForMatches(userID).listen((List<UserMatch> event) async {
       event.sort((a, b) {
         final aTimestamp = a.timestamp;
         final bTimestamp = b.timestamp;
@@ -27,7 +25,7 @@ class MatchState extends ChangeNotifier {
       });
 
       matches = await Future.wait(event.map((e) async {
-        final fetchedMatch = await _firestoreService.getUser(e.match!.uid!);
+        final fetchedMatch = await firestoreService.getUser(e.match!.uid!);
         e.match = fetchedMatch;
         return e;
       }).toList());
@@ -35,7 +33,7 @@ class MatchState extends ChangeNotifier {
       notifyListeners();
 
       matches?.forEach((UserMatch element) {
-        _firestoreService.listenForMessages(element.matchID).listen((event) {
+        firestoreService.listenForMessages(element.matchID).listen((event) {
           element.messages = event;
           notifyListeners();
         });

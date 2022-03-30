@@ -9,8 +9,8 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/screens/components/validation_error.dart';
-import 'package:project_seg/services/context_state.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/context_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/helpers.dart';
 import 'package:provider/provider.dart';
@@ -22,9 +22,9 @@ import '../../constants/borders.dart';
 ///birthday, gender and their relationship status.
 
 class RegisterBasicInfoScreen extends StatefulWidget {
-  const RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
-
   final UserData userData;
+
+  const RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();

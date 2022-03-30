@@ -6,10 +6,12 @@ import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
-import 'package:project_seg/services/auth_exception_handler.dart';
+import 'package:project_seg/utility/auth_exception_handler.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
+import 'package:provider/provider.dart';
 import '../../../constants/borders.dart';
 
 class EditPasswordScreen extends StatefulWidget {
@@ -24,7 +26,6 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
   final TextEditingController _oldPassword = TextEditingController();
   final TextEditingController _newPassword = TextEditingController();
   final TextEditingController _confirmNewPassword = TextEditingController();
-  final AuthService _authService = AuthService.instance;
 
   @override
   void dispose() {
@@ -36,7 +37,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
 
   _changePassword(String currentPassword, String newPassword) async {
     try {
-      await _authService.changePassword(currentPassword, newPassword);
+      await Provider.of<UserState>(context).changePassword(currentPassword, newPassword);
     } on FirebaseAuthException catch (e) {
       final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(

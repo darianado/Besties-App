@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_seg/services/user_state.dart';
+import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 class EmailVerifyScreen extends StatefulWidget {
@@ -15,18 +15,19 @@ class EmailVerifyScreen extends StatefulWidget {
 }
 
 class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
-  final AuthService _authService = AuthService.instance;
+  late UserState _userState;
 
   @override
   void initState() {
     super.initState();
-    _authService.startCheckingForVerifiedEmail();
+    _userState = Provider.of<UserState>(context, listen: false);
+    _userState.startCheckingForVerifiedEmail();
   }
 
   @override
   void dispose() {
+    _userState.stopCheckingForVerifiedEmail();
     super.dispose();
-    _authService.stopCheckingForVerifiedEmail();
   }
 
   @override
@@ -90,7 +91,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
                         color: whiteColour,
                         padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                         textStyle: Theme.of(context).textTheme.labelLarge?.apply(color: whiteColour),
-                        onPressed: () => _authService.sendVerificationEmail(),
+                        onPressed: () async => await _userState.sendVerificationEmail(),
                       ),
                     ],
                   ),

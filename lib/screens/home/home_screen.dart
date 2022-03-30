@@ -3,9 +3,13 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import 'package:project_seg/states/match_state.dart';
-import 'package:project_seg/states/user_state.dart';
-import 'package:provider/provider.dart';
+
+/**
+ * The Home screen.
+ * This screen that helps navigating through the pages that are connected
+ * by the Nav Bar (Profile, Feed, Chat history).
+ * The page displays its specific content and the NavBar
+ */
 
 class HomeScreen extends StatefulWidget {
   final int index;
@@ -28,13 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    /*
-    final _matchState = MatchState.instance;
-
-    final _userState = Provider.of<UserState>(context);
-
-    _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
-    */
     selectedIndex = widget.index;
     super.initState();
   }
@@ -45,6 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didUpdateWidget(oldWidget);
   }
 
+  /**
+   * This method helps navigating through the pages linked by the NavBar.
+   * @param int index - the index of the page users select to go to
+   */
   void changeSelection(int index) {
     if (index == 1) {
       FeedScreen.animateToTop();

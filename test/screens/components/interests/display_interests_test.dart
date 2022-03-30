@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import '../test_resources/widget_pumper.dart';
-import '../test_resources/test_profile.dart';
+import '../../../test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/other_user.dart';
@@ -17,12 +17,10 @@ void main() {
 
   OtherUser currentUser = TestProfile.firstProfile;
   testWidgets('first interest category View', (WidgetTester tester) async {
-
     CategorizedInterests selected = currentUser.userData.categorizedInterests!;
 
-    await _widgetPumper.pumpWidget(tester, 
-        DisplayInterests(interests: selected));
-      
+    await _widgetPumper.pumpWidget(tester, DisplayInterests(interests: selected));
+
     final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
 
     expect(wrapWidgetFinder.alignment, WrapAlignment.center);
@@ -50,23 +48,19 @@ void main() {
 
     final Finder thirdInterestWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
     expect(thirdInterestWidgetFinder, findsOneWidget);
-    
   });
 
   testWidgets('second interest category View', (WidgetTester tester) async {
-
     CategorizedInterests selected = currentUser.userData.categorizedInterests!;
 
-    await _widgetPumper.pumpWidget(tester, 
-        DisplayInterests(interests: selected));
-      
+    await _widgetPumper.pumpWidget(tester, DisplayInterests(interests: selected));
+
     final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
 
     expect(wrapWidgetFinder.alignment, WrapAlignment.center);
     expect(wrapWidgetFinder.runAlignment, WrapAlignment.center);
     expect(wrapWidgetFinder.spacing, 6.0);
     expect(wrapWidgetFinder.runSpacing, 6.0);
-
 
     final Finder fourthInterestWidgetFinder = find.widgetWithText(ChipWidget, "Hiking");
     expect(fourthInterestWidgetFinder, findsOneWidget);
@@ -85,7 +79,5 @@ void main() {
     expect(fifthInterestWidgetStyle.bordered, false);
     expect(fifthInterestWidgetStyle.textColor, whiteColour);
     expect(fifthInterestWidgetStyle.label, "Swimming");
-
   });
-
 }

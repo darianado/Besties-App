@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import '../test_resources/widget_pumper.dart';
-import '../test_resources/test_profile.dart';
+import '../../../test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/other_user.dart';
@@ -21,8 +21,6 @@ void main() {
 
   Category selected = currentUser.userData.categorizedInterests!.categories.first;
 
-
-
   Category category = Category(
     title: "food",
     interests: [
@@ -34,17 +32,14 @@ void main() {
   );
 
   testWidgets('first interest category View', (WidgetTester tester) async {
-
-    await _widgetPumper.pumpWidget(tester, 
+    await _widgetPumper.pumpWidget(
+        tester,
         EditInterestBottomSheet(
-          category: category, 
-          selected: selected, 
-          onChange: (newCategory) 
-            {
+            category: category,
+            selected: selected,
+            onChange: (newCategory) {
               selected = newCategory;
-            }
-        )
-    );
+            }));
 
     final Finder firstInterestTextFinder = find.text("Cocktails");
     expect(firstInterestTextFinder, findsOneWidget);
@@ -86,8 +81,5 @@ void main() {
     expect(saveButtonStyle.textStyle!.fontSize, 18);
     expect(saveButtonStyle.textStyle!.fontWeight, FontWeight.w600);
     expect(saveButtonStyle.textStyle!.color, whiteColour);
-
   });
-
-
 }

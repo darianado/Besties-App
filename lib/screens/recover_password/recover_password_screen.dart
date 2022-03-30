@@ -32,22 +32,17 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _email = TextEditingController();
 
-  bool isEmail(String input) => EmailValidator.validate(input);
-
   _sendEmailVerification(String email) async {
     String message = 'Please check your email for a password reset link';
 
     try {
-      await Provider.of<UserState>(context).resetPassword(email);
+      await Provider.of<UserState>(context, listen: false).resetPassword(email);
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       message = errorMsg;
     }
 
-    showDialog(
-        context: context,
-        builder: (context) => DismissDialog(message: message));
+    showDialog(context: context, builder: (context) => DismissDialog(message: message));
   }
 
   void _submitForm(GlobalKey<FormState> key) {
@@ -77,8 +72,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    leftRightPadding, 20, leftRightPadding, 30),
+                padding: const EdgeInsets.fromLTRB(leftRightPadding, 20, leftRightPadding, 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -88,16 +82,12 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                     ),
                     Text(
                       'Forgot Password?',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.apply(fontWeightDelta: 2),
+                      style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
                     ),
                     SizedBox(
                       height: 250,
                       width: double.infinity,
-                      child:
-                          Lottie.asset('assets/lotties/forgot-password.json'),
+                      child: Lottie.asset('assets/lotties/forgot-password.json'),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -121,8 +111,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Send recovery email",
-                        textStyle: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
+                        textStyle: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2, color: whiteColour),
                         onPressed: () => _submitForm(_formKey),
                       ),
                     ),
@@ -132,10 +121,7 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       child: PillButtonOutlined(
                         text: "Return to log in",
                         color: tertiaryColour,
-                        textStyle: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                            color: tertiaryColour),
+                        textStyle: Theme.of(context).textTheme.headline6,
                         onPressed: () => context.goNamed(loginScreenName),
                       ),
                     ),

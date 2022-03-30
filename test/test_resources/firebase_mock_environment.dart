@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:project_seg/models/User/user_data.dart';
@@ -23,8 +24,10 @@ class FirebaseMockEnvironment {
 
   Future<UserState> createUserState(String activeUserEmail, bool authenticated) async {
     final doc = appUsersTestData.firstWhere((element) => element['email'] == activeUserEmail);
+    final userData = (doc['data'] as UserData);
 
     final user = MockUser(
+      uid: userData.uid!,
       email: doc['email'],
       isEmailVerified: doc['emailVerified'],
     );
@@ -37,6 +40,16 @@ class FirebaseMockEnvironment {
     }
 
     return _userState;
+  }
+
+  Future<void> printUserCollection(FakeFirebaseFirestore firestore) async {
+    final result = await firestore.collection("users").get().then((querySnapshot) => querySnapshot.docs
+        .map(
+          (e) => UserData.fromSnapshot(e).toMap(),
+        )
+        .toList());
+
+    print(result);
   }
 
   Future<FirestoreService> createFirestoreService() async {
@@ -52,6 +65,8 @@ class FirebaseMockEnvironment {
       final UserData userData = doc['data'] as UserData;
       await firestore.collection("users").doc(userData.uid).set(userData.toMap());
     }
+
+    //await printUserCollection(firestore);
 
     return FirestoreService(firebaseFirestore: firestore);
   }

@@ -10,6 +10,7 @@ class UserState extends ChangeNotifier {
   final AuthService authService;
   final FirestoreService firestoreService;
 
+  bool waitingOnFirestore = false;
   ActiveUser? _user;
   ActiveUser? get user => _user;
 
@@ -26,9 +27,13 @@ class UserState extends ChangeNotifier {
         _subscription?.cancel();
         notifyListeners();
       } else {
+        waitingOnFirestore = true;
         _user = ActiveUser(user: userAuthEvent);
+        notifyListeners();
         _subscription = firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
+          waitingOnFirestore = false;
           _user = userFirestoreEvent;
+          //print("We got a user object: ${_user?.userData?.firstName}");
           notifyListeners();
         });
       }

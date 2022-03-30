@@ -40,6 +40,9 @@ class AuthService {
   }
 
   Future<void> sendVerificationEmail() async {
+    // For testing purposes - mock package does not support emails.
+    if (firebaseAuth is mockAuth.MockFirebaseAuth) return;
+
     await currentUser?.sendEmailVerification(null);
   }
 
@@ -66,7 +69,9 @@ class AuthService {
   }
 
   Future<void> resetPassword(String email) async {
-    //TO DO check if user with that email is verified before sending password reset
+    // For testing purposes - mock package does not support emails.
+    if (firebaseAuth is mockAuth.MockFirebaseAuth) return;
+
     return await firebaseAuth.sendPasswordResetEmail(email: email);
   }
 

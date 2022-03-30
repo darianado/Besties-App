@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
-import '../test_resources/widget_pumper.dart';
-import '../test_resources/test_profile.dart';
+import '../../../test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/other_user.dart';
@@ -18,12 +18,10 @@ void main() {
   OtherUser currentUser = TestProfile.firstProfile;
 
   testWidgets('first preference interest category View', (WidgetTester tester) async {
-
     Category selected = currentUser.userData.preferences!.interests!.categories[0];
 
-    await _widgetPumper.pumpWidget(tester, 
-        DisplayInterestsPreferences(items: selected.interests));
-      
+    await _widgetPumper.pumpWidget(tester, DisplayInterestsPreferences(items: selected.interests));
+
     final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
 
     expect(wrapWidgetFinder.alignment, WrapAlignment.center);
@@ -51,16 +49,13 @@ void main() {
 
     final Finder thirdInterestWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
     expect(thirdInterestWidgetFinder, findsNothing);
-    
   });
 
   testWidgets('second preference interest category View', (WidgetTester tester) async {
-
     Category selected = currentUser.userData.preferences!.interests!.categories[1];
 
-    await _widgetPumper.pumpWidget(tester, 
-        DisplayInterestsPreferences(items: selected.interests));
-      
+    await _widgetPumper.pumpWidget(tester, DisplayInterestsPreferences(items: selected.interests));
+
     final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
 
     expect(wrapWidgetFinder.alignment, WrapAlignment.center);
@@ -85,7 +80,5 @@ void main() {
     expect(fourthInterestWidgetStyle.bordered, false);
     expect(fourthInterestWidgetStyle.textColor, simpleWhiteColour);
     expect(fourthInterestWidgetStyle.label, "Hiking");
-
   });
-
 }

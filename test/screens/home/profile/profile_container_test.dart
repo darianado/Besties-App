@@ -3,12 +3,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/sliding_profile_details.dart';
 import 'package:project_seg/screens/home/feed/components/profile_container.dart';
-import 'mock.dart';
+import '../../../test_resources/firebase_mocks.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 
-import 'test_resources/test_profile.dart';
-import 'test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
+import '../../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

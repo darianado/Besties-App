@@ -6,9 +6,8 @@ import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/interests/category_view.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../test_resources/widget_pumper.dart';
-import '../test_resources/test_profile.dart';
-
+import '../../../test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

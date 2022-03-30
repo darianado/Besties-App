@@ -3,11 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/models/User/other_user.dart';
-import '../mock.dart';
+import '../../../test_resources/firebase_mocks.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 
-import '../test_resources/test_profile.dart';
-import '../test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
+import '../../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

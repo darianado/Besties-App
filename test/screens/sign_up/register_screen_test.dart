@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import '../test_resources/widget_pumper.dart';
+import '../../test_resources/widget_pumper.dart';
 import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';

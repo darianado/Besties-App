@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../test_resources/widget_pumper.dart';
+import '../../test_resources/widget_pumper.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 void main() {
@@ -67,11 +67,9 @@ void main() {
     expect(nextButtonStyle.text, 'Next');
     expect(nextButtonStyle.textStyle!.fontSize, 25);
     expect(nextButtonStyle.textStyle!.fontWeight, FontWeight.w600);
-
-    
   });
 
-  testWidgets("textFormField only takes one value", (tester) async{
+  testWidgets("textFormField only takes one value", (tester) async {
     await _widgetPumper.pumpWidget(tester, RegisterBasicInfoScreen(userData: currentUserData));
 
     final Finder firstName = find.widgetWithText(TextFormField, 'First name');

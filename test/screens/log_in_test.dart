@@ -4,8 +4,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/login/login_screen.dart';
-import 'mock.dart';
-import 'test_resources/widget_pumper.dart';
+import '../test_resources/firebase_mocks.dart';
+import '../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

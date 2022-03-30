@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 
-import 'test_resources/widget_pumper.dart';
+import 'widget_pumper.dart';
 
 Future<void> signOutHelper(WidgetPumper pumper) async {
   await pumper.firebaseEnv.userState.signOut();

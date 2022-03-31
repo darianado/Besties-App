@@ -9,10 +9,10 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
- * to display the interests selected by the user in their prefrences.
+ * This class represents a model of a reusable widget that is used
+ * to display the interests selected by a user in their prefrences.
  * The widget can be editable.
- * Each interest is shown in a separated widget.
+ * Each interest is shown in a separate widget.
  */
 
 class DisplayInterestsPreferences extends StatelessWidget {
@@ -53,7 +53,7 @@ class DisplayInterestsPreferences extends StatelessWidget {
   }
 
   /**
-   * This method returns a widget that displays the label in a chip.
+   * This method returns a widget that displays a label in a chip.
    */
 
   Widget chip(String label, BuildContext context) {

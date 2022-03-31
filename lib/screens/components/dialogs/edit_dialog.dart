@@ -3,11 +3,9 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a dialog when users want to make edits on their profiles.
- */
-
+/// A dismissible widget that displays [content] in a [Dialog] to make changes to a profile.
+///
+/// When the [onSave] method is called, the changes will be updated on the database.
 class EditDialog extends StatelessWidget {
   final Widget content;
   final Function onSave;

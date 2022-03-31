@@ -24,7 +24,7 @@ class PillButtonOutlined extends StatelessWidget {
     this.isLoading = false,
     required this.text,
     this.expandsWidth = false,
-    this.textStyle = const TextStyle(color: Colors.white),
+    this.textStyle = const TextStyle(color: Colors.white, fontSize: 10),
     required this.onPressed,
     this.color = secondaryColour,
     this.icon,

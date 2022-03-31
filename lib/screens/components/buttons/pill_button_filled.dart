@@ -24,7 +24,7 @@ class PillButtonFilled extends StatelessWidget {
     this.isLoading = false,
     required this.text,
     this.expandsWidth = false,
-    this.textStyle = const TextStyle(color: Colors.white),
+    this.textStyle = const TextStyle(color: Colors.white, fontSize: 10),
     required this.onPressed,
     this.padding = const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
     this.icon,

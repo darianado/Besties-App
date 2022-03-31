@@ -14,13 +14,21 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * The fifth screen that is displayed through the sign up process.
+ * The user is asked to specify their interests. The user is allowed
+ * to choose as many and little of interests as specified in the database.
+ */
+
 class RegisterInterestsScreen extends StatefulWidget {
-  const RegisterInterestsScreen({Key? key, required this.userData}) : super(key: key);
+  const RegisterInterestsScreen({Key? key, required this.userData})
+      : super(key: key);
 
   final UserData userData;
 
   @override
-  State<RegisterInterestsScreen> createState() => _RegisterInterestsScreenState();
+  State<RegisterInterestsScreen> createState() =>
+      _RegisterInterestsScreenState();
 }
 
 class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
@@ -32,7 +40,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
     final _contextState = Provider.of<ContextState>(context);
     final _firestoreService = Provider.of<FirestoreService>(context);
 
-    void saveToFirestore() => _firestoreService.saveUserData(widget.userData, _userState.user?.user?.uid);
+    void saveToFirestore() => _firestoreService.saveUserData(
+        widget.userData, _userState.user?.user?.uid);
 
     return Scaffold(
       body: CustomScrollView(
@@ -45,7 +54,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
             expandedHeight: 100,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed(registerDescriptionScreenName, extra: widget.userData),
+              onPressed: () => context.goNamed(registerDescriptionScreenName,
+                  extra: widget.userData),
               icon: const Icon(Icons.arrow_back_ios, color: primaryColour),
             ),
             flexibleSpace: Container(
@@ -53,13 +63,17 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
+                padding: const EdgeInsets.fromLTRB(
+                    leftRightPadding, 5, leftRightPadding, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Finally, what do you like?',
-                        style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4
+                            ?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -89,7 +103,8 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                         widget.userData.categorizedInterests = newCategories;
                       });
                     },
-                    selected: widget.userData.categorizedInterests ?? CategorizedInterests(categories: []),
+                    selected: widget.userData.categorizedInterests ??
+                        CategorizedInterests(categories: []),
                   ),
                   ValidationError(errorText: validateInterestsError),
                   const SizedBox(height: 20),
@@ -98,7 +113,10 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
                     child: PillButtonFilled(
                       text: "Done",
                       backgroundColor: tertiaryColour,
-                      textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600, color: whiteColour),
+                      textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                          color: whiteColour),
                       onPressed: () {
                         if (!validate()) return;
                         saveToFirestore();
@@ -119,7 +137,9 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
 
     setState(() {
       validateInterestsError = validateInterests(
-          widget.userData.categorizedInterests, _contextState.context?.minInterestsSelected, _contextState.context?.maxInterestsSelected);
+          widget.userData.categorizedInterests,
+          _contextState.context?.minInterestsSelected,
+          _contextState.context?.maxInterestsSelected);
     });
 
     return (validateInterestsError == null);

@@ -43,6 +43,9 @@ void main() async {
   ));
 }
 
+/// The entry widget which injects a MultiProvider with various
+/// services used for authentication, database management, navigation, etc.
+/// Sets the Theme of the app. Sets the entry point of the app to be the "feed" screen.
 class MyApp extends StatelessWidget {
   final UserState userState;
   final AppRouter appRouter;

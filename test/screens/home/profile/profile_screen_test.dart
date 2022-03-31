@@ -7,9 +7,9 @@ import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
-import 'helpers.dart';
 
-import 'test_resources/widget_pumper.dart';
+import '../../../test_resources/helpers.dart';
+import '../../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -82,7 +82,7 @@ void main() {
     });
 
     testWidgets("Clicking change password redirects to change password screen", (tester) async {
-      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
       expect(find.byType(ProfileScreen), findsOneWidget);

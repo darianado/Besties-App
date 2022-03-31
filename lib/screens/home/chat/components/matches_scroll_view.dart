@@ -4,6 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 
+/**
+ * This class represents the model of a reusable widget that is used
+ * to display a match with an user.
+ */
+
+
 class MatchesScrollView extends StatelessWidget {
   const MatchesScrollView({
     Key? key,
@@ -12,6 +18,9 @@ class MatchesScrollView extends StatelessWidget {
 
   final List<UserMatch> matches;
 
+  /**
+   * This method builds a widget that displays a match of a user.
+   */
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -30,6 +39,11 @@ class MatchesScrollViewItem extends StatelessWidget {
   }) : super(key: key);
 
   final UserMatch match;
+
+  /**
+   * This method builds a widget that displays a single match in the list of matches.
+   * It shows a picture of the user matched with and their name.
+   */
 
   @override
   Widget build(BuildContext context) {

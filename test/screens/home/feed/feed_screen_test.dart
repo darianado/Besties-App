@@ -1,11 +1,13 @@
+import 'package:colorful_safe_area/colorful_safe_area.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
+import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
 
-import 'helpers.dart';
-import 'mock.dart';
-import 'test_resources/widget_pumper.dart';
+import '../../../test_resources/helpers.dart';
+import '../../../test_resources/firebase_mocks.dart';
+import '../../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -16,10 +18,34 @@ void main() {
     await _widgetPumper.setup(userEmail, authenticated: true);
   });
 
-/*
   group("Feed screen:", () {
     testWidgets("Contains correct information", (tester) async {
-      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+
+      expect(find.byType(FeedScreen), findsOneWidget);
+
+      final Finder refreshIndicatorFinder = find.byType(RefreshIndicator);
+      expect(refreshIndicatorFinder, findsOneWidget);
+      final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
+
+      final Finder pageViewFinder = find.byType(PageView);
+      expect(pageViewFinder, findsOneWidget);
+      final PageView pageView = tester.widget<PageView>(pageViewFinder);
+      expect(pageView.physics, isNotNull);
+      expect(pageView.physics, isA<CustomPageViewScrollPhysics>());
+
+      expect(find.byType(ColorfulSafeArea), findsOneWidget);
+
+      final Finder editPreferencesButtonFinder = find.byType(IconButton);
+      expect(editPreferencesButtonFinder, findsOneWidget);
+      final IconButton editPreferencesButton = tester.widget<IconButton>(editPreferencesButtonFinder);
+      expect(find.descendant(of: editPreferencesButtonFinder, matching: find.byIcon(Icons.menu)), findsOneWidget);
+      expect(editPreferencesButton.onPressed, isNotNull);
+    });
+
+    testWidgets("Page view scroll physics exists", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/feed");
 
       expect(find.byType(FeedScreen), findsOneWidget);
@@ -28,9 +54,48 @@ void main() {
       expect(refreshIndicatorFinder, findsOneWidget);
       final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
       expect(() => refreshIndicator.onRefresh(), returnsNormally);
+      await tester.pump(Duration(seconds: 1));
+    });
+
+    test("Page view scroll overrides spring", () async {
+      final scrollViewPhysics = CustomPageViewScrollPhysics();
+      expect(scrollViewPhysics.spring.mass, 80);
+      expect(scrollViewPhysics.spring.stiffness, 50);
+      expect(scrollViewPhysics.spring.damping, 0.7);
+    });
+
+    testWidgets("Refreshing feed", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+
+      expect(find.byType(FeedScreen), findsOneWidget);
+
+      final Finder refreshIndicatorFinder = find.byType(RefreshIndicator);
+      expect(refreshIndicatorFinder, findsOneWidget);
+      final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
+      expect(() => refreshIndicator.onRefresh(), returnsNormally);
+      await tester.pump(Duration(seconds: 1));
+    });
+
+    testWidgets("Tapping edit preferences shows edit preferences screen", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+
+      expect(find.byType(FeedScreen), findsOneWidget);
+
+      final Finder editPreferencesButtonFinder = find.byType(IconButton);
+      expect(editPreferencesButtonFinder, findsOneWidget);
+      final IconButton editPreferencesButton = tester.widget<IconButton>(editPreferencesButtonFinder);
+      expect(editPreferencesButton.onPressed, isNotNull);
+
+      expect(find.byType(EditPreferencesScreen), findsNothing);
+      expect(() => editPreferencesButton.onPressed!(), returnsNormally);
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(EditPreferencesScreen), findsOneWidget);
     });
   });
-  */
 
   // UserData firstProfile = UserData(
   //   firstName: "Amy",

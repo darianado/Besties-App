@@ -6,11 +6,22 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * This class represents a model of a reusable widget that is used
+ * to display a user's bio.
+ * The bio field contains a label where users can edit their bio
+ * which can be editable, depending on where it is used.
+ */
+
 class BioField extends StatefulWidget {
   final bool editable;
   final String label;
 
-  BioField({Key? key, required this.label, this.editable = false}) : super(key: key);
+  BioField({Key? key, required this.label, this.editable = false})
+      : super(key: key);
+
+  ///The widget can be editable when it is used for example
+  /// in the Edit Profile screen.
 
   @override
   State<BioField> createState() => _BioFieldState();
@@ -21,7 +32,6 @@ class _BioFieldState extends State<BioField> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }
@@ -38,6 +48,9 @@ class _BioFieldState extends State<BioField> {
       return bio(context, getOnTap(context));
     }
   }
+
+  ///This method constructs the bio widget that is shown on the profile related screens:
+  ///Profile Screen, Edit Profile Screen and when users can see their matches' profiles.
 
   Widget bio(BuildContext context, Function? onTap) {
     return Material(
@@ -73,9 +86,12 @@ class _BioFieldState extends State<BioField> {
     return () => showDialog(
         context: context,
         builder: (BuildContext context) {
-          return EditDialogTextField(value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
+          return EditDialogTextField(
+              value: _userState.user?.userData?.bio ?? " ", onSave: saveBio);
         });
   }
+
+  ///This method is asynchronous which allows users to save the edited bio.
 
   Future<void> saveBio(String? userId, String? bio) async {
     if (userId != null && bio != null) {

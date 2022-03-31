@@ -15,6 +15,11 @@ import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
 import '../../../states/user_state.dart';
 
+/**
+ * This class represents the model of a reusable widget that allows the
+ * user to change the preferences regarding the people their looking for.
+ */
+
 class EditPreferencesScreen extends StatefulWidget {
   const EditPreferencesScreen({Key? key}) : super(key: key);
 
@@ -51,6 +56,12 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     const spaceBetweenWidgetAndTitle = 10.0;
 
     newPreferences ??= Preferences.fromMap(_userState.user?.userData?.preferences?.toMap() ?? {});
+
+    final limitMinAge = _contextState.context?.minAge?.toDouble() ?? 16.0;
+    final limitMaxAge = _contextState.context?.maxAge?.toDouble() ?? 50.0;
+
+    final preferredMinAge = newPreferences?.minAge?.toDouble() ?? 16.0;
+    final preferredMaxAge = newPreferences?.maxAge?.toDouble() ?? 50.0;
 
     return Container(
       decoration: const BoxDecoration(
@@ -93,15 +104,15 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     ],
                   ),
                   RangeSlider(
-                    values: RangeValues(newPreferences?.minAge?.toDouble() ?? 16, newPreferences?.maxAge?.toDouble() ?? 100),
+                    values: RangeValues(preferredMinAge, preferredMaxAge),
                     activeColor: tertiaryColour,
                     inactiveColor: greyColour,
-                    min: (_contextState.context?.minAge?.toDouble() ?? 16),
-                    max: (_contextState.context?.maxAge?.toDouble() ?? 100),
-                    divisions: difference(_contextState.context?.minAge, _contextState.context?.maxAge),
+                    min: limitMinAge,
+                    max: limitMaxAge,
+                    divisions: difference(limitMinAge, limitMaxAge).toInt(),
                     labels: RangeLabels(
-                      newPreferences?.minAge?.toString() ?? "16",
-                      newPreferences?.maxAge?.toString() ?? "100",
+                      "${preferredMinAge.toInt()}",
+                      "${preferredMaxAge.toInt()}",
                     ),
                     onChanged: (RangeValues values) {
                       setState(() {
@@ -111,7 +122,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     },
                   ),
                   Text(
-                    'Age: ${newPreferences?.minAge} - ${newPreferences?.maxAge}',
+                    'Age: ${preferredMinAge.toInt()} - ${preferredMaxAge.toInt()}',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: spaceBetween),

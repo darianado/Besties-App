@@ -11,6 +11,11 @@ import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
+/**
+ * This class represents a model of a reusable widget that allows
+ * the user to enter edit your information mode.
+ */
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
 
@@ -32,13 +37,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         alignment: Alignment.center,
         child: Text(
           "EDIT",
-          style: Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
+          style:
+              Theme.of(context).textTheme.bodyMedium?.apply(color: whiteColour),
         ),
       ),
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
-          onPressed: () => context.goNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
+          onPressed: () => context.goNamed(homeScreenName,
+              params: {pageParameterKey: profileScreenName}),
           child: const Icon(
             FontAwesomeIcons.check,
             color: whiteColour,
@@ -50,7 +57,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         text: "Delete account",
         expandsWidth: true,
         color: Colors.red,
-        textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+        textStyle:
+            Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
         icon: const Icon(
           FontAwesomeIcons.ban,
           color: Colors.red,

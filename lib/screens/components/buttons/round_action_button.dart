@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a widget (for example an icon) and wrap it with another
- * widget to allow functionality when the button is pressed.
- * This class takes a widget to be used as a required argument but
- * can also take a custom fuction to be triggered when the button is pressed.
- */
-
+/// A widget that displays its [child] on a [FloatingActionButton].
 class RoundActionButton extends StatelessWidget {
   final Widget child;
   final Function()? onPressed;

@@ -16,10 +16,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 /**
  * This class represents a widget that is used to implement a user
- * verification functionality (log in) and display a screen for user
- * to provide his email and password associated with his account.
- * It also has a "Forgot password" link that redirects to password
- * recovery screen and "Sign up" link that redirects to sign up form
+ * verification functionality (log in) and display a screen for the user
+ * to provide their email and password associated with the account.
+ *
+ * It also has a "Forgot password" link that redirects to a password
+ * recovery screen and "Sign up" button that redirects to sign up form
  * for new users to join the app.
  */
 

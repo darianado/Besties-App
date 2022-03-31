@@ -14,7 +14,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
       uid: "john123",
       firstName: "John",
       lastName: "Doe",
-      likes: ["peter123"],
+      likes: ["peter123", "jane123"],
       bio: "Growth prevent power pull. Wind there role occur.",
       dob: DateTime(1999, 12, 19).toUtc(),
       gender: "Non-binary",
@@ -142,7 +142,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
       uid: "jane123",
       firstName: "Jane",
       lastName: "Doe",
-      likes: [],
+      likes: ["john123"],
       bio: "Growth prevent power pull. Wind there role occur.",
       dob: DateTime(1999, 12, 19).toUtc(),
       gender: "Non-binary",
@@ -219,6 +219,14 @@ final appUserMatchesTestData = [
           timestamp: DateTime(2022, 1, 22).toUtc(),
         ),
       ],
+    ),
+  },
+  {
+    "otherUserID": "john123",
+    "match": UserMatch(
+      matchID: "match2",
+      timestamp: DateTime(2022, 2, 20).toUtc(),
+      match: appUsersTestData[2]['data'] as UserData,
     ),
   },
 ];

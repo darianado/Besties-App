@@ -48,7 +48,11 @@ class FirebaseMockEnvironment {
     String result = "====== $matchID MESSAGES ======\n";
     final QuerySnapshot snapshot = await firestore.collection("matches").doc(matchID).collection("messages").get();
 
-    result += snapshot.docs.map((e) => "Message: ${e.data()}\n\n").toList().toString();
+    if (snapshot.docs.isEmpty) {
+      result += "NO DOCUMENT";
+    } else {
+      result += snapshot.docs.map((e) => "Message: ${e.data()}\n\n").toList().toString();
+    }
 
     result += "////// $matchID MESSAGES //////";
 
@@ -102,8 +106,10 @@ class FirebaseMockEnvironment {
         "timestamp": match.timestamp,
       });
 
-      for (Message message in match.messages!) {
-        await firestore.collection("matches").doc(match.matchID).collection("messages").doc().set(message.toMap());
+      if (match.messages != null) {
+        for (Message message in match.messages!) {
+          await firestore.collection("matches").doc(match.matchID).collection("messages").doc().set(message.toMap());
+        }
       }
     }
 

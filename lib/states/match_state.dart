@@ -54,11 +54,11 @@ class MatchState extends ChangeNotifier {
 
   /// Returns a subset of all [UserMatch]es, in which there exists a chat thread.
   List<UserMatch>? get activeChats {
-    return matches?.where((UserMatch element) => element.messages != null).toList();
+    return matches?.where((UserMatch element) => element.messages != null && element.messages!.isNotEmpty).toList();
   }
 
   /// Returns a subset of all [UserMatch]es, in which no chat thread exists.
   List<UserMatch>? get matchesWithNoChat {
-    return matches?.where((UserMatch element) => element.messages == null).toList();
+    return matches?.where((UserMatch element) => element.messages == null || element.messages!.isEmpty).toList();
   }
 }

@@ -15,15 +15,12 @@ import 'package:project_seg/screens/home/profile/profile_information.dart';
 class MatchProfileScreen extends StatelessWidget {
   final UserMatch userMatch;
 
-  const MatchProfileScreen({Key? key, required this.userMatch})
-      : super(key: key);
+  const MatchProfileScreen({Key? key, required this.userMatch}) : super(key: key);
 
-  /**
-   * This method builds a widget that displays the profile of a match.
-   * It contains the basic information about the matched user,
-   * a Chat button in order to start a conversation and
-   * a Close button to exit the screen.
-   */
+  /// This method builds a widget that displays the profile of a match.
+  /// It contains the basic information about the matched user,
+  /// a Chat button in order to start a conversation and
+  /// a Close button to exit the screen.
   @override
   Widget build(BuildContext context) {
     return ProfileInformation(
@@ -34,8 +31,7 @@ class MatchProfileScreen extends StatelessWidget {
         child: OpenChatButton(
           onPressed: () {
             Navigator.of(context).pop();
-            context.goNamed(matchChatScreenName,
-                extra: userMatch, params: {pageParameterKey: chatScreenName});
+            context.goNamed(matchChatScreenName, extra: userMatch, params: {pageParameterKey: chatScreenName});
           },
         ),
       ),

@@ -31,11 +31,6 @@ void main() {
 
       expect(find.byType(ChatThreadScreen), findsOneWidget);
 
-      /*
-      final Finder recentChatsFinder = find.byType(RecentChats);
-      expect(recentChatsFinder, findsOneWidget);
-      final RecentChats recentChats = tester.widget<RecentChats>(recentChatsFinder);
-
       final Finder profileAppBarButtonFinder = find.byType(ProfileAppBarButton);
       expect(profileAppBarButtonFinder, findsOneWidget);
       final ProfileAppBarButton profileAppBarButton = tester.widget<ProfileAppBarButton>(profileAppBarButtonFinder);
@@ -50,7 +45,6 @@ void main() {
       expect(messageComposerFinder, findsOneWidget);
       final MessageComposer messageComposer = tester.widget<MessageComposer>(messageComposerFinder);
       expect(messageComposer.matchID, testMatch.matchID);
-      */
     });
   });
 }

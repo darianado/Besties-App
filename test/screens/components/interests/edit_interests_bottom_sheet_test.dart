@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
+import '../../../test_resources/widget_pumper.dart';
+import '../../../test_resources/test_profile.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
+import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Interests/interest.dart';
-import 'package:project_seg/models/User/other_user.dart';
-import 'package:project_seg/screens/components/chip_widget.dart';
-import 'package:project_seg/screens/components/interests/category_view.dart';
-import 'package:project_seg/constants/colours.dart';
-import '../test_resources/widget_pumper.dart';
-import '../test_resources/test_profile.dart';
-import 'package:firebase_core/firebase_core.dart';
-import '../mock.dart';
-
-//import 'test_resources/WidgetPumper.dart';
+import 'package:project_seg/screens/components/interests/edit_interests_bottom_sheet.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -22,7 +19,7 @@ void main() {
 
   OtherUser currentUser = TestProfile.firstProfile;
 
-  Category selected = currentUser.userData.categorizedInterests!.categories[0];
+  Category selected = currentUser.userData.categorizedInterests!.categories.first;
 
   Category category = Category(
     title: "food",
@@ -34,17 +31,18 @@ void main() {
     ],
   );
 
-  testWidgets('CategoryView', (WidgetTester tester) async {
-    await _widgetPumper.pumpWidget(tester, CategoryView(category: category, selected: selected, onTap: () {}));
+  testWidgets('first interest category View', (WidgetTester tester) async {
+    await _widgetPumper.pumpWidget(
+        tester,
+        EditInterestBottomSheet(
+            category: category,
+            selected: selected,
+            onChange: (newCategory) {
+              selected = newCategory;
+            }));
 
-    final Finder titleFinder = find.text("food");
-    expect(titleFinder, findsOneWidget);
-
-    final Text titleText = tester.widget<Text>(titleFinder);
-    expect(titleText.style?.fontSize, 20);
-
-    final Finder iconFinder = find.byIcon(Icons.arrow_downward);
-    expect(iconFinder, findsOneWidget);
+    final Finder firstInterestTextFinder = find.text("Cocktails");
+    expect(firstInterestTextFinder, findsOneWidget);
 
     final Finder firstInterestWidgetFinder = find.widgetWithText(ChipWidget, "Cocktails");
     expect(firstInterestWidgetFinder, findsOneWidget);
@@ -67,13 +65,21 @@ void main() {
     final Finder thirdInterestWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
     expect(thirdInterestWidgetFinder, findsOneWidget);
 
-    final thirdInterestWidgetStyle = tester.widget<ChipWidget>(thirdInterestWidgetFinder);
-    expect(thirdInterestWidgetStyle.color, tertiaryColour);
-    expect(thirdInterestWidgetStyle.bordered, false);
-    expect(thirdInterestWidgetStyle.textColor, simpleWhiteColour);
-    expect(thirdInterestWidgetStyle.label, "Coffee");
-
     final Finder fourthInterestWidgetFinder = find.widgetWithText(ChipWidget, "Tea");
-    expect(fourthInterestWidgetFinder, findsNothing);
+    expect(fourthInterestWidgetFinder, findsOneWidget);
+
+    final fourthInterestWidgetStyle = tester.widget<ChipWidget>(fourthInterestWidgetFinder);
+    expect(fourthInterestWidgetStyle.color, tertiaryColour);
+    expect(fourthInterestWidgetStyle.bordered, true);
+    expect(fourthInterestWidgetStyle.label, "Tea");
+
+    final Finder saveButton = find.widgetWithText(PillButtonFilled, 'Save');
+    expect(saveButton, findsOneWidget);
+    final saveButtonStyle = tester.widget<PillButtonFilled>(saveButton);
+    expect(saveButtonStyle.backgroundColor, secondaryColour);
+    expect(saveButtonStyle.text, 'Save');
+    expect(saveButtonStyle.textStyle!.fontSize, 18);
+    expect(saveButtonStyle.textStyle!.fontWeight, FontWeight.w600);
+    expect(saveButtonStyle.textStyle!.color, whiteColour);
   });
 }

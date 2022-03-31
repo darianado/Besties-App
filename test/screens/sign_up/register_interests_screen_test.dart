@@ -1,13 +1,10 @@
-import 'dart:math';
-
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:project_seg/screens/sign_up/register_interests_screen.dart';
-import '../mock.dart';
 import 'package:project_seg/constants/colours.dart';
-import '../test_resources/widget_pumper.dart';
+import '../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -41,12 +38,13 @@ void main() {
     final Finder nextTextFinder = find.text('Done');
     expect(nextTextFinder, findsOneWidget);
 
-    final Finder nextButtonFinder = find.widgetWithText(ElevatedButton, 'Done');
-    expect(nextButtonFinder, findsOneWidget);
+    final Finder buttonFinder = find.widgetWithText(PillButtonFilled, 'Done');
+    expect(buttonFinder, findsOneWidget);
 
-    final buttonTextStyle = tester.widget<Text>(nextTextFinder);
-    expect(buttonTextStyle.style?.fontSize, 25);
-    expect(buttonTextStyle.style?.fontWeight, FontWeight.w600);
-    expect(buttonTextStyle.style?.color, whiteColour);
+    final buttonStyle = tester.widget<PillButtonFilled>(buttonFinder);
+    expect(buttonStyle.text, 'Done');
+    expect(buttonStyle.textStyle!.fontSize, 25);
+    expect(buttonStyle.backgroundColor, tertiaryColour);
+    expect(buttonStyle.textStyle!.fontWeight, FontWeight.w600);
   });
 }

@@ -15,18 +15,6 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late UserState _userState;
-  late ContextState _appContext;
-
-  @override
-  void initState() {
-    _userState = Provider.of<UserState>(context, listen: false);
-    _appContext = Provider.of<ContextState>(context, listen: false);
-    _appContext.onAppStart();
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return const Scaffold(

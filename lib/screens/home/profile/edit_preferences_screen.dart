@@ -55,8 +55,13 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
     const spaceBetween = 40.0;
     const spaceBetweenWidgetAndTitle = 10.0;
 
-    newPreferences ??= Preferences.fromMap(
-        _userState.user?.userData?.preferences?.toMap() ?? {});
+    newPreferences ??= Preferences.fromMap(_userState.user?.userData?.preferences?.toMap() ?? {});
+
+    final limitMinAge = _contextState.context?.minAge?.toDouble() ?? 16.0;
+    final limitMaxAge = _contextState.context?.maxAge?.toDouble() ?? 50.0;
+
+    final preferredMinAge = newPreferences?.minAge?.toDouble() ?? 16.0;
+    final preferredMaxAge = newPreferences?.maxAge?.toDouble() ?? 50.0;
 
     return Container(
       decoration: const BoxDecoration(
@@ -81,10 +86,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                 children: [
                   Text(
                     'Edit preferences',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4
-                        ?.apply(fontWeightDelta: 2),
+                    style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
                   ),
                   const SizedBox(height: 5),
                   Text(
@@ -97,26 +99,20 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       Text(
                         "Age",
                         textAlign: TextAlign.left,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6
-                            ?.apply(fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
                       ),
                     ],
                   ),
                   RangeSlider(
-                    values: RangeValues(
-                        newPreferences?.minAge?.toDouble() ?? 16,
-                        newPreferences?.maxAge?.toDouble() ?? 100),
+                    values: RangeValues(preferredMinAge, preferredMaxAge),
                     activeColor: tertiaryColour,
                     inactiveColor: greyColour,
-                    min: (_contextState.context?.minAge?.toDouble() ?? 16),
-                    max: (_contextState.context?.maxAge?.toDouble() ?? 100),
-                    divisions: difference(_contextState.context?.minAge,
-                        _contextState.context?.maxAge),
+                    min: limitMinAge,
+                    max: limitMaxAge,
+                    divisions: difference(limitMinAge, limitMaxAge).toInt(),
                     labels: RangeLabels(
-                      newPreferences?.minAge?.toString() ?? "16",
-                      newPreferences?.maxAge?.toString() ?? "100",
+                      "${preferredMinAge.toInt()}",
+                      "${preferredMaxAge.toInt()}",
                     ),
                     onChanged: (RangeValues values) {
                       setState(() {
@@ -126,7 +122,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     },
                   ),
                   Text(
-                    'Age: ${newPreferences?.minAge} - ${newPreferences?.maxAge}',
+                    'Age: ${preferredMinAge.toInt()} - ${preferredMaxAge.toInt()}',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: spaceBetween),
@@ -135,10 +131,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                       Text(
                         "Gender",
                         textAlign: TextAlign.left,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline6
-                            ?.apply(fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
                       ),
                     ],
                   ),
@@ -149,24 +142,15 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                           return ChipWidget(
                             color: indigoColour,
                             bordered: ((newPreferences?.genders != null) &&
-                                    (newPreferences?.genders?.indexWhere((e) =>
-                                            e?.toLowerCase() ==
-                                            gender.toLowerCase()) !=
-                                        -1))
+                                    (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
                                 ? false
                                 : true,
                             textColor: ((newPreferences?.genders != null) &&
-                                    (newPreferences?.genders?.indexWhere((e) =>
-                                            e?.toLowerCase() ==
-                                            gender.toLowerCase()) !=
-                                        -1))
+                                    (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
                                 ? simpleWhiteColour
                                 : null,
                             iconColor: ((newPreferences?.genders != null) &&
-                                    (newPreferences?.genders?.indexWhere((e) =>
-                                            e?.toLowerCase() ==
-                                            gender.toLowerCase()) !=
-                                        -1))
+                                    (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1))
                                 ? simpleWhiteColour
                                 : null,
                             icon: getIconForGender(gender),
@@ -174,12 +158,8 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                             mini: true,
                             onTap: () => setState(() {
                               if ((newPreferences?.genders != null) &&
-                                  (newPreferences?.genders?.indexWhere((e) =>
-                                          e?.toLowerCase() ==
-                                          gender.toLowerCase()) !=
-                                      -1)) {
-                                newPreferences?.genders?.removeWhere((e) =>
-                                    e?.toLowerCase() == gender.toLowerCase());
+                                  (newPreferences?.genders?.indexWhere((e) => e?.toLowerCase() == gender.toLowerCase()) != -1)) {
+                                newPreferences?.genders?.removeWhere((e) => e?.toLowerCase() == gender.toLowerCase());
                               } else {
                                 newPreferences?.genders?.add(gender);
                               }
@@ -195,10 +175,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                         child: Text(
                           "Interests",
                           textAlign: TextAlign.left,
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              ?.apply(fontWeightDelta: 2),
+                          style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
                         ),
                       ),
                     ],
@@ -206,8 +183,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   const SizedBox(height: spaceBetweenWidgetAndTitle),
                   DisplayInterests(
                     editable: true,
-                    interests: newPreferences?.interests ??
-                        CategorizedInterests(categories: []),
+                    interests: newPreferences?.interests ?? CategorizedInterests(categories: []),
                     onSave: (newCategorizedInterests) {
                       setState(() {
                         newPreferences?.interests = newCategorizedInterests;
@@ -220,8 +196,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     backgroundColor: secondaryColour,
                     expandsWidth: true,
                     isLoading: isLoading,
-                    textStyle: const TextStyle(
-                        fontSize: 20, fontWeight: FontWeight.w600),
+                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     onPressed: () async {
                       await save(_userState.user!.user!.uid, newPreferences!);
 
@@ -236,10 +211,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     text: "Cancel",
                     color: secondaryColour,
                     expandsWidth: true,
-                    textStyle: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: secondaryColour),
+                    textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: secondaryColour),
                     onPressed: () => context.goNamed(
                       homeScreenName,
                       params: {pageParameterKey: feedScreenName},

@@ -10,7 +10,7 @@ import 'package:project_seg/screens/login/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
 import 'package:project_seg/states/user_state.dart';
 
-import '../helpers.dart';
+import '../test_resources/helpers.dart';
 import '../test_resources/widget_pumper.dart';
 
 void main() {

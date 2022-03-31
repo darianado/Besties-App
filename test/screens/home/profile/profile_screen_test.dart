@@ -8,13 +8,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
-import 'helpers.dart';
-import 'mock.dart';
+import '../../../test_resources/helpers.dart';
+import '../../../test_resources/firebase_mocks.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/interests/display_interests.dart';
 
-import 'test_resources/testing_data.dart';
-import 'test_resources/widget_pumper.dart';
+import '../../../test_resources/testing_data.dart';
+import '../../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -82,7 +82,7 @@ void main() {
     });
 
     testWidgets("Clicking change password redirects to the change password page", (tester) async {
-      await signInHelper(_widgetPumper, userEmail, "Password123");
+      await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
       await tester.idle();

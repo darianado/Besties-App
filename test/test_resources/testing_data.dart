@@ -72,7 +72,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
     "email": "janedoe@example.org",
     "emailVerified": false,
     "data": UserData(
-      uid: "very-random-id",
+      uid: "abc321",
       firstName: "Jane",
       lastName: "Doe",
       likes: [],
@@ -139,7 +139,7 @@ final appContextTestData = {
     "Female",
     "Non-binary",
   ],
-  "maxAge": 50,
+  "maxAge": 60,
   "minAge": 16,
   "maxBioLength": 250,
   "maxChatMessageLength": 500,

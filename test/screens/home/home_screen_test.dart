@@ -9,7 +9,7 @@ import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/home_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
 
-import '../test_resources/widget_pumper.dart';
+import '../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

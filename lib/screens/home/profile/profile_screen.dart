@@ -48,10 +48,12 @@ class ProfileScreen extends StatelessWidget {
             color: whiteColour,
             size: 18.0,
           ),
-          onPressed: () => context.pushNamed(
-            editPasswordScreenName,
-            params: {pageParameterKey: profileScreenName},
-          ),
+          onPressed: () {
+            return context.pushNamed(
+              editPasswordScreenName,
+              params: {pageParameterKey: profileScreenName},
+            );
+          },
         ),
         PillButtonOutlined(
           text: "Sign out",

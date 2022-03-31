@@ -26,7 +26,7 @@ void main() {
     testWidgets("Contains correct information", (tester) async {
       await signOutHelper(_widgetPumper);
 
-      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath, null);
 
       expect(find.byType(RecoverPasswordScreen), findsOneWidget);
 
@@ -63,7 +63,7 @@ void main() {
 
     testWidgets("Clicking send recovery email with no email shows error", (tester) async {
       await signOutHelper(_widgetPumper);
-      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath, null);
 
       expect(find.byType(RecoverPasswordScreen), findsOneWidget);
 
@@ -81,7 +81,7 @@ void main() {
 
     testWidgets("Clicking send recovery email with invalid email shows error", (tester) async {
       await signOutHelper(_widgetPumper);
-      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath, null);
 
       expect(find.byType(RecoverPasswordScreen), findsOneWidget);
 
@@ -104,7 +104,7 @@ void main() {
 
     testWidgets("Clicking send recovery email with valid email shows dialog", (tester) async {
       await signOutHelper(_widgetPumper);
-      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath, null);
 
       expect(find.byType(RecoverPasswordScreen), findsOneWidget);
 
@@ -127,7 +127,7 @@ void main() {
 
     testWidgets("Clicking back to log in button redirects to login screen", (tester) async {
       await signOutHelper(_widgetPumper);
-      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, recoverPasswordScreenPath, null);
 
       expect(find.byType(RecoverPasswordScreen), findsOneWidget);
 

@@ -21,7 +21,7 @@ void main() {
   group("Feed screen:", () {
     testWidgets("Contains correct information", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed", null);
 
       expect(find.byType(FeedScreen), findsOneWidget);
 
@@ -46,7 +46,7 @@ void main() {
 
     testWidgets("Page view scroll physics exists", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed", null);
 
       expect(find.byType(FeedScreen), findsOneWidget);
 
@@ -66,7 +66,7 @@ void main() {
 
     testWidgets("Refreshing feed", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed", null);
 
       expect(find.byType(FeedScreen), findsOneWidget);
 
@@ -79,7 +79,7 @@ void main() {
 
     testWidgets("Tapping edit preferences shows edit preferences screen", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, "/feed");
+      await _widgetPumper.pumpWidgetRouter(tester, "/feed", null);
 
       expect(find.byType(FeedScreen), findsOneWidget);
 

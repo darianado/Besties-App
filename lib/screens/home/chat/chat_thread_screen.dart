@@ -33,7 +33,7 @@ class ChatThreadScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ChatConversation(context: context, userMatch: userMatch),
+                child: ChatConversation(userMatch: userMatch),
               ),
               const SizedBox(height: 10),
               MessageComposer(matchID: userMatch.matchID),

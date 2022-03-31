@@ -36,6 +36,7 @@ class UserState extends ChangeNotifier {
   /// the [ActiveUser] object, as well as calling [notifyListeners].
   void onAppStart() {
     authService.user.listen((auth.User? userAuthEvent) {
+      //print("Auth event: ${_user?.user?.uid}");
       if (userAuthEvent == null) {
         _user = ActiveUser(user: userAuthEvent);
         _subscription?.cancel();
@@ -47,7 +48,7 @@ class UserState extends ChangeNotifier {
         _subscription = firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
           waitingOnFirestore = false;
           _user = userFirestoreEvent;
-          //print("We got a user object: ${_user?.userData?.firstName}");
+          //print("Firestore event: ${_user?.userData?.firstName}");
           notifyListeners();
         });
       }

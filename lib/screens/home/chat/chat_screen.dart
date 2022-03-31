@@ -8,13 +8,11 @@ import 'package:project_seg/states/match_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The screen that displays the page with user's the matches and conversations.
- *
- * The matches are arranged chronologically in a horizontal row at the top of
- * the screen, under the "New matches" text.
- * All the chats are displayed under the "Chats" section.
- */
+/// The screen that displays the page with the matches and conversation of a user.
+///
+/// The matches are arranged chronologically in an horizontal row at the top of
+/// the screen, under the "New matches" text.
+/// All the chats are displayed under the "Chats" section.
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -32,9 +30,7 @@ class _ChatScreenState extends State<ChatScreen> {
     fetchMatches();
   }
 
-  /**
-   * This asyncronous method fetches all the user's matches.
-   */
+  /// This asynchronous method fetches all the matches of a user
   void fetchMatches() async {
     final _matchState = Provider.of<MatchState>(context, listen: false);
     final _userState = Provider.of<UserState>(context, listen: false);
@@ -66,10 +62,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: const [
                     Padding(
                       padding: EdgeInsets.only(left: 15, bottom: 5),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: LeftAlignedHeadline(text: "New matches"),
-                      ),
+                      child: LeftAlignedHeadline(text: "New matches"),
                     ),
                     Matches(),
                     Padding(

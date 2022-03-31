@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 
 /**
- * This class represents the model of a reusable widget that takes an url
+ * This class represents a model of a reusable widget that takes an url
  * to an image and displayes it in a circle. It displays the image or shows
  * an error in form of an exclamation mark in a circle.
  */

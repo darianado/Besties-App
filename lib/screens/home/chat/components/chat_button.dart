@@ -4,8 +4,8 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 /**
- * This class represents the model of a reusable button that is used
- * in the profile of a match in order for the user to start chatting
+ * This class represents a model of a reusable button that is used
+ * in the profile of a match in order for the user to start chatting.
  */
 
 class OpenChatButton extends StatelessWidget {
@@ -18,7 +18,8 @@ class OpenChatButton extends StatelessWidget {
     return PillButtonFilled(
       text: "Chat",
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 9),
-      textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
+      textStyle:
+          Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
       iconPadding: 10,
       icon: const Icon(
         FontAwesomeIcons.comments,

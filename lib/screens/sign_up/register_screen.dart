@@ -16,7 +16,8 @@ import 'package:provider/provider.dart';
 
 /**
  * The fourth screen that is displayed through the sign up process.
- * The user is asked to provide details about the university they attend
+ *
+ * The user is asked to provide details about the university they attend to
  * and specify their bio.
  */
 

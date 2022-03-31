@@ -16,11 +16,12 @@ import 'package:provider/provider.dart';
 
 /**
  * This class represents a model of a reusable widget that is used to
- * display information about a user. It takes UserData instance
- * (information to be displayed), editable (whether a user should be allowed
- * to change information on the screen), left and right action widget,
- * widget to be displayed in imaghe section (top center), and a
- * widget for bottom section.
+ * display information about a user.
+ *
+ * It takes UserData instance (information to be displayed), editable
+ * (whether a user should be allowed to change information on the screen),
+ * left and right action widget, a widget to be displayed in image section
+ * (top center), and a widget for bottom section.
  */
 
 class ProfileInformation extends StatefulWidget {
@@ -53,7 +54,6 @@ class _ProfileInformationState extends State<ProfileInformation> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }

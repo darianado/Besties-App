@@ -15,7 +15,7 @@ import 'package:provider/provider.dart';
 import '../../../constants/borders.dart';
 
 /**
- * This class represents the model of a reusable widget that allows
+ * This class represents a model of a reusable widget that allows
  * the user to change their password.
  */
 

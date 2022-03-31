@@ -5,13 +5,14 @@ import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to edit the selection of interests made by users.
- * All interests are grouped by categories.
- */
-
+/// A widget to edit the selection of interests made by users.
+///
+/// All interests are grouped by categories.
 class EditInterestBottomSheet extends StatefulWidget {
+  final Category category;
+  final Category selected;
+  final Function(Category) onChange;
+
   const EditInterestBottomSheet(
       {Key? key,
       required this.category,
@@ -19,24 +20,12 @@ class EditInterestBottomSheet extends StatefulWidget {
       required this.onChange})
       : super(key: key);
 
-  final Category category;
-  final Category selected;
-  final Function(Category) onChange;
-
   @override
   State<EditInterestBottomSheet> createState() =>
       _EditInterestBottomSheetState();
 }
 
 class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
-  /**
-   * This method builds a widget that is used to display all the interests
-   * grouped by their super-categories.
-   * Users can select new categories they are interested into, but also unselect
-   * the previously selected ones.
-   * Once changed, they can be saved by the users
-   */
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -127,10 +116,7 @@ class _EditInterestBottomSheetState extends State<EditInterestBottomSheet> {
     );
   }
 
-  /**
-   * This method checks whether a specified value is in both lists of interests.
-   */
-
+  /// Checks whether a specified value is in both lists of interests.
   bool isInBoth(
       Interest interest, List<Interest> first, List<Interest> second) {
     return first

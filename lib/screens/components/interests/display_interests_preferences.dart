@@ -8,14 +8,16 @@ import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dar
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display the interests selected by a user in their prefrences.
- * The widget can be editable.
- * Each interest is shown in a separate widget.
- */
-
+/// A widget that displays the interests selected by a user in their preferences.
+///
+/// The [DisplayInterestsPreferences] is [editable] and can be [wiggling].
 class DisplayInterestsPreferences extends StatelessWidget {
+  final List<Interest> items;
+  final bool wiggling;
+  final bool editable;
+  final bool mini;
+  final Function(CategorizedInterests?)? onSave;
+
   const DisplayInterestsPreferences({
     Key? key,
     required this.items,
@@ -24,12 +26,6 @@ class DisplayInterestsPreferences extends StatelessWidget {
     this.mini = true,
     this.onSave,
   }) : super(key: key);
-
-  final List<Interest> items;
-  final bool wiggling;
-  final bool editable;
-  final bool mini;
-  final Function(CategorizedInterests?)? onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -52,10 +48,7 @@ class DisplayInterestsPreferences extends StatelessWidget {
     );
   }
 
-  /**
-   * This method returns a widget that displays a label in a chip.
-   */
-
+  /// Returns [label] wrapped in a [ChipWidget].
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
       color: tertiaryColour,
@@ -68,11 +61,7 @@ class DisplayInterestsPreferences extends StatelessWidget {
     );
   }
 
-  /**
-   * This method specifies action to be performed in the editable instances
-   * of this button. It will trigger the onSave functionality.
-   */
-
+  /// Displays an [EditDialogInterests] when the widget is tapped if it's editable.
   Function? getOnTap(String label, BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 

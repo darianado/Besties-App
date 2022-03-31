@@ -4,14 +4,8 @@ import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a widget that is used to display
- * how many intrests in common are there between a logged in user
- * and the viewed user's profile. It displays this information in a widget
- * with text in form of "YOU HAVE x INTEREST IN COMMON!" or
- * "YOU HAVE x INTERESTS IN COMMON!", where x is the number of intrests in common.
- */
-
+/// A widget that displays how many interests in common the user has with
+/// the viewed user's profile.
 class InterestsInCommon extends StatelessWidget {
   const InterestsInCommon({Key? key, required this.profile}) : super(key: key);
 
@@ -58,14 +52,7 @@ class InterestsInCommon extends StatelessWidget {
     );
   }
 
-  /**
-   * This method turns a number into a string.
-   * @param int number - the number to be converted
-   *
-   * @return the String containing the number if the number was not equal 0
-   * or returns "NO" otherwise.
-   */
-
+  /// Turns a number into a string.
   String numberToString(int number) {
     if (number == 0) {
       return "NO";

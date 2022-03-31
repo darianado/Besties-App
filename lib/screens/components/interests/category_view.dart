@@ -4,12 +4,10 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display the main categories. Users can select a category
- * they are interested in.
- */
-
+/// A widget that displays the categories grouped by title.
+///
+/// Users can select a [Category] title to expand it with all the interests
+/// that are part of that category.
 class CategoryView extends StatelessWidget {
   const CategoryView(
       {Key? key,
@@ -21,13 +19,6 @@ class CategoryView extends StatelessWidget {
   final Category category;
   final Category selected;
   final Function onTap;
-
-  /**
-   * This method builds a widget that is is used to display all the categories
-   * grouped by title.
-   * Users can select a category title to expand it with all the interests
-   * that are part of that category.
-   */
 
   @override
   Widget build(BuildContext context) {

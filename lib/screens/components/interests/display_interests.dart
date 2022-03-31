@@ -5,14 +5,16 @@ import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display the interests selected on the user's profile.
- * The widget can be editable.
- * Each interest is shown in a separate widget.
- */
-
+/// A widget that displays the [interests] selected on the user's profile.
+///
+/// The [DisplayInterests] is [editable] and can be [wiggling].
 class DisplayInterests extends StatelessWidget {
+  final CategorizedInterests interests;
+  final bool wiggling;
+  final bool editable;
+  final bool mini;
+  final Function(CategorizedInterests)? onSave;
+
   const DisplayInterests({
     Key? key,
     required this.interests,
@@ -21,12 +23,6 @@ class DisplayInterests extends StatelessWidget {
     this.mini = true,
     this.onSave,
   }) : super(key: key);
-
-  final CategorizedInterests interests;
-  final bool wiggling;
-  final bool editable;
-  final bool mini;
-  final Function(CategorizedInterests)? onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +45,7 @@ class DisplayInterests extends StatelessWidget {
     );
   }
 
-  /**
-   * This method returns a widget that displays a label in a chip.
-   */
+  /// This method returns a widget that displays a label in a chip.
 
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
@@ -65,10 +59,8 @@ class DisplayInterests extends StatelessWidget {
     );
   }
 
-  /**
-   * This method specifies action to be performed in the editable instances
-   * of this button. It will trigger the onSave functionality.
-   */
+  /// This method specifies action to be performed in the editable instances
+  /// of this button. It will trigger the onSave functionality.
 
   Function? getOnTap(String label, BuildContext context) {
     final _onSave = onSave;

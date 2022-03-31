@@ -65,7 +65,7 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
   }
 
   /// Validates the selection of interests a user has made.
-  /// 
+  ///
   /// It checks if the user selected at least one interest, but no more than 10.
   bool validate() {
     final _contextState = Provider.of<ContextState>(context, listen: false);

@@ -2,12 +2,7 @@ import 'package:flutter/material.dart';
 import '../../constants/borders.dart';
 import '../../constants/colours.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a text or an icon or both in form of a chip. It takes colour
- * the chip will have as a required argument but allows further customisation.
- */
-
+/// A widget that displays a [label] and/or an [icon] in the form of a chip.
 class ChipWidget extends StatelessWidget {
   final Color color;
   final bool bordered;
@@ -85,10 +80,7 @@ class ChipWidget extends StatelessWidget {
     );
   }
 
-  /**
-   * This method capitalises letters in a string.
-   */
-
+  /// Capitalizes the first letter of a [label].
   String capitalize(String label) {
     if (label.length >= 2) {
       return label[0].toUpperCase() + label.substring(1).toLowerCase();

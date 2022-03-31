@@ -8,8 +8,7 @@ import 'package:provider/provider.dart';
 
 /// A widget that is used to display a user's bio.
 ///
-/// The [BioField] contains a [label] where users can edit their bio
-/// which can be [editable].
+/// The [BioField] shows a [label] and is [editable].
 class BioField extends StatefulWidget {
   final bool editable;
   final String label;

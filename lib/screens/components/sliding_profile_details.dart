@@ -11,15 +11,7 @@ import 'buttons/edit_dob_button.dart';
 import 'buttons/relationship_status_button.dart';
 import 'buttons/university_button.dart';
 
-/**
- * The Widget that shows the displayed profile's complete details.
- *
- * The Widget is built upon tapping the [ProfileContainer]'s [PartialProfileDetails]
- * as a modal bottom sheet.
- * It is composed of the profile's full name, university, age, gender,
- * relationship status and bio.
- */
-
+/// A widget that shows the displayed profile's complete details.
 class SlidingProfileDetails extends StatefulWidget {
   final UserData profile;
 
@@ -29,8 +21,6 @@ class SlidingProfileDetails extends StatefulWidget {
   @override
   State<SlidingProfileDetails> createState() => _SlidingProfileDetailsState();
 }
-
-/// The State for the [SlidingProfileDetails] widget.
 
 class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
   late AutoScrollController controller;

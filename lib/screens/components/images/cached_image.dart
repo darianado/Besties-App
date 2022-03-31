@@ -4,12 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../constants/colours.dart';
 
-/**
- * This class represents a model of a reusable widget that takes an url
- * to an image and its ratio. It displays the image or shows an error
- * in form of an exclamation mark in a circle.
- */
-
+/// A widget that displays and image from its [url].
 class CachedImage extends StatelessWidget {
   final String? url;
   final double? aspectRatio;
@@ -20,6 +15,7 @@ class CachedImage extends StatelessWidget {
     this.aspectRatio,
   }) : super(key: key);
 
+  /// Returns an exclamation mark [Icon].
   Widget errorPlaceholder() {
     return const Icon(
       FontAwesomeIcons.exclamationCircle,

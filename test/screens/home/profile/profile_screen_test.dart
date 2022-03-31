@@ -7,6 +7,7 @@ import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
+import 'package:project_seg/screens/login/login_screen.dart';
 
 import '../../../test_resources/helpers.dart';
 import '../../../test_resources/widget_pumper.dart';
@@ -70,14 +71,17 @@ void main() {
 
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNotNull);
 
-      final Finder SignOutButtonFinder = find.byType(PillButtonOutlined);
-      expect(SignOutButtonFinder, findsOneWidget);
+      final Finder signOutButtonFinder = find.byType(PillButtonOutlined);
+      expect(signOutButtonFinder, findsOneWidget);
 
-      final PillButtonOutlined SignOutButton = tester.widget<PillButtonOutlined>(SignOutButtonFinder);
-      expect(SignOutButton.onPressed, isNotNull);
-      SignOutButton.onPressed();
+      final PillButtonOutlined signOutButton = tester.widget<PillButtonOutlined>(signOutButtonFinder);
+      expect(signOutButton.onPressed, isNotNull);
 
-      await tester.pump();
+      expect(() => signOutButton.onPressed(), returnsNormally);
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(LogInScreen), findsOneWidget);
 
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNull);
     });
@@ -93,6 +97,7 @@ void main() {
 
       final changePasswordButton = tester.widget<PillButtonFilled>(changePasswordButtonFinder);
       expect(changePasswordButton.onPressed, isNotNull);
+
       expect(() => changePasswordButton.onPressed(), returnsNormally);
 
       await tester.pumpAndSettle();

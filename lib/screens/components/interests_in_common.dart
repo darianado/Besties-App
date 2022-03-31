@@ -6,10 +6,10 @@ import 'package:provider/provider.dart';
 
 /**
  * This class represents a widget that is used to display
- * how many intrests in common between the logged in user and the viewed user's
- * profile. It displayes this information in a widget with text in form of
- * "YOU HAVE x INTEREST IN COMMON!" or "YOU HAVE x INTERESTs IN COMMON!",
- * where x is the number of intrests in common.
+ * how many intrests in common are there between a logged in user
+ * and the viewed user's profile. It displays this information in a widget
+ * with text in form of "YOU HAVE x INTEREST IN COMMON!" or
+ * "YOU HAVE x INTERESTS IN COMMON!", where x is the number of intrests in common.
  */
 
 class InterestsInCommon extends StatelessWidget {
@@ -59,8 +59,11 @@ class InterestsInCommon extends StatelessWidget {
   }
 
   /**
-   * This method turns a number of typ int into a string if the number is
-   * not equal 0 or returns "NO" otherwise.
+   * This method turns a number into a string.
+   * @param int number - the number to be converted
+   *
+   * @return the String containing the number if the number was not equal 0
+   * or returns "NO" otherwise.
    */
 
   String numberToString(int number) {

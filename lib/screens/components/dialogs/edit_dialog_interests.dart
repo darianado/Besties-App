@@ -8,8 +8,8 @@ import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
- * to display a dialog  when users want edit their interest preferences.
+ * This class represents a model of a reusable widget that is used
+ * to display a dialog for when users want to edit their interests.
  */
 
 class EditDialogInterests extends StatefulWidget {
@@ -73,7 +73,7 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
   }
 
   /**
-   * This method saves the new interests selected
+   * This method saves the newly selected interests.
    */
 
   void _save() {
@@ -82,8 +82,8 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
   }
 
   /**
-   * This method validates the selection of interests users made.
-   * It checks if users selected at least one interest, but no more than 10.
+   * This method validates the selection of interests a user has made.
+   * It checks if the user selected at least one interest, but no more than 10.
    * @return True if the selection is valid, False otherwise
    */
 

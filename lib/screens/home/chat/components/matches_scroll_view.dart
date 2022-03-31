@@ -5,10 +5,9 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
- * to display a match with an user.
+ * This class represents a model of a reusable widget that is used
+ * to display a match with a user.
  */
-
 
 class MatchesScrollView extends StatelessWidget {
   const MatchesScrollView({
@@ -26,7 +25,9 @@ class MatchesScrollView extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: matches.map((match) => MatchesScrollViewItem(match: match)).toList(),
+        children: matches
+            .map((match) => MatchesScrollViewItem(match: match))
+            .toList(),
       ),
     );
   }
@@ -55,7 +56,8 @@ class MatchesScrollViewItem extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(1000)),
             child: InkWell(
               borderRadius: const BorderRadius.all(Radius.circular(1000)),
-              onTap: () => context.pushNamed(matchProfileScreenName, extra: match, params: {pageParameterKey: chatScreenName}),
+              onTap: () => context.pushNamed(matchProfileScreenName,
+                  extra: match, params: {pageParameterKey: chatScreenName}),
               child: CircleCachedImage(
                 url: match.match?.profileImageUrl,
                 size: 90,
@@ -65,7 +67,10 @@ class MatchesScrollViewItem extends StatelessWidget {
           const SizedBox(height: 6),
           Text(
             match.match!.firstName ?? "",
-            style: Theme.of(context).textTheme.subtitle1?.apply(fontWeightDelta: 2),
+            style: Theme.of(context)
+                .textTheme
+                .subtitle1
+                ?.apply(fontWeightDelta: 2),
           )
         ],
       ),

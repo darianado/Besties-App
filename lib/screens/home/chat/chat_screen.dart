@@ -9,9 +9,9 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- * The screen that displays the page with the matches and conversation of a user.
+ * The screen that displays the page with user's the matches and conversations.
  *
- * The matches are arranged chronologically in an orizonal row at the top of
+ * The matches are arranged chronologically in a horizontal row at the top of
  * the screen, under the "New matches" text.
  * All the chats are displayed under the "Chats" section.
  */
@@ -33,7 +33,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   /**
-   * This asyncronous method fetches all the matches of a user
+   * This asyncronous method fetches all the user's matches.
    */
   void fetchMatches() async {
     final _matchState = Provider.of<MatchState>(context, listen: false);

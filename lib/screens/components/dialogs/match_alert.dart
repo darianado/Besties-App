@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 import '../../../router/route_names.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
- * to display a dialog that occurs once a match between two users is made.
+ * This class represents a model of a reusable widget that is used
+ * to display a dialog that appears when two users are matched.
  */
 
 class MatchDialog extends StatefulWidget {
@@ -27,11 +27,10 @@ class MatchDialog extends StatefulWidget {
 }
 
 class _MatchDialogState extends State<MatchDialog> {
-
   /**
    * This method builds a Dialog widget that is invoked when users
    * are part of a match.
-   * Users are able to see the other user they match with.
+   * Users are able to see the users they matched with.
    * A "Go to matches" button is displayed that redirects the user
    * to their matches page screen.
    */
@@ -66,10 +65,14 @@ class _MatchDialogState extends State<MatchDialog> {
                 PillButtonFilled(
                   text: "Go to matches",
                   expandsWidth: true,
-                  textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
+                  textStyle: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.apply(color: whiteColour),
                   onPressed: () {
                     Navigator.of(context).pop(); // To close the dialog
-                    context.goNamed(homeScreenName, params: {pageParameterKey: chatScreenName});
+                    context.goNamed(homeScreenName,
+                        params: {pageParameterKey: chatScreenName});
                   },
                 ),
               ],
@@ -83,7 +86,9 @@ class _MatchDialogState extends State<MatchDialog> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(blurRadius: 10, color: Colors.black.withOpacity(0.6)),
+                        BoxShadow(
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.6)),
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,
@@ -96,7 +101,9 @@ class _MatchDialogState extends State<MatchDialog> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(blurRadius: 10, color: Colors.black.withOpacity(0.6)),
+                        BoxShadow(
+                            blurRadius: 10,
+                            color: Colors.black.withOpacity(0.6)),
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,

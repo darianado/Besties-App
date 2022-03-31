@@ -16,8 +16,9 @@ import 'package:provider/provider.dart';
 
 /**
  * The fifth screen that is displayed through the sign up process.
- * The user is asked to specify their interests. The user is allowed
- * to choose as many and little of interests as specified in the database.
+ *
+ * The user is asked to specify their interests. The maximal and minimal
+ * number of interests a user can select is specified in the database.
  */
 
 class RegisterInterestsScreen extends StatefulWidget {

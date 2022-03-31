@@ -15,6 +15,7 @@ import '../../constants/borders.dart';
 
 /**
  * The fourth screen that is displayed through the sign up process.
+ *
  * The user is asked to provide details about the university they attend
  * and specify their bio.
  */

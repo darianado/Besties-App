@@ -6,9 +6,8 @@ import 'package:project_seg/screens/components/interests/edit_interests_bottom_s
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
-
 /**
- * This class represents the model of a reusable widget that is used
+ * This class represents a model of a reusable widget that is used
  * to select interests. Users can select what they are interested in
  * when they sign up.
  */
@@ -33,14 +32,16 @@ class _SelectInterestsState extends State<SelectInterests> {
   @override
   void initState() {
     super.initState();
-    possibleCategories = Provider.of<FirestoreService>(context, listen: false).fetchInterests();
+    possibleCategories =
+        Provider.of<FirestoreService>(context, listen: false).fetchInterests();
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<CategorizedInterests>(
       future: possibleCategories,
-      builder: (BuildContext context, AsyncSnapshot<CategorizedInterests> snapshot) {
+      builder:
+          (BuildContext context, AsyncSnapshot<CategorizedInterests> snapshot) {
         CategorizedInterests? _possible = snapshot.data;
 
         if (_possible == null) {
@@ -53,14 +54,16 @@ class _SelectInterestsState extends State<SelectInterests> {
           );
         }
 
-        CategorizedInterests _filteredSelected = widget.selected.filter(_possible);
+        CategorizedInterests _filteredSelected =
+            widget.selected.filter(_possible);
         _filteredSelected = _filteredSelected.addMissing(_possible);
 
         return Column(
           children: [
             Column(
               children: _possible.categories.map((Category category) {
-                Category _selectedCategory = _filteredSelected.getCorrespondingCategory(category);
+                Category _selectedCategory =
+                    _filteredSelected.getCorrespondingCategory(category);
 
                 return CategoryView(
                     category: category,

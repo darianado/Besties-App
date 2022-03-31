@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
+ * This class represents a model of a reusable widget that is used
  * to display a chat item in the chat history list.
  */
 
@@ -29,9 +29,14 @@ class RecentChatsScrollView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     chats.sort(
-      (b, a) => a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
+      (b, a) =>
+          a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
     );
-    return ListView(scrollDirection: Axis.vertical, children: chats.map((chat) => RecentChatsScrollViewItem(chat: chat)).toList());
+    return ListView(
+        scrollDirection: Axis.vertical,
+        children: chats
+            .map((chat) => RecentChatsScrollViewItem(chat: chat))
+            .toList());
   }
 }
 
@@ -44,20 +49,23 @@ class RecentChatsScrollViewItem extends StatelessWidget {
   final UserMatch chat;
 
   /**
-   * This method builds a widget that displays a single chat in the list of recent chats.
-   * It shows the picture and the name of the other user, as well as the most recent message.
-   * If the user has not replied to a message, the "Reply" icon will be displayed.
+   * This method builds a widget that displays a single chat in the list
+   * of recent chats. It shows the picture and the name of the other user,
+   * as well as the most recent message. If the user has not replied to a
+   * message, the "Reply" icon will be displayed.
    */
 
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context, listen: false);
-    final bool isMine = (chat.mostRecentMessage!.senderID == _userState.user?.userData!.uid);
+    final bool isMine =
+        (chat.mostRecentMessage!.senderID == _userState.user?.userData!.uid);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => context.pushNamed(matchChatScreenName, extra: chat, params: {pageParameterKey: chatScreenName}),
+        onTap: () => context.pushNamed(matchChatScreenName,
+            extra: chat, params: {pageParameterKey: chatScreenName}),
         child: Container(
           margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -77,7 +85,10 @@ class RecentChatsScrollViewItem extends StatelessWidget {
                   children: [
                     Text(
                       chat.match?.firstName ?? "",
-                      style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.apply(fontWeightDelta: 2),
                     ),
                     Text(
                       chat.mostRecentMessage?.content ?? "",

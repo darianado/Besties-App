@@ -36,7 +36,7 @@ class _EmailVerifyScreenState extends State<EmailVerifyScreen> {
   }
 
   /**
-   * This method builds an information screen that an email waas sent
+   * This method builds an information screen that an email was sent
    * to the user. In order to move forward, the user is required to
    * confirm their email by clicking on the link in the mail.
    */

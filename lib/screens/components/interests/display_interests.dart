@@ -6,10 +6,10 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
+ * This class represents a model of a reusable widget that is used
  * to display the interests selected on the user's profile.
  * The widget can be editable.
- * Each interest is shown in a separated widget.
+ * Each interest is shown in a separate widget.
  */
 
 class DisplayInterests extends StatelessWidget {
@@ -50,7 +50,7 @@ class DisplayInterests extends StatelessWidget {
   }
 
   /**
-   * This method returns a widget that displays the label in a chip.
+   * This method returns a widget that displays a label in a chip.
    */
 
   Widget chip(String label, BuildContext context) {

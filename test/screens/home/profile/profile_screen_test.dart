@@ -1,19 +1,14 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
-import '../../../test_resources/helpers.dart';
-import '../../../test_resources/firebase_mocks.dart';
-import 'package:project_seg/screens/components/buttons/gender_button.dart';
-import 'package:project_seg/screens/components/interests/display_interests.dart';
 
-import '../../../test_resources/testing_data.dart';
+import '../../../test_resources/helpers.dart';
 import '../../../test_resources/widget_pumper.dart';
 
 void main() {
@@ -31,7 +26,14 @@ void main() {
 
       expect(find.byType(ProfileScreen), findsOneWidget);
 
-      /// Test change button
+      final Finder profileInformationFinder = find.byType(ProfileInformation);
+      expect(profileInformationFinder, findsOneWidget);
+      final ProfileInformation profileInformation = tester.widget<ProfileInformation>(profileInformationFinder);
+
+      expect(_widgetPumper.firebaseEnv.userState.user?.userData, profileInformation.userData);
+
+      expect(find.textContaining("John"), findsOneWidget);
+      expect(find.textContaining("Doe"), findsOneWidget);
 
       final Finder changePasswordButtonFinder = find.widgetWithText(PillButtonFilled, "Change password");
       expect(changePasswordButtonFinder, findsOneWidget);
@@ -45,8 +47,6 @@ void main() {
       expect(changePasswordButtonIcon, isNotNull);
       expect(changePasswordButtonIcon.color, whiteColour);
       expect(changePasswordButtonIcon.icon, FontAwesomeIcons.lock);
-
-      /// Test sign out button
 
       final Finder SignOutButtonFinder = find.widgetWithText(PillButtonOutlined, "Sign out");
       expect(SignOutButtonFinder, findsOneWidget);
@@ -81,35 +81,22 @@ void main() {
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNull);
     });
 
-    testWidgets("Clicking change password redirects to the change password page", (tester) async {
+    testWidgets("Clicking change password redirects to change password screen", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/profile");
 
-      await tester.idle();
-      await tester.pump(Duration(seconds: 2));
-
-      //print(find.byElementPredicate((element) => true).allCandidates.map((e) => "$e \n").toList());
+      expect(find.byType(ProfileScreen), findsOneWidget);
 
       final Finder changePasswordButtonFinder = find.widgetWithText(PillButtonFilled, "Change password");
       expect(changePasswordButtonFinder, findsOneWidget);
-      // final changePasswordButton = tester.widget<PillButtonFilled>(changePasswordButtonFinder);
-      // expect(changePasswordButton.onPressed, isNotNull);
 
-      //changePasswordButton.onPressed();
-      //
-      // await tester.pump();
+      final changePasswordButton = tester.widget<PillButtonFilled>(changePasswordButtonFinder);
+      expect(changePasswordButton.onPressed, isNotNull);
+      expect(() => changePasswordButton.onPressed(), returnsNormally);
+
+      await tester.pumpAndSettle();
+
+      expect(find.byType(EditPasswordScreen), findsOneWidget);
     });
-
-    //expect(find.textContaining("John"), findsOneWidget);
-    //expect(find.textContaining("Doe"), findsOneWidget);
-
-    //expect(find.textContaining("King's College London"), findsOneWidget);
-    // expect(find.text(firstProfile.userData.age!.toString()), findsOneWidget);
-    //
-    // expect(find.text(firstProfile.userData.relationshipStatus!), findsOneWidget);
-    // expect(find.text(firstProfile.userData.bio!), findsOneWidget);
-    //
-    // expect(find.byType(DisplayInterests), findsOneWidget);
-    // expect(find.byType(GenderButton), findsOneWidget);
   });
 }

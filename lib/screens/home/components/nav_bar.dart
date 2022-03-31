@@ -3,10 +3,10 @@ import 'package:project_seg/models/Navigation/menu_data.dart';
 import 'package:project_seg/constants/colours.dart';
 
 /**
- * This class represents the model of a reusable navigation bar widget.
- * It takes MenuData (the screens to be displayed in the NavBar), onPressed
+ * This class represents a model of a reusable navigation bar widget.
+ * It takes [MenuData] (the screens to be displayed in the NavBar), [onPressed]
  * (function to be invoked when an item was pressed) and an integer
- * that corresponds to the index of the selected item. The NavBar allows
+ * that corresponds to the index of the selected item. The [NavBar] allows
  * the user to switch between the screens referred in an instance
  * of MenuItem class.
  */

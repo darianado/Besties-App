@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,7 +8,6 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/utility/auth_exception_handler.dart';
-import 'package:project_seg/services/auth_service.dart';
 import 'package:lottie/lottie.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
@@ -38,11 +36,14 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
     try {
       await Provider.of<UserState>(context, listen: false).resetPassword(email);
     } on FirebaseAuthException catch (e) {
-      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg =
+          AuthExceptionHandler.generateExceptionMessageFromException(e);
       message = errorMsg;
     }
 
-    showDialog(context: context, builder: (context) => DismissDialog(message: message));
+    showDialog(
+        context: context,
+        builder: (context) => DismissDialog(message: message));
   }
 
   void _submitForm(GlobalKey<FormState> key) {
@@ -72,7 +73,8 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(leftRightPadding, 20, leftRightPadding, 30),
+                padding: const EdgeInsets.fromLTRB(
+                    leftRightPadding, 20, leftRightPadding, 30),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,12 +84,16 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                     ),
                     Text(
                       'Forgot Password?',
-                      style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          ?.apply(fontWeightDelta: 2),
                     ),
                     SizedBox(
                       height: 250,
                       width: double.infinity,
-                      child: Lottie.asset('assets/lotties/forgot-password.json'),
+                      child:
+                          Lottie.asset('assets/lotties/forgot-password.json'),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -111,7 +117,10 @@ class _RecoverPasswordScreenState extends State<RecoverPasswordScreen> {
                       width: double.infinity,
                       child: PillButtonFilled(
                         text: "Send recovery email",
-                        textStyle: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2, color: whiteColour),
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.apply(fontWeightDelta: 2, color: whiteColour),
                         onPressed: () => _submitForm(_formKey),
                       ),
                     ),

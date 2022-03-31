@@ -8,9 +8,12 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/// The [FloatingActionButton] to like the displayed profile.
-///
-/// The [likeProfile] method is called on-tap
+/**
+ * The [FloatingActionButton] to like the displayed profile.
+ *
+ * The [likeProfile] method is called on-tap
+ */
+
 class LikeProfileButton extends StatefulWidget {
   final UserData profile;
   final bool liked;
@@ -27,27 +30,28 @@ class LikeProfileButton extends StatefulWidget {
   State<LikeProfileButton> createState() => _LikeProfileButtonState();
 }
 
-class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
+class _LikeProfileButtonState extends State<LikeProfileButton>
+    with TickerProviderStateMixin {
   final notLikedValue = 0.0;
   final likedValue = 1.0;
 
   late final FirestoreService _firestoreService;
   late final AnimationController _animationController;
 
-  bool isLiked(UserState userState) => userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
+  bool isLiked(UserState userState) =>
+      userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     final _userState = Provider.of<UserState>(context, listen: false);
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
-    _animationController = AnimationController(vsync: this, value: (isLiked(_userState)) ? likedValue : notLikedValue);
+    _animationController = AnimationController(
+        vsync: this, value: (isLiked(_userState)) ? likedValue : notLikedValue);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _animationController.dispose();
     super.dispose();
   }
@@ -58,12 +62,14 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
 
     final _isLiked = isLiked(_userState);
 
-    final _animationController = AnimationController(vsync: this, value: (_isLiked) ? likedValue : notLikedValue);
+    final _animationController = AnimationController(
+        vsync: this, value: (_isLiked) ? likedValue : notLikedValue);
 
     return RoundActionButton(
       onPressed: () async {
         if (!_isLiked) {
-          await _animationController.animateTo(likedValue, duration: const Duration(milliseconds: 600));
+          await _animationController.animateTo(likedValue,
+              duration: const Duration(milliseconds: 600));
 
           widget.onLikeComplete();
 
@@ -82,7 +88,8 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
       },
       child: Transform.scale(
         scale: 1.35,
-        child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
+        child: Lottie.asset("assets/lotties/like.json",
+            controller: _animationController),
       ),
     );
   }

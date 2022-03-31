@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-//ios testing still required
-
+/// Definition of various Firebase Authentication related result statuses.
 enum AuthResultStatus {
   emailAlreadyExists,
   wrongPassword,
@@ -15,9 +14,10 @@ enum AuthResultStatus {
   emailNotVerified
 }
 
+/// Class containing utility methods to create human-readable error messages from different [FirebaseAuthException].
 class AuthExceptionHandler {
+  /// Converts an [FirebaseAuthException] to an instance of [AuthResultStatus].
   static handleException(FirebaseAuthException e) {
-    //print(e.code);
     AuthResultStatus status;
     switch (e.code) {
       case "invalid-email":
@@ -50,6 +50,7 @@ class AuthExceptionHandler {
     return status;
   }
 
+  /// Converts an [AuthResultStatus] to a [String] describing the status in human terms.
   static generateExceptionMessage(AuthResultStatus status) {
     String errorMessage;
     switch (status) {
@@ -87,6 +88,7 @@ class AuthExceptionHandler {
     return errorMessage;
   }
 
+  /// Converts an [FirebaseAuthException] to a [String].
   static generateExceptionMessageFromException(FirebaseAuthException e) {
     return generateExceptionMessage(handleException(e));
   }

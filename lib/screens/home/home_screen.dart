@@ -10,8 +10,8 @@ import 'package:provider/provider.dart';
 /**
  * The Home screen.
  * This screen that helps navigating through the pages that are connected
- * by the Nav Bar (Profile, Feed, Chat history).
- * The page displays its specific content and the NavBar
+ * by the [NavBar] ([Profile], [Feed], [Chat] history).
+ * The page displays its specific content and the [NavBar].
  */
 
 class HomeScreen extends StatefulWidget {
@@ -51,7 +51,8 @@ class _HomeScreenState extends State<HomeScreen> {
     selectedIndex = index;
   }
 
-  List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();
+  List<Widget> get itemWidgets =>
+      menuData.items.map((e) => e.destinationWidget).toList();
 
   @override
   Widget build(BuildContext context) {

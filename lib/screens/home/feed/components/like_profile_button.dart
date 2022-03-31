@@ -7,9 +7,12 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/// The [FloatingActionButton] to like the displayed profile.
-///
-/// The [likeProfile] method is called on-tap
+/**
+ * The [FloatingActionButton] to like the displayed profile.
+ *
+ * The [likeProfile] method is called on-tap
+ */
+
 class LikeProfileButton extends StatefulWidget {
   final OtherUser profile;
   final Function onLikeComplete;
@@ -24,12 +27,12 @@ class LikeProfileButton extends StatefulWidget {
   State<LikeProfileButton> createState() => _LikeProfileButtonState();
 }
 
-class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
+class _LikeProfileButtonState extends State<LikeProfileButton>
+    with TickerProviderStateMixin {
   late final FirestoreService _firestoreService;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }
@@ -41,18 +44,23 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
-    bool isLiked = _userState.user?.userData?.likes?.contains(widget.profile.userData.uid) ?? false;
+    bool isLiked = _userState.user?.userData?.likes
+            ?.contains(widget.profile.userData.uid) ??
+        false;
 
-    final _animationController = AnimationController(vsync: this, value: (isLiked) ? likedValue : notLikedValue);
+    final _animationController = AnimationController(
+        vsync: this, value: (isLiked) ? likedValue : notLikedValue);
 
     return RoundActionButton(
       onPressed: () async {
         if (!isLiked) {
-          await _animationController.animateTo(likedValue, duration: const Duration(milliseconds: 600));
+          await _animationController.animateTo(likedValue,
+              duration: const Duration(milliseconds: 600));
 
           widget.onLikeComplete();
 
-          bool isMatch = await _firestoreService.setLike(widget.profile.userData.uid);
+          bool isMatch =
+              await _firestoreService.setLike(widget.profile.userData.uid);
 
           if (isMatch) {
             showDialog(
@@ -66,7 +74,8 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
       },
       child: Transform.scale(
         scale: 1.35,
-        child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
+        child: Lottie.asset("assets/lotties/like.json",
+            controller: _animationController),
       ),
     );
   }

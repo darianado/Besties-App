@@ -10,12 +10,15 @@ import '../../../../constants/borders.dart';
 import '../../../../constants/constant.dart';
 import '../../../components/sliding_profile_details.dart';
 
-/// The Widget that displays a profile's information.
-///
-/// This Widget is placed within the [FeedScreen]'s [PageView].
-/// It is composed of a [NetworkImage], [PartialProfileDetails],
-/// a modal bottom sheet that contains [SlidingProfileDetails]
-/// and a [LikeProfileButton].
+/**
+ * The Widget that displays a profile's information.
+ *
+ * This Widget is placed within the [FeedScreen]'s [PageView].
+ * It is composed of a [NetworkImage], [PartialProfileDetails],
+ * a modal bottom sheet that contains [SlidingProfileDetails]
+ * and a [LikeProfileButton].
+ */
+
 class ProfileContainer extends StatelessWidget {
   final OtherUser profile;
   final Function onLikeComplete;
@@ -63,7 +66,8 @@ class ProfileContainer extends StatelessWidget {
                         ),
                       ),
                       context: context,
-                      builder: (context) => SlidingProfileDetails(profile: profile.userData),
+                      builder: (context) =>
+                          SlidingProfileDetails(profile: profile.userData),
                     );
                   },
                   child: Row(

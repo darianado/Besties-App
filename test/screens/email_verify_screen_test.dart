@@ -25,7 +25,7 @@ void main() {
   group("Email verify screen:", () {
     testWidgets('Contains correct information', (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath, null);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);
 
@@ -67,7 +67,7 @@ void main() {
 
     testWidgets("Clicking log out button logs out", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath, null);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNotNull);
@@ -89,7 +89,7 @@ void main() {
 
     testWidgets("Clicking resend email does not crash", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath, null);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);
 

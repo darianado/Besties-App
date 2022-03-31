@@ -6,10 +6,9 @@ class UserMatch {
   String matchID;
   UserData? match;
   DateTime? timestamp;
-  List<Message>? _messages;
+  List<Message>? messages;
 
-  List<Message>? get messages => _messages;
-  set messages(List<Message>? newMessages) {
+  set messagesOrdered(List<Message>? newMessages) {
     newMessages?.sort((a, b) {
       final aTimestamp = a.timestamp;
       final bTimestamp = b.timestamp;
@@ -21,12 +20,12 @@ class UserMatch {
       }
     });
 
-    _messages = newMessages;
+    messages = newMessages;
   }
 
-  UserMatch({required this.matchID, this.match, this.timestamp});
+  UserMatch({required this.matchID, this.match, this.timestamp, this.messages});
 
-  factory UserMatch.fromMatchSnapshot(DocumentSnapshot<Map> doc, String userID) {
+  factory UserMatch.fromSnapshot(DocumentSnapshot<Map> doc, String userID) {
     Map? data = doc.data();
     final _matchUserID = List<String>.from(data?['uids']).firstWhere((element) => element != userID);
     return UserMatch(
@@ -37,6 +36,6 @@ class UserMatch {
   }
 
   Message? get mostRecentMessage {
-    return _messages?.first;
+    return messages?.first;
   }
 }

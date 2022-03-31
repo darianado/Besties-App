@@ -46,7 +46,7 @@ class WidgetPumper {
     );
   }
 
-  Future<void> pumpWidgetRouter(WidgetTester tester, String location) async {
+  Future<void> pumpWidgetRouter(WidgetTester tester, String location, Object? extra) async {
     final appRouter = AppRouter(firebaseEnv.userState);
     final feedContentController =
         FeedContentController(userState: firebaseEnv.userState, gatherer: FeedContentGatherer(userState: firebaseEnv.userState));
@@ -62,8 +62,8 @@ class WidgetPumper {
           ChangeNotifierProvider.value(value: matchState),
         ],
         child: MaterialApp.router(
-          routeInformationParser: appRouter.router(location).routeInformationParser,
-          routerDelegate: appRouter.router(location).routerDelegate,
+          routeInformationParser: appRouter.router(location, extra).routeInformationParser,
+          routerDelegate: appRouter.router(location, extra).routerDelegate,
         ),
       ),
     );

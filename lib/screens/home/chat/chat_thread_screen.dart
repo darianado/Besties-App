@@ -5,7 +5,6 @@ import 'package:project_seg/screens/home/chat/components/chat_conversation.dart'
 import 'package:project_seg/screens/home/chat/components/message_composer.dart';
 import 'package:project_seg/screens/home/chat/components/profile_app_bar_button.dart';
 
-
 /**
  * The screen that displays the chat between two users.
  * The page contains the ProfileAppBarButton providing information about the user to chat with,
@@ -33,7 +32,7 @@ class ChatThreadScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ChatConversation(context: context, userMatch: userMatch),
+                child: ChatConversation(userMatch: userMatch),
               ),
               const SizedBox(height: 10),
               MessageComposer(matchID: userMatch.matchID),

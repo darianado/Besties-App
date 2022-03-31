@@ -4,7 +4,6 @@ import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-
 /**
  * This class represents the model of a reusable widget that is used
  * to display a message that appears in the conversation.
@@ -18,7 +17,6 @@ class MessageWidget extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-
   /**
    * This method build a widget that is is used to display the messages
    * used in the communication between two users.
@@ -27,8 +25,8 @@ class MessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context, listen: false);
-    final bool isMine = (message.senderID == _userState.user?.userData!.uid);
+    final _userState = Provider.of<UserState>(context);
+    final bool isMine = (message.senderID == _userState.user?.user?.uid);
 
     return Row(
       mainAxisAlignment: isMine ? MainAxisAlignment.end : MainAxisAlignment.start,

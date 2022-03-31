@@ -85,7 +85,7 @@ class FirestoreService {
   /// Returns a stream of list of [UserMatch] objects, which represent matches for a user given by [userID].
   Stream<List<UserMatch>> listenForMatches(String userID) {
     return firebaseFirestore.collection("matches").where("uids", arrayContains: userID).snapshots().map((event) {
-      return event.docs.map((e) => UserMatch.fromMatchSnapshot(e, userID)).toList();
+      return event.docs.map((e) => UserMatch.fromSnapshot(e, userID)).toList();
     });
   }
 

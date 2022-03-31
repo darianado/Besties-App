@@ -12,9 +12,8 @@ import 'package:provider/provider.dart';
 
 class ChatConversation extends StatelessWidget {
   final UserMatch userMatch;
-  final BuildContext context;
 
-  const ChatConversation({Key? key, required this.userMatch, required this.context}) : super(key: key);
+  const ChatConversation({Key? key, required this.userMatch}) : super(key: key);
 
   /**
    * This method build a widget that displays the list of all messages in a chat.

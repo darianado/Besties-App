@@ -45,7 +45,7 @@ class MatchState extends ChangeNotifier {
 
       matches?.forEach((UserMatch element) {
         firestoreService.listenForMessages(element.matchID).listen((event) {
-          element.messages = event;
+          element.messagesOrdered = event;
           notifyListeners();
         });
       });

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/home/feed/components/like_profile_button.dart';
@@ -11,12 +10,15 @@ import '../../../../constants/borders.dart';
 import '../../../../constants/constant.dart';
 import '../../../components/sliding_profile_details.dart';
 
-/// The Widget that displays a profile's information.
-///
-/// This Widget is placed within the [FeedScreen]'s [PageView].
-/// It is composed of a [NetworkImage], [PartialProfileDetails],
-/// a modal bottom sheet that contains [SlidingProfileDetails]
-/// and a [LikeProfileButton].
+/**
+ * The Widget that displays a profile's information.
+ *
+ * This Widget is placed within the [FeedScreen]'s [PageView].
+ * It is composed of a [NetworkImage], [PartialProfileDetails],
+ * a modal bottom sheet that contains [SlidingProfileDetails]
+ * and a [LikeProfileButton].
+ */
+
 class ProfileContainer extends StatelessWidget {
   final UserData profile;
   final bool liked;
@@ -66,7 +68,8 @@ class ProfileContainer extends StatelessWidget {
                         ),
                       ),
                       context: context,
-                      builder: (context) => SlidingProfileDetails(profile: profile),
+                      builder: (context) =>
+                          SlidingProfileDetails(profile: profile),
                     );
                   },
                   child: Row(

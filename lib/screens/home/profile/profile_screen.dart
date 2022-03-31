@@ -11,7 +11,7 @@ import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-///The screen displays the profile of the current user
+///The screen displays the profile of the current user.
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -26,7 +26,8 @@ class ProfileScreen extends StatelessWidget {
       rightAction: Padding(
         padding: const EdgeInsets.only(right: leftRightPadding),
         child: RoundActionButton(
-          onPressed: () => context.goNamed(editProfileScreenName, params: {pageParameterKey: profileScreenName}),
+          onPressed: () => context.goNamed(editProfileScreenName,
+              params: {pageParameterKey: profileScreenName}),
           child: const Icon(
             FontAwesomeIcons.pen,
             color: whiteColour,
@@ -38,7 +39,10 @@ class ProfileScreen extends StatelessWidget {
         PillButtonFilled(
           text: "Change password",
           expandsWidth: true,
-          textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: whiteColour),
+          textStyle: Theme.of(context)
+              .textTheme
+              .titleMedium
+              ?.apply(color: whiteColour),
           icon: const Icon(
             FontAwesomeIcons.lock,
             color: whiteColour,
@@ -55,7 +59,8 @@ class ProfileScreen extends StatelessWidget {
           text: "Sign out",
           expandsWidth: true,
           color: Colors.red,
-          textStyle: Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
+          textStyle:
+              Theme.of(context).textTheme.titleMedium?.apply(color: Colors.red),
           icon: const Icon(
             FontAwesomeIcons.signOutAlt,
             color: Colors.red,

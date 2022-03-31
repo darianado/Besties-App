@@ -16,7 +16,7 @@ import '../../../constants/colours.dart';
 import '../../../states/user_state.dart';
 
 /**
- * This class represents the model of a reusable widget that allows the
+ * This class represents a model of a reusable widget that allows the
  * user to change the preferences regarding the people their looking for.
  */
 

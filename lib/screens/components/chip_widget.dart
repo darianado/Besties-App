@@ -3,8 +3,8 @@ import '../../constants/borders.dart';
 import '../../constants/colours.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
- * to display a text or an icon or both in form of a chip. It takes color
+ * This class represents a model of a reusable widget that is used
+ * to display a text or an icon or both in form of a chip. It takes colour
  * the chip will have as a required argument but allows further customisation.
  */
 

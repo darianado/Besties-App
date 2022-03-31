@@ -5,7 +5,7 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- * This class represents the model of a reusable widget that is used
+ * This class represents a model of a reusable widget that is used
  * to display a message that appears in the conversation.
  */
 
@@ -18,7 +18,7 @@ class MessageWidget extends StatelessWidget {
   }) : super(key: key);
 
   /**
-   * This method build a widget that is is used to display the messages
+   * This method builds a widget that is used to display the messages
    * used in the communication between two users.
    * The widget displays the content of the message and the time it is sent.
    */
@@ -29,10 +29,12 @@ class MessageWidget extends StatelessWidget {
     final bool isMine = (message.senderID == _userState.user?.user?.uid);
 
     return Row(
-      mainAxisAlignment: isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment:
+          isMine ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          constraints: BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
+          constraints:
+              BoxConstraints(maxWidth: MediaQuery.of(context).size.width * 0.7),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
           margin: const EdgeInsets.only(top: 5, bottom: 5),
           decoration: BoxDecoration(
@@ -40,7 +42,8 @@ class MessageWidget extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10)),
           ),
           child: Column(
-            crossAxisAlignment: isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            crossAxisAlignment:
+                isMine ? CrossAxisAlignment.end : CrossAxisAlignment.start,
             children: [
               Text(
                 message.content!,

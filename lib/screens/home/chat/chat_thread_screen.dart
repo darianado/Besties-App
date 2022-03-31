@@ -7,9 +7,10 @@ import 'package:project_seg/screens/home/chat/components/profile_app_bar_button.
 
 /**
  * The screen that displays the chat between two users.
- * The page contains the ProfileAppBarButton providing information about the user to chat with,
- * the messages send between users and
- * the MessageComposer where the user can write a message to be sent.
+ *
+ * The page contains the [ProfileAppBarButton] providing information about the
+ * user to chat with, the messages send between users and
+ * the [MessageComposer] where the user can write a message to be sent.
  */
 
 class ChatThreadScreen extends StatelessWidget {

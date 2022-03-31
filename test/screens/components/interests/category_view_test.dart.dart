@@ -16,15 +16,17 @@ void main() {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
+  
   OtherUser currentUser = TestProfile.firstProfile;
-
-  Category selected = currentUser.userData.categorizedInterests!.categories[0];
+  Category selected = currentUser.userData.preferences!.interests!.categories[0];
 
   Category category = Category(
     title: "food",
     interests: [
       Interest(title: "Cocktails"),
       Interest(title: "Brunch"),
+      Interest(title: "Vegan"),
+      Interest(title: "Baking"),
       Interest(title: "Coffee"),
       Interest(title: "Tea"),
     ],
@@ -42,34 +44,56 @@ void main() {
     final Finder iconFinder = find.byIcon(Icons.arrow_downward);
     expect(iconFinder, findsOneWidget);
 
-    final Finder firstInterestWidgetFinder = find.widgetWithText(ChipWidget, "Cocktails");
-    expect(firstInterestWidgetFinder, findsOneWidget);
+    final Finder cocktailsWidgetFinder = find.widgetWithText(ChipWidget, "Cocktails");
+    expect(cocktailsWidgetFinder, findsOneWidget);
 
-    final firstInterestWidgetStyle = tester.widget<ChipWidget>(firstInterestWidgetFinder);
-    expect(firstInterestWidgetStyle.color, tertiaryColour);
-    expect(firstInterestWidgetStyle.bordered, false);
-    expect(firstInterestWidgetStyle.textColor, simpleWhiteColour);
-    expect(firstInterestWidgetStyle.label, "Cocktails");
+    final cocktailsWidgetStyle = tester.widget<ChipWidget>(cocktailsWidgetFinder);
+    expect(cocktailsWidgetStyle.color, tertiaryColour);
+    expect(cocktailsWidgetStyle.bordered, false);
+    expect(cocktailsWidgetStyle.textColor, simpleWhiteColour);
+    expect(cocktailsWidgetStyle.label, "Cocktails");
 
-    final Finder secondInterestWidgetFinder = find.widgetWithText(ChipWidget, "Brunch");
-    expect(secondInterestWidgetFinder, findsOneWidget);
+    final Finder brunchWidgetFinder = find.widgetWithText(ChipWidget, "Brunch");
+    expect(brunchWidgetFinder, findsOneWidget);
 
-    final secondInterestWidgetStyle = tester.widget<ChipWidget>(secondInterestWidgetFinder);
-    expect(secondInterestWidgetStyle.color, tertiaryColour);
-    expect(secondInterestWidgetStyle.bordered, false);
-    expect(secondInterestWidgetStyle.textColor, simpleWhiteColour);
-    expect(secondInterestWidgetStyle.label, "Brunch");
+    final brunchWidgetStyle = tester.widget<ChipWidget>(brunchWidgetFinder);
+    expect(brunchWidgetStyle.color, tertiaryColour);
+    expect(brunchWidgetStyle.bordered, false);
+    expect(brunchWidgetStyle.textColor, simpleWhiteColour);
+    expect(brunchWidgetStyle.label, "Brunch");
 
-    final Finder thirdInterestWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
-    expect(thirdInterestWidgetFinder, findsOneWidget);
+    final Finder coffeeWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
+    expect(coffeeWidgetFinder, findsOneWidget);
 
-    final thirdInterestWidgetStyle = tester.widget<ChipWidget>(thirdInterestWidgetFinder);
-    expect(thirdInterestWidgetStyle.color, tertiaryColour);
-    expect(thirdInterestWidgetStyle.bordered, false);
-    expect(thirdInterestWidgetStyle.textColor, simpleWhiteColour);
-    expect(thirdInterestWidgetStyle.label, "Coffee");
+    final coffeeWidgetStyle = tester.widget<ChipWidget>(coffeeWidgetFinder);
+    expect(coffeeWidgetStyle.color, tertiaryColour);
+    expect(coffeeWidgetStyle.bordered, false);
+    expect(coffeeWidgetStyle.textColor, simpleWhiteColour);
+    expect(coffeeWidgetStyle.label, "Coffee");
 
-    final Finder fourthInterestWidgetFinder = find.widgetWithText(ChipWidget, "Tea");
-    expect(fourthInterestWidgetFinder, findsNothing);
+    final Finder veganWidgetFinder = find.widgetWithText(ChipWidget, "Vegan");
+    expect(veganWidgetFinder, findsOneWidget);
+
+    final veganWidgetStyle = tester.widget<ChipWidget>(veganWidgetFinder);
+    expect(veganWidgetStyle.color, tertiaryColour);
+    expect(veganWidgetStyle.bordered, true);
+    expect(veganWidgetStyle.textColor, simpleWhiteColour);
+    expect(veganWidgetStyle.label, "Vegan");
+
+    final Finder bakingWidgetFinder = find.widgetWithText(ChipWidget, "Baking");
+    expect(bakingWidgetFinder, findsOneWidget);
+
+    final bakingWidgetStyle = tester.widget<ChipWidget>(bakingWidgetFinder);
+    expect(bakingWidgetStyle.color, tertiaryColour);
+    expect(bakingWidgetStyle.bordered, true);
+    expect(bakingWidgetStyle.label, "Baking");
+
+    final Finder teaWidgetFinder = find.widgetWithText(ChipWidget, "Tea");
+    expect(teaWidgetFinder, findsNothing);
+
+    final teaWidgetStyle = tester.widget<ChipWidget>(teaWidgetFinder);
+    expect(teaWidgetStyle.color, tertiaryColour);
+    expect(teaWidgetStyle.bordered, true);
+    expect(teaWidgetStyle.label, "Tea");
   });
 }

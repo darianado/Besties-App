@@ -6,8 +6,8 @@ import 'package:project_seg/states/match_state.dart';
 import 'package:provider/provider.dart';
 
 /**
- * This class represents the model of a reusable widget that displays
- * a conversation between an user and its match.
+ * This class represents a model of a reusable widget that displays
+ * a conversation between a user and their match.
  */
 
 class ChatConversation extends StatelessWidget {
@@ -16,7 +16,7 @@ class ChatConversation extends StatelessWidget {
   const ChatConversation({Key? key, required this.userMatch}) : super(key: key);
 
   /**
-   * This method build a widget that displays the list of all messages in a chat.
+   * This method builds a widget that displays the list of all messages in a chat.
    */
   @override
   Widget build(context) {

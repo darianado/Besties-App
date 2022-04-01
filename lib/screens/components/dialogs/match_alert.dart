@@ -67,7 +67,7 @@ class _MatchDialogState extends State<MatchDialog> {
                   expandsWidth: true,
                   textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
                   onPressed: () {
-                    Navigator.of(context).pop(); // To close the dialog
+                    Navigator.of(context).pop();
                     context.goNamed(homeScreenName, params: {pageParameterKey: chatScreenName});
                   },
                 ),

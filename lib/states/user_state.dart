@@ -40,15 +40,17 @@ class UserState extends ChangeNotifier {
       if (userAuthEvent == null) {
         _user = ActiveUser(user: userAuthEvent);
         _subscription?.cancel();
+        print("Triggered null auth event");
         notifyListeners();
       } else {
         waitingOnFirestore = true;
         _user = ActiveUser(user: userAuthEvent);
         notifyListeners();
+        _subscription?.cancel();
         _subscription = firestoreService.loggedInUser(userAuthEvent).listen((ActiveUser userFirestoreEvent) {
           waitingOnFirestore = false;
           _user = userFirestoreEvent;
-          //print("Firestore event: ${_user?.userData?.firstName}");
+          print("Triggered Firestore event ${_user?.userData?.firstName}");
           notifyListeners();
         });
       }

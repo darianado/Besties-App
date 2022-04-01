@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/router/route_names.dart';
@@ -33,14 +34,14 @@ void main() async {
   final feedContentController = FeedContentController(userState: userState);
   final matchState = MatchState(firestoreService: firestoreService);
 
-  runApp(MyApp(
-    userState: userState,
-    appRouter: appRouter,
-    contextState: contextState,
-    feedContentController: feedContentController,
-    matchState: matchState,
-    firestoreService: firestoreService,
-  ));
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((value) => runApp(MyApp(
+        userState: userState,
+        appRouter: appRouter,
+        contextState: contextState,
+        feedContentController: feedContentController,
+        matchState: matchState,
+        firestoreService: firestoreService,
+      )));
 }
 
 /// The entry widget which injects a MultiProvider with various
@@ -96,18 +97,23 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final router = Provider.of<AppRouter>(context, listen: false).router;
-          return MaterialApp.router(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              textTheme: GoogleFonts.nunitoTextTheme(
-                (Theme.of(context).textTheme).apply(
-                  bodyColor: tertiaryColour,
-                  displayColor: tertiaryColour,
+          return GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                textTheme: GoogleFonts.nunitoTextTheme(
+                  (Theme.of(context).textTheme).apply(
+                    bodyColor: tertiaryColour,
+                    displayColor: tertiaryColour,
+                  ),
                 ),
               ),
+              routeInformationParser: router("/" + feedScreenName, null).routeInformationParser,
+              routerDelegate: router("/" + feedScreenName, null).routerDelegate,
             ),
-            routeInformationParser: router("/" + feedScreenName, null).routeInformationParser,
-            routerDelegate: router("/" + feedScreenName, null).routerDelegate,
           );
         },
       ),

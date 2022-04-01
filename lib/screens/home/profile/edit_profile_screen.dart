@@ -11,11 +11,7 @@ import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that allows
- * the user to enter edit your information mode.
- */
-
+/// A widget that allows the user to edit their information.
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
 

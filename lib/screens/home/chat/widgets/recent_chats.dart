@@ -4,18 +4,9 @@ import 'package:project_seg/screens/home/chat/components/recent_chats_scroll_vie
 import 'package:project_seg/states/match_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class is used to store the chat history of a user.
- */
-
+/// A widget that displays the chats of a user in a [RecentChatsScrollView].
 class RecentChats extends StatelessWidget {
   const RecentChats({Key? key}) : super(key: key);
-
-  /**
-   * This method builds a widget that displays all the active chats of a user
-   * If no conversations are available yet, the text
-   * "You haven't started any chats yet." is displayed.
-   */
 
   @override
   Widget build(BuildContext context) {

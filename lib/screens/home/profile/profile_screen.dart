@@ -11,7 +11,7 @@ import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-///The screen displays the profile of the current user.
+/// A widget that displays the [ProfileInformation] with pill buttons to change password and sign out.
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

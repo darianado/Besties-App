@@ -9,16 +9,16 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 /// Users can select a [Category] title to expand it with all the interests
 /// that are part of that category.
 class CategoryView extends StatelessWidget {
+  final Category category;
+  final Category selected;
+  final Function onTap;
+
   const CategoryView(
       {Key? key,
       required this.category,
       required this.selected,
       required this.onTap})
       : super(key: key);
-
-  final Category category;
-  final Category selected;
-  final Function onTap;
 
   @override
   Widget build(BuildContext context) {

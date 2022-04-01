@@ -14,11 +14,7 @@ import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import '../../../constants/borders.dart';
 
-/**
- * This class represents a model of a reusable widget that allows
- * the user to change their password.
- */
-
+/// A widget that allows the user to change their password.
 class EditPasswordScreen extends StatefulWidget {
   const EditPasswordScreen({Key? key}) : super(key: key);
 
@@ -40,6 +36,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
     _confirmNewPassword.dispose();
   }
 
+  /// Replaces the user's [currentPassword] with the [newPassword].
   _changePassword(String currentPassword, String newPassword) async {
     try {
       await Provider.of<UserState>(context)

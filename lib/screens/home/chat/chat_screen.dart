@@ -8,14 +8,9 @@ import 'package:project_seg/states/match_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The screen that displays the page with user's the matches and conversations.
- *
- * The matches are arranged chronologically in a horizontal row at the top of
- * the screen, under the "New matches" text.
- * All the chats are displayed under the "Chats" section.
- */
-
+/// A widget that displays the page with user's the matches and conversations.
+///
+/// Both the matches and the chats are sorted by timestamp.
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
 
@@ -32,9 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
     fetchMatches();
   }
 
-  /**
-   * This asyncronous method fetches all the user's matches.
-   */
+  /// Fetches all the user's matches.
   void fetchMatches() async {
     final _matchState = Provider.of<MatchState>(context, listen: false);
     final _userState = Provider.of<UserState>(context, listen: false);

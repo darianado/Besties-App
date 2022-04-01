@@ -7,13 +7,7 @@ import 'package:project_seg/states/match_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The Home screen.
- * This screen that helps navigating through the pages that are connected
- * by the [NavBar] ([Profile], [Feed], [Chat] history).
- * The page displays its specific content and the [NavBar].
- */
-
+/// A widget that helps navigating through the pages connected by the [NavBar].
 class HomeScreen extends StatefulWidget {
   final int index;
   HomeScreen({Key? key, required String page})
@@ -27,6 +21,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late int _selectedIndex;
 
+  /// Updates the selected index in the [NavBar].
   set selectedIndex(int index) {
     setState(() {
       _selectedIndex = index;
@@ -43,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  /// Changes the [index] of the selected [NavBar] item.
   void changeSelection(int index) {
     if (index == 1) {
       FeedScreen.animateToTop();
@@ -51,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
     selectedIndex = index;
   }
 
+  /// Returns the screens connected by the [NavBar].
   List<Widget> get itemWidgets =>
       menuData.items.map((e) => e.destinationWidget).toList();
 

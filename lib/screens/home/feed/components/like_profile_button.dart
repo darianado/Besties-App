@@ -8,12 +8,7 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The [FloatingActionButton] to like the displayed profile.
- *
- * The [likeProfile] method is called on-tap
- */
-
+/// A widget that displays a [RoundActionButton] to like a [profile].
 class LikeProfileButton extends StatefulWidget {
   final UserData profile;
   final bool liked;
@@ -38,6 +33,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton>
   late final FirestoreService _firestoreService;
   late final AnimationController _animationController;
 
+  /// Checks if the profile has already been liked by the user.
   bool isLiked(UserState userState) =>
       userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
 

@@ -7,15 +7,11 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to create a message in order to be sent by the user.
- */
-
+/// A widget that creates a [Message] to send.
 class MessageComposer extends StatefulWidget {
   final String matchID;
 
-  MessageComposer({
+  const MessageComposer({
     Key? key,
     required this.matchID,
   }) : super(key: key);
@@ -35,14 +31,7 @@ class _MessageComposerState extends State<MessageComposer> {
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }
 
-  /**
-   * This method creates a message to be sent.
-   * The content and the time it is sent is saved to the database.
-   * After the message is sent, the _textController is cleared.
-   * @param String content - the content of the message
-   * @param String? senderID - the ID of the user that sent the message
-   */
-
+  /// Creates a [Message] and clears the [_textController].
   void _handleSend(String content, String? senderID) {
     if (content.trim() == "") return;
 
@@ -53,11 +42,6 @@ class _MessageComposerState extends State<MessageComposer> {
     _firestoreService.saveMessage(widget.matchID, message);
     _textController.clear();
   }
-  /**
-   * This method builds a widget that is used to sent new messages in the chat.
-   * By defalut, "Message..." is displayed.
-   * The "Send" button allows user to send their messages.
-   */
 
   @override
   Widget build(BuildContext context) {

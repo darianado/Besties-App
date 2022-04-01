@@ -14,11 +14,7 @@ import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 import '../../constants/borders.dart';
 
-/**
- * This class represents a widget that is used to help users who
- * forgot their password to get back access to their account.
- */
-
+/// A widget that displays the recover password screen.
 class RecoverPasswordScreen extends StatefulWidget {
   const RecoverPasswordScreen({Key? key}) : super(key: key);
 

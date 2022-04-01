@@ -11,7 +11,7 @@ import 'package:project_seg/states/user_state.dart';
 class FeedContentController extends ChangeNotifier {
   final _desiredFeedContentLength = 5;
   final UserState userState;
-  late final FeedContentGatherer gatherer;
+  FeedContentGatherer? gatherer;
 
   List<Widget> content = [
     FeedLoadingSheet(
@@ -27,7 +27,7 @@ class FeedContentController extends ChangeNotifier {
         userState: userState,
         onLikeComplete: (likedUser) {
           controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
-          gatherer.removeLiked();
+          gatherer?.removeLiked();
         });
   }
 
@@ -64,8 +64,10 @@ class FeedContentController extends ChangeNotifier {
   Future<void> insertAtEnd() async {
     if (_desiredFeedContentLength - 2 > (content.length - 1)) {
       //print("Requesting new content");
-      final entries = await gatherer.gather(_desiredFeedContentLength);
-      content.addAll(entries);
+      final entries = await gatherer?.gather(_desiredFeedContentLength);
+      if (entries != null) {
+        content.addAll(entries);
+      }
       moveLoadingScreenLast();
     }
     //print("Content: ${(content.length - 1)}");
@@ -81,11 +83,9 @@ class FeedContentController extends ChangeNotifier {
     final RecommendationsState _recState = RecommendationsState(userState.user!.user!, firestoreService: firestoreService);
 
     _recState.addListener(() async {
-      //print("Queue changed!");
-      //print(_recState.currentQueueID);
       removeAll();
       if (!_recState.loadingRecommendations) {
-        gatherer.queue.clear();
+        gatherer?.queue.clear();
         await insertAtEnd();
       }
       notifyListeners();

@@ -27,8 +27,8 @@ void main() {
       final controller = FeedContentController(userState: _widgetPumper.firebaseEnv.userState);
       expect(() => controller.assignController(fakePageController), returnsNormally);
 
-      expect(controller.gatherer.onLikeComplete, isNotNull);
-      expect(() => controller.gatherer.onLikeComplete!(peterUser), returnsNormally);
+      expect(controller.gatherer?.onLikeComplete, isNotNull);
+      expect(() => controller.gatherer?.onLikeComplete!(peterUser), returnsNormally);
     });
 
     testWidgets("Page listener returns normally for all controller states", (tester) async {

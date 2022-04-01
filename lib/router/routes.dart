@@ -252,25 +252,6 @@ class AppRouter {
         final goingToRegisterDescription = state.subloc == registerDescriptionLoc;
         final goingToRegisterInterests = state.subloc == registerInterestsLoc;
 
-        /*
-      print("State of the union: ");
-      print("    initialized? ${initialized}");
-      print("    logged in? ${loggedIn}");
-      print("    email verified? ${emailVerified}");
-      print("    fetched user data? ${fetchedUser}");
-      print("----------");
-      print("    goingToSplash? ${goingToSplash}");
-      print("    goingToEmailVerify? ${goingToEmailVerify}");
-      print("----------");
-      print("    goingToLogin? ${goingToLogin}");
-      print("    goingToRegister? ${goingToRegister}");
-      print("    goingToRegisterBasicInfo? ${goingToRegisterBasicInfo}");
-      print("    goingToRegisterPhoto? ${goingToRegisterPhoto}");
-      print("    goingToRegisterDescription? ${goingToRegisterDescription}");
-      print("    goingToRegisterInterests? ${goingToRegisterInterests}");
-      print("#################################################");
-      */
-
         if (!initialized && !goingToSplash) {
           return splashLoc;
         }

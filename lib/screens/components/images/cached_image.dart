@@ -12,12 +12,10 @@ import '../../../constants/colours.dart';
 
 class CachedImage extends StatelessWidget {
   final String? url;
-  final double? aspectRatio;
 
   const CachedImage({
     Key? key,
     this.url,
-    this.aspectRatio,
   }) : super(key: key);
 
   Widget errorPlaceholder() {
@@ -31,14 +29,7 @@ class CachedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (url != null) {
-      if (aspectRatio != null) {
-        return AspectRatio(
-          aspectRatio: aspectRatio!,
-          child: imageWidget,
-        );
-      } else {
-        return imageWidget;
-      }
+      return imageWidget;
     } else {
       return errorPlaceholder();
     }
@@ -47,9 +38,7 @@ class CachedImage extends StatelessWidget {
   CachedNetworkImage get imageWidget {
     return CachedNetworkImage(
       imageUrl: url!,
-      errorWidget: (context, url, error) {
-        return errorPlaceholder();
-      },
+      errorWidget: (context, url, error) => errorPlaceholder(),
       placeholder: (context, url) {
         return const Center(
           child: Padding(

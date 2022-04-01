@@ -25,9 +25,8 @@ void main() {
   String userEmail = "johndoe@example.org";
   String buttonText = "Sign out";
 
-  group('PillButtonOutlined Widget tests', () {
-    testWidgets('Test PillButtonOutlined displays correct information',
-        (tester) async {
+  group('Pill button outlined widget:', () {
+    testWidgets('Displays correct information', (tester) async {
       await _widgetPumper.pumpWidget(
           tester,
           PillButtonOutlined(
@@ -39,10 +38,8 @@ void main() {
       expect(find.text(buttonText), findsOneWidget);
     });
 
-    testWidgets('Test PillButtonOutlined behaves correctly when tapped',
-        (tester) async {
+    testWidgets('Behaves correctly when tapped', (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-
       await _widgetPumper.pumpWidget(
         tester,
         PillButtonOutlined(
@@ -59,6 +56,22 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNull);
+    });
+
+    testWidgets("Shows loading indicator if isLoading is set", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidget(
+          tester,
+          PillButtonOutlined(
+            text: buttonText,
+            isLoading: true,
+            onPressed: () async {
+              await _widgetPumper.firebaseEnv.userState.signOut();
+            },
+          ));
+
+      expect(find.text(buttonText), findsNothing);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
   });
 }

@@ -3,6 +3,8 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/interests_in_common.dart';
+import 'package:project_seg/states/user_state.dart';
+import 'package:provider/provider.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../models/User/user_data.dart';
@@ -23,8 +25,7 @@ import 'buttons/university_button.dart';
 class SlidingProfileDetails extends StatefulWidget {
   final UserData profile;
 
-  const SlidingProfileDetails({Key? key, required this.profile})
-      : super(key: key);
+  const SlidingProfileDetails({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<SlidingProfileDetails> createState() => _SlidingProfileDetailsState();
@@ -39,13 +40,13 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
   void initState() {
     super.initState();
     controller = AutoScrollController(
-        viewportBoundaryGetter: () =>
-            Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom),
-        axis: Axis.vertical);
+        viewportBoundaryGetter: () => Rect.fromLTRB(0, 0, 0, MediaQuery.of(context).padding.bottom), axis: Axis.vertical);
   }
 
   @override
   Widget build(BuildContext context) {
+    final UserState _userState = Provider.of<UserState>(context);
+
     return SingleChildScrollView(
       child: SafeArea(
         bottom: true,
@@ -56,10 +57,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
               Text(
                 widget.profile.fullName ?? " ",
                 textAlign: TextAlign.center,
-                style: Theme.of(context)
-                    .textTheme
-                    .headline3
-                    ?.apply(color: tertiaryColour, fontWeightDelta: 2),
+                style: Theme.of(context).textTheme.headline3?.apply(color: tertiaryColour, fontWeightDelta: 2),
               ),
               const SizedBox(height: 15),
               UniversityButton(
@@ -72,11 +70,9 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                 alignment: WrapAlignment.center,
                 runAlignment: WrapAlignment.center,
                 children: [
-                  DateOfBirthButton(
-                      label: (widget.profile.age ?? " ").toString()),
+                  DateOfBirthButton(label: (widget.profile.age ?? " ").toString()),
                   GenderButton(label: widget.profile.gender ?? " "),
-                  RelationshipStatusButton(
-                      label: widget.profile.relationshipStatus ?? " "),
+                  RelationshipStatusButton(label: widget.profile.relationshipStatus ?? " "),
                 ],
               ),
               const SizedBox(height: 20),
@@ -85,7 +81,7 @@ class _SlidingProfileDetailsState extends State<SlidingProfileDetails> {
                 editable: false,
               ),
               const SizedBox(height: 25),
-              InterestsInCommon(profile: widget.profile),
+              InterestsInCommon(user: _userState.user?.userData, otherUser: widget.profile),
             ],
           ),
         ),

@@ -30,7 +30,7 @@ void main() async {
   );
   final appRouter = AppRouter(userState);
   final contextState = ContextState(firestoreService: firestoreService);
-  final feedContentController = FeedContentController(userState: userState, gatherer: FeedContentGatherer(userState: userState));
+  final feedContentController = FeedContentController(userState: userState);
   final matchState = MatchState(firestoreService: firestoreService);
 
   runApp(MyApp(

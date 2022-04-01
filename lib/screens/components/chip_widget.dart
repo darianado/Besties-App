@@ -72,9 +72,7 @@ class ChipWidget extends StatelessWidget {
                 (label != null)
                     ? Text(
                         (capitalizeLabel == true) ? capitalize(label!) : label!,
-                        style: TextStyle(
-                            color: (textColor != null) ? textColor : color,
-                            fontSize: (mini) ? 16 : 18),
+                        style: TextStyle(color: (textColor != null) ? textColor : color, fontSize: (mini) ? 16 : 18),
                       )
                     : Container(),
               ],
@@ -90,10 +88,6 @@ class ChipWidget extends StatelessWidget {
    */
 
   String capitalize(String label) {
-    if (label.length >= 2) {
-      return label[0].toUpperCase() + label.substring(1).toLowerCase();
-    } else {
-      return label.toUpperCase();
-    }
+    return label[0].toUpperCase() + label.substring(1).toLowerCase();
   }
 }

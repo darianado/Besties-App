@@ -7,17 +7,14 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display the user's gender.
- * The Gender button can be editable in the Edit Profile screen, but
- * it cannot be edited when the current user sees information related
- * to others (in the partial profile screen available on Feed or
- * on other users' complete profile that are available after a match occurred).
- * In the sign up screen the button is used multiple times so that
- * users can select their gender.
- */
-
+/// This class represents a model of a reusable widget that is used
+/// to display the user's gender.
+/// The Gender button can be editable in the Edit Profile screen, but
+/// it cannot be edited when the current user sees information related
+/// to others (in the partial profile screen available on Feed or
+/// on other users' complete profile that are available after a match occurred).
+/// In the sign up screen the button is used multiple times so that
+/// users can select their gender.
 class GenderButton extends StatelessWidget {
   final bool editable;
   final bool wiggling;
@@ -36,11 +33,8 @@ class GenderButton extends StatelessWidget {
     this.onSave,
   }) : super(key: key);
 
-  /**
-   * The widget wiggles when it is in the edit mode
-   * (for example in the Edit Profile Screen).
-   */
-
+  /// The widget wiggles when it is in the edit mode
+  /// (for example in the Edit Profile Screen).
   @override
   Widget build(BuildContext context) {
     if (editable) {
@@ -54,12 +48,9 @@ class GenderButton extends StatelessWidget {
     }
   }
 
-  /**
-   * This method generates icons depanding on gender.
-   * @ param String? - the gender to be selected
-   * @return the IconData corresponding to the selected gender
-   */
-
+  /// This method generates icons depanding on gender.
+  /// @ param String? - the gender to be selected
+  /// @return the IconData corresponding to the selected gender
   IconData getIconForGender(String? gender) {
     switch (gender?.toLowerCase()) {
       case "male":
@@ -80,16 +71,13 @@ class GenderButton extends StatelessWidget {
     );
   }
 
-  /**
-   * This method allows users to tap on the button in the instances
-   * when it is ediatble. If the button is not editable, nothing will happen,
-   * otherwise a DialogDropdown will be triggered so that users
-   * can select a new gender.
-   */
-
+  /// This method allows users to tap on the button in the instances
+  /// when it is editable. If the button is not editable, nothing will happen,
+  /// otherwise a DialogDropdown will be triggered so that users
+  /// can select a new gender.
   Function? getOnTap(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final _contextState = Provider.of<ContextState>(context, listen: false);
 
     final _onSave = onSave;
 

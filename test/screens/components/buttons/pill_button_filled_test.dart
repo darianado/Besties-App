@@ -16,17 +16,16 @@ import '../../../test_resources/widget_pumper.dart';
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
-  setUpAll(() async {
-    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
-  });
-
   UserData testUser = appUsersTestData[0]['data'] as UserData;
   String userEmail = "johndoe@example.org";
   String buttonText = "Sign out";
 
-  group('PillButtonFilled Widget tests', () {
-    testWidgets('Test PillButtonFilled displays correct information',
-        (tester) async {
+  setUpAll(() async {
+    await _widgetPumper.setup("johndoe@example.org", authenticated: true);
+  });
+
+  group('Pill button filled widget:', () {
+    testWidgets('Displays correct information', (tester) async {
       await _widgetPumper.pumpWidget(
           tester,
           PillButtonFilled(
@@ -38,19 +37,16 @@ void main() {
       expect(find.text(buttonText), findsOneWidget);
     });
 
-    testWidgets('Test PillButtonFilled behaves correctly when tapped',
-        (tester) async {
+    testWidgets('Behaves correctly when tapped', (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-
       await _widgetPumper.pumpWidget(
-        tester,
-        PillButtonFilled(
-          text: buttonText,
-          onPressed: () async {
-            await _widgetPumper.firebaseEnv.userState.signOut();
-          },
-        ),
-      );
+          tester,
+          PillButtonFilled(
+            text: buttonText,
+            onPressed: () async {
+              await _widgetPumper.firebaseEnv.userState.signOut();
+            },
+          ));
 
       expect(find.text(buttonText), findsOneWidget);
 
@@ -58,6 +54,22 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNull);
+    });
+
+    testWidgets("Shows loading indicator if isLoading is set", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidget(
+          tester,
+          PillButtonFilled(
+            text: buttonText,
+            isLoading: true,
+            onPressed: () async {
+              await _widgetPumper.firebaseEnv.userState.signOut();
+            },
+          ));
+
+      expect(find.text(buttonText), findsNothing);
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
     });
   });
 }

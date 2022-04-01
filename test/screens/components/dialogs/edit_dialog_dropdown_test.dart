@@ -15,54 +15,51 @@ import '../../../test_resources/widget_pumper.dart';
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
+  UserData testUser = appUsersTestData[0]['data'] as UserData;
+  final possibleGenders = appContextTestData['genders'] as List<String>;
+
   setUpAll(() async {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  IconData getIconForGender(String? gender) {
-    switch (gender?.toLowerCase()) {
-      case "male":
-        return FontAwesomeIcons.mars;
-      case "female":
-        return FontAwesomeIcons.venus;
-      default:
-        return FontAwesomeIcons.venusMars;
-    }
-  }
+  group('Edit dialog dropdown widget:', () {
+    testWidgets('onChanged returns normally', (tester) async {
+      await _widgetPumper.pumpWidget(
+        tester,
+        EditDialogDropdown(
+          items: possibleGenders,
+          value: possibleGenders[0],
+          onSave: (gender) {
+            testUser.gender = gender;
+          },
+        ),
+      );
 
-  UserData testUser = appUsersTestData[0]['data'] as UserData;
+      final Finder dropdownFinder = find.byType(DropdownButton<String>);
+      expect(dropdownFinder, findsOneWidget);
+      final DropdownButton<String> dropdownButton = tester.widget<DropdownButton<String>>(dropdownFinder);
+      expect(dropdownButton.onChanged, isNotNull);
 
-  group('EditDialogDropdown Widget tests', () {
-    // testWidgets('Test EditDialogDropdown Widget saves new fields once edited',
-    //     (tester) async {
-    //   String newGender = "Female";
-    //   String oldGender = testUser.gender!;
+      expect(() => dropdownButton.onChanged!(possibleGenders[1]), returnsNormally);
+    });
 
-    //   await _widgetPumper.pumpWidget(
-    //     tester,
-    //     EditDialogDropdown(
-    //       items: appContextTestData['genders'] as List<String>,
-    //       value: testUser.gender!,
-    //       onSave: (gender) {
-    //         testUser.gender = gender;
-    //       },
-    //     ),
-    //   );
+    testWidgets('onSave returns normally', (tester) async {
+      await _widgetPumper.pumpWidget(
+        tester,
+        EditDialogDropdown(
+          items: possibleGenders,
+          value: possibleGenders[0],
+          onSave: (gender) {
+            testUser.gender = gender;
+          },
+        ),
+      );
 
-    //   expect(find.text(oldGender), findsOneWidget);
+      final Finder editDialogFinder = find.byType(EditDialog);
+      expect(editDialogFinder, findsOneWidget);
+      final EditDialog editDialog = tester.widget<EditDialog>(editDialogFinder);
 
-    //   await tester.tap(find.text(oldGender));
-    //   await tester.pump(const Duration(seconds: 1));
-
-    //   expect(find.byType(EditDialog), findsOneWidget);
-    //   await tester.tap(find.byType(EditDialog));
-    //   await tester.pump(const Duration(seconds: 1));
-
-    //   await tester.tap(find.text("Save"));
-    //   await tester.pump(const Duration(seconds: 1));
-
-    //   expect(find.text(newGender), findsOneWidget);
-    //   expect(find.text(oldGender), findsNothing);
-    // });
+      expect(() => editDialog.onSave(), returnsNormally);
+    });
   });
 }

@@ -13,25 +13,21 @@ import '../../../test_resources/widget_pumper.dart';
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
+  UserData testUser = appUsersTestData[0]['data'] as UserData;
+
   setUpAll(() async {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  UserData testUser = appUsersTestData[0]['data'] as UserData;
-
-  group('BioField Widget tests', () {
-    testWidgets('Test BioField displays correct information', (tester) async {
-      await _widgetPumper.pumpWidget(
-          tester, BioField(label: testUser.bio!));
+  group('Bio field widget:', () {
+    testWidgets('Displays correct information', (tester) async {
+      await _widgetPumper.pumpWidget(tester, BioField(label: testUser.bio!));
 
       expect(find.text(testUser.bio!), findsOneWidget);
     });
 
-    testWidgets(
-        'Test editable BioField displays EditDialogTextField Widget on tap',
-        (tester) async {
-      await _widgetPumper.pumpWidget(
-          tester, BioField(label: testUser.bio!, editable: true));
+    testWidgets('Displays EditDialogTextField widget on tap', (tester) async {
+      await _widgetPumper.pumpWidget(tester, BioField(label: testUser.bio!, editable: true));
 
       expect(find.text(testUser.bio!), findsOneWidget);
 
@@ -39,6 +35,21 @@ void main() {
       await tester.pump(const Duration(milliseconds: 500));
 
       expect(find.byType(EditDialogTextField), findsOneWidget);
+    });
+
+    testWidgets("Saving a new bio returns normally", (tester) async {
+      await _widgetPumper.pumpWidget(tester, BioField(label: testUser.bio!, editable: true));
+
+      expect(find.text(testUser.bio!), findsOneWidget);
+
+      await tester.tap(find.text(testUser.bio!));
+      await tester.pump(const Duration(milliseconds: 500));
+
+      final Finder editDialogTextFieldFinder = find.byType(EditDialogTextField);
+      expect(editDialogTextFieldFinder, findsOneWidget);
+      final EditDialogTextField dialog = tester.widget<EditDialogTextField>(editDialogTextFieldFinder);
+
+      expect(() => dialog.onSave(testUser.uid, "This is a new bio"), returnsNormally);
     });
   });
 }

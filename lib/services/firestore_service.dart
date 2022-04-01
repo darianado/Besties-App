@@ -45,37 +45,6 @@ class FirestoreService {
     return firebaseFirestore.collection("app").doc("context").snapshots().map((snapshot) => AppContext.fromSnapshot(snapshot));
   }
 
-  /*
-  Future<List<OtherUser>> getUsers(List<String> userIDs) async {
-    List<List<String>> splitUserIDs = split(userIDs, batchSize);
-
-    List<OtherUser> results = [];
-
-    for (int si = 0; si < splitUserIDs.length; si++) {
-      List<String> slice = splitUserIDs[si];
-
-      final snapshot = await FirebaseFirestore.instance.collection("users").where(FieldPath.documentId, whereIn: slice).get();
-      results.addAll(
-        snapshot.docs.map((doc) {
-          final userData = UserData.fromSnapshot(doc);
-          return OtherUser(liked: false, userData: userData);
-        }).toList(),
-      );
-    }
-
-    results.sort((a, b) {
-      final aUserID = a.userData.uid;
-      final bUserID = b.userData.uid;
-      final aPosOriginal = userIDs.indexWhere((element) => element == aUserID);
-      final bPosOriginal = userIDs.indexWhere((element) => element == bUserID);
-
-      return aPosOriginal.compareTo(bPosOriginal);
-    });
-
-    return results;
-  }
-  */
-
   /// Returns a [UserData] representation of the user indicated by [userID], as stored in Firestore.
   Future<UserData> getUser(String userID) async {
     final _userDoc = await firebaseFirestore.collection("users").doc(userID).get();
@@ -124,11 +93,6 @@ class FirestoreService {
   /// Sets the [gender] for a user given by [userID] to the [gender] provided.
   Future<void> setGender(String userId, String gender) async {
     return await firebaseFirestore.collection("users").doc(userId).set({"gender": gender}, firestore.SetOptions(merge: true));
-  }
-
-  /// Sets the [dob] for a user given by [userID] to the [dateOfBirth] provided.
-  Future<void> setDateOfBirth(String userId, DateTime dateOfBirth) async {
-    return await firebaseFirestore.collection("users").doc(userId).set({"dob": dateOfBirth}, firestore.SetOptions(merge: true));
   }
 
   /// Handles the liking of a user indicated with [profileID] by the currently logged in user.

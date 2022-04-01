@@ -25,29 +25,32 @@ void main() {
 
   UserData testUser = appUsersTestData[0]['data'] as UserData;
 
-  group('RelationshipStatusButton Widget tests', () {
-    testWidgets('Test RelationshipStatusButton displays correct information',
-        (tester) async {
-      await _widgetPumper.pumpWidget(tester,
-          RelationshipStatusButton(label: testUser.relationshipStatus!));
+  group('Relationship status button widget:', () {
+    testWidgets('Displays correct information', (tester) async {
+      await _widgetPumper.pumpWidget(tester, RelationshipStatusButton(label: testUser.relationshipStatus!));
 
       expect(find.text(testUser.relationshipStatus!), findsOneWidget);
       expect(find.byIcon(FontAwesomeIcons.heart), findsOneWidget);
-
     });
 
-    // testWidgets(
-    //     'Test editable RelationshipStatusButton displays EditDialogDropdown Widget on tap',
-    //     (tester) async {
-    //   await _widgetPumper.pumpWidget(tester,
-    //       RelationshipStatusButton(label: testUser.relationshipStatus!, editable: true));
+    testWidgets('Tapping opens dialog', (tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          RelationshipStatusButton(
+            label: testUser.gender!,
+            editable: true,
+            onSave: (relationshipStatus) =>
+                _widgetPumper.firebaseEnv.firestoreService.setRelationshipStatus(testUser.uid!, relationshipStatus!),
+          ));
 
-    //   expect(find.text(testUser.relationshipStatus!), findsOneWidget);
+      final Finder chipFinder = find.byType(ChipWidget);
+      expect(chipFinder, findsOneWidget);
+      final ChipWidget chipWidget = tester.widget<ChipWidget>(chipFinder);
 
-    //   await tester.tap(find.text(testUser.relationshipStatus!));
-    //   await tester.pump(const Duration(seconds: 1));
-
-    //   expect(find.byType(EditDialogDropdown, skipOffstage: false), isOffstage);
-    // });
+      expect(find.byType(EditDialogDropdown), findsNothing);
+      expect(() => chipWidget.onTap!(), returnsNormally);
+      await tester.pump(Duration(seconds: 1));
+      expect(find.byType(EditDialogDropdown), findsOneWidget);
+    });
   });
 }

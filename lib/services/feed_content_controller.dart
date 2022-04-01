@@ -11,7 +11,7 @@ import 'package:project_seg/states/user_state.dart';
 class FeedContentController extends ChangeNotifier {
   final _desiredFeedContentLength = 5;
   final UserState userState;
-  FeedContentGatherer gatherer;
+  late final FeedContentGatherer gatherer;
 
   List<Widget> content = [
     FeedLoadingSheet(
@@ -19,7 +19,7 @@ class FeedContentController extends ChangeNotifier {
     ),
   ];
 
-  FeedContentController({required this.userState, required this.gatherer});
+  FeedContentController({required this.userState});
 
   void assignController(PageController controller) {
     controller.addListener(() => pageChangeListener(controller));
@@ -85,7 +85,7 @@ class FeedContentController extends ChangeNotifier {
       //print(_recState.currentQueueID);
       removeAll();
       if (!_recState.loadingRecommendations) {
-        gatherer.removeAll();
+        gatherer.queue.clear();
         await insertAtEnd();
       }
       notifyListeners();

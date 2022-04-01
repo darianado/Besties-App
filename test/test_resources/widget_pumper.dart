@@ -30,12 +30,18 @@ class WidgetPumper {
   }
 
   Future<void> pumpWidget(WidgetTester tester, Widget widget) async {
+    final appRouter = AppRouter(firebaseEnv.userState);
+    final feedContentController = FeedContentController(userState: firebaseEnv.userState);
+    final matchState = MatchState(firestoreService: firebaseEnv.firestoreService);
     return await tester.pumpWidget(
       MultiProvider(
         providers: [
           ChangeNotifierProvider.value(value: firebaseEnv.userState),
           ChangeNotifierProvider<ContextState>.value(value: firebaseEnv.contextState),
           Provider<FirestoreService>.value(value: firebaseEnv.firestoreService),
+          Provider<AppRouter>.value(value: appRouter),
+          ChangeNotifierProvider.value(value: feedContentController),
+          ChangeNotifierProvider.value(value: matchState),
         ],
         child: MaterialApp(
           home: Scaffold(
@@ -48,8 +54,7 @@ class WidgetPumper {
 
   Future<void> pumpWidgetRouter(WidgetTester tester, String location, Object? extra) async {
     final appRouter = AppRouter(firebaseEnv.userState);
-    final feedContentController =
-        FeedContentController(userState: firebaseEnv.userState, gatherer: FeedContentGatherer(userState: firebaseEnv.userState));
+    final feedContentController = FeedContentController(userState: firebaseEnv.userState);
     final matchState = MatchState(firestoreService: firebaseEnv.firestoreService);
     return await tester.pumpWidget(
       MultiProvider(

@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
+import '../../../test_resources/testing_data.dart';
 import '../../../test_resources/widget_pumper.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/constants/colours.dart';
@@ -15,75 +17,132 @@ import 'package:project_seg/screens/components/interests/edit_interests_bottom_s
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
+  UserData testUser = appUsersTestData[0]['data'] as UserData;
+  Category category = Category(
+    title: "Sample",
+    interests: [
+      Interest(title: "One"),
+      Interest(title: "Two"),
+      Interest(title: "Three"),
+      Interest(title: "Four"),
+      Interest(title: "Five"),
+    ],
+  );
+
+  Category selected = Category(
+    title: "Sample",
+    interests: [
+      Interest(title: "One"),
+      Interest(title: "Two"),
+    ],
+  );
+
   setUpAll(() async {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  OtherUser currentUser = TestProfile.firstProfile;
-  Category selected = currentUser.userData.preferences!.interests!.categories[0];
-
-  Category category = Category(
-    title: "food",
-    interests: [
-      Interest(title: "Cocktails"),
-      Interest(title: "Brunch"),
-      Interest(title: "Vegan"),
-      Interest(title: "Baking"),
-      Interest(title: "Coffee"),
-      Interest(title: "Tea"),
-    ],
-  );
-  testWidgets('Food category for John interest category View', (WidgetTester tester) async {
-    await _widgetPumper.pumpWidget(
-        tester,
-        EditInterestBottomSheet(
+  group("Edit interests bottom sheet:", () {
+    testWidgets('Food category for John interest category View', (WidgetTester tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          EditInterestBottomSheet(
             category: category,
             selected: selected,
-            onChange: (newCategory) {
-              selected = newCategory;
-            }));
+            onChange: (newCategory) {},
+          ));
 
-    final Finder categoryTitleTextFinder = find.text("food");
-    expect(categoryTitleTextFinder, findsOneWidget);
+      final Finder categoryTitleTextFinder = find.text("Sample");
+      expect(categoryTitleTextFinder, findsOneWidget);
 
-    final Finder cocktailsWidgetFinder = find.widgetWithText(ChipWidget, "Cocktails");
-    expect(cocktailsWidgetFinder, findsOneWidget);
+      final Finder interestOneFinder = find.widgetWithText(ChipWidget, "One");
+      expect(interestOneFinder, findsOneWidget);
 
-    final cocktailsWidgetStyle = tester.widget<ChipWidget>(cocktailsWidgetFinder);
-    expect(cocktailsWidgetStyle.color, tertiaryColour);
-    expect(cocktailsWidgetStyle.bordered, false);
-    expect(cocktailsWidgetStyle.textColor, simpleWhiteColour);
-    expect(cocktailsWidgetStyle.label, "Cocktails");
+      final interestOne = tester.widget<ChipWidget>(interestOneFinder);
+      expect(interestOne.color, tertiaryColour);
+      expect(interestOne.bordered, false);
+      expect(interestOne.textColor, simpleWhiteColour);
+      expect(interestOne.label, "One");
 
-    final Finder brunchWidgetFinder = find.widgetWithText(ChipWidget, "Brunch");
-    expect(brunchWidgetFinder, findsOneWidget);
+      final Finder interestTwoFinder = find.widgetWithText(ChipWidget, "Two");
+      expect(interestTwoFinder, findsOneWidget);
 
-    final Finder veganWidgetFinder = find.widgetWithText(ChipWidget, "Vegan");
-    expect(veganWidgetFinder, findsOneWidget);
+      final Finder interestThreeFinder = find.widgetWithText(ChipWidget, "Three");
+      expect(interestThreeFinder, findsOneWidget);
 
-    final Finder bakingWidgetFinder = find.widgetWithText(ChipWidget, "Baking");
-    expect(bakingWidgetFinder, findsOneWidget);
+      final interestThree = tester.widget<ChipWidget>(interestThreeFinder);
+      expect(interestThree.color, tertiaryColour);
+      expect(interestThree.bordered, true);
+      expect(interestThree.label, "Three");
 
-    final Finder coffeeWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
-    expect(coffeeWidgetFinder, findsOneWidget);
+      final Finder saveButton = find.widgetWithText(PillButtonFilled, 'Save');
+      expect(saveButton, findsOneWidget);
+      final saveButtonStyle = tester.widget<PillButtonFilled>(saveButton);
+      expect(saveButtonStyle.backgroundColor, secondaryColour);
+      expect(saveButtonStyle.text, 'Save');
+      expect(saveButtonStyle.textStyle!.fontSize, 18);
+      expect(saveButtonStyle.textStyle!.fontWeight, FontWeight.w600);
+      expect(saveButtonStyle.textStyle!.color, whiteColour);
+    });
 
-    final Finder teaWidgetFinder = find.widgetWithText(ChipWidget, "Tea");
-    expect(teaWidgetFinder, findsOneWidget);
+    testWidgets('Tapping selected chip returns normally', (WidgetTester tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          EditInterestBottomSheet(
+            category: category,
+            selected: selected,
+            onChange: (newCategory) {},
+          ));
 
-    final teaWidgetStyle = tester.widget<ChipWidget>(teaWidgetFinder);
-    expect(teaWidgetStyle.color, tertiaryColour);
-    expect(teaWidgetStyle.bordered, true);
-    expect(teaWidgetStyle.label, "Tea");
+      final Finder categoryTitleTextFinder = find.text("Sample");
+      expect(categoryTitleTextFinder, findsOneWidget);
 
-    final Finder saveButton = find.widgetWithText(PillButtonFilled, 'Save');
-    expect(saveButton, findsOneWidget);
-    final saveButtonStyle = tester.widget<PillButtonFilled>(saveButton);
-    expect(saveButtonStyle.backgroundColor, secondaryColour);
-    expect(saveButtonStyle.text, 'Save');
-    expect(saveButtonStyle.textStyle!.fontSize, 18);
-    expect(saveButtonStyle.textStyle!.fontWeight, FontWeight.w600);
-    expect(saveButtonStyle.textStyle!.color, whiteColour);
+      final Finder interestOneFinder = find.widgetWithText(ChipWidget, "One");
+      expect(interestOneFinder, findsOneWidget);
+
+      final interestOne = tester.widget<ChipWidget>(interestOneFinder);
+      expect(interestOne.onTap, isNotNull);
+
+      expect(() => interestOne.onTap!(), returnsNormally);
+    });
+
+    testWidgets('Tapping unselected chip returns normally', (WidgetTester tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          EditInterestBottomSheet(
+            category: category,
+            selected: selected,
+            onChange: (newCategory) {},
+          ));
+
+      final Finder categoryTitleTextFinder = find.text("Sample");
+      expect(categoryTitleTextFinder, findsOneWidget);
+
+      final Finder interestOneFinder = find.widgetWithText(ChipWidget, "Three");
+      expect(interestOneFinder, findsOneWidget);
+
+      final interestOne = tester.widget<ChipWidget>(interestOneFinder);
+      expect(interestOne.onTap, isNotNull);
+
+      expect(() => interestOne.onTap!(), returnsNormally);
+    });
+
+    testWidgets('Tapping save button returns normally', (WidgetTester tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          EditInterestBottomSheet(
+            category: category,
+            selected: selected,
+            onChange: (newCategory) {},
+          ));
+
+      final Finder categoryTitleTextFinder = find.text("Sample");
+      expect(categoryTitleTextFinder, findsOneWidget);
+
+      final Finder saveButtonFinder = find.widgetWithText(PillButtonFilled, 'Save');
+      expect(saveButtonFinder, findsOneWidget);
+      final saveButton = tester.widget<PillButtonFilled>(saveButtonFinder);
+
+      expect(() => saveButton.onPressed(), returnsNormally);
+    });
   });
-
-
 }

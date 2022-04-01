@@ -9,6 +9,7 @@ import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_dropdown.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
+import 'package:project_seg/utility/helpers.dart';
 
 import '../../../test_resources/test_profile.dart';
 import '../../../test_resources/testing_data.dart';
@@ -21,41 +22,32 @@ void main() {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  IconData getIconForGender(String? gender) {
-    switch (gender?.toLowerCase()) {
-      case "male":
-        return FontAwesomeIcons.mars;
-      case "female":
-        return FontAwesomeIcons.venus;
-      default:
-        return FontAwesomeIcons.venusMars;
-    }
-  }
-
   UserData testUser = appUsersTestData[0]['data'] as UserData;
 
-  group('GenderButton Widget tests', () {
-    testWidgets('Test GenderButton displays correct information',
-        (tester) async {
-      await _widgetPumper.pumpWidget(
-          tester, GenderButton(label: testUser.gender!));
+  group('Gender button widget:', () {
+    testWidgets('Displays correct information', (tester) async {
+      await _widgetPumper.pumpWidget(tester, GenderButton(label: testUser.gender!));
 
-      expect(find.byIcon(getIconForGender(testUser.gender!.toLowerCase())),
-          findsOneWidget);
+      expect(find.byIcon(getIconForGender(testUser.gender!.toLowerCase())), findsOneWidget);
     });
 
-    // testWidgets(
-    //     'Test editable GenderButton displays EditDialogDropdown Widget on tap',
-    //     (tester) async {
-    //   await _widgetPumper.pumpWidget(tester,
-    //       GenderButton(label: testUser.gender!, editable: true));
+    testWidgets('Tapping opens dialog', (tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          GenderButton(
+            label: testUser.gender!,
+            editable: true,
+            onSave: (gender) => _widgetPumper.firebaseEnv.firestoreService.setGender(testUser.uid!, gender!),
+          ));
 
-    //   expect(find.byIcon(getIconForGender(testUser.gender!.toLowerCase())), findsOneWidget);
+      final Finder chipFinder = find.byType(ChipWidget);
+      expect(chipFinder, findsOneWidget);
+      final ChipWidget chipWidget = tester.widget<ChipWidget>(chipFinder);
 
-    //   await tester.tap(find.byIcon(getIconForGender(testUser.gender!.toLowerCase())));
-    //   await tester.pump(const Duration(seconds: 1));
-
-    //   expect(find.byType(EditDialogDropdown, skipOffstage: false), isOffstage);
-    // });
+      expect(find.byType(EditDialogDropdown), findsNothing);
+      expect(() => chipWidget.onTap!(), returnsNormally);
+      await tester.pump(Duration(seconds: 1));
+      expect(find.byType(EditDialogDropdown), findsOneWidget);
+    });
   });
 }

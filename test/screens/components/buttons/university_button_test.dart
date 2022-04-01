@@ -26,28 +26,31 @@ void main() {
 
   UserData testUser = appUsersTestData[0]['data'] as UserData;
 
-  group('UniversityButton Widget tests', () {
-    testWidgets('Test UniversityButton displays correct information',
-        (tester) async {
-      await _widgetPumper.pumpWidget(tester,
-          UniversityButton(label: testUser.university!));
+  group('University button widget:', () {
+    testWidgets('Displays correct information', (tester) async {
+      await _widgetPumper.pumpWidget(tester, UniversityButton(label: testUser.university!));
 
       expect(find.text(testUser.university!), findsOneWidget);
       expect(find.byIcon(FontAwesomeIcons.university), findsOneWidget);
     });
 
-    // testWidgets(
-    //     'Test editable UniversityButton displays EditDialogDropdown Widget on tap',
-    //     (tester) async {
-    //   await _widgetPumper.pumpWidget(tester,
-    //       UniversityButton(label: testUser.university!, editable: true));
+    testWidgets('Tapping opens dialog', (tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          UniversityButton(
+            label: testUser.gender!,
+            editable: true,
+            onSave: (university) => _widgetPumper.firebaseEnv.firestoreService.setUniversity(testUser.uid!, university!),
+          ));
 
-    //   expect(find.text(testUser.university!), findsOneWidget);
+      final Finder chipFinder = find.byType(ChipWidget);
+      expect(chipFinder, findsOneWidget);
+      final ChipWidget chipWidget = tester.widget<ChipWidget>(chipFinder);
 
-    //   await tester.tap(find.text(testUser.university!));
-    //   await tester.pump(const Duration(seconds: 1));
-
-    //   expect(find.byType(EditDialogDropdown, skipOffstage: false), isOffstage);
-    // });
+      expect(find.byType(EditDialogDropdown), findsNothing);
+      expect(() => chipWidget.onTap!(), returnsNormally);
+      await tester.pump(Duration(seconds: 1));
+      expect(find.byType(EditDialogDropdown), findsOneWidget);
+    });
   });
 }

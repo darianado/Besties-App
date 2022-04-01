@@ -20,6 +20,7 @@ import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/screens/splash/splash_screen.dart';
 import 'package:project_seg/states/user_state.dart';
 
+/// Contains a [GoRouter] that holds the routes for the app.
 class AppRouter {
   final UserState userState;
 

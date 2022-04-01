@@ -1,3 +1,4 @@
+/// A user [Interest].
 class Interest {
   String title;
 

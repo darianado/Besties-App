@@ -37,7 +37,6 @@ const gradientColour = Color.fromARGB(0, 255, 255, 255);
 
 //standard colours
 Color greyShadeDark = Colors.grey.shade500;
-Color redLightShade = Colors.red.shade200;
 
 //const kTransparent =  Colors.transparent;
 const Color simpleWhiteColour = Colors.white;

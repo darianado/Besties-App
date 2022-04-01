@@ -39,11 +39,9 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
   /// Replaces the user's [currentPassword] with the [newPassword].
   _changePassword(String currentPassword, String newPassword) async {
     try {
-      await Provider.of<UserState>(context)
-          .changePassword(currentPassword, newPassword);
+      await Provider.of<UserState>(context, listen: false).changePassword(currentPassword, newPassword);
     } on FirebaseAuthException catch (e) {
-      final errorMsg =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
+      final errorMsg = AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(
         context: context,
         builder: (context) => DismissDialog(message: errorMsg),
@@ -81,8 +79,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                   statusBarColor: Colors.transparent,
                 ),
                 leading: IconButton(
-                  onPressed: () => context.pushNamed(homeScreenName,
-                      params: {pageParameterKey: profileScreenName}),
+                  onPressed: () => context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName}),
                   icon: const Icon(
                     Icons.arrow_back_ios,
                     color: primaryColour,
@@ -94,17 +91,13 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                 child: Form(
                   key: _formKey,
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        leftRightPadding, 0, leftRightPadding, 30),
+                    padding: const EdgeInsets.fromLTRB(leftRightPadding, 0, leftRightPadding, 30),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
                           'Change your password',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
-                              ?.apply(fontWeightDelta: 2),
+                          style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
                         ),
                         const SizedBox(height: 50),
                         Container(
@@ -146,9 +139,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                   color: secondaryColour,
                                 ),
                                 labelText: 'New password'),
-                            validator: (value) =>
-                                validateExistsAndDifferentFrom(
-                                    value, _oldPassword.text),
+                            validator: (value) => validateExistsAndDifferentFrom(value, _oldPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
                         ),
@@ -170,8 +161,7 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                                   color: secondaryColour,
                                 ),
                                 labelText: 'Confirm new password'),
-                            validator: (value) => validateRepeatedPassword(
-                                value, _newPassword.text),
+                            validator: (value) => validateRepeatedPassword(value, _newPassword.text),
                             textInputAction: TextInputAction.next,
                           ),
                         ),
@@ -180,17 +170,11 @@ class _EditPasswordScreenState extends State<EditPasswordScreen> {
                           width: double.infinity,
                           child: PillButtonFilled(
                             text: "Update",
-                            textStyle: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w600),
+                            textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                             onPressed: () {
-                              if (((_formKey.currentState as FormState)
-                                      .validate()) ==
-                                  true) {
-                                _changePassword(
-                                    _oldPassword.text, _newPassword.text);
-                                context.pushNamed(homeScreenName, params: {
-                                  pageParameterKey: profileScreenName
-                                });
+                              if (((_formKey.currentState as FormState).validate()) == true) {
+                                _changePassword(_oldPassword.text, _newPassword.text);
+                                context.pushNamed(homeScreenName, params: {pageParameterKey: profileScreenName});
                               }
                             },
                           ),

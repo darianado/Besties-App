@@ -16,8 +16,7 @@ import '../../constants/borders.dart';
 
 /// A widget that displays an image picker for the user's profile.
 class RegisterPhotoScreen extends StatefulWidget {
-  const RegisterPhotoScreen({Key? key, required this.userData})
-      : super(key: key);
+  const RegisterPhotoScreen({Key? key, required this.userData}) : super(key: key);
 
   final UserData userData;
 
@@ -60,8 +59,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
             expandedHeight: 120,
             collapsedHeight: 130,
             leading: IconButton(
-              onPressed: () => context.goNamed(registerBasicInfoScreenName,
-                  extra: widget.userData),
+              onPressed: () => context.goNamed(registerBasicInfoScreenName, extra: widget.userData),
               icon: const Icon(Icons.arrow_back_ios, color: primaryColour),
             ),
             flexibleSpace: Container(
@@ -69,17 +67,13 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
               height: double.infinity,
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    leftRightPadding, 5, leftRightPadding, 5),
+                padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
                 child: Row(
                   children: [
                     Expanded(
                       child: Text(
                         'Great! Now a photo...',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4
-                            ?.apply(color: secondaryColour, fontWeightDelta: 2),
+                        style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                       ),
                     ),
                   ],
@@ -93,7 +87,6 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
               children: [
                 const SizedBox(height: 20),
                 SizedBox(
-                  // height: 400,
                   child: Material(
                     child: (loadingPicture)
                         ? const Center(
@@ -112,11 +105,8 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                                   child: Container(
                                     color: secondaryColour.withOpacity(0.2),
                                     width: double.infinity,
-                                    child: (widget.userData.profileImageUrl !=
-                                            null)
-                                        ? CachedImage(
-                                            url:
-                                                widget.userData.profileImageUrl)
+                                    child: (widget.userData.profileImageUrl != null)
+                                        ? CachedImage(url: widget.userData.profileImageUrl)
                                         : Image.asset(
                                             "assets/images/empty_profile_picture.jpg",
                                             fit: BoxFit.cover,
@@ -150,18 +140,15 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
                 ),
                 ValidationError(errorText: validateProfileImageUrlError),
                 Container(
-                  padding: const EdgeInsets.fromLTRB(
-                      leftRightPadding, 20, leftRightPadding, 20),
+                  padding: const EdgeInsets.fromLTRB(leftRightPadding, 20, leftRightPadding, 20),
                   width: double.infinity,
                   child: PillButtonFilled(
                     text: "Next",
-                    textStyle: const TextStyle(
-                        fontSize: 25, fontWeight: FontWeight.w600),
+                    textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                     onPressed: () {
                       if (!validate()) return;
 
-                      context.goNamed(registerDescriptionScreenName,
-                          extra: widget.userData);
+                      context.goNamed(registerDescriptionScreenName, extra: widget.userData);
                     },
                   ),
                 ),
@@ -176,8 +163,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
   /// Validates the user's selection.
   bool validate() {
     setState(() {
-      validateProfileImageUrlError =
-          validateProfileImageUrl(widget.userData.profileImageUrl);
+      validateProfileImageUrlError = validateProfileImageUrl(widget.userData.profileImageUrl);
     });
 
     return (validateProfileImageUrlError == null);

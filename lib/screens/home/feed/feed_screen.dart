@@ -15,12 +15,10 @@ import 'package:provider/provider.dart';
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
 
-  static PageController controller =
-      PageController(viewportFraction: 1, keepPage: true);
+  static PageController controller = PageController(viewportFraction: 1, keepPage: true);
 
   static void animateToTop() {
-    controller.animateToPage(0,
-        duration: const Duration(milliseconds: 500), curve: Curves.easeOutCirc);
+    controller.animateToPage(0, duration: const Duration(milliseconds: 500), curve: Curves.easeOutCirc);
   }
 
   @override
@@ -32,10 +30,8 @@ class _FeedScreenState extends State<FeedScreen> {
   void initState() {
     super.initState();
 
-    final _feedContent =
-        Provider.of<FeedContentController>(context, listen: false);
-    final _firestoreService =
-        Provider.of<FirestoreService>(context, listen: false);
+    final _feedContent = Provider.of<FeedContentController>(context, listen: false);
+    final _firestoreService = Provider.of<FirestoreService>(context, listen: false);
     _feedContent.onFeedInitialized(_firestoreService);
     _feedContent.assignController(FeedScreen.controller);
   }
@@ -65,25 +61,21 @@ class _FeedScreenState extends State<FeedScreen> {
         ),
         SafeArea(
           child: Padding(
-            padding: const EdgeInsets.only(
-                top: leftRightPadding, right: leftRightPadding),
+            padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
             child: Container(
-              decoration:
-                  const BoxDecoration(shape: BoxShape.circle, boxShadow: [
+              decoration: const BoxDecoration(shape: BoxShape.circle, boxShadow: [
                 BoxShadow(
                   color: secondaryColour,
                   blurRadius: 55.0,
                 ),
               ]),
               child: IconButton(
-                icon: const Icon(
-                  Icons.menu,
-                  color: whiteColour,
-                  size: 30,
-                ),
-                onPressed: () => context.pushNamed(editPreferencesScreenName,
-                    params: {pageParameterKey: feedScreenName}),
-              ),
+                  icon: const Icon(
+                    Icons.menu,
+                    color: whiteColour,
+                    size: 30,
+                  ),
+                  onPressed: () => context.pushNamed(editPreferencesScreenName, params: {pageParameterKey: feedScreenName})),
             ),
           ),
         ),
@@ -103,8 +95,7 @@ class _FeedScreenState extends State<FeedScreen> {
 
 /// A custom [ScrollPhysics] for the [PageView] in the [FeedScreen].
 class CustomPageViewScrollPhysics extends ScrollPhysics {
-  const CustomPageViewScrollPhysics({ScrollPhysics? parent})
-      : super(parent: parent);
+  const CustomPageViewScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
 
   @override
   CustomPageViewScrollPhysics applyTo(ScrollPhysics? ancestor) {

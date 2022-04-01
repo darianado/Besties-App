@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/models/Navigation/menu_data.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/states/match_state.dart';
@@ -33,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final _matchState = Provider.of<MatchState>(context, listen: false);
     final _userState = Provider.of<UserState>(context, listen: false);
 
-    _matchState.onStart(_userState.user?.user?.uid ?? "abc123");
+    _matchState.onStart(_userState.user!.user!.uid);
     selectedIndex = widget.index;
     super.initState();
   }
@@ -45,6 +46,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     selectedIndex = index;
+
+    context.goNamed(homeScreenName, params: {pageParameterKey: menuData.routeNameOfItemWithIndex(index)});
   }
 
   /// Returns the screens connected by the [NavBar].

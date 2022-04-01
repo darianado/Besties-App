@@ -5,68 +5,135 @@ import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/sign_up/register_description_screen.dart';
+import '../../test_resources/helpers.dart';
+import '../../test_resources/testing_data.dart';
 import '../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
-  UserData currentUserData = UserData(firstName: "Amy");
+
+  UserData testUser = appUsersTestData[0]['data'] as UserData;
+  const String userEmail = "markdoe@example.org";
 
   setUpAll(() async {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  testWidgets('Description page has all info widgets', (WidgetTester tester) async {
-    await _widgetPumper.pumpWidget(tester, RegisterDescriptionScreen(userData: currentUserData));
+  group("Register description screen:", () {
+    testWidgets('Contains required information', (WidgetTester tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/register/register-description", UserData(firstName: "Amy"));
 
-    final Finder iconButton = find.byType(IconButton);
-    expect(iconButton, findsOneWidget);
+      expect(find.byType(RegisterDescriptionScreen), findsOneWidget);
 
-    final Finder textFinder = find.text('... and a bit more about Amy');
-    expect(textFinder, findsOneWidget);
-    final textStyle = tester.widget<Text>(textFinder);
-    expect(textStyle.style?.color, secondaryColour);
+      final Finder iconButton = find.byType(IconButton);
+      expect(iconButton, findsOneWidget);
 
-    final Finder universityFinder = find.text('UNIVERSITY');
-    expect(universityFinder, findsOneWidget);
+      final Finder textFinder = find.text('... and a bit more about Amy');
+      expect(textFinder, findsOneWidget);
+      final textStyle = tester.widget<Text>(textFinder);
+      expect(textStyle.style?.color, secondaryColour);
 
-    final Finder universityFinderTextFinder = find.text('Select your university');
-    expect(universityFinderTextFinder, findsOneWidget);
+      final Finder universityFinder = find.text('UNIVERSITY');
+      expect(universityFinder, findsOneWidget);
 
-    final Finder universityWidgetFinder = find.byType(UniversityButton);
-    expect(universityWidgetFinder, findsOneWidget);
-    final univeristyWidgetStyle = tester.widget<UniversityButton>(universityWidgetFinder);
-    expect(univeristyWidgetStyle.color, secondaryColour);
-    expect(univeristyWidgetStyle.label, "Select your university");
+      final Finder universityFinderTextFinder = find.text('Select your university');
+      expect(universityFinderTextFinder, findsOneWidget);
 
-    /* await tester.tap(find.widgetWithText(UniversityButton, 'Select your university'));
-    await tester.pumpAndSettle();
+      final Finder universityWidgetFinder = find.byType(UniversityButton);
+      expect(universityWidgetFinder, findsOneWidget);
+      final univeristyWidgetStyle = tester.widget<UniversityButton>(universityWidgetFinder);
+      expect(univeristyWidgetStyle.color, secondaryColour);
+      expect(univeristyWidgetStyle.label, "Select your university");
 
-    await tester.tap(find.widgetWithText(Chip, "King's College London"));
-    await tester.pumpAndSettle();
+      final Finder bioTextFinder = find.text('BIO / SHORT DESCRIPTION');
+      expect(bioTextFinder, findsOneWidget);
 
-    final Finder selectUniveristyWidgetTextFinder = find.text("King's College London");
-    expect(selectUniveristyWidgetTextFinder, findsOneWidget); */
+      final Finder bioWidgetFinder = find.widgetWithText(TextFormField, 'Enter your bio here...');
+      expect(bioWidgetFinder, findsOneWidget);
 
-    final Finder bioTextFinder = find.text('BIO / SHORT DESCRIPTION');
-    expect(bioTextFinder, findsOneWidget);
+      await tester.enterText(bioWidgetFinder, "This is my bio.");
+      await tester.pumpAndSettle();
 
-    final Finder bioWidgetFinder = find.widgetWithText(TextFormField, 'Enter your bio here...');
-    expect(bioWidgetFinder, findsOneWidget);
+      final Finder textBioWidgetFinder = find.widgetWithText(TextFormField, "This is my bio.");
+      expect(textBioWidgetFinder, findsOneWidget);
 
-    await tester.enterText(bioWidgetFinder, "This is my bio.");
-    await tester.pumpAndSettle();
+      final Finder nextTextFinder = find.text('Next');
+      expect(nextTextFinder, findsOneWidget);
 
-    final Finder textBioWidgetFinder = find.widgetWithText(TextFormField, "This is my bio.");
-    expect(textBioWidgetFinder, findsOneWidget);
+      final Finder nextButton = find.widgetWithText(PillButtonFilled, 'Next');
 
-    final Finder nextTextFinder = find.text('Next');
-    expect(nextTextFinder, findsOneWidget);
+      final nextButtonStyle = tester.widget<PillButtonFilled>(nextButton);
+      expect(nextButtonStyle.text, 'Next');
+      expect(nextButtonStyle.textStyle!.fontSize, 25);
+      expect(nextButtonStyle.textStyle!.fontWeight, FontWeight.w600);
+    });
 
-    final Finder nextButton = find.widgetWithText(PillButtonFilled, 'Next');
+    testWidgets("Bio is prefilled if text is available.", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/register/register-description", testUser);
 
-    final nextButtonStyle = tester.widget<PillButtonFilled>(nextButton);
-    expect(nextButtonStyle.text, 'Next');
-    expect(nextButtonStyle.textStyle!.fontSize, 25);
-    expect(nextButtonStyle.textStyle!.fontWeight, FontWeight.w600);
+      expect(find.byType(RegisterDescriptionScreen), findsOneWidget);
+
+      final Finder bioTextFieldFinder = find.widgetWithText(TextFormField, 'Enter your bio here...');
+      expect(bioTextFieldFinder, findsOneWidget);
+      final TextFormField bioTextField = tester.widget<TextFormField>(bioTextFieldFinder);
+      expect(bioTextField.controller?.text, testUser.bio);
+    });
+
+    testWidgets('Tapping back button returns normally', (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/register/register-description", null);
+
+      expect(find.byType(RegisterDescriptionScreen), findsOneWidget);
+
+      final Finder sliverAppBarFinder = find.byType(SliverAppBar);
+      expect(sliverAppBarFinder, findsOneWidget);
+
+      final Finder sliverAppBarLeadingButtonFinder = find.descendant(of: sliverAppBarFinder, matching: find.byType(IconButton));
+      expect(sliverAppBarLeadingButtonFinder, findsOneWidget);
+      final IconButton sliverAppBarLeadingButton = tester.widget<IconButton>(sliverAppBarLeadingButtonFinder);
+      expect(sliverAppBarLeadingButton.onPressed, isNotNull);
+      expect(() => sliverAppBarLeadingButton.onPressed!(), returnsNormally);
+    });
+
+    testWidgets("University onSave should return normally", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/register/register-description", null);
+
+      expect(find.byType(RegisterDescriptionScreen), findsOneWidget);
+
+      final Finder universityButtonFinder = find.byType(UniversityButton);
+      expect(universityButtonFinder, findsOneWidget);
+      final UniversityButton universityButton = tester.widget<UniversityButton>(universityButtonFinder);
+      expect(universityButton.editable, true);
+      expect(universityButton.onSave, isNotNull);
+
+      expect(() => universityButton.onSave!("King's College London"), returnsNormally);
+    });
+
+    testWidgets("Tapping next button with nothing selected returns normally", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/register/register-description", null);
+
+      expect(find.byType(RegisterDescriptionScreen), findsOneWidget);
+
+      final Finder nextButtonFinder = find.widgetWithText(PillButtonFilled, 'Next');
+      expect(nextButtonFinder, findsOneWidget);
+      final PillButtonFilled nextButton = tester.widget<PillButtonFilled>(nextButtonFinder);
+      expect(() => nextButton.onPressed(), returnsNormally);
+    });
+
+    testWidgets("Tapping next button with valid data returns normally", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/register/register-description", testUser);
+
+      expect(find.byType(RegisterDescriptionScreen), findsOneWidget);
+
+      final Finder nextButtonFinder = find.widgetWithText(PillButtonFilled, 'Next');
+      expect(nextButtonFinder, findsOneWidget);
+      final PillButtonFilled nextButton = tester.widget<PillButtonFilled>(nextButtonFinder);
+      expect(() => nextButton.onPressed(), returnsNormally);
+    });
   });
 }

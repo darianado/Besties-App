@@ -37,8 +37,7 @@ class DateOfBirthButton extends StatelessWidget {
   /// Returns a date 16 years before now.
   DateTime validDate() {
     DateTime dateNow = DateTime.now();
-    DateTime limitDate =
-        dateNow.subtract(const Duration(days: sixteenYearsInDays));
+    DateTime limitDate = dateNow.subtract(const Duration(days: sixteenYearsInDays));
     return limitDate;
   }
 
@@ -86,14 +85,8 @@ class DateOfBirthButton extends StatelessWidget {
       lastDate: validDate(),
       fieldHintText: 'mm/dd/yyyy',
       initialEntryMode: DatePickerEntryMode.calendar,
-      builder: (context, child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            colorScheme: const ColorScheme.light(primary: secondaryColour),
-          ),
-          child: child!,
-        );
-      },
+      builder: (context, child) =>
+          Theme(data: ThemeData.light().copyWith(colorScheme: const ColorScheme.light(primary: secondaryColour)), child: child!),
     );
 
     if (picked != null) onSave!(picked);

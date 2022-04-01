@@ -71,10 +71,8 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
     final _contextState = Provider.of<ContextState>(context, listen: false);
 
     setState(() {
-      validateInterestsError = validateInterests(
-          widget.interests,
-          _contextState.context?.minInterestsSelected,
-          _contextState.context?.maxInterestsSelected);
+      validateInterestsError =
+          validateInterests(widget.interests, _contextState.context?.minInterestsSelected, _contextState.context?.maxInterestsSelected);
     });
 
     return (validateInterestsError == null);

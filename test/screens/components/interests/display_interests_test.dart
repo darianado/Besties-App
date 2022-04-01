@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
+import '../../../test_resources/testing_data.dart';
 import '../../../test_resources/widget_pumper.dart';
 import '../../../test_resources/test_profile.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
@@ -11,73 +14,83 @@ import 'package:project_seg/screens/components/interests/display_interests.dart'
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
+  UserData testUser = appUsersTestData[0]['data'] as UserData;
+
   setUpAll(() async {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  OtherUser currentUser = TestProfile.firstProfile;
-  testWidgets('first interest category View', (WidgetTester tester) async {
-    CategorizedInterests selected = currentUser.userData.categorizedInterests!;
+  group("Display interests widget:", () {
+    testWidgets('Contains required information', (WidgetTester tester) async {
+      CategorizedInterests selected = testUser.categorizedInterests!;
 
-    await _widgetPumper.pumpWidget(tester, DisplayInterests(interests: selected));
+      await _widgetPumper.pumpWidget(tester, DisplayInterests(interests: selected));
 
-    final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
+      final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
 
-    expect(wrapWidgetFinder.alignment, WrapAlignment.center);
-    expect(wrapWidgetFinder.runAlignment, WrapAlignment.center);
-    expect(wrapWidgetFinder.spacing, 6.0);
-    expect(wrapWidgetFinder.runSpacing, 6.0);
+      expect(wrapWidgetFinder.alignment, WrapAlignment.center);
+      expect(wrapWidgetFinder.runAlignment, WrapAlignment.center);
+      expect(wrapWidgetFinder.spacing, 6.0);
+      expect(wrapWidgetFinder.runSpacing, 6.0);
 
-    final Finder firstInterestWidgetFinder = find.widgetWithText(ChipWidget, "Cocktails");
-    expect(firstInterestWidgetFinder, findsOneWidget);
+      final Finder cocktailsWidgetFinder = find.widgetWithText(ChipWidget, "Cocktails");
+      expect(cocktailsWidgetFinder, findsOneWidget);
 
-    final firstInterestWidgetStyle = tester.widget<ChipWidget>(firstInterestWidgetFinder);
-    expect(firstInterestWidgetStyle.color, tertiaryColour);
-    expect(firstInterestWidgetStyle.bordered, false);
-    expect(firstInterestWidgetStyle.textColor, whiteColour);
-    expect(firstInterestWidgetStyle.label, "Cocktails");
+      final cocktailsWidget = tester.widget<ChipWidget>(cocktailsWidgetFinder);
+      expect(cocktailsWidget.color, tertiaryColour);
+      expect(cocktailsWidget.bordered, false);
+      expect(cocktailsWidget.capitalizeLabel, true);
+      expect(cocktailsWidget.textColor, whiteColour);
+      expect(cocktailsWidget.label, "Cocktails");
 
-    final Finder secondInterestWidgetFinder = find.widgetWithText(ChipWidget, "Brunch");
-    expect(secondInterestWidgetFinder, findsOneWidget);
+      final Finder brunchWidgetFinder = find.widgetWithText(ChipWidget, "Brunch");
+      expect(brunchWidgetFinder, findsOneWidget);
 
-    final secondInterestWidgetStyle = tester.widget<ChipWidget>(secondInterestWidgetFinder);
-    expect(secondInterestWidgetStyle.color, tertiaryColour);
-    expect(secondInterestWidgetStyle.bordered, false);
-    expect(secondInterestWidgetStyle.textColor, whiteColour);
-    expect(secondInterestWidgetStyle.label, "Brunch");
+      final brunchWidget = tester.widget<ChipWidget>(brunchWidgetFinder);
+      expect(brunchWidget.color, tertiaryColour);
+      expect(brunchWidget.bordered, false);
+      expect(brunchWidget.capitalizeLabel, true);
+      expect(brunchWidget.textColor, whiteColour);
+      expect(brunchWidget.label, "Brunch");
 
-    final Finder thirdInterestWidgetFinder = find.widgetWithText(ChipWidget, "Coffee");
-    expect(thirdInterestWidgetFinder, findsOneWidget);
-  });
+      final Finder comedyWidgetFinder = find.widgetWithText(ChipWidget, "Stand-up comedy");
+      expect(comedyWidgetFinder, findsOneWidget);
 
-  testWidgets('second interest category View', (WidgetTester tester) async {
-    CategorizedInterests selected = currentUser.userData.categorizedInterests!;
+      final comedyWidget = tester.widget<ChipWidget>(comedyWidgetFinder);
+      expect(comedyWidget.color, tertiaryColour);
+      expect(comedyWidget.bordered, false);
+      expect(comedyWidget.capitalizeLabel, true);
+      expect(comedyWidget.textColor, whiteColour);
+      expect(comedyWidget.label, "Stand-up comedy");
 
-    await _widgetPumper.pumpWidget(tester, DisplayInterests(interests: selected));
+      final Finder medicineWidgetFinder = find.widgetWithText(ChipWidget, "Medicine");
+      expect(medicineWidgetFinder, findsOneWidget);
 
-    final Wrap wrapWidgetFinder = tester.widget<Wrap>(find.byType(Wrap));
+      final medicineWidget = tester.widget<ChipWidget>(medicineWidgetFinder);
+      expect(medicineWidget.color, tertiaryColour);
+      expect(medicineWidget.bordered, false);
+      expect(medicineWidget.capitalizeLabel, true);
+      expect(medicineWidget.textColor, whiteColour);
+      expect(medicineWidget.label, "Medicine");
+    });
 
-    expect(wrapWidgetFinder.alignment, WrapAlignment.center);
-    expect(wrapWidgetFinder.runAlignment, WrapAlignment.center);
-    expect(wrapWidgetFinder.spacing, 6.0);
-    expect(wrapWidgetFinder.runSpacing, 6.0);
+    testWidgets('Tapping opens dialog', (tester) async {
+      await _widgetPumper.pumpWidget(
+          tester,
+          DisplayInterests(
+            interests: testUser.categorizedInterests!,
+            editable: true,
+            onSave: (categorizedInterests) => _widgetPumper.firebaseEnv.firestoreService.setInterests(testUser.uid!, categorizedInterests),
+          ));
 
-    final Finder fourthInterestWidgetFinder = find.widgetWithText(ChipWidget, "Hiking");
-    expect(fourthInterestWidgetFinder, findsOneWidget);
+      final Finder chipFinder = find.byType(ChipWidget);
+      expect(chipFinder, findsWidgets);
+      final ChipWidget chipWidget = tester.widget<ChipWidget>(chipFinder.first);
 
-    final fourthInterestWidgetStyle = tester.widget<ChipWidget>(fourthInterestWidgetFinder);
-    expect(fourthInterestWidgetStyle.color, tertiaryColour);
-    expect(fourthInterestWidgetStyle.bordered, false);
-    expect(fourthInterestWidgetStyle.textColor, whiteColour);
-    expect(fourthInterestWidgetStyle.label, "Hiking");
-
-    final Finder fifthInterestWidgetFinder = find.widgetWithText(ChipWidget, "Swimming");
-    expect(fifthInterestWidgetFinder, findsOneWidget);
-
-    final fifthInterestWidgetStyle = tester.widget<ChipWidget>(fifthInterestWidgetFinder);
-    expect(fifthInterestWidgetStyle.color, tertiaryColour);
-    expect(fifthInterestWidgetStyle.bordered, false);
-    expect(fifthInterestWidgetStyle.textColor, whiteColour);
-    expect(fifthInterestWidgetStyle.label, "Swimming");
+      expect(find.byType(EditDialogInterests), findsNothing);
+      expect(() => chipWidget.onTap!(), returnsNormally);
+      await tester.pump(Duration(seconds: 1));
+      expect(find.byType(EditDialogInterests), findsOneWidget);
+    });
   });
 }

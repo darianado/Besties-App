@@ -35,6 +35,24 @@ void main() {
 
         expect(getIconForGender("something else"), FontAwesomeIcons.venusMars);
       });
+
+      test("Split array", () {
+        expect(split(["a"], 2), [
+          ["a"],
+        ]);
+        expect(split(["a", "b"], 2), [
+          ["a", "b"],
+        ]);
+        expect(split(["a", "b", "c", "d"], 2), [
+          ["a", "b"],
+          ["c", "d"]
+        ]);
+        expect(split(["a", "b", "c", "d", "e"], 2), [
+          ["a", "b"],
+          ["c", "d"],
+          ["e"]
+        ]);
+      });
     });
 
     group("Form validators:", () {

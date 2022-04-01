@@ -25,7 +25,7 @@ void main() {
 
   group("Home screen:", () {
     testWidgets("Contains correct information", (tester) async {
-      await _widgetPumper.pumpWidgetRouter(tester, feedPath);
+      await _widgetPumper.pumpWidgetRouter(tester, feedPath, null);
 
       expect(find.byType(HomeScreen), findsOneWidget);
       expect(find.byType(ProfileScreen), findsOneWidget);
@@ -35,7 +35,7 @@ void main() {
     });
 
     testWidgets("Nav bar contains correct information", (tester) async {
-      await _widgetPumper.pumpWidgetRouter(tester, feedPath);
+      await _widgetPumper.pumpWidgetRouter(tester, feedPath, null);
 
       final Finder navBarFinder = find.byType(NavBar);
       expect(navBarFinder, findsOneWidget);
@@ -49,7 +49,7 @@ void main() {
     });
 
     testWidgets("Tapping left-most item shows profile screen", (tester) async {
-      await _widgetPumper.pumpWidgetRouter(tester, feedPath);
+      await _widgetPumper.pumpWidgetRouter(tester, feedPath, null);
 
       final Finder navBarFinder = find.byType(NavBar);
       expect(navBarFinder, findsOneWidget);
@@ -64,7 +64,7 @@ void main() {
     });
 
     testWidgets("Tapping left-most item shows feed screen", (tester) async {
-      await _widgetPumper.pumpWidgetRouter(tester, profilePath);
+      await _widgetPumper.pumpWidgetRouter(tester, profilePath, null);
 
       final Finder navBarFinder = find.byType(NavBar);
       expect(navBarFinder, findsOneWidget);
@@ -79,7 +79,7 @@ void main() {
     });
 
     testWidgets("Tapping left-most item shows chat screen", (tester) async {
-      await _widgetPumper.pumpWidgetRouter(tester, feedPath);
+      await _widgetPumper.pumpWidgetRouter(tester, feedPath, null);
 
       final Finder navBarFinder = find.byType(NavBar);
       expect(navBarFinder, findsOneWidget);

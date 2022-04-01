@@ -44,7 +44,6 @@ class GenderButton extends StatelessWidget {
   /// This method generates icons depanding on gender.
   /// @ param String? - the gender to be selected
   /// @return the IconData corresponding to the selected gender
-
   IconData getIconForGender(String? gender) {
     switch (gender?.toLowerCase()) {
       case "male":
@@ -67,8 +66,8 @@ class GenderButton extends StatelessWidget {
 
   /// Displays an [EditDialogDropdown] when the widget is tapped if it's editable.
   Function? getOnTap(BuildContext context) {
-    final _userState = Provider.of<UserState>(context);
-    final _contextState = Provider.of<ContextState>(context);
+    final _userState = Provider.of<UserState>(context, listen: false);
+    final _contextState = Provider.of<ContextState>(context, listen: false);
 
     final _onSave = onSave;
 

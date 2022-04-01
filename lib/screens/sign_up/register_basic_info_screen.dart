@@ -24,12 +24,10 @@ import '../../constants/borders.dart';
 class RegisterBasicInfoScreen extends StatefulWidget {
   final UserData userData;
 
-  const RegisterBasicInfoScreen({Key? key, required this.userData})
-      : super(key: key);
+  const RegisterBasicInfoScreen({Key? key, required this.userData}) : super(key: key);
 
   @override
-  _RegisterBasicInfoScreenState createState() =>
-      _RegisterBasicInfoScreenState();
+  _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
 
 class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
@@ -89,8 +87,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
               actions: [
                 IconButton(
                   onPressed: () => _userState.signOut(),
-                  icon: const Icon(FontAwesomeIcons.signOutAlt,
-                      color: primaryColour),
+                  icon: const Icon(FontAwesomeIcons.signOutAlt, color: primaryColour),
                 ),
               ],
               flexibleSpace: Container(
@@ -98,15 +95,13 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                 height: double.infinity,
                 alignment: Alignment.bottomCenter,
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      leftRightPadding, 5, leftRightPadding, 5),
+                  padding: const EdgeInsets.fromLTRB(leftRightPadding, 5, leftRightPadding, 5),
                   child: Row(
                     children: [
                       Expanded(
                         child: Text(
                           'Let\'s start with the basics...',
-                          style: Theme.of(context).textTheme.headline4?.apply(
-                              color: secondaryColour, fontWeightDelta: 2),
+                          style: Theme.of(context).textTheme.headline4?.apply(color: secondaryColour, fontWeightDelta: 2),
                         ),
                       ),
                     ],
@@ -138,8 +133,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          validator: (value) =>
-                              validateNotEmpty(value, "First name"),
+                          validator: (value) => validateNotEmpty(value, "First name"),
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -158,8 +152,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                           ),
                           keyboardType: TextInputType.text,
                           textCapitalization: TextCapitalization.words,
-                          validator: (value) =>
-                              validateNotEmpty(value, "Last name"),
+                          validator: (value) => validateNotEmpty(value, "Last name"),
                         ),
                       ),
                       const SizedBox(height: 40),
@@ -167,10 +160,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'BIRTHDAY',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.apply(fontWeightDelta: 1),
+                            style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
@@ -179,9 +169,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         editable: true,
                         shouldExpand: true,
                         color: secondaryColour,
-                        label: (widget.userData.dob != null)
-                            ? "${widget.userData.humanReadableDateOfBirth}"
-                            : "Select a date",
+                        label: (widget.userData.dob != null) ? "${widget.userData.humanReadableDateOfBirth}" : "Select a date",
                         onSave: (dateTime) => setState(() {
                           widget.userData.dob = dateTime;
                         }),
@@ -192,28 +180,20 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: [
                           Text(
                             'GENDER',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.apply(fontWeightDelta: 1),
+                            style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
                       const SizedBox(height: 10),
                       Row(
+                        key: Key("genderRow"),
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: _contextState.context?.genders?.map((gender) {
                               return ChipWidget(
                                 color: indigoColour,
-                                bordered: widget.userData.gender == gender
-                                    ? false
-                                    : true,
-                                textColor: (widget.userData.gender == gender)
-                                    ? simpleWhiteColour
-                                    : null,
-                                iconColor: (widget.userData.gender == gender)
-                                    ? simpleWhiteColour
-                                    : null,
+                                bordered: widget.userData.gender == gender ? false : true,
+                                textColor: (widget.userData.gender == gender) ? simpleWhiteColour : null,
+                                iconColor: (widget.userData.gender == gender) ? simpleWhiteColour : null,
                                 icon: getIconForGender(gender),
                                 label: gender,
                                 mini: true,
@@ -230,10 +210,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                         children: <Widget>[
                           Text(
                             'RELATIONSHIP STATUS',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.apply(fontWeightDelta: 1),
+                            style: Theme.of(context).textTheme.bodyLarge?.apply(fontWeightDelta: 1),
                           ),
                         ],
                       ),
@@ -241,34 +218,26 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       RelationshipStatusButton(
                         editable: true,
                         shouldExpand: true,
-                        label: (widget.userData.relationshipStatus != null)
-                            ? widget.userData.relationshipStatus!
-                            : "Click to select",
+                        label: (widget.userData.relationshipStatus != null) ? widget.userData.relationshipStatus! : "Click to select",
                         onSave: (relationshipStatus) => setState(() {
-                          widget.userData.relationshipStatus =
-                              relationshipStatus;
+                          widget.userData.relationshipStatus = relationshipStatus;
                         }),
                       ),
-                      ValidationError(
-                          errorText: validateRelationshipStatusError),
+                      ValidationError(errorText: validateRelationshipStatusError),
                       const SizedBox(height: 30),
                       SizedBox(
                         width: double.infinity,
                         child: PillButtonFilled(
                           text: "Next",
-                          textStyle: const TextStyle(
-                              fontSize: 25, fontWeight: FontWeight.w600),
+                          textStyle: const TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
                           onPressed: () {
                             setState(() {
-                              widget.userData.firstName =
-                                  _firstName.text.trim();
+                              widget.userData.firstName = _firstName.text.trim();
                               widget.userData.lastName = _lastName.text.trim();
                             });
 
-                            if (!_key.currentState!.validate() || !validate())
-                              return;
-                            context.goNamed(registerPhotoScreenName,
-                                extra: widget.userData);
+                            if (!_key.currentState!.validate() || !validate()) return;
+                            context.goNamed(registerPhotoScreenName, extra: widget.userData);
                           },
                         ),
                       ),
@@ -288,12 +257,9 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
     setState(() {
       validateDOBerror = validateDOB(widget.userData.dob);
       validateGenderError = validateGender(widget.userData.gender);
-      validateRelationshipStatusError =
-          validateRelationshipStatus(widget.userData.relationshipStatus);
+      validateRelationshipStatusError = validateRelationshipStatus(widget.userData.relationshipStatus);
     });
 
-    return (validateDOBerror == null &&
-        validateGenderError == null &&
-        validateRelationshipStatusError == null);
+    return (validateDOBerror == null && validateGenderError == null && validateRelationshipStatusError == null);
   }
 }

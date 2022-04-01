@@ -19,15 +19,9 @@ class RecentChatsScrollView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    chats.sort(
-      (b, a) =>
-          a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!),
-    );
-    return ListView(
-        scrollDirection: Axis.vertical,
-        children: chats
-            .map((chat) => RecentChatsScrollViewItem(chat: chat))
-            .toList());
+    chats.sort((b, a) => a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!));
+
+    return ListView(scrollDirection: Axis.vertical, children: chats.map((chat) => RecentChatsScrollViewItem(chat: chat)).toList());
   }
 }
 
@@ -42,15 +36,13 @@ class RecentChatsScrollViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context, listen: false);
-    final bool isMine =
-        (chat.mostRecentMessage!.senderID == _userState.user?.userData!.uid);
+    final _userState = Provider.of<UserState>(context);
+    final bool isMine = (chat.mostRecentMessage!.senderID == _userState.user?.user?.uid);
 
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => context.pushNamed(matchChatScreenName,
-            extra: chat, params: {pageParameterKey: chatScreenName}),
+        onTap: () => context.pushNamed(matchChatScreenName, extra: chat, params: {pageParameterKey: chatScreenName}),
         child: Container(
           margin: const EdgeInsets.only(top: 5, bottom: 5, right: 5),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -70,10 +62,7 @@ class RecentChatsScrollViewItem extends StatelessWidget {
                   children: [
                     Text(
                       chat.match?.firstName ?? "",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          ?.apply(fontWeightDelta: 2),
+                      style: Theme.of(context).textTheme.headline6?.apply(fontWeightDelta: 2),
                     ),
                     Text(
                       chat.mostRecentMessage?.content ?? "",

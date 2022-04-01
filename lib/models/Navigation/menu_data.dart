@@ -28,7 +28,7 @@ class MenuData {
 
   int indexOfItemWithRoute(String routeName) => items.indexWhere((element) => element.routeName == routeName);
 
-  String pathOfItemWithIndex(int index) => "/" + entries[index].routeName;
+  String routeNameOfItemWithIndex(int index) => entries[index].routeName;
 }
 
 MenuData menuData = MenuData(

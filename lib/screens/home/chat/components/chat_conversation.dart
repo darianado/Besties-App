@@ -8,11 +8,8 @@ import 'package:provider/provider.dart';
 /// A widget that displays a conversation between a user and their match.
 class ChatConversation extends StatelessWidget {
   final UserMatch userMatch;
-  final BuildContext context;
 
-  const ChatConversation(
-      {Key? key, required this.userMatch, required this.context})
-      : super(key: key);
+  const ChatConversation({Key? key, required this.userMatch}) : super(key: key);
 
   @override
   Widget build(context) {

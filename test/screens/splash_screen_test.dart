@@ -18,7 +18,7 @@ void main() {
   group("Splash screen:", () {
     testWidgets("Contains correct content", (tester) async {
       await _widgetPumper.firebaseEnv.userState.resetUserState();
-      await _widgetPumper.pumpWidgetRouter(tester, "/splash");
+      await _widgetPumper.pumpWidgetRouter(tester, "/splash", null);
 
       expect(find.byType(SplashScreen), findsOneWidget);
 

@@ -133,6 +133,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   ),
                   const SizedBox(height: spaceBetweenWidgetAndTitle),
                   Row(
+                    key: Key("genderRow"),
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _contextState.context?.genders?.map((gender) {
                           return ChipWidget(
@@ -194,12 +195,11 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                     isLoading: isLoading,
                     textStyle: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                     onPressed: () async {
-                      await save(_userState.user!.user!.uid, newPreferences!);
-
                       context.goNamed(
                         homeScreenName,
                         params: {pageParameterKey: feedScreenName},
                       );
+                      await save(_userState.user!.user!.uid, newPreferences!);
                     },
                   ),
                   const SizedBox(height: 10),

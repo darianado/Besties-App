@@ -40,10 +40,7 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
               const SizedBox(height: 10),
               Text(
                 'Delete account',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline4
-                    ?.apply(fontWeightDelta: 2),
+                style: Theme.of(context).textTheme.headline4?.apply(fontWeightDelta: 2),
               ),
               const SizedBox(height: 5),
               Text(
@@ -92,14 +89,10 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
   /// Catches a [FirebaseAuthException] and displays a [DismissDialog].
   _deleteUser(String password) async {
     try {
-      await Provider.of<UserState>(context).deleteAccount(password);
+      await Provider.of<UserState>(context, listen: false).deleteAccount(password);
     } on FirebaseAuthException catch (e) {
-      final errorMessage =
-          AuthExceptionHandler.generateExceptionMessageFromException(e);
       showDialog(
-        context: context,
-        builder: (context) => DismissDialog(message: errorMessage),
-      );
+          context: context, builder: (context) => DismissDialog(message: AuthExceptionHandler.generateExceptionMessageFromException(e)));
     }
   }
 }

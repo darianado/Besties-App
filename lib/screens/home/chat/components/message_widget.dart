@@ -15,8 +15,8 @@ class MessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _userState = Provider.of<UserState>(context, listen: false);
-    final bool isMine = (message.senderID == _userState.user?.userData!.uid);
+    final _userState = Provider.of<UserState>(context);
+    final bool isMine = (message.senderID == _userState.user?.user?.uid);
 
     return Row(
       mainAxisAlignment:

@@ -53,14 +53,10 @@ class _MatchDialogState extends State<MatchDialog> {
                 PillButtonFilled(
                   text: "Go to matches",
                   expandsWidth: true,
-                  textStyle: Theme.of(context)
-                      .textTheme
-                      .titleLarge
-                      ?.apply(color: whiteColour),
+                  textStyle: Theme.of(context).textTheme.titleLarge?.apply(color: whiteColour),
                   onPressed: () {
-                    Navigator.of(context).pop(); // To close the dialog
-                    context.goNamed(homeScreenName,
-                        params: {pageParameterKey: chatScreenName});
+                    Navigator.of(context).pop();
+                    context.goNamed(homeScreenName, params: {pageParameterKey: chatScreenName});
                   },
                 ),
               ],
@@ -74,9 +70,7 @@ class _MatchDialogState extends State<MatchDialog> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.6)),
+                        BoxShadow(blurRadius: 10, color: Colors.black.withOpacity(0.6)),
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,
@@ -89,9 +83,7 @@ class _MatchDialogState extends State<MatchDialog> {
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       boxShadow: [
-                        BoxShadow(
-                            blurRadius: 10,
-                            color: Colors.black.withOpacity(0.6)),
+                        BoxShadow(blurRadius: 10, color: Colors.black.withOpacity(0.6)),
                       ],
                     ),
                     clipBehavior: Clip.antiAlias,

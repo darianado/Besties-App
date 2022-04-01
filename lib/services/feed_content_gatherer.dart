@@ -41,13 +41,12 @@ class FeedContentGatherer {
     List<String> results = [];
 
     // HTTP clients are unavailable in Flutter tests. We must catch this, and provide a dummy response.
-    if (userState.firestoreService is FakeFirebaseFirestore) {
-      print("Making a response");
+    if (userState.firestoreService.firebaseFirestore is FakeFirebaseFirestore) {
       final appRecommendationsTestResponse = {
         "status": 200,
         "data": [
-          "abc123",
-          "acb321",
+          "jane123",
+          "peter123",
         ],
       };
       results = appRecommendationsTestResponse['data'] as List<String>;
@@ -142,10 +141,5 @@ class FeedContentGatherer {
   /// which the currently logged in user has liked.
   void removeLiked() {
     queue.removeWhere((ProfileContainer element) => userState.user?.userData?.likes?.contains(element.profile.uid) ?? false);
-  }
-
-  /// Removes all entries in the queue.
-  void removeAll() {
-    queue.clear();
   }
 }

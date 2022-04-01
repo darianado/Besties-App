@@ -8,7 +8,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
-import 'package:project_seg/screens/login/login_screen.dart';
+import 'package:project_seg/screens/log_in/login_screen.dart';
 
 import '../test_resources/helpers.dart';
 import '../test_resources/widget_pumper.dart';
@@ -25,7 +25,7 @@ void main() {
   group("Email verify screen:", () {
     testWidgets('Contains correct information', (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath, null);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);
 
@@ -67,7 +67,7 @@ void main() {
 
     testWidgets("Clicking log out button logs out", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath, null);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);
       expect(_widgetPumper.firebaseEnv.userState.user?.user?.uid, isNotNull);
@@ -89,7 +89,7 @@ void main() {
 
     testWidgets("Clicking resend email does not crash", (tester) async {
       await signInHelper(_widgetPumper, userEmail);
-      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath);
+      await _widgetPumper.pumpWidgetRouter(tester, verifyEmailScreenPath, null);
 
       expect(find.byType(EmailVerifyScreen), findsOneWidget);
 

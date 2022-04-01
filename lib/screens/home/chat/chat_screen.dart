@@ -59,10 +59,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   children: const [
                     Padding(
                       padding: EdgeInsets.only(left: 15, bottom: 5),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: LeftAlignedHeadline(text: "New matches"),
-                      ),
+                      child: LeftAlignedHeadline(text: "New matches"),
                     ),
                     Matches(),
                     Padding(

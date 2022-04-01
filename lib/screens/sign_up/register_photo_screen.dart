@@ -14,13 +14,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
 
-/**
- * The third screen that is displayed through the sign up process.
- *
- * It allows a user to choose their profile picture from the pictures
- * and images they have on their phone (e.g. in gallery, google drive etc.).
- */
-
+/// A widget that displays an image picker for the user's profile.
 class RegisterPhotoScreen extends StatefulWidget {
   const RegisterPhotoScreen({Key? key, required this.userData})
       : super(key: key);
@@ -179,6 +173,7 @@ class _RegisterPhotoScreenState extends State<RegisterPhotoScreen> {
     );
   }
 
+  /// Validates the user's selection.
   bool validate() {
     setState(() {
       validateProfileImageUrlError =

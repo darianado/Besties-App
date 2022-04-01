@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
-import 'package:project_seg/screens/login/login_screen.dart';
+import 'package:project_seg/screens/log_in/login_screen.dart';
 import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
 import '../../test_resources/helpers.dart';
 import '../../test_resources/widget_pumper.dart';
@@ -22,6 +22,7 @@ void main() {
 
   group("Register screen:", () {
     testWidgets('Register Screen Contains correct widgets', (tester) async {
+      await signOutHelper(_widgetPumper);
       await _widgetPumper.pumpWidgetRouter(tester, registerScreenPath, null);
 
       final Finder textFinder = find.text('Sign up');
@@ -72,7 +73,72 @@ void main() {
       expect(loginButtonStyle.color, tertiaryColour);
     });
 
+    testWidgets("Tapping register button with no input returns normally", (tester) async {
+      await signOutHelper(_widgetPumper);
+      await _widgetPumper.pumpWidgetRouter(tester, registerScreenPath, null);
+
+      expect(find.byType(RegisterScreen), findsOneWidget);
+
+      final Finder registerButtonFinder = find.widgetWithText(PillButtonFilled, 'Register');
+      expect(registerButtonFinder, findsOneWidget);
+      final PillButtonFilled registerButton = tester.widget<PillButtonFilled>(registerButtonFinder);
+      expect(() => registerButton.onPressed(), returnsNormally);
+    });
+
+    testWidgets("Tapping register button with invalid input returns normally", (tester) async {
+      await signOutHelper(_widgetPumper);
+      await _widgetPumper.pumpWidgetRouter(tester, registerScreenPath, null);
+
+      expect(find.byType(RegisterScreen), findsOneWidget);
+
+      final Finder emailTextFieldFinder = find.widgetWithText(TextField, 'Email address');
+      expect(emailTextFieldFinder, findsOneWidget);
+
+      final Finder passwordTextFieldFinder = find.widgetWithText(TextField, 'Password');
+      expect(passwordTextFieldFinder, findsOneWidget);
+
+      final Finder comfirmPasswordTextFieldFinder = find.widgetWithText(TextFormField, 'Confirm password');
+      expect(comfirmPasswordTextFieldFinder, findsOneWidget);
+
+      await tester.enterText(emailTextFieldFinder, "abc");
+      await tester.enterText(passwordTextFieldFinder, "pass");
+      await tester.enterText(comfirmPasswordTextFieldFinder, "anotherPass");
+
+      final Finder registerButtonFinder = find.widgetWithText(PillButtonFilled, 'Register');
+      expect(registerButtonFinder, findsOneWidget);
+      final PillButtonFilled registerButton = tester.widget<PillButtonFilled>(registerButtonFinder);
+      expect(() => registerButton.onPressed(), returnsNormally);
+    });
+
+    testWidgets("Tapping register button with valid input returns normally", (tester) async {
+      await signOutHelper(_widgetPumper);
+      await _widgetPumper.pumpWidgetRouter(tester, registerScreenPath, null);
+
+      expect(find.byType(RegisterScreen), findsOneWidget);
+
+      final Finder emailTextFieldFinder = find.widgetWithText(TextField, 'Email address');
+      expect(emailTextFieldFinder, findsOneWidget);
+
+      final Finder passwordTextFieldFinder = find.widgetWithText(TextField, 'Password');
+      expect(passwordTextFieldFinder, findsOneWidget);
+
+      final Finder comfirmPasswordTextFieldFinder = find.widgetWithText(TextFormField, 'Confirm password');
+      expect(comfirmPasswordTextFieldFinder, findsOneWidget);
+
+      await tester.enterText(emailTextFieldFinder, "abc@abc.com");
+      await tester.enterText(passwordTextFieldFinder, "Password123");
+      await tester.enterText(comfirmPasswordTextFieldFinder, "Password123");
+
+      await tester.pump();
+
+      final Finder registerButtonFinder = find.widgetWithText(PillButtonFilled, 'Register');
+      expect(registerButtonFinder, findsOneWidget);
+      final PillButtonFilled registerButton = tester.widget<PillButtonFilled>(registerButtonFinder);
+      expect(() => registerButton.onPressed(), returnsNormally);
+    });
+
     testWidgets("Clicking log in button goes to login page", (tester) async {
+      await signOutHelper(_widgetPumper);
       await _widgetPumper.pumpWidgetRouter(tester, registerScreenPath, null);
 
       expect(find.byType(RegisterScreen), findsOneWidget);

@@ -91,9 +91,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 (widget.leftAction != null) ? widget.leftAction! : Container(),
-                (widget.rightAction != null)
-                    ? widget.rightAction!
-                    : Container(),
+                (widget.rightAction != null) ? widget.rightAction! : Container(),
               ],
             ),
             flexibleSpace: (loadingPicture)
@@ -104,9 +102,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     ),
                   )
                 : InkWell(
-                    onTap: (widget.editable && widget.userData != null)
-                        ? () => _pickImage(widget.userData!.uid!)
-                        : null,
+                    onTap: (widget.editable && widget.userData != null) ? () => _pickImage(widget.userData!.uid!) : null,
                     child: Stack(
                       fit: StackFit.expand,
                       children: [
@@ -116,9 +112,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                             Expanded(
                               child: Container(),
                             ),
-                            (widget.onImageSection != null)
-                                ? widget.onImageSection!
-                                : Container(),
+                            (widget.onImageSection != null) ? widget.onImageSection! : Container(),
                           ],
                         )
                       ],
@@ -130,16 +124,15 @@ class _ProfileInformationState extends State<ProfileInformation> {
             child: SafeArea(
               top: false,
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                    leftRightPadding, 15, leftRightPadding, 15),
+                padding: const EdgeInsets.fromLTRB(leftRightPadding, 15, leftRightPadding, 15),
                 child: Column(
                   children: [
                     Text(
                       widget.userData?.fullName ?? "-",
-                      style: Theme.of(context).textTheme.headline3?.apply(
-                          fontWeightDelta: 2,
-                          color: tertiaryColour
-                              .withOpacity((widget.editable) ? 0.2 : 1)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline3
+                          ?.apply(fontWeightDelta: 2, color: tertiaryColour.withOpacity((widget.editable) ? 0.2 : 1)),
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 15),
@@ -147,8 +140,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       editable: widget.editable,
                       wiggling: widget.editable,
                       label: widget.userData?.university ?? "",
-                      onSave: (university) =>
-                          saveUniversity(widget.userData?.uid, university),
+                      onSave: (university) => saveUniversity(widget.userData?.uid, university),
                     ),
                     const SizedBox(height: 10),
                     Wrap(
@@ -162,16 +154,13 @@ class _ProfileInformationState extends State<ProfileInformation> {
                           editable: widget.editable,
                           wiggling: widget.editable,
                           label: widget.userData?.gender ?? "",
-                          onSave: (gender) =>
-                              saveGender(widget.userData?.uid, gender),
+                          onSave: (gender) => saveGender(widget.userData?.uid, gender),
                         ),
                         RelationshipStatusButton(
                           editable: widget.editable,
                           wiggling: widget.editable,
                           label: widget.userData?.relationshipStatus ?? "",
-                          onSave: (relationshipStatus) =>
-                              saveRelationshipStatus(
-                                  widget.userData?.uid, relationshipStatus),
+                          onSave: (relationshipStatus) => saveRelationshipStatus(widget.userData?.uid, relationshipStatus),
                         ),
                       ],
                     ),
@@ -186,9 +175,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
                       children: [
                         Text(
                           "INTERESTS",
-                          style: Theme.of(context).textTheme.bodyMedium?.apply(
-                              color: secondaryColour.withOpacity(0.3),
-                              fontWeightDelta: 3),
+                          style: Theme.of(context).textTheme.bodyMedium?.apply(color: secondaryColour.withOpacity(0.3), fontWeightDelta: 3),
                         ),
                       ],
                     ),
@@ -196,15 +183,11 @@ class _ProfileInformationState extends State<ProfileInformation> {
                     DisplayInterests(
                       editable: widget.editable,
                       wiggling: widget.editable,
-                      interests: widget.userData?.categorizedInterests ??
-                          CategorizedInterests(categories: []),
-                      onSave: (categorizedInterests) => saveInterests(
-                          widget.userData?.uid, categorizedInterests),
+                      interests: widget.userData?.categorizedInterests ?? CategorizedInterests(categories: []),
+                      onSave: (categorizedInterests) => saveInterests(widget.userData?.uid, categorizedInterests),
                     ),
                     const SizedBox(height: 25),
-                    (widget.bottomSection != null)
-                        ? widget.bottomSection!
-                        : Container(),
+                    (widget.bottomSection != null) ? widget.bottomSection! : Container(),
                   ],
                 ),
               ),
@@ -215,14 +198,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
     );
   }
 
-  Future<void> saveDateOfBirth(String? userId, DateTime? dateOfBirth) async {
-    if (userId != null && dateOfBirth != null) {
-      await _firestoreService.setDateOfBirth(userId, dateOfBirth);
-    }
-  }
-
-  Future<void> saveRelationshipStatus(
-      String? userId, String? relationshipStatus) async {
+  Future<void> saveRelationshipStatus(String? userId, String? relationshipStatus) async {
     if (userId != null && relationshipStatus != null) {
       await _firestoreService.setRelationshipStatus(userId, relationshipStatus);
     }
@@ -240,8 +216,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
     }
   }
 
-  Future<void> saveInterests(
-      String? userId, CategorizedInterests? interests) async {
+  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
     if (userId != null && interests != null) {
       await _firestoreService.setInterests(userId, interests);
     }

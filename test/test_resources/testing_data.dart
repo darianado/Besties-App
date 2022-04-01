@@ -10,6 +10,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
     "email": "johndoe@example.org",
     "emailVerified": true,
     "recommendations": {},
+    "uid": "john123",
     "data": UserData(
       uid: "john123",
       firstName: "John",
@@ -74,6 +75,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
     "email": "peterdoe@example.org",
     "emailVerified": true,
     "recommendations": {},
+    "uid": "peter123",
     "data": UserData(
       uid: "peter123",
       firstName: "Peter",
@@ -138,6 +140,7 @@ final List<Map<String, dynamic>> appUsersTestData = [
     "email": "janedoe@example.org",
     "emailVerified": false,
     "recommendations": {},
+    "uid": "jane123",
     "data": UserData(
       uid: "jane123",
       firstName: "Jane",
@@ -197,6 +200,13 @@ final List<Map<String, dynamic>> appUsersTestData = [
         ),
       ),
     ),
+  },
+  {
+    "email": "markdoe@example.org",
+    "emailVerified": true,
+    "recommendations": {},
+    "uid": "mark123",
+    "data": null,
   },
 ];
 

@@ -26,10 +26,9 @@ class FirebaseMockEnvironment {
 
   Future<UserState> createUserState(String activeUserEmail, bool authenticated) async {
     final doc = appUsersTestData.firstWhere((element) => element['email'] == activeUserEmail);
-    final userData = (doc['data'] as UserData);
 
     final user = MockUser(
-      uid: userData.uid!,
+      uid: doc['uid'],
       email: doc['email'],
       isEmailVerified: doc['emailVerified'],
     );
@@ -94,8 +93,10 @@ class FirebaseMockEnvironment {
     }
 
     for (Map doc in appUsersTestData) {
-      final UserData userData = doc['data'] as UserData;
-      await firestore.collection("users").doc(userData.uid).set(userData.toMap());
+      if (doc['data'] != null) {
+        final UserData userData = doc['data'] as UserData;
+        await firestore.collection("users").doc(userData.uid).set(userData.toMap());
+      }
     }
 
     for (Map doc in appUserMatchesTestData) {

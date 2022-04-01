@@ -8,7 +8,7 @@ import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
-import 'package:project_seg/screens/login/login_screen.dart';
+import 'package:project_seg/screens/log_in/login_screen.dart';
 
 import '../test_resources/helpers.dart';
 import '../test_resources/widget_pumper.dart';

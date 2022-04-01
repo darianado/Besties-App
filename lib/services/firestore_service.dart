@@ -138,8 +138,7 @@ class FirestoreService {
   /// Firebase Functions are not supported from a testing context.
   Future<bool> setLike(String? profileID) async {
     if (firebaseFirestore is FakeFirebaseFirestore) {
-      print("Calling from fake context, returning dummy value");
-      if (profileID == "abc123") {
+      if (profileID == "john123") {
         return true;
       } else {
         return false;

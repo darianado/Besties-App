@@ -30,24 +30,21 @@ class LikeProfileButton extends StatefulWidget {
   State<LikeProfileButton> createState() => _LikeProfileButtonState();
 }
 
-class _LikeProfileButtonState extends State<LikeProfileButton>
-    with TickerProviderStateMixin {
+class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProviderStateMixin {
   final notLikedValue = 0.0;
   final likedValue = 1.0;
 
   late final FirestoreService _firestoreService;
   late final AnimationController _animationController;
 
-  bool isLiked(UserState userState) =>
-      userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
+  bool isLiked(UserState userState) => userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
 
   @override
   void initState() {
     super.initState();
     final _userState = Provider.of<UserState>(context, listen: false);
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
-    _animationController = AnimationController(
-        vsync: this, value: (isLiked(_userState)) ? likedValue : notLikedValue);
+    _animationController = AnimationController(vsync: this, value: (isLiked(_userState)) ? likedValue : notLikedValue);
   }
 
   @override
@@ -62,34 +59,28 @@ class _LikeProfileButtonState extends State<LikeProfileButton>
 
     final _isLiked = isLiked(_userState);
 
-    final _animationController = AnimationController(
-        vsync: this, value: (_isLiked) ? likedValue : notLikedValue);
+    final _animationController = AnimationController(vsync: this, value: (_isLiked) ? likedValue : notLikedValue);
 
     return RoundActionButton(
       onPressed: () async {
         if (!_isLiked) {
-          await _animationController.animateTo(likedValue,
-              duration: const Duration(milliseconds: 600));
+          await _animationController.animateTo(likedValue, duration: const Duration(milliseconds: 600));
 
           widget.onLikeComplete();
 
           bool isMatch = await _firestoreService.setLike(widget.profile.uid);
 
           if (isMatch) {
-            print("Showing dialog");
             showDialog(
               context: context,
-              builder: (BuildContext context) => MatchDialog(
-                otherUser: widget.profile,
-              ),
+              builder: (BuildContext context) => MatchDialog(otherUser: widget.profile),
             );
           }
         }
       },
       child: Transform.scale(
         scale: 1.35,
-        child: Lottie.asset("assets/lotties/like.json",
-            controller: _animationController),
+        child: Lottie.asset("assets/lotties/like.json", controller: _animationController),
       ),
     );
   }

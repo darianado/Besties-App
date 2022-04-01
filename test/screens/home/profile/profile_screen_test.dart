@@ -4,10 +4,11 @@ import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
-import 'package:project_seg/screens/login/login_screen.dart';
+import 'package:project_seg/screens/log_in/login_screen.dart';
 
 import '../../../test_resources/helpers.dart';
 import '../../../test_resources/widget_pumper.dart';
@@ -21,7 +22,6 @@ void main() {
     await _widgetPumper.setup(userEmail, authenticated: true);
   });
 
-  /*
   group('ProfileScreen widget tests', () {
     testWidgets('Displays correct information', (tester) async {
       await _widgetPumper.pumpWidgetRouter(tester, "/profile", null);
@@ -104,6 +104,18 @@ void main() {
 
       expect(find.byType(EditPasswordScreen), findsOneWidget);
     });
+
+    testWidgets("Clicking edit profile returns normally", (tester) async {
+      await signInHelper(_widgetPumper, userEmail);
+      await _widgetPumper.pumpWidgetRouter(tester, "/profile", null);
+
+      expect(find.byType(ProfileScreen), findsOneWidget);
+
+      final Finder editProfileButtonFinder = find.byType(RoundActionButton);
+      expect(editProfileButtonFinder, findsOneWidget);
+      final RoundActionButton editProfileButton = tester.widget<RoundActionButton>(editProfileButtonFinder);
+      expect(editProfileButton.onPressed, isNotNull);
+      expect(() => editProfileButton.onPressed!(), returnsNormally);
+    });
   });
-  */
 }

@@ -1,21 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
+import 'package:project_seg/screens/components/buttons/gender_button.dart';
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
-import 'package:project_seg/screens/components/dialogs/match_alert.dart';
+import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/components/sliding_profile_details.dart';
 import 'package:project_seg/screens/home/feed/components/like_profile_button.dart';
 import 'package:project_seg/screens/home/feed/components/profile_container.dart';
-import 'package:project_seg/screens/home/feed/feed_screen.dart';
-import '../../../test_resources/firebase_mocks.dart';
-import 'package:project_seg/screens/components/buttons/gender_button.dart';
-import 'package:project_seg/screens/components/images/cached_image.dart';
 
 import '../../../test_resources/helpers.dart';
-import '../../../test_resources/test_profile.dart';
 import '../../../test_resources/testing_data.dart';
 import '../../../test_resources/widget_pumper.dart';
 
@@ -78,6 +72,21 @@ void main() {
       expect(roundActionButtonFinder, findsOneWidget);
       final RoundActionButton roundActionButton = tester.widget<RoundActionButton>(roundActionButtonFinder);
       expect(roundActionButton.onPressed, isNotNull);
+    });
+
+    testWidgets('Tapping like returns normally', (tester) async {
+      await signOutHelper(_widgetPumper);
+      await signInHelper(_widgetPumper, "johndoe@example.org");
+      await _widgetPumper.pumpWidget(tester, LikeProfileButton(profile: otherUser, liked: false, onLikeComplete: () {}));
+
+      expect(find.byType(Lottie), findsOneWidget);
+
+      final Finder roundActionButtonFinder = find.byType(RoundActionButton);
+      expect(roundActionButtonFinder, findsOneWidget);
+      final RoundActionButton roundActionButton = tester.widget<RoundActionButton>(roundActionButtonFinder);
+      expect(roundActionButton.onPressed, isNotNull);
+      expect(() => roundActionButton.onPressed!(), returnsNormally);
+      await tester.pumpAndSettle();
     });
   });
 }

@@ -17,13 +17,10 @@ import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import '../../constants/borders.dart';
 
-/**
- * The second screen that is displayed through the sign up process.
- *
- * The user is asked to provide details such as first name, last name
- * birthday, gender and their relationship status.
- */
-
+/// A widget that displays a sign up form for the user's basic information.
+///
+/// The user is asked to provide details such as first name, last name
+/// birthday, gender and their relationship status.
 class RegisterBasicInfoScreen extends StatefulWidget {
   final UserData userData;
 
@@ -32,8 +29,6 @@ class RegisterBasicInfoScreen extends StatefulWidget {
   @override
   _RegisterBasicInfoScreenState createState() => _RegisterBasicInfoScreenState();
 }
-
-///The state for the [RegisterBasicInfoScreen] widget.
 
 class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
@@ -256,7 +251,8 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
       ),
     );
   }
-
+  
+  /// Validates the user's selections.
   bool validate() {
     setState(() {
       validateDOBerror = validateDOB(widget.userData.dob);

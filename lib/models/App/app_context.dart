@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+/// This class  stores content that is available throughout the app.
 class AppContext {
   List<String>? universities;
   List<String>? genders;
@@ -23,6 +24,7 @@ class AppContext {
     this.maxAge,
   });
 
+  /// This factory creates an instance of [AppContext] from a [DocumentSnapshot].
   factory AppContext.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
 

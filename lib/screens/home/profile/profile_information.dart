@@ -14,16 +14,7 @@ import 'package:project_seg/services/firestore_service.dart';
 import 'package:project_seg/utility/pick_image.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that is used to
- * display information about a user.
- *
- * It takes UserData instance (information to be displayed), editable
- * (whether a user should be allowed to change information on the screen),
- * left and right action widget, a widget to be displayed in image section
- * (top center), and a widget for bottom section.
- */
-
+/// A widget that displays information about the user.
 class ProfileInformation extends StatefulWidget {
   final UserData? userData;
   final bool editable;
@@ -58,6 +49,7 @@ class _ProfileInformationState extends State<ProfileInformation> {
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }
 
+  /// Updates the user's profile picture.
   void _pickImage(String userID) async {
     setState(() {
       loadingPicture = true;
@@ -204,19 +196,23 @@ class _ProfileInformationState extends State<ProfileInformation> {
     }
   }
 
+  /// Saves the user's gender.
   Future<void> saveGender(String? userId, String? gender) async {
     if (userId != null && gender != null) {
       await _firestoreService.setGender(userId, gender);
     }
   }
 
+  /// Saves the user's university.
   Future<void> saveUniversity(String? userId, String? university) async {
     if (userId != null && university != null) {
       await _firestoreService.setUniversity(userId, university);
     }
   }
 
-  Future<void> saveInterests(String? userId, CategorizedInterests? interests) async {
+  /// Saves the user's interests.
+  Future<void> saveInterests(
+      String? userId, CategorizedInterests? interests) async {
     if (userId != null && interests != null) {
       await _firestoreService.setInterests(userId, interests);
     }

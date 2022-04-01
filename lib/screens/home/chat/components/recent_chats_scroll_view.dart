@@ -8,11 +8,7 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a chat item in the chat history list.
- */
-
+/// A widget that displays a list of [RecentChatsScrollViewItem] in a [ListView].
 class RecentChatsScrollView extends StatelessWidget {
   const RecentChatsScrollView({
     Key? key,
@@ -21,8 +17,6 @@ class RecentChatsScrollView extends StatelessWidget {
 
   final List<UserMatch> chats;
 
-  /// This method builds a widget that displays all the chats of a user
-  /// sorted by the most recent message sent.
   @override
   Widget build(BuildContext context) {
     chats.sort((b, a) => a.messages!.first.timestamp!.compareTo(b.messages!.first.timestamp!));
@@ -31,6 +25,7 @@ class RecentChatsScrollView extends StatelessWidget {
   }
 }
 
+/// A widget that displays a picture and name of the [chat] with the most recent message.
 class RecentChatsScrollViewItem extends StatelessWidget {
   const RecentChatsScrollViewItem({
     Key? key,
@@ -38,13 +33,6 @@ class RecentChatsScrollViewItem extends StatelessWidget {
   }) : super(key: key);
 
   final UserMatch chat;
-
-  /**
-   * This method builds a widget that displays a single chat in the list
-   * of recent chats. It shows the picture and the name of the other user,
-   * as well as the most recent message. If the user has not replied to a
-   * message, the "Reply" icon will be displayed.
-   */
 
   @override
   Widget build(BuildContext context) {

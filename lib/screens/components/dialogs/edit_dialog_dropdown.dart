@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a dialog dropdown when users want to edit information on their
- * profiles such as the university, gender or relationship status.
- */
-
+/// A widget that displays a [Dialog] with a list of [items] arranged in [DropdownButton]s.
 class EditDialogDropdown extends StatefulWidget {
   final List<String> items;
   final String? initialValue;
@@ -17,20 +12,11 @@ class EditDialogDropdown extends StatefulWidget {
       : initialValue = safelyGetValue(items, value),
         super(key: key);
 
-  /**
-   * This method checks if the value selected by a user is in the list of possible values.
-   * @param List<String> items - the list of values from which the user can select
-   * the wanted item.
-   * @param String? proposedValue - the value that the user selected
-   *
-   * @return the value the user selected,
-   * if the user did not select a valid value, it returns the first element
-   * in the list, otherwise null
-   */
-
+  /// Checks if the [proposedValue] is in the list of [items] else returns the head of the list.
   static String? safelyGetValue(List<String> items, String? proposedValue) {
-    if (proposedValue != null && items.contains(proposedValue))
+    if (proposedValue != null && items.contains(proposedValue)) {
       return proposedValue;
+    }
     if (items.isNotEmpty) return items.first;
     return null;
   }
@@ -47,14 +33,6 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
     super.initState();
     _selectedValue = widget.initialValue;
   }
-
-  /**
-   * This method builds an EditDialog widget that is invoked when users
-   * want to edit information that is displayed on their own profiles.
-   * The Dropdown Button is used to display lists for universities and
-   * relationship status.
-   * Once users select their options, they will be saved.
-   */
 
   @override
   Widget build(BuildContext context) {
@@ -82,10 +60,7 @@ class _EditDialogDropdownState extends State<EditDialogDropdown> {
     );
   }
 
-  /**
-   * This method allows users to change the selections made before.
-   * @param String? selected - the item that users wish to select
-   */
+  /// Updates the [selected] string.
   void changeSelection(String? selected) {
     if (selected != null) {
       setState(() {

@@ -14,14 +14,7 @@ import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-/// This class represents a widget that is used to implement a user
-/// verification functionality (log in) and display a screen for the user
-/// to provide their email and password associated with the account.
-///
-/// It also has a "Forgot password" link that redirects to a password
-/// recovery screen and "Sign up" button that redirects to sign up form
-/// for new users to join the app.
-
+/// A widget that displays the login screen.
 class LogInScreen extends StatefulWidget {
   const LogInScreen({Key? key}) : super(key: key);
 

@@ -15,11 +15,7 @@ import 'package:provider/provider.dart';
 import '../../../constants/colours.dart';
 import '../../../states/user_state.dart';
 
-/**
- * This class represents a model of a reusable widget that allows the
- * user to change the preferences regarding the people their looking for.
- */
-
+/// A widget that allows the user to change the preferences regarding the people their looking for.
 class EditPreferencesScreen extends StatefulWidget {
   const EditPreferencesScreen({Key? key}) : super(key: key);
 
@@ -32,6 +28,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
   Preferences? newPreferences;
   bool isLoading = false;
 
+  /// Save the new [preferences] to the database.
   Future<void> save(String userID, Preferences preferences) async {
     setState(() {
       isLoading = true;
@@ -42,7 +39,6 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _firestoreService = Provider.of<FirestoreService>(context, listen: false);
   }

@@ -8,8 +8,7 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
-/// This class represents a model of a reusable widget that is used
-/// to display a dialog when a user wants to delete their account.
+/// A widget that displays an [EditDialog] when a user wants to delete their account.
 class DeleteAccountDialog extends StatefulWidget {
   const DeleteAccountDialog({Key? key}) : super(key: key);
 
@@ -22,11 +21,6 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
 
   final TextEditingController _password = TextEditingController();
 
-  /// This method builds an EditDialog widget that is invoked when a user
-  /// shows interest into deleteing their account. In order to perform
-  /// this action, users are required to confirm their password,
-  /// followed by pressing the "Delete" button. They can also
-  /// exit the dialog by pressing "Cancel".
   @override
   Widget build(BuildContext context) {
     return EditDialog(
@@ -90,8 +84,9 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
     );
   }
 
-  /// This asyncronous method deletes the account from the database.
-  /// @param String - the password confirmation.
+  /// Tries to delete an account from the database.
+  /// 
+  /// Catches a [FirebaseAuthException] and displays a [DismissDialog].
   _deleteUser(String password) async {
     try {
       await Provider.of<UserState>(context, listen: false).deleteAccount(password);

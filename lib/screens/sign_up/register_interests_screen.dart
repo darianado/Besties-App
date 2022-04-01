@@ -14,13 +14,9 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The fifth screen that is displayed through the sign up process.
- *
- * The user is asked to specify their interests. The maximal and minimal
- * number of interests a user can select is specified in the database.
- */
-
+/// A widget that displays a sign up form for the user's interests.
+///
+/// The user is asked to specify their interests.
 class RegisterInterestsScreen extends StatefulWidget {
   const RegisterInterestsScreen({Key? key, required this.userData})
       : super(key: key);
@@ -133,6 +129,7 @@ class _RegisterInterestsScreenState extends State<RegisterInterestsScreen> {
     );
   }
 
+  /// Validates the user's selections.
   bool validate() {
     final _contextState = Provider.of<ContextState>(context, listen: false);
 

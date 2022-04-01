@@ -14,13 +14,7 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The fourth screen that is displayed through the sign up process.
- *
- * The user is asked to provide details about the university they attend to
- * and specify their bio.
- */
-
+/// A widget that displays the sign up screen.
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
 
@@ -44,6 +38,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _confirmPassword.dispose();
   }
 
+
+  /// Signs the user up.
+  /// 
+  /// Throw [FirebaseAuthException] if the user is not signed up.
   void signUp(UserState userState) async {
     setState(() {
       isLoading = true;

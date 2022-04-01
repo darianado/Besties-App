@@ -9,11 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../router/route_names.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a dialog that appears when two users are matched.
- */
-
+/// A widget that displays a [Dialog] when two users match.
 class MatchDialog extends StatefulWidget {
   final UserData? otherUser;
 
@@ -27,14 +23,6 @@ class MatchDialog extends StatefulWidget {
 }
 
 class _MatchDialogState extends State<MatchDialog> {
-  /**
-   * This method builds a Dialog widget that is invoked when users
-   * are part of a match.
-   * Users are able to see the users they matched with.
-   * A "Go to matches" button is displayed that redirects the user
-   * to their matches page screen.
-   */
-
   @override
   Widget build(BuildContext context) {
     final _userState = Provider.of<UserState>(context);

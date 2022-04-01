@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
-/**
- * This class represents a model of a stateless widget that is aligned
- * in the center left side.
- */
-
+/// A widget that displays a centerLeft [Align] widget.
 class LeftAlignedHeadline extends StatelessWidget {
   final String text;
 
@@ -18,13 +14,15 @@ class LeftAlignedHeadline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Text(text,
-          style: const TextStyle(
-            color: secondaryColour,
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 1,
-          )),
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: secondaryColour,
+          fontSize: 30,
+          fontWeight: FontWeight.bold,
+          letterSpacing: 1,
+        ),
+      ),
     );
   }
 }

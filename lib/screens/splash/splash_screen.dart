@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project_seg/states/context_state.dart';
-import 'package:project_seg/states/user_state.dart';
-import 'package:provider/provider.dart';
 
-/**
- *
- */
-
+/// A widget that displays a splash screen with a [CircularProgressIndicator].
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 

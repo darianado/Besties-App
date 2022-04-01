@@ -4,11 +4,7 @@ import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display a message that appears in the conversation.
- */
-
+/// A widget that displays a [Message] that appears in the conversation.
 class MessageWidget extends StatelessWidget {
   final Message message;
 
@@ -16,12 +12,6 @@ class MessageWidget extends StatelessWidget {
     Key? key,
     required this.message,
   }) : super(key: key);
-
-  /**
-   * This method builds a widget that is used to display the messages
-   * used in the communication between two users.
-   * The widget displays the content of the message and the time it is sent.
-   */
 
   @override
   Widget build(BuildContext context) {

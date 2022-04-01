@@ -5,29 +5,23 @@ import 'package:project_seg/screens/home/chat/components/message_widget.dart';
 import 'package:project_seg/states/match_state.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that displays
- * a conversation between a user and their match.
- */
-
+/// A widget that displays a conversation between a user and their match.
 class ChatConversation extends StatelessWidget {
   final UserMatch userMatch;
 
   const ChatConversation({Key? key, required this.userMatch}) : super(key: key);
 
-  /**
-   * This method builds a widget that displays the list of all messages in a chat.
-   */
   @override
   Widget build(context) {
     final _ = Provider.of<MatchState>(context);
 
     return ListView.builder(
-        reverse: true,
-        itemCount: userMatch.messages?.length ?? 0,
-        itemBuilder: (BuildContext context, int index) {
-          final Message message = userMatch.messages![index];
-          return MessageWidget(message: message);
-        });
+      reverse: true,
+      itemCount: userMatch.messages?.length ?? 0,
+      itemBuilder: (BuildContext context, int index) {
+        final Message message = userMatch.messages![index];
+        return MessageWidget(message: message);
+      },
+    );
   }
 }

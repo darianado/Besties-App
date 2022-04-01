@@ -10,15 +10,7 @@ import '../../../../constants/borders.dart';
 import '../../../../constants/constant.dart';
 import '../../../components/sliding_profile_details.dart';
 
-/**
- * The Widget that displays a profile's information.
- *
- * This Widget is placed within the [FeedScreen]'s [PageView].
- * It is composed of a [NetworkImage], [PartialProfileDetails],
- * a modal bottom sheet that contains [SlidingProfileDetails]
- * and a [LikeProfileButton].
- */
-
+/// A widget that holds a [profile]'s [PartialProfileDetails],a [LikeProfileButton] and a [CachedImage] as background.
 class ProfileContainer extends StatelessWidget {
   final UserData profile;
   final bool liked;

@@ -6,21 +6,16 @@ import 'package:project_seg/screens/components/interests/edit_interests_bottom_s
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to select interests. Users can select what they are interested in
- * when they sign up.
- */
-
+/// A widget used to select interests.
 class SelectInterests extends StatefulWidget {
+  final CategorizedInterests selected;
+  final Function(CategorizedInterests) onChange;
+
   const SelectInterests({
     Key? key,
     required this.selected,
     required this.onChange,
   }) : super(key: key);
-
-  final CategorizedInterests selected;
-  final Function(CategorizedInterests) onChange;
 
   @override
   State<SelectInterests> createState() => _SelectInterestsState();

@@ -5,6 +5,7 @@ import 'package:project_seg/screens/home/chat/chat_screen.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_screen.dart';
 
+/// A [MenuItemData].
 class MenuItemData {
   final String title;
   final IconData icon;
@@ -19,6 +20,7 @@ class MenuItemData {
   });
 }
 
+/// A list of [MenuItemData]s.
 class MenuData {
   final List<MenuItemData> entries;
 

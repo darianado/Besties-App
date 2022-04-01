@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to display text in a pill-shaped field with a fill of the provided colour.
- * It takes a text to be displayed and the on pressed function as required
- * arguments, but can be customised further.
- */
-
+/// A filled button that is used to display [text] in a pill-shaped field.
 class PillButtonFilled extends StatelessWidget {
   final bool isLoading;
   final String text;

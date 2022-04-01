@@ -11,15 +11,7 @@ import 'package:project_seg/services/feed_content_controller.dart';
 import 'package:project_seg/services/firestore_service.dart';
 import 'package:provider/provider.dart';
 
-/**
- * The screen that displays profiles to the user.
- *
- * The profiles are arranged in a vertical [PageView]
- * and are asynchronously fetched prior to building the [Widget].
- * A [CircularProgressIndicator] is returned for the whole duration of
- * the async method.
- */
-
+/// A widget that displays a list of widgets in a vertical [PageView].
 class FeedScreen extends StatefulWidget {
   const FeedScreen({Key? key}) : super(key: key);
 
@@ -32,8 +24,6 @@ class FeedScreen extends StatefulWidget {
   @override
   _FeedScreenState createState() => _FeedScreenState();
 }
-
-/// The State for the [FeedScreen] widget.
 
 class _FeedScreenState extends State<FeedScreen> {
   @override
@@ -93,15 +83,17 @@ class _FeedScreenState extends State<FeedScreen> {
     );
   }
 
-  /// Refreshes the profiles by updating the [FutureBuilder]'s future.
-
-  Future<void> refreshProfileContainers(FeedContentController _feedContentController) async {
+  /// Refreshes the profile containers displayed in the [FeedScreen].
+  Future<void> refreshProfileContainers(
+      FeedContentController _feedContentController) async {
     await Future.delayed(const Duration(milliseconds: 400));
     FeedScreen.controller.jumpToPage(0);
     await _feedContentController.refreshContent();
   }
 }
 
+
+/// A custom [ScrollPhysics] for the [PageView] in the [FeedScreen].
 class CustomPageViewScrollPhysics extends ScrollPhysics {
   const CustomPageViewScrollPhysics({ScrollPhysics? parent}) : super(parent: parent);
 

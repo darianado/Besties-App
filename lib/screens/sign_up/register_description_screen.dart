@@ -13,13 +13,10 @@ import 'package:provider/provider.dart';
 
 import '../../constants/borders.dart';
 
-/**
- * The fourth screen that is displayed through the sign up process.
- *
- * The user is asked to provide details about the university they attend
- * and specify their bio.
- */
-
+/// A widget that displays a sign up form for the user's description.
+///
+/// The user is asked to provide details about the university they attend
+/// and specify their bio.
 class RegisterDescriptionScreen extends StatefulWidget {
   const RegisterDescriptionScreen({Key? key, required this.userData})
       : super(key: key);
@@ -193,6 +190,7 @@ class _RegisterDescriptionScreenState extends State<RegisterDescriptionScreen> {
     );
   }
 
+  /// Validates the user's selections.
   bool validate() {
     setState(() {
       validateUniversityError = validateUniversity(widget.userData.university);

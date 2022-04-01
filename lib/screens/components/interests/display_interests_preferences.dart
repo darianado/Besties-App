@@ -2,22 +2,25 @@ import 'package:animated_widgets/animated_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
+import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
+import 'package:project_seg/states/user_state.dart';
+import 'package:provider/provider.dart';
 
-/// A widget that displays the [interests] selected on the user's profile.
+/// A widget that displays the interests selected by a user in their preferences.
 ///
-/// The [DisplayInterests] is [editable] and can be [wiggling].
-class DisplayInterests extends StatelessWidget {
-  final CategorizedInterests interests;
+/// The [DisplayInterestsPreferences] is [editable] and can be [wiggling].
+class DisplayInterestsPreferences extends StatelessWidget {
+  final List<Interest> items;
   final bool wiggling;
   final bool editable;
   final bool mini;
-  final Function(CategorizedInterests)? onSave;
+  final Function(CategorizedInterests?)? onSave;
 
-  const DisplayInterests({
+  const DisplayInterestsPreferences({
     Key? key,
-    required this.interests,
+    required this.items,
     this.editable = false,
     this.wiggling = false,
     this.mini = true,
@@ -31,7 +34,7 @@ class DisplayInterests extends StatelessWidget {
       runSpacing: 6.0,
       alignment: WrapAlignment.center,
       runAlignment: WrapAlignment.center,
-      children: interests.flattenedInterests.map((interest) {
+      children: items.map((interest) {
         if (wiggling) {
           return ShakeAnimatedWidget(
             duration: const Duration(milliseconds: 200),
@@ -45,8 +48,7 @@ class DisplayInterests extends StatelessWidget {
     );
   }
 
-  /// This method returns a widget that displays a label in a chip.
-
+  /// Returns [label] wrapped in a [ChipWidget].
   Widget chip(String label, BuildContext context) {
     return ChipWidget(
       color: tertiaryColour,
@@ -54,15 +56,15 @@ class DisplayInterests extends StatelessWidget {
       label: label,
       capitalizeLabel: true,
       mini: mini,
-      textColor: whiteColour,
+      textColor: simpleWhiteColour,
       onTap: getOnTap(label, context),
     );
   }
 
-  /// This method specifies action to be performed in the editable instances
-  /// of this button. It will trigger the onSave functionality.
-
+  /// Displays an [EditDialogInterests] when the widget is tapped if it's editable.
   Function? getOnTap(String label, BuildContext context) {
+    final _userState = Provider.of<UserState>(context);
+
     final _onSave = onSave;
 
     if (!editable || (_onSave == null)) return null;
@@ -71,7 +73,8 @@ class DisplayInterests extends StatelessWidget {
           context: context,
           builder: (BuildContext context) {
             return EditDialogInterests(
-              interests: interests,
+              interests: _userState.user?.userData?.preferences?.interests ??
+                  CategorizedInterests(categories: []),
               onSave: _onSave,
             );
           },

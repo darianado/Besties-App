@@ -3,13 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
 
-/**
- * The Widget that shows the displayed profile's partial details.
- *
- * This Widget is composed of the profile's first name and university
- * arranged in a [Column].
- */
-
+/// A widget that shows the displayed [profile]'s name and university in a [Column].
 class PartialProfileDetails extends StatelessWidget {
   final UserData profile;
 

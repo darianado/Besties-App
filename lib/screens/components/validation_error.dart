@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
-/**
- * This class represents a widget that is used to display
- * a validation error message. It displays it as a text in red.
- */
-
+/// A widget that displays a validation error message.
 class ValidationError extends StatelessWidget {
   final String? errorText;
 

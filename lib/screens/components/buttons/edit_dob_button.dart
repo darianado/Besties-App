@@ -7,11 +7,9 @@ import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
 import 'package:project_seg/constants/colours.dart';
 
-/// This class represents a model of a reusable widget that is used
-/// to display the date of birth related information to the users.
-/// The Date of birth button can be editable depending on the place it is used
-/// (it can be editable only in the sign up process).
-/// In the profile related screens it displays the age of the users.
+/// A widget that is used to display the user's date of birth.
+///
+/// The [DateOfBirthButton] is [editable] and can be [wiggling].
 class DateOfBirthButton extends StatelessWidget {
   final bool editable;
   final bool wiggling;
@@ -30,15 +28,19 @@ class DateOfBirthButton extends StatelessWidget {
       this.color = Colors.green})
       : super(key: key);
 
-  /// This method computes a date 16 years before now.
-  /// @return The DateTime from 16 years ago
+  /// Returns if a user's age is valid.
+  bool validAge(DateTime selectedDate) {
+    return (DateTime.now().difference(selectedDate) >
+        const Duration(days: sixteenYearsInDays));
+  }
+
+  /// Returns a date 16 years before now.
   DateTime validDate() {
     DateTime dateNow = DateTime.now();
     DateTime limitDate = dateNow.subtract(const Duration(days: sixteenYearsInDays));
     return limitDate;
   }
 
-  /// The widget wiggles when it is in edit mode (only if applicable).
   @override
   Widget build(BuildContext context) {
     if (wiggling) {
@@ -62,8 +64,7 @@ class DateOfBirthButton extends StatelessWidget {
     );
   }
 
-  /// This method provides functionality for an event that the date of
-  /// birth selection is clicked.
+  /// Calls [_selectDate] when the widget is tapped if it's editable.
   Function? getOnTap(BuildContext context) {
     final _userState = Provider.of<UserState>(context);
 
@@ -75,8 +76,7 @@ class DateOfBirthButton extends StatelessWidget {
     return () async => _selectDate(context, _uid, _dob);
   }
 
-  /// This asynchronous method allows the user to select their date of birth.
-  /// It triggers a calendar being displayed on the screen.
+  /// Displays a date picker.
   void _selectDate(BuildContext context, String? uid, DateTime? dob) async {
     DateTime? picked = await showDatePicker(
       context: context,

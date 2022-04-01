@@ -2,6 +2,9 @@ import 'package:age_calculator/age_calculator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
 
+/// User [Preferences].
+/// 
+/// It is the set of preferences that the user picked.
 class Preferences {
   CategorizedInterests? interests;
   List<String?>? genders;
@@ -15,6 +18,7 @@ class Preferences {
     this.genders,
   });
 
+  /// This factory creates an instance of [Preferences] from a [Map].
   factory Preferences.fromMap(Map<String, dynamic> map) {
     final _interests = CategorizedInterests.fromList(map['categorizedInterests'] ?? []);
     return Preferences(
@@ -25,6 +29,7 @@ class Preferences {
     );
   }
 
+  /// Returns a [Map] representation of these [Preferences].
   Map<String, dynamic> toMap() {
     return {
       "categorizedInterests": interests?.toList(),
@@ -49,6 +54,7 @@ class Preferences {
       super.hashCode ^ (maxAge != null ? maxAge! : 1) ^ (minAge != null ? minAge! : 1) ^ (genders != null ? genders!.length : 1);
 }
 
+/// The user's data.
 class UserData {
   String? uid;
   DateTime? dob;
@@ -76,6 +82,7 @@ class UserData {
       this.lastName,
       this.likes});
 
+  /// This factory creates an instance of [UserData] from a [DocumentSnapshot].
   factory UserData.fromSnapshot(DocumentSnapshot<Map> doc) {
     Map? data = doc.data();
 
@@ -97,10 +104,12 @@ class UserData {
     );
   }
 
+  /// Gets the user's full name.
   String? get fullName {
     return (firstName ?? "") + (firstName != null ? " " : "") + (lastName ?? "");
   }
 
+  /// Gets the user's age.
   int? get age {
     DateTime? localDob = dob;
     if (localDob != null) {
@@ -110,6 +119,7 @@ class UserData {
     }
   }
 
+  /// Converts the user's date of birth to a string.
   String? get humanReadableDateOfBirth {
     int? year = dob?.year;
     int? month = dob?.month;
@@ -122,6 +132,7 @@ class UserData {
     return null;
   }
 
+  /// Returns a [Map] representation of these [UserData].
   Map<String, dynamic> toMap() {
     return {
       "dob": dob,

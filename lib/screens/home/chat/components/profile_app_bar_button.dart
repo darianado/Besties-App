@@ -5,11 +5,7 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_seg/screens/components/images/circle_cached_image.dart';
 
-/**
- * This class represents a model of a reusable widget that is used
- * to create the app bar that is displayed in a chat page.
- */
-
+/// A widget that displays the app bar in the chat page with the [userMatch] details.
 class ProfileAppBarButton extends StatelessWidget {
   const ProfileAppBarButton({
     Key? key,
@@ -17,11 +13,6 @@ class ProfileAppBarButton extends StatelessWidget {
   }) : super(key: key);
 
   final UserMatch userMatch;
-
-  /**
-   * This method builds a widget that is displayed at the top of every chat.
-   * It contains the picture and the first name of the user to chat with.
-   */
 
   @override
   Widget build(BuildContext context) {

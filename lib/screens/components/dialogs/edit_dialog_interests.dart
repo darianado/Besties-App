@@ -7,9 +7,7 @@ import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
-/// This class represents a model of a reusable widget that is used
-/// to display a dialog for when users want to edit their interests.
-
+/// A widget that displays a dialog for when users want to edit their interests.
 class EditDialogInterests extends StatefulWidget {
   final CategorizedInterests interests;
   final Function(CategorizedInterests) onSave;
@@ -34,9 +32,6 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
     interests = widget.interests;
   }
 
-  /// This method builds an EditDialog widget that is invoked when users
-  /// want to edit information about the interests they selected.
-  /// Once users select their options, they will be saved.
   @override
   Widget build(BuildContext context) {
     return EditDialog(
@@ -56,24 +51,22 @@ class _EditDialogInterestsState extends State<EditDialogInterests> {
     );
   }
 
-  /// This method allows users to change the selections made before.
-  /// @param CategorizedInterests selected - the interest that
-  /// users wish to select
+  /// Updates the [selected] interests.
   void _changeSelection(CategorizedInterests selected) {
     setState(() {
       interests = selected;
     });
   }
 
-  /// This method saves the newly selected interests.
+  /// Saves the newly selected interests.
   void _save() {
     Navigator.of(context).pop();
     widget.onSave(interests);
   }
 
-  /// This method validates the selection of interests a user has made.
+  /// Validates the selection of interests a user has made.
+  ///
   /// It checks if the user selected at least one interest, but no more than 10.
-  /// @return True if the selection is valid, False otherwise
   bool validate() {
     final _contextState = Provider.of<ContextState>(context, listen: false);
 

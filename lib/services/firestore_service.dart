@@ -168,27 +168,4 @@ class FirestoreService {
       firebaseFirestore.collection("users").doc(userID).set(data.toMap());
     }
   }
-
-  /*
-  //Gets the matchID from two uids.
-  Future<String> getMatchID(String? userID, String? profileID) async {
-    final snapshot = await firebaseFirestore.collection("matches").where("uids", isEqualTo: [userID, profileID]).get();
-
-    String matchID = snapshot.docs.first.id;
-    return matchID;
-  }
-
-  // Gets a list of messages in a match.
-  Future<List<Message>> getMessageList(String senderID, String receiverID) async {
-    List<Message> results = [];
-    String matchID = await getMatchID(senderID, receiverID);
-
-    final snapshot = await FirebaseFirestore.instance.collection("matches").doc(matchID).collection("messages").get();
-
-    results.addAll(snapshot.docs.map((doc) => Message.fromSnapshot(doc)));
-    results.sort(((a, b) => a.timestamp!.compareTo(b.timestamp!)));
-
-    return results;
-  }
-  */
 }

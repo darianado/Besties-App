@@ -42,8 +42,6 @@ class GenderButton extends StatelessWidget {
   }
 
   /// This method generates icons depanding on gender.
-  /// @ param String? - the gender to be selected
-  /// @return the IconData corresponding to the selected gender
   IconData getIconForGender(String? gender) {
     switch (gender?.toLowerCase()) {
       case "male":

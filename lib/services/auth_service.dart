@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:firebase_auth_mocks/firebase_auth_mocks.dart' as mockAuth;
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart' as mock_auth;
 
 /// The entry point for authentication services.
 ///
@@ -27,15 +27,12 @@ class AuthService {
 
   /// Signs the user in with the given [email] and [password].
   Future<void> signIn(String email, String password) async {
-    await firebaseAuth.signInWithEmailAndPassword(
-        email: email, password: password);
+    await firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   /// Signs the user up with the given [email] and [password].
   Future<void> signUp(String email, String password) async {
-    await firebaseAuth
-        .createUserWithEmailAndPassword(email: email, password: password)
-        .then((_) async {
+    await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((_) async {
       await sendVerificationEmail();
     });
   }
@@ -56,13 +53,13 @@ class AuthService {
   /// Sends a verification email to the [currentUser].
   Future<void> sendVerificationEmail() async {
     // For testing purposes - mock package does not support emails.
-    if (firebaseAuth is mockAuth.MockFirebaseAuth) return;
+    if (firebaseAuth is mock_auth.MockFirebaseAuth) return;
 
     await currentUser?.sendEmailVerification(null);
   }
 
   /// Refreshes the [currentUser], if signed in.
-  /// 
+  ///
   /// Catches an [auth.FirebaseAuthException] if the user is not signed in.
   Future<void> reloadUser() async {
     try {
@@ -74,8 +71,8 @@ class AuthService {
   }
 
   /// Periodically checks if the [currentUser]'s email has been verified.
-  /// 
-  /// This method starts a periodic [timer] that will automatically 
+  ///
+  /// This method starts a periodic [timer] that will automatically
   /// stop after the [currentUser] has been verified.
   void startCheckingForVerifiedEmail() {
     timer = Timer.periodic(
@@ -97,14 +94,13 @@ class AuthService {
   /// Sends a password reset email to the [currentUser].
   Future<void> resetPassword(String email) async {
     // For testing purposes - mock package does not support emails.
-    if (firebaseAuth is mockAuth.MockFirebaseAuth) return;
+    if (firebaseAuth is mock_auth.MockFirebaseAuth) return;
 
     return await firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
-/// Changes the [currentUser]'s [currentPassword] to the given [newPassword].
-  Future<void> changePassword(
-      String currentPassword, String newPassword) async {
+  /// Changes the [currentUser]'s [currentPassword] to the given [newPassword].
+  Future<void> changePassword(String currentPassword, String newPassword) async {
     auth.User? user = currentUser;
     if (user == null) {
       return;
@@ -121,8 +117,7 @@ class AuthService {
       return false;
     }
 
-    final credentials = auth.EmailAuthProvider.credential(
-        email: user.email!, password: password);
+    final credentials = auth.EmailAuthProvider.credential(email: user.email!, password: password);
     await user.reauthenticateWithCredential(credentials);
     return true;
   }

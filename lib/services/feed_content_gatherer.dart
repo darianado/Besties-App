@@ -3,12 +3,10 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/home/feed/components/profile_container.dart';
-import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/states/user_state.dart';
 import 'package:project_seg/utility/helpers.dart';
 

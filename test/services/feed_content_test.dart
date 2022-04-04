@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
-import 'package:project_seg/services/feed_content_gatherer.dart';
 
 import '../test_resources/testing_data.dart';
 import '../test_resources/widget_pumper.dart';
@@ -11,9 +10,7 @@ import '../test_resources/widget_pumper.dart';
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
 
-  UserData johnUser = appUsersTestData[0]['data'] as UserData;
   UserData peterUser = appUsersTestData[1]['data'] as UserData;
-  UserData janeUser = appUsersTestData[2]['data'] as UserData;
 
   setUpAll(() async {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);

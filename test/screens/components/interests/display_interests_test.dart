@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/models/Interests/categorized_interests.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/chip_widget.dart';
 import 'package:project_seg/screens/components/dialogs/edit_dialog_interests.dart';
+import 'package:project_seg/screens/components/interests/display_interests.dart';
+
 import '../../../test_resources/testing_data.dart';
 import '../../../test_resources/widget_pumper.dart';
-import '../../../test_resources/test_profile.dart';
-import 'package:project_seg/models/Interests/categorized_interests.dart';
-import 'package:project_seg/constants/colours.dart';
-import 'package:project_seg/models/User/other_user.dart';
-import 'package:project_seg/screens/components/interests/display_interests.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

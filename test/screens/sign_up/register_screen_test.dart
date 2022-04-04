@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/router/route_names.dart';
-import 'package:project_seg/screens/email_verify/email_verify_screen.dart';
-import 'package:project_seg/screens/log_in/login_screen.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-import '../../test_resources/helpers.dart';
-import '../../test_resources/widget_pumper.dart';
-import 'package:project_seg/screens/sign_up/register_screen.dart';
 import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
+import 'package:project_seg/screens/log_in/login_screen.dart';
+import 'package:project_seg/screens/sign_up/register_screen.dart';
+
+import '../../test_resources/helpers.dart';
+import '../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -49,10 +48,10 @@ void main() {
       final Finder lockIcon = find.byIcon(Icons.lock);
       expect(lockIcon, findsWidgets);
 
-      final Finder comfirmPasswordText = find.text('Confirm password');
-      expect(comfirmPasswordText, findsOneWidget);
-      final Finder comfirmPasswordWidget = find.widgetWithText(TextFormField, 'Confirm password');
-      expect(comfirmPasswordWidget, findsOneWidget);
+      final Finder confirmPasswordText = find.text('Confirm password');
+      expect(confirmPasswordText, findsOneWidget);
+      final Finder confirmPasswordWidget = find.widgetWithText(TextFormField, 'Confirm password');
+      expect(confirmPasswordWidget, findsOneWidget);
 
       final Finder registerButton = find.widgetWithText(PillButtonFilled, 'Register');
       expect(registerButton, findsOneWidget);
@@ -97,12 +96,12 @@ void main() {
       final Finder passwordTextFieldFinder = find.widgetWithText(TextField, 'Password');
       expect(passwordTextFieldFinder, findsOneWidget);
 
-      final Finder comfirmPasswordTextFieldFinder = find.widgetWithText(TextFormField, 'Confirm password');
-      expect(comfirmPasswordTextFieldFinder, findsOneWidget);
+      final Finder confirmPasswordTextFieldFinder = find.widgetWithText(TextFormField, 'Confirm password');
+      expect(confirmPasswordTextFieldFinder, findsOneWidget);
 
       await tester.enterText(emailTextFieldFinder, "abc");
       await tester.enterText(passwordTextFieldFinder, "pass");
-      await tester.enterText(comfirmPasswordTextFieldFinder, "anotherPass");
+      await tester.enterText(confirmPasswordTextFieldFinder, "anotherPass");
 
       final Finder registerButtonFinder = find.widgetWithText(PillButtonFilled, 'Register');
       expect(registerButtonFinder, findsOneWidget);
@@ -122,12 +121,12 @@ void main() {
       final Finder passwordTextFieldFinder = find.widgetWithText(TextField, 'Password');
       expect(passwordTextFieldFinder, findsOneWidget);
 
-      final Finder comfirmPasswordTextFieldFinder = find.widgetWithText(TextFormField, 'Confirm password');
-      expect(comfirmPasswordTextFieldFinder, findsOneWidget);
+      final Finder confirmPasswordTextFieldFinder = find.widgetWithText(TextFormField, 'Confirm password');
+      expect(confirmPasswordTextFieldFinder, findsOneWidget);
 
       await tester.enterText(emailTextFieldFinder, "abc@abc.com");
       await tester.enterText(passwordTextFieldFinder, "Password123");
-      await tester.enterText(comfirmPasswordTextFieldFinder, "Password123");
+      await tester.enterText(confirmPasswordTextFieldFinder, "Password123");
 
       await tester.pump();
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/components/dialogs/match_alert.dart';
@@ -33,8 +32,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
   late final AnimationController _animationController;
 
   /// Checks if the profile has already been liked by the user.
-  bool isLiked(UserState userState) =>
-      userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
+  bool isLiked(UserState userState) => userState.user?.userData?.likes?.contains(widget.profile.uid) ?? false;
 
   @override
   void initState() {

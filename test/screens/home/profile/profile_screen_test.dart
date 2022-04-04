@@ -50,18 +50,18 @@ void main() {
       expect(changePasswordButtonIcon.color, whiteColour);
       expect(changePasswordButtonIcon.icon, FontAwesomeIcons.lock);
 
-      final Finder SignOutButtonFinder = find.widgetWithText(PillButtonOutlined, "Sign out");
-      expect(SignOutButtonFinder, findsOneWidget);
+      final Finder signOutButtonFinder = find.widgetWithText(PillButtonOutlined, "Sign out");
+      expect(signOutButtonFinder, findsOneWidget);
 
-      final PillButtonOutlined SignOutButton = tester.widget<PillButtonOutlined>(SignOutButtonFinder);
-      expect(SignOutButton.onPressed, isNotNull);
-      expect(SignOutButton.textStyle?.color, Colors.red);
+      final PillButtonOutlined signOutButton = tester.widget<PillButtonOutlined>(signOutButtonFinder);
+      expect(signOutButton.onPressed, isNotNull);
+      expect(signOutButton.textStyle?.color, Colors.red);
 
-      expect(SignOutButton.icon, isA<Icon>());
-      final Icon SignOutButtonIcon = (SignOutButton.icon as Icon);
-      expect(SignOutButtonIcon, isNotNull);
-      expect(SignOutButtonIcon.color, Colors.red);
-      expect(SignOutButtonIcon.icon, FontAwesomeIcons.signOutAlt);
+      expect(signOutButton.icon, isA<Icon>());
+      final Icon signOutButtonIcon = (signOutButton.icon as Icon);
+      expect(signOutButtonIcon, isNotNull);
+      expect(signOutButtonIcon.color, Colors.red);
+      expect(signOutButtonIcon.icon, FontAwesomeIcons.signOutAlt);
     });
 
     testWidgets("Clicking sign out button signs out", (tester) async {

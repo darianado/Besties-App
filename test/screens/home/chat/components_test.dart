@@ -7,7 +7,6 @@ import 'package:project_seg/screens/home/chat/components/matches_scroll_view.dar
 import 'package:project_seg/screens/home/chat/components/message_composer.dart';
 import 'package:project_seg/screens/home/chat/components/profile_app_bar_button.dart';
 import 'package:project_seg/screens/home/chat/components/recent_chats_scroll_view.dart';
-import 'package:project_seg/screens/home/chat/match_profile_screen.dart';
 import 'package:project_seg/screens/home/chat/widgets/contact_list.dart';
 import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
 
@@ -30,7 +29,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat", null);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatScreen), findsOneWidget);
 
@@ -55,7 +54,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat", null);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatScreen), findsOneWidget);
 
@@ -74,7 +73,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat", null);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatScreen), findsOneWidget);
 
@@ -98,7 +97,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat", null);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatScreen), findsOneWidget);
       final Finder firstChatItemFinder = find.byType(RecentChatsScrollViewItem);
@@ -115,7 +114,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/chat-thread", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatThreadScreen), findsOneWidget);
 
@@ -131,7 +130,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/chat-thread", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatThreadScreen), findsOneWidget);
 
@@ -149,7 +148,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/chat-thread", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatThreadScreen), findsOneWidget);
 
@@ -172,7 +171,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/chat-thread", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatThreadScreen), findsOneWidget);
 
@@ -188,7 +187,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/chat-thread", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(ChatThreadScreen), findsOneWidget);
 

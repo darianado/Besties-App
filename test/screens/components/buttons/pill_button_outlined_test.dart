@@ -1,17 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/models/User/other_user.dart';
-import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/screens/components/buttons/bio_field.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
-import 'package:project_seg/screens/components/dialogs/edit_dialog_textfield.dart';
-import '../../../test_resources/firebase_mocks.dart';
 
 import '../../../test_resources/helpers.dart';
-import '../../../test_resources/test_profile.dart';
-import '../../../test_resources/testing_data.dart';
 import '../../../test_resources/widget_pumper.dart';
 
 void main() {
@@ -21,7 +12,6 @@ void main() {
     await _widgetPumper.setup("johndoe@example.org", authenticated: true);
   });
 
-  UserData testUser = appUsersTestData[0]['data'] as UserData;
   String userEmail = "johndoe@example.org";
   String buttonText = "Sign out";
 

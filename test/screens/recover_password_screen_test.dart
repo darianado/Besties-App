@@ -8,7 +8,6 @@ import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
 import 'package:project_seg/screens/log_in/login_screen.dart';
 import 'package:project_seg/screens/recover_password/recover_password_screen.dart';
-import 'package:project_seg/states/user_state.dart';
 
 import '../test_resources/helpers.dart';
 import '../test_resources/widget_pumper.dart';
@@ -91,7 +90,6 @@ void main() {
 
       final Finder emailTextFieldFinder = find.byType(TextFormField);
       expect(emailTextFieldFinder, findsOneWidget);
-      final TextFormField emailTextField = tester.widget<TextFormField>(emailTextFieldFinder);
 
       await tester.enterText(emailTextFieldFinder, "invalid-email.com");
 
@@ -114,7 +112,6 @@ void main() {
 
       final Finder emailTextFieldFinder = find.byType(TextFormField);
       expect(emailTextFieldFinder, findsOneWidget);
-      final TextFormField emailTextField = tester.widget<TextFormField>(emailTextFieldFinder);
 
       await tester.enterText(emailTextFieldFinder, "johndoe@example.org");
 

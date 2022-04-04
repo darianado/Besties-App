@@ -3,18 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
 import 'package:project_seg/screens/components/buttons/gender_button.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/constants/colours.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
-import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/components/buttons/university_button.dart';
 import 'package:project_seg/screens/components/interests/display_interests.dart';
-import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
-import 'package:project_seg/screens/home/profile/profile_screen.dart';
-import 'package:project_seg/screens/log_in/login_screen.dart';
 
 import '../../../test_resources/helpers.dart';
 import '../../../test_resources/testing_data.dart';
@@ -47,7 +39,7 @@ void main() {
 
       testWidgets("Left action", (tester) async {
         await signInHelper(_widgetPumper, userEmail);
-        await _widgetPumper.pumpWidget(tester, ProfileInformation(editable: true, userData: testUser, leftAction: Text("Hello")));
+        await _widgetPumper.pumpWidget(tester, ProfileInformation(editable: true, userData: testUser, leftAction: const Text("Hello")));
 
         final Finder sliverAppBarFinder = find.byType(SliverAppBar);
         expect(sliverAppBarFinder, findsOneWidget);
@@ -60,7 +52,7 @@ void main() {
 
       testWidgets("Right action", (tester) async {
         await signInHelper(_widgetPumper, userEmail);
-        await _widgetPumper.pumpWidget(tester, ProfileInformation(editable: true, userData: testUser, rightAction: Text("Hello")));
+        await _widgetPumper.pumpWidget(tester, ProfileInformation(editable: true, userData: testUser, rightAction: const Text("Hello")));
 
         final Finder sliverAppBarFinder = find.byType(SliverAppBar);
         expect(sliverAppBarFinder, findsOneWidget);
@@ -73,8 +65,8 @@ void main() {
 
       testWidgets("Both actions", (tester) async {
         await signInHelper(_widgetPumper, userEmail);
-        await _widgetPumper.pumpWidget(
-            tester, ProfileInformation(editable: true, userData: testUser, leftAction: Text("Left"), rightAction: Text("Right")));
+        await _widgetPumper.pumpWidget(tester,
+            ProfileInformation(editable: true, userData: testUser, leftAction: const Text("Left"), rightAction: const Text("Right")));
 
         final Finder sliverAppBarFinder = find.byType(SliverAppBar);
         expect(sliverAppBarFinder, findsOneWidget);

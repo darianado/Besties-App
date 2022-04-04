@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/interests_in_common.dart';
-import 'package:project_seg/screens/components/validation_error.dart';
 
 import '../../test_resources/helpers.dart';
 import '../../test_resources/testing_data.dart';

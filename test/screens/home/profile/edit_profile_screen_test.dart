@@ -1,16 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/constants/colours.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
 import 'package:project_seg/screens/components/dialogs/delete_account_dialog.dart';
-import 'package:project_seg/screens/home/profile/edit_password_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_profile_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
-import 'package:project_seg/screens/home/profile/profile_screen.dart';
-import 'package:project_seg/screens/log_in/login_screen.dart';
 
 import '../../../test_resources/helpers.dart';
 import '../../../test_resources/widget_pumper.dart';

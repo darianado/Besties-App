@@ -1,18 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/router/routes.dart';
-import 'package:project_seg/services/auth_service.dart';
 import 'package:project_seg/services/feed_content_controller.dart';
-import 'package:project_seg/services/feed_content_gatherer.dart';
-import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/states/match_state.dart';
-import 'package:project_seg/states/user_state.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/single_child_widget.dart';
 
 import 'firebase_mock_environment.dart';
 import 'firebase_mocks.dart';

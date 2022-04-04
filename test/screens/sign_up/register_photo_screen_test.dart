@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/models/User/other_user.dart';
-import 'package:project_seg/models/User/user_data.dart';
-import '../../test_resources/helpers.dart';
-import '../../test_resources/widget_pumper.dart';
-import '../../test_resources/test_profile.dart';
-import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
-import 'package:project_seg/screens/components/images/cached_image.dart';
+import 'package:project_seg/screens/sign_up/register_photo_screen.dart';
+
+import '../../test_resources/helpers.dart';
+import '../../test_resources/widget_pumper.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();

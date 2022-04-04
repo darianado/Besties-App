@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/binding.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/home/chat/chat_screen.dart';
 import 'package:project_seg/screens/home/components/nav_bar.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
@@ -17,7 +15,6 @@ void main() {
   const String userEmail = "johndoe@example.org";
   const String profilePath = "/profile";
   const String feedPath = "/feed";
-  const String chatPath = "/chat";
 
   setUpAll(() async {
     await _widgetPumper.setup(userEmail, authenticated: true);

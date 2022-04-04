@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,8 +8,8 @@ import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
-import 'package:project_seg/utility/auth_exception_handler.dart';
 import 'package:project_seg/states/user_state.dart';
+import 'package:project_seg/utility/auth_exception_handler.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
 
@@ -38,9 +37,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _confirmPassword.dispose();
   }
 
-
   /// Signs the user up.
-  /// 
+  ///
   /// Throw [FirebaseAuthException] if the user is not signed up.
   void signUp(UserState userState) async {
     setState(() {

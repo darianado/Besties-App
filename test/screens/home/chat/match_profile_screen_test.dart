@@ -1,12 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/screens/components/buttons/round_action_button.dart';
-import 'package:project_seg/screens/home/chat/chat_screen.dart';
-import 'package:project_seg/screens/home/chat/chat_thread_screen.dart';
 import 'package:project_seg/screens/home/chat/components/chat_button.dart';
-import 'package:project_seg/screens/home/chat/components/chat_conversation.dart';
-import 'package:project_seg/screens/home/chat/components/message_composer.dart';
-import 'package:project_seg/screens/home/chat/components/profile_app_bar_button.dart';
 import 'package:project_seg/screens/home/chat/match_profile_screen.dart';
 import 'package:project_seg/screens/home/profile/profile_information.dart';
 

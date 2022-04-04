@@ -1,14 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
-import 'package:project_seg/screens/home/chat/chat_screen.dart';
 import 'package:project_seg/screens/home/chat/chat_thread_screen.dart';
 import 'package:project_seg/screens/home/chat/components/chat_conversation.dart';
 import 'package:project_seg/screens/home/chat/components/message_composer.dart';
 import 'package:project_seg/screens/home/chat/components/profile_app_bar_button.dart';
-import 'package:project_seg/screens/home/chat/widgets/contact_list.dart';
-import 'package:project_seg/screens/home/chat/widgets/recent_chats.dart';
 
 import '../../../test_resources/helpers.dart';
 import '../../../test_resources/testing_data.dart';

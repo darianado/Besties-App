@@ -1,12 +1,10 @@
 import 'package:colorful_safe_area/colorful_safe_area.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:project_seg/screens/home/feed/feed_screen.dart';
 import 'package:project_seg/screens/home/profile/edit_preferences_screen.dart';
 
 import '../../../test_resources/helpers.dart';
-import '../../../test_resources/firebase_mocks.dart';
 import '../../../test_resources/widget_pumper.dart';
 
 void main() {
@@ -27,7 +25,6 @@ void main() {
 
       final Finder refreshIndicatorFinder = find.byType(RefreshIndicator);
       expect(refreshIndicatorFinder, findsOneWidget);
-      final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
 
       final Finder pageViewFinder = find.byType(PageView);
       expect(pageViewFinder, findsOneWidget);
@@ -54,11 +51,11 @@ void main() {
       expect(refreshIndicatorFinder, findsOneWidget);
       final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
       expect(() => refreshIndicator.onRefresh(), returnsNormally);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
     });
 
     test("Page view scroll overrides spring", () async {
-      final scrollViewPhysics = CustomPageViewScrollPhysics();
+      const scrollViewPhysics = CustomPageViewScrollPhysics();
       expect(scrollViewPhysics.spring.mass, 80);
       expect(scrollViewPhysics.spring.stiffness, 50);
       expect(scrollViewPhysics.spring.damping, 0.7);
@@ -74,7 +71,7 @@ void main() {
       expect(refreshIndicatorFinder, findsOneWidget);
       final RefreshIndicator refreshIndicator = tester.widget<RefreshIndicator>(refreshIndicatorFinder);
       expect(() => refreshIndicator.onRefresh(), returnsNormally);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
     });
 
     testWidgets("Tapping edit preferences shows edit preferences screen", (tester) async {

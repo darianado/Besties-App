@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/edit_dob_button.dart';
-import 'package:project_seg/screens/components/buttons/gender_button.dart';
-import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/relationship_status_button.dart';
-import 'package:project_seg/constants/colours.dart';
+import 'package:project_seg/screens/components/chip_widget.dart';
+import 'package:project_seg/screens/sign_up/register_basic_info_screen.dart';
+
 import '../../test_resources/helpers.dart';
 import '../../test_resources/testing_data.dart';
 import '../../test_resources/widget_pumper.dart';
-import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 
 void main() {
   final WidgetPumper _widgetPumper = WidgetPumper();
@@ -163,7 +163,7 @@ void main() {
 
       expect(find.byType(RegisterBasicInfoScreen), findsOneWidget);
 
-      final Finder genderChipRowFinder = find.byKey(Key("genderRow"));
+      final Finder genderChipRowFinder = find.byKey(const Key("genderRow"));
       final Finder genderChipFinder = find.descendant(of: genderChipRowFinder, matching: find.byType(ChipWidget));
       expect(genderChipFinder, findsNWidgets(3));
       final ChipWidget firstGenderChip = tester.widget<ChipWidget>(genderChipFinder.first);

@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:project_seg/models/Interests/categorized_interests.dart';
@@ -8,7 +7,6 @@ import 'package:project_seg/models/Interests/interest.dart';
 import 'package:project_seg/utility/auth_exception_handler.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:project_seg/utility/helpers.dart';
-import 'package:project_seg/utility/pick_image.dart';
 
 void main() {
   group("Utilities:", () {

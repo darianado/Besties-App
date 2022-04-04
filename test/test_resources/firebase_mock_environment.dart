@@ -1,12 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/services/firestore_service.dart';
+import 'package:project_seg/states/context_state.dart';
 import 'package:project_seg/states/user_state.dart';
 
 import 'testing_data.dart';
@@ -43,46 +42,6 @@ class FirebaseMockEnvironment {
     return _userState;
   }
 
-  Future<String> getMessagesForMatch(FakeFirebaseFirestore firestore, String matchID) async {
-    String result = "====== $matchID MESSAGES ======\n";
-    final QuerySnapshot snapshot = await firestore.collection("matches").doc(matchID).collection("messages").get();
-
-    if (snapshot.docs.isEmpty) {
-      result += "NO DOCUMENT";
-    } else {
-      result += snapshot.docs.map((e) => "Message: ${e.data()}\n\n").toList().toString();
-    }
-
-    result += "////// $matchID MESSAGES //////";
-
-    return result;
-  }
-
-  Future<void> printMatchCollection(FakeFirebaseFirestore firestore) async {
-    print("====== MATCHES ======");
-    final QuerySnapshot snapshot = await firestore.collection("matches").get();
-
-    String result = "";
-
-    for (DocumentSnapshot doc in snapshot.docs) {
-      final msgs = await getMessagesForMatch(firestore, doc.id);
-      result += "Match: ${doc.data()}\n\n$msgs\n\n";
-    }
-
-    print(result);
-
-    print("////// MATCHES //////");
-  }
-
-  Future<void> printUserCollection(FakeFirebaseFirestore firestore) async {
-    print("====== USERS ======");
-    final result =
-        await firestore.collection("users").get().then((querySnapshot) => querySnapshot.docs.map((e) => "User: ${e.data()}\n\n").toList());
-
-    print(result);
-    print("////// USERS //////");
-  }
-
   Future<FirestoreService> createFirestoreService() async {
     final firestore = FakeFirebaseFirestore();
 
@@ -113,9 +72,6 @@ class FirebaseMockEnvironment {
         }
       }
     }
-
-    //await printMatchCollection(firestore);
-    //await printUserCollection(firestore);
 
     return FirestoreService(firebaseFirestore: firestore);
   }

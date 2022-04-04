@@ -1,17 +1,17 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/constants/constant.dart';
 import 'package:project_seg/router/route_names.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/dialogs/dismiss_dialog.dart';
-import 'package:project_seg/utility/auth_exception_handler.dart';
-import 'package:project_seg/services/auth_service.dart';
-import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/states/user_state.dart';
+import 'package:project_seg/utility/auth_exception_handler.dart';
 import 'package:project_seg/utility/form_validators.dart';
 import 'package:provider/provider.dart';
+
 import '../../../constants/borders.dart';
 
 /// A widget that allows the user to change their password.

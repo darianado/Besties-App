@@ -11,9 +11,7 @@ import 'package:project_seg/models/Interests/category.dart';
 import 'package:project_seg/models/Matches/message.dart';
 import 'package:project_seg/models/Matches/user_match.dart';
 import 'package:project_seg/models/User/active_user.dart';
-import 'package:project_seg/models/User/other_user.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/utility/helpers.dart';
 
 /// Collects methods related to Firestore.
 class FirestoreService {

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_filled.dart';
 import 'package:project_seg/screens/components/buttons/pill_button_outlined.dart';
 import 'package:project_seg/screens/log_in/login_screen.dart';
-import 'package:project_seg/screens/log_in/login_screen.dart';
-import '../../test_resources/firebase_mocks.dart';
+
 import '../../test_resources/helpers.dart';
 import '../../test_resources/widget_pumper.dart';
 

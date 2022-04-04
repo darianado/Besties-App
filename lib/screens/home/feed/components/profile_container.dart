@@ -4,7 +4,6 @@ import 'package:project_seg/models/User/user_data.dart';
 import 'package:project_seg/screens/components/images/cached_image.dart';
 import 'package:project_seg/screens/home/feed/components/like_profile_button.dart';
 import 'package:project_seg/screens/home/feed/components/partial_profile_details.dart';
-import 'package:project_seg/screens/home/feed/feed_screen.dart';
 
 import '../../../../constants/borders.dart';
 import '../../../../constants/constant.dart';
@@ -60,8 +59,7 @@ class ProfileContainer extends StatelessWidget {
                         ),
                       ),
                       context: context,
-                      builder: (context) =>
-                          SlidingProfileDetails(profile: profile),
+                      builder: (context) => SlidingProfileDetails(profile: profile),
                     );
                   },
                   child: Row(

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_seg/constants/colours.dart';
 import 'package:project_seg/models/User/user_data.dart';
-import 'package:project_seg/states/user_state.dart';
-import 'package:provider/provider.dart';
 
 /// A widget that displays how many interests in common the user has with
 /// the viewed user's profile.

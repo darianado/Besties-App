@@ -287,7 +287,6 @@ class AppRouter {
                 goingToRegisterDescription ||
                 goingToRegisterInterests) &&
             !goingToFeed) {
-          print("Redirecting to feed");
           return feedLoc;
         }
 

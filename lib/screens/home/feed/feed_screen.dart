@@ -84,14 +84,12 @@ class _FeedScreenState extends State<FeedScreen> {
   }
 
   /// Refreshes the profile containers displayed in the [FeedScreen].
-  Future<void> refreshProfileContainers(
-      FeedContentController _feedContentController) async {
+  Future<void> refreshProfileContainers(FeedContentController _feedContentController) async {
     await Future.delayed(const Duration(milliseconds: 400));
     FeedScreen.controller.jumpToPage(0);
     await _feedContentController.refreshContent();
   }
 }
-
 
 /// A custom [ScrollPhysics] for the [PageView] in the [FeedScreen].
 class CustomPageViewScrollPhysics extends ScrollPhysics {

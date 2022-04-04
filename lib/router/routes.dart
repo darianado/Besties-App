@@ -39,9 +39,7 @@ class AppRouter {
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
             child: const SplashScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
               opacity: animation,
               child: child,
             ),
@@ -53,9 +51,7 @@ class AppRouter {
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
             child: const LogInScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
               opacity: animation,
               child: child,
             ),
@@ -67,9 +63,7 @@ class AppRouter {
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
             child: const EmailVerifyScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
               opacity: animation,
               child: child,
             ),
@@ -81,9 +75,7 @@ class AppRouter {
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
             child: const RegisterScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
               opacity: animation,
               child: child,
             ),
@@ -96,12 +88,8 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: RegisterBasicInfoScreen(
-                    userData: (state.extra != null)
-                        ? state.extra as UserData
-                        : ((extra != null) ? extra as UserData : UserData())),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                    userData: (state.extra != null) ? state.extra as UserData : ((extra != null) ? extra as UserData : UserData())),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -114,12 +102,8 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: RegisterPhotoScreen(
-                    userData: (state.extra != null)
-                        ? state.extra as UserData
-                        : ((extra != null) ? extra as UserData : UserData())),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                    userData: (state.extra != null) ? state.extra as UserData : ((extra != null) ? extra as UserData : UserData())),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -132,12 +116,8 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: RegisterDescriptionScreen(
-                    userData: (state.extra != null)
-                        ? state.extra as UserData
-                        : ((extra != null) ? extra as UserData : UserData())),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                    userData: (state.extra != null) ? state.extra as UserData : ((extra != null) ? extra as UserData : UserData())),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -150,12 +130,8 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: RegisterInterestsScreen(
-                    userData: (state.extra != null)
-                        ? state.extra as UserData
-                        : ((extra != null) ? extra as UserData : UserData())),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                    userData: (state.extra != null) ? state.extra as UserData : ((extra != null) ? extra as UserData : UserData())),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -177,9 +153,7 @@ class AppRouter {
           pageBuilder: (context, state) => CustomTransitionPage<void>(
             key: state.pageKey,
             child: HomeScreen(page: state.params[pageParameterKey]!),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    FadeTransition(
+            transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
               opacity: animation,
               child: child,
             ),
@@ -191,9 +165,7 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: const EditProfileScreen(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -205,9 +177,7 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: const EditPreferencesScreen(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -219,9 +189,7 @@ class AppRouter {
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
                 child: const EditPasswordScreen(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -232,13 +200,8 @@ class AppRouter {
               path: matchProfileScreenPath,
               pageBuilder: (context, state) => CustomTransitionPage<void>(
                 key: state.pageKey,
-                child: MatchProfileScreen(
-                    userMatch: (state.extra != null)
-                        ? state.extra as UserMatch
-                        : extra as UserMatch),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) =>
-                        FadeTransition(
+                child: MatchProfileScreen(userMatch: (state.extra != null) ? state.extra as UserMatch : extra as UserMatch),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
                   opacity: animation,
                   child: child,
                 ),
@@ -249,10 +212,7 @@ class AppRouter {
               path: matchChatScreenPath,
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
-                child: ChatThreadScreen(
-                    userMatch: (state.extra != null)
-                        ? (state.extra as UserMatch)
-                        : (extra as UserMatch)),
+                child: ChatThreadScreen(userMatch: (state.extra != null) ? (state.extra as UserMatch) : (extra as UserMatch)),
               ),
             ),
           ],
@@ -274,18 +234,13 @@ class AppRouter {
         final splashLoc = state.namedLocation(splashScreenName);
         final loginLoc = state.namedLocation(loginScreenName);
         final emailVerifyLoc = state.namedLocation(verifyEmailScreenName);
-        final feedLoc = state.namedLocation(homeScreenName,
-            params: {pageParameterKey: feedScreenName});
-        final recoverPasswordLoc =
-            state.namedLocation(recoverPasswordScreenName);
+        final feedLoc = state.namedLocation(homeScreenName, params: {pageParameterKey: feedScreenName});
+        final recoverPasswordLoc = state.namedLocation(recoverPasswordScreenName);
         final registerLoc = state.namedLocation(registerScreenName);
-        final registerBasicInfoLoc =
-            state.namedLocation(registerBasicInfoScreenName);
+        final registerBasicInfoLoc = state.namedLocation(registerBasicInfoScreenName);
         final registerPhotoLoc = state.namedLocation(registerPhotoScreenName);
-        final registerDescriptionLoc =
-            state.namedLocation(registerDescriptionScreenName);
-        final registerInterestsLoc =
-            state.namedLocation(registerInterestsScreenName);
+        final registerDescriptionLoc = state.namedLocation(registerDescriptionScreenName);
+        final registerInterestsLoc = state.namedLocation(registerInterestsScreenName);
 
         final goingToFeed = state.subloc == feedLoc;
         final goingToSplash = state.subloc == splashLoc;
@@ -295,8 +250,7 @@ class AppRouter {
         final goingToRegister = state.subloc == registerLoc;
         final goingToRegisterBasicInfo = state.subloc == registerBasicInfoLoc;
         final goingToRegisterPhoto = state.subloc == registerPhotoLoc;
-        final goingToRegisterDescription =
-            state.subloc == registerDescriptionLoc;
+        final goingToRegisterDescription = state.subloc == registerDescriptionLoc;
         final goingToRegisterInterests = state.subloc == registerInterestsLoc;
 
         if (!initialized && !goingToSplash) {
@@ -307,9 +261,7 @@ class AppRouter {
           return emailVerifyLoc;
         }
 
-        if (initialized &&
-            !loggedIn &&
-            !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
+        if (initialized && !loggedIn && !(goingToLogin || goingToRecoverPassword || goingToRegister)) {
           return loginLoc;
         }
 
@@ -318,10 +270,7 @@ class AppRouter {
             !fetchedUser &&
             !waitingOnFirestore &&
             emailVerified &&
-            !(goingToRegisterBasicInfo ||
-                goingToRegisterPhoto ||
-                goingToRegisterDescription ||
-                goingToRegisterInterests)) {
+            !(goingToRegisterBasicInfo || goingToRegisterPhoto || goingToRegisterDescription || goingToRegisterInterests)) {
           return registerBasicInfoLoc;
         }
 
@@ -338,6 +287,7 @@ class AppRouter {
                 goingToRegisterDescription ||
                 goingToRegisterInterests) &&
             !goingToFeed) {
+          print("Redirecting to feed");
           return feedLoc;
         }
 

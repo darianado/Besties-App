@@ -36,9 +36,8 @@ class FeedContentController extends ChangeNotifier {
     controller.addListener(() => pageChangeListener(controller));
     gatherer = FeedContentGatherer(
         userState: userState,
-        onLikeComplete: (likedUser) {
-          controller.nextPage(
-              duration: const Duration(milliseconds: 500), curve: Curves.ease);
+        onLikeComplete: (likedUser) async {
+          await controller.nextPage(duration: const Duration(milliseconds: 500), curve: Curves.ease);
           gatherer?.removeLiked();
         });
   }
@@ -78,9 +77,8 @@ class FeedContentController extends ChangeNotifier {
     content.removeWhere((element) => element.runtimeType != FeedLoadingSheet);
   }
 
-
   /// Inserts a [ProfileContainer] at the end of the queue.
-  /// 
+  ///
   /// [content] is only updated if its size goes below the [_desiredFeedContentLength].
   Future<void> insertAtEnd() async {
     if (_desiredFeedContentLength - 2 > (content.length - 1)) {
@@ -94,17 +92,14 @@ class FeedContentController extends ChangeNotifier {
 
   /// Moves the [FeedLoadingSheet] to the end of the queue.
   void moveLoadingScreenLast() {
-    final index = content.indexWhere(
-        (Widget element) => element.runtimeType == FeedLoadingSheet);
+    final index = content.indexWhere((Widget element) => element.runtimeType == FeedLoadingSheet);
     final loadingScreen = content.removeAt(index);
     content.add(loadingScreen);
   }
 
   /// Clears the [gatherer]'s queue and listens for new recommendations.
   void onFeedInitialized(FirestoreService firestoreService) {
-    final RecommendationsState _recState = RecommendationsState(
-        userState.user!.user!,
-        firestoreService: firestoreService);
+    final RecommendationsState _recState = RecommendationsState(userState.user!.user!, firestoreService: firestoreService);
 
     _recState.addListener(() async {
       removeAll();
@@ -140,8 +135,7 @@ class FeedLoadingSheet extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      top: leftRightPadding, right: leftRightPadding),
+                  padding: const EdgeInsets.only(top: leftRightPadding, right: leftRightPadding),
                   child: Transform.scale(
                     scale: 4,
                     child: SizedBox(
@@ -158,8 +152,7 @@ class FeedLoadingSheet extends StatelessWidget {
                       aspectRatio: 1.2,
                       child: SizedBox(
                         width: double.infinity,
-                        child: Lottie.asset('assets/lotties/searching.json',
-                            fit: BoxFit.cover),
+                        child: Lottie.asset('assets/lotties/searching.json', fit: BoxFit.cover),
                       ),
                     ),
                     Text(
@@ -167,11 +160,9 @@ class FeedLoadingSheet extends StatelessWidget {
                       style: Theme.of(context).textTheme.headline4,
                     ),
                     const SizedBox(height: 20),
-                    const Text(
-                        "Give us a minute while we search for your next match."),
+                    const Text("Give us a minute while we search for your next match."),
                     const SizedBox(height: 10),
-                    const Text(
-                        "If this is taking too long, try editing your preferences.")
+                    const Text("If this is taking too long, try editing your preferences.")
                   ],
                 ),
               ),

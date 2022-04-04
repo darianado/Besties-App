@@ -50,9 +50,14 @@ class _HomeScreenState extends State<HomeScreen> {
     context.goNamed(homeScreenName, params: {pageParameterKey: menuData.routeNameOfItemWithIndex(index)});
   }
 
+  @override
+  void didUpdateWidget(covariant HomeScreen oldWidget) {
+    selectedIndex = widget.index;
+    super.didUpdateWidget(oldWidget);
+  }
+
   /// Returns the screens connected by the [NavBar].
-  List<Widget> get itemWidgets =>
-      menuData.items.map((e) => e.destinationWidget).toList();
+  List<Widget> get itemWidgets => menuData.items.map((e) => e.destinationWidget).toList();
 
   @override
   Widget build(BuildContext context) {

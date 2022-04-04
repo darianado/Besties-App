@@ -63,14 +63,14 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
 
           bool isMatch = await _firestoreService.setLike(widget.profile.uid);
 
+          await widget.onLikeComplete();
+
           if (isMatch) {
             showDialog(
               context: context,
               builder: (BuildContext context) => MatchDialog(otherUser: widget.profile),
             );
           }
-
-          widget.onLikeComplete();
         }
       },
       child: Transform.scale(

@@ -159,7 +159,7 @@ class FirestoreService {
       data.preferences = Preferences(
         interests: data.categorizedInterests ?? CategorizedInterests(categories: []),
         genders: [data.gender],
-        maxAge: 50,
+        maxAge: 40,
         minAge: 20,
       );
 

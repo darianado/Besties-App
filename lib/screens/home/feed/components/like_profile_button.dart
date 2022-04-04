@@ -59,9 +59,7 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
     return RoundActionButton(
       onPressed: () async {
         if (!_isLiked) {
-          await _animationController.animateTo(likedValue, duration: const Duration(milliseconds: 600));
-
-          widget.onLikeComplete();
+          await _animationController.animateTo(likedValue, duration: const Duration(milliseconds: 800));
 
           bool isMatch = await _firestoreService.setLike(widget.profile.uid);
 
@@ -71,6 +69,8 @@ class _LikeProfileButtonState extends State<LikeProfileButton> with TickerProvid
               builder: (BuildContext context) => MatchDialog(otherUser: widget.profile),
             );
           }
+
+          widget.onLikeComplete();
         }
       },
       child: Transform.scale(

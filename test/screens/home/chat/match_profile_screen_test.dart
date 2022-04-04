@@ -24,7 +24,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/match-profile", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(MatchProfileScreen), findsOneWidget);
 
@@ -46,7 +46,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/match-profile", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(MatchProfileScreen), findsOneWidget);
 
@@ -60,7 +60,7 @@ void main() {
       await signInHelper(_widgetPumper, userEmail);
       await _widgetPumper.pumpWidgetRouter(tester, "/chat/match-profile", testMatch);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(MatchProfileScreen), findsOneWidget);
 

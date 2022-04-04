@@ -46,7 +46,7 @@ void main() {
 
       expect(() => deleteAccountButton.onPressed(), returnsNormally);
 
-      await tester.pump(Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
 
       expect(find.byType(DeleteAccountDialog), findsOneWidget);
     });

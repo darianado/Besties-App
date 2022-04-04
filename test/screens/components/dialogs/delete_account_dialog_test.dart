@@ -18,7 +18,7 @@ void main() {
 
   group('Delete account dialog:', () {
     testWidgets('Displays correct information', (tester) async {
-      await _widgetPumper.pumpWidget(tester, DeleteAccountDialog());
+      await _widgetPumper.pumpWidget(tester, const DeleteAccountDialog());
 
       final Finder cancelButtonFinder = find.widgetWithText(PillButtonOutlined, "Cancel");
       expect(cancelButtonFinder, findsOneWidget);
@@ -33,7 +33,7 @@ void main() {
     });
 
     testWidgets('Executing onSave with no information returns normally', (tester) async {
-      await _widgetPumper.pumpWidget(tester, DeleteAccountDialog());
+      await _widgetPumper.pumpWidget(tester, const DeleteAccountDialog());
 
       final Finder editDialogFinder = find.byType(EditDialog);
       expect(editDialogFinder, findsOneWidget);
@@ -42,7 +42,7 @@ void main() {
     });
 
     testWidgets('Executing onSave with valid information returns normally', (tester) async {
-      await _widgetPumper.pumpWidget(tester, DeleteAccountDialog());
+      await _widgetPumper.pumpWidget(tester, const DeleteAccountDialog());
 
       final Finder passwordTextFieldFinder = find.widgetWithText(TextFormField, "Password");
       expect(passwordTextFieldFinder, findsOneWidget);

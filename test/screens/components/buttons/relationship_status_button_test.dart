@@ -41,7 +41,7 @@ void main() {
 
       expect(find.byType(EditDialogDropdown), findsNothing);
       expect(() => chipWidget.onTap!(), returnsNormally);
-      await tester.pump(Duration(seconds: 1));
+      await tester.pump(const Duration(seconds: 1));
       expect(find.byType(EditDialogDropdown), findsOneWidget);
     });
   });

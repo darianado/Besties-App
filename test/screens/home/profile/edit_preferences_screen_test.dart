@@ -82,7 +82,7 @@ void main() {
       final RangeSlider rangeSlider = tester.widget<RangeSlider>(rangeSliderFinder);
       expect(rangeSlider.onChanged, isNotNull);
 
-      final Finder genderRowFinder = find.byKey(Key("genderRow"));
+      final Finder genderRowFinder = find.byKey(const Key("genderRow"));
       expect(genderRowFinder, findsOneWidget);
 
       final Finder chipWidgetFinder = find.descendant(of: genderRowFinder, matching: find.byType(ChipWidget));
@@ -103,7 +103,7 @@ void main() {
       final RangeSlider rangeSlider = tester.widget<RangeSlider>(rangeSliderFinder);
       expect(rangeSlider.onChanged, isNotNull);
 
-      final Finder genderRowFinder = find.byKey(Key("genderRow"));
+      final Finder genderRowFinder = find.byKey(const Key("genderRow"));
       expect(genderRowFinder, findsOneWidget);
 
       final Finder chipWidgetFinder = find.descendant(of: genderRowFinder, matching: find.byType(ChipWidget));

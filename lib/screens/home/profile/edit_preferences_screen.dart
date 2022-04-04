@@ -133,7 +133,7 @@ class _EditPreferencesScreenState extends State<EditPreferencesScreen> {
                   ),
                   const SizedBox(height: spaceBetweenWidgetAndTitle),
                   Row(
-                    key: Key("genderRow"),
+                    key: const Key("genderRow"),
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: _contextState.context?.genders?.map((gender) {
                           return ChipWidget(

@@ -20,8 +20,8 @@ void main() {
     testWidgets('Displays correct information', (tester) async {
       await _widgetPumper.pumpWidget(
         tester,
-        DismissDialog(
-          key: const ValueKey("key"),
+        const DismissDialog(
+          key: ValueKey("key"),
           message: dialogMessage,
         ),
       );
@@ -39,8 +39,8 @@ void main() {
     testWidgets('Clicking dismiss button dismisses dialog', (tester) async {
       await _widgetPumper.pumpWidget(
         tester,
-        DismissDialog(
-          key: const ValueKey("key"),
+        const DismissDialog(
+          key: ValueKey("key"),
           message: dialogMessage,
         ),
       );

@@ -186,7 +186,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
                       ),
                       const SizedBox(height: 10),
                       Row(
-                        key: Key("genderRow"),
+                        key: const Key("genderRow"),
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: _contextState.context?.genders?.map((gender) {
                               return ChipWidget(
@@ -251,7 +251,7 @@ class _RegisterBasicInfoScreenState extends State<RegisterBasicInfoScreen> {
       ),
     );
   }
-  
+
   /// Validates the user's selections.
   bool validate() {
     setState(() {
